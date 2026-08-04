@@ -8,7 +8,7 @@
    this file must not be extended with a real card-number field without
    first wiring up an actual PCI-compliant payment processor. */
 (function () {
-  const KEY = 'mmm_gs_cart_v1';
+  const KEY = 'preparation_station_gs_cart_v1';
 
   const PRODUCTS = {
     'GEN-BK-001': { name: 'The Vulturian', price: null, format: 'Book' },
@@ -64,10 +64,10 @@
   }
 
   function toast(msg) {
-    let t = document.getElementById('mmm-toast');
+    let t = document.getElementById('preparation-station-toast');
     if (!t) {
       t = document.createElement('div');
-      t.id = 'mmm-toast';
+      t.id = 'preparation-station-toast';
       t.style.cssText = 'position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%) translateY(8px);' +
         'background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;' +
         'padding:.65rem 1rem;border-radius:3px;z-index:200;opacity:0;transition:opacity .2s ease, transform .2s ease;pointer-events:none';
@@ -197,5 +197,5 @@
     });
   }
 
-  window.mmmGsCart = { addToCart, removeFromCart, setQty, cartCount, cartSubtotal, PRODUCTS };
+  window.preparationStationGsCart = { addToCart, removeFromCart, setQty, cartCount, cartSubtotal, PRODUCTS };
 })();
