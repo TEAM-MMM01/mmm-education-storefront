@@ -1,4 +1,4 @@
-# Vendor storefront landing page
+# Preparation Station storefront
 
 ## Current launch status
 
@@ -7,7 +7,7 @@
 See [LAUNCH_AUDIT.md](LAUNCH_AUDIT.md) for the keep / improve / trim / hide-relabel matrix, remaining blockers, and launch gates.
 
 A self-contained storefront page for families spending TEFA and other state education
-funds with MMM Investment. `index.html` is the deliverable: one file, no build step to
+funds with Preparation Station. `index.html` is the deliverable: one file, no build step to
 view it, no network requests at all. Open it in a browser, upload it to any static host,
 or paste its contents into a vendor profile that accepts HTML.
 
