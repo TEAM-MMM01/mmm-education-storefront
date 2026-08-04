@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the TEFA vendor landing page and the storefront mockups.
+"""Build the Preparation Station landing page and storefront mockups.
 
 Inlines the subset webfonts from fonts/ into each source page and writes
 self-contained HTML documents. No build dependencies, no network, no CDN —
