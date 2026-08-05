@@ -93,7 +93,7 @@ def build_main_page():
 def build_store_pages(shared_css: str):
     store = HERE / "store"
     desc = (
-        "Storefront mockup: kits, tools, and homeschool resources invoiced against "
+        "Kits, tools, and homeschool resources invoiced against "
         "TEFA and other state education funds."
     )
     for name in ("shop", "product", "order"):
@@ -112,8 +112,8 @@ def build_store_pages(shared_css: str):
 def build_general_store_pages(shared_css: str):
     gs = HERE / "general-store"
     desc = (
-        "General Store mockup: family titles and activity books sold at retail, "
-        "kept separate from the TEFA/ESA-funded storefront."
+        "General Store preview: family titles and activity books sold at retail, "
+        "kept separate from the ESA/TEFA-funded storefront."
     )
     for name in ("shop", "product", "checkout"):
         src = (gs / "src" / f"{name}.html").read_text()

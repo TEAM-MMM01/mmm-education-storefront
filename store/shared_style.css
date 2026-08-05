@@ -1,8 +1,7 @@
 /* ============================================================
-   Shared design system for the storefront mockups (shop/product/order).
+   Shared design system for the ESA storefront (shop/product/order).
    Same tokens and type system as ../src/page.html — kept as a separate
-   file here (rather than refactoring the approved landing page) so the
-   two can evolve independently while this is still a prototype.
+   file here so the two can evolve independently.
    build.py inlines fonts into this file once, then injects the result
    into each store page at its __STORE_SHARED_CSS__ marker.
    ============================================================ */
