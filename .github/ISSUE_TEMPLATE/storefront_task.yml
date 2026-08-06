@@ -1,0 +1,48 @@
+name: Storefront task
+about: Plan a Preparation Station storefront, ESA shop, or General Store change.
+title: "Storefront: "
+labels: [storefront]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What should change?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Homepage
+        - ESA shop
+        - ESA product page
+        - ESA order/quote flow
+        - General Store preview
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: confirmed_facts
+    attributes:
+      label: Exact confirmed facts
+      description: Provide exact wording, SKUs, prices, links, images, product details, or policies. Do not leave this blank for customer-facing claims.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safeguards
+    attributes:
+      label: Safeguards
+      options:
+        - label: Keep Preparation Station branding consistent.
+          required: true
+        - label: Preserve ESA/funding path as the primary storefront path.
+          required: true
+        - label: Keep General Store clearly labeled as a preview unless real commerce is implemented.
+          required: true
+        - label: Do not invent business information, prices, policies, products, or legal claims.
+          required: true
+        - label: Run `python3 build.py` if storefront source files change.
+          required: true

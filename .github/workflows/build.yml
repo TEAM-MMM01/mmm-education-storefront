@@ -1,0 +1,29 @@
+name: Build storefront
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Rebuild generated storefront pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run static-site build
+        run: python3 build.py
+
+      - name: Confirm generated pages are committed
+        run: git diff --exit-code -- index.html store/shop.html store/product.html store/order.html general-store/shop.html general-store/product.html general-store/checkout.html

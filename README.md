@@ -59,6 +59,16 @@ gates, deployment/shareable-URL decisions, and first-sale workflow. Use it as th
 canonical readiness checklist before removing prototype labels or publishing
 commerce paths.
 
+## Operations workflow
+
+`docs/workflow/` documents how GitHub branches, Codex work, device sync, and pull
+requests should stay organized across Mac, HP, and cloud-agent environments. Start
+with `docs/workflow/NEXT_STEPS.md` for the owner-facing checklist.
+`docs/obsidian/` provides the recommended Obsidian vault structure and safe note
+templates. `docs/omniroute/` records the planned OmniRoute event contracts and
+dashboard widgets; OmniRoute is not connected yet, so those contracts are
+implementation-ready guidance rather than an active routing integration.
+
 ## Editing
 
 Edit `src/page.html` for the main page, or anything under `store/src/` or
