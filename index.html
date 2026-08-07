@@ -199,6 +199,22 @@
 .hero-foot{display:flex; align-items:center; gap:.6rem; color:var(--muted); font-size:.9rem; padding-top:.6rem}
 .hero-foot a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
 
+/* ---------- Product information preview ---------- */
+.release-note{border-block:1px solid var(--rule); background:var(--card)}
+.release-note-in{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1.5rem; align-items:center;
+  padding-block:1.15rem}
+.release-copy{display:flex; gap:1rem; align-items:flex-start}
+.release-tag{flex:none; color:var(--accent); border:1px solid var(--accent); border-radius:999px;
+  padding:.28rem .55rem; font-family:var(--mono); font-size:.58rem; letter-spacing:.09em; text-transform:uppercase}
+.release-copy p{margin:.15rem 0 0; color:var(--muted); line-height:1.55}
+.release-copy strong{color:var(--ink)}
+.release-actions{display:flex; gap:.65rem; flex-wrap:wrap; justify-content:flex-end}
+@media (max-width:760px){
+  .release-note-in{grid-template-columns:1fr}
+  .release-actions{justify-content:flex-start; padding-left:0}
+  .release-copy{flex-direction:column; gap:.65rem}
+}
+
 /* counter card + stamp */
 .spec{position:relative; background:var(--card); border:1px solid var(--rule); border-radius:3px;
   padding:1.6rem 1.5rem 1.4rem; box-shadow:var(--shadow)}
@@ -422,6 +438,7 @@
       <span class="brand-sub mono">Supply co.</span>
     </a>
     <nav class="nav" aria-label="Primary">
+      <a href="store/shop.html">Product preview</a>
       <a href="#shop">Shop</a>
       <a href="#skills">What it builds</a>
       <a href="#funding">Funding help</a>
@@ -430,7 +447,7 @@
       <a href="#ordering">Ordering</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-solid btn-sm" href="#shop">Browse the shop</a>
+    <a class="btn btn-solid btn-sm" href="store/shop.html">Preview products</a>
   </div>
 </header>
 
@@ -450,7 +467,7 @@
         holding your ground, turning a skill into value.
       </p>
       <div class="hero-cta rise" style="--d:210ms">
-        <a class="btn btn-solid" href="#shop">Browse the shop</a>
+        <a class="btn btn-solid" href="store/shop.html">Preview product pages</a>
         <a class="btn btn-ghost" href="#funding">No account yet? Start here</a>
       </div>
       <p class="hero-foot rise" style="--d:280ms">
@@ -471,6 +488,22 @@
         <div class="spec-row"><dt>No account?</dt><dd>We'll help you set one up before you order</dd></div>
       </dl>
     </aside>
+  </div>
+</section>
+
+<!-- ============ PRODUCT INFORMATION PREVIEW ============ -->
+<section class="release-note" aria-labelledby="release-title">
+  <div class="wrap release-note-in">
+    <div class="release-copy">
+      <span class="release-tag">Preview release</span>
+      <p id="release-title"><strong>Product and information pages are ready for private review.</strong>
+        Browse the catalog and sample product detail page while ordering, final availability, and
+        fulfillment details remain under review. No payment is collected in this preview.</p>
+    </div>
+    <div class="release-actions">
+      <a class="btn btn-solid btn-sm" href="store/shop.html">Browse catalog</a>
+      <a class="btn btn-ghost btn-sm" href="store/product.html">View sample product</a>
+    </div>
   </div>
 </section>
 

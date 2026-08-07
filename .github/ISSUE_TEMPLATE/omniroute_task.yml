@@ -1,5 +1,5 @@
 name: OmniRoute routing task
-about: Request routing, dashboard, or model-assignment integration work.
+description: Request routing, dashboard, or model-assignment integration work.
 title: "OmniRoute: "
 labels: [omniroute]
 body:
