@@ -26,4 +26,20 @@ jobs:
         run: python3 build.py
 
       - name: Confirm generated pages are committed
-        run: git diff --exit-code -- index.html store/shop.html store/product.html store/order.html general-store/shop.html general-store/product.html general-store/checkout.html
+        shell: bash
+        run: |
+          generated_pages=(
+            index.html
+            store/shop.html
+            store/product.html
+            store/order.html
+            general-store/shop.html
+            general-store/product.html
+            general-store/checkout.html
+          )
+          changes="$(git status --porcelain --untracked-files=all -- "${generated_pages[@]}")"
+          if [[ -n "$changes" ]]; then
+            echo "Generated storefront pages are not up to date:"
+            echo "$changes"
+            exit 1
+          fi

@@ -5,6 +5,8 @@
 **Recommendation: hold public launch and prepare an ESA-only release.** General Store remains a development preview and must not appear to accept real orders or payments. The ESA path is the priority, but its public placeholders, illustrative pricing, stand-in product-detail routing, and operator-light quote flow must be completed before customer launch.
 
 See [LAUNCH_AUDIT.md](LAUNCH_AUDIT.md) for the keep / improve / trim / hide-relabel matrix, remaining blockers, and launch gates.
+For a staged product-information release, follow
+[docs/workflow/PRODUCT_INFO_SOFT_LAUNCH.md](docs/workflow/PRODUCT_INFO_SOFT_LAUNCH.md).
 
 A self-contained storefront page for families spending TEFA and other state education
 funds with Preparation Station. `index.html` is the deliverable: one file, no build step to

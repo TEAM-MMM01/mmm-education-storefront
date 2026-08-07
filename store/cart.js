@@ -5,6 +5,7 @@
    it is not meant to ship as-is to a live site without a review. */
 (function () {
   const KEY = 'preparation_station_cart_v1';
+  const LEGACY_KEY = 'mmm_cart_v1';
 
   const PRODUCTS = {
     'PS-PR-101': { name: 'Home & Repair Tool Roll', price: 83.95, dept: 'Practical & Trade' },
@@ -27,7 +28,28 @@
     'PS-HS-504': { name: 'Art & Craft Foundations Kit', price: 46.95, dept: 'Homeschool Essentials' },
   };
 
+  function migrateLegacyCart() {
+    if (localStorage.getItem(KEY) !== null) return;
+
+    const legacyValue = localStorage.getItem(LEGACY_KEY);
+    if (legacyValue === null) return;
+
+    try {
+      const legacyCart = JSON.parse(legacyValue) || {};
+      const cart = {};
+      Object.entries(legacyCart).forEach(function ([sku, qty]) {
+        const currentSku = sku.replace(/^MMM-/, 'PS-');
+        cart[currentSku] = (cart[currentSku] || 0) + qty;
+      });
+      localStorage.setItem(KEY, JSON.stringify(cart));
+      localStorage.removeItem(LEGACY_KEY);
+    } catch (e) {
+      // Leave malformed legacy data untouched so it can be recovered manually.
+    }
+  }
+
   function readCart() {
+    migrateLegacyCart();
     try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
     catch (e) { return {}; }
   }
