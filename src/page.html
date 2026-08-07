@@ -2,13 +2,13 @@
 
 <!--
   ============================================================
-  EDITOR CHECKLIST — replace every [bracketed] field before publishing.
-  They render with a dotted underline so they are easy to spot.
+  EDITOR CHECKLIST — fill every TODO comment before publishing.
+  Search the file for "TODO:" to find every field.
 
-  1.  Phone number ....................... hero, contact, footer
+  1.  Phone number ....................... contact, footer
   2.  Hours of operation ................. contact
   3.  Reply time ......................... contact, ordering step 02
-  4.  Programs / states you accept ....... funding band  <-- see note below
+  4.  Programs / states you accept ....... funding band
   5.  Shipping turnaround ................ hero counter, ordering step 04
   6.  Product prices ..................... every product card
   7.  Bundle prices ...................... bundles
@@ -18,13 +18,14 @@
   11. Carbon partner organisation ........ carbon ledger
   12. Reporting cadence .................. carbon ledger, FAQ
   13. Returns policy ..................... FAQ
-  14. Legal business name ................ FAQ, footer
+  14. Legal business name ................ footer
+  15. Direct-purchase terms .............. FAQ
+  16. Last updated date .................. footer
 
   Three claims to confirm before this goes live:
    - Program approvals. TEFA is Texas-specific; every other state runs its own
      ESA / school-choice program with its own vendor registration. List only the
-     programs you are actually registered with. "Approved nationwide" is not a
-     claim any single vendor approval supports.
+     programs you are actually registered with.
    - The carbon percentages. Publish a number you will actually honour.
    - Funding-setup help. The page is careful to say you help families file, not
      that you can approve or guarantee an application. Keep it that way.
@@ -437,7 +438,7 @@
         <a class="btn btn-ghost" href="#funding">No account yet? Start here</a>
       </div>
       <p class="hero-foot rise" style="--d:280ms">
-        <span class="fill">[__]%</span> of every order goes to cutting CO&#8322;.
+        <!-- TODO: carbon_percentage -->% of every order goes to cutting CO&#8322;.
         <a href="#carbon">Read the ledger &#8594;</a>
       </p>
     </div>
@@ -449,7 +450,7 @@
         <div class="spec-row"><dt>Ships to</dt><dd>All 50 states, direct to your door</dd></div>
         <div class="spec-row"><dt>Funds</dt><dd>TEFA and other state ESA and school-choice programs &mdash; <a href="#funding">see the list</a></dd></div>
         <div class="spec-row"><dt>How you pay</dt><dd>We invoice; you submit it through your program portal</dd></div>
-        <div class="spec-row"><dt>Turnaround</dt><dd>Ships within <span class="fill">[__]</span> business days of approval</dd></div>
+        <div class="spec-row"><dt>Turnaround</dt><dd>Ships within <!-- TODO: shipping_turnaround_days --> business days of approval</dd></div>
         <div class="spec-row"><dt>Ages</dt><dd>Kits are graded 8&ndash;18 by readiness, not grade level</dd></div>
         <div class="spec-row"><dt>No account?</dt><dd>We'll help you set one up before you order</dd></div>
       </dl>
@@ -563,7 +564,7 @@
           <li>Project book: drywall, fixtures, fasteners, bikes</li>
           <li>Measuring and estimating worksheets</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Home_Repair_Tool_Roll_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
       <article class="product rise">
@@ -576,7 +577,7 @@
           <li>Negotiation and rate-setting card deck</li>
           <li>Contracts, invoices, and getting paid</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Money_First_Job_Kit_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
       <article class="product rise">
@@ -589,7 +590,7 @@
           <li>Cost-per-serving worksheets</li>
           <li>Food safety and kitchen emergency card</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Kitchen_Provision_Kit_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
     </div>
@@ -611,7 +612,7 @@
           <li>Emergencies: medical, roadside, household</li>
           <li>Being wrong in public and recovering from it</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Situation_Handling_Deck_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
       <article class="product rise">
@@ -624,7 +625,7 @@
           <li>Energy audit: where the hours actually went</li>
           <li>Goal ladder broken into finishable steps</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Focus_Energy_System_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
       <article class="product rise">
@@ -637,7 +638,7 @@
           <li>Documenting a problem so it gets taken seriously</li>
           <li>Knowing which adult to go to, and when</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Self_Advocacy_Workbook_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
     </div>
@@ -655,11 +656,11 @@
         <p>A real drawing tablet and the fundamentals that separate design from decoration.</p>
         <ul class="contents">
           <li>Drawing tablet and stylus</li>
-          <li>Software licence &mdash; <span class="fill">[which suite, term]</span></li>
+          <li>Software licence &mdash; <!-- TODO: software_license_spec --></li>
           <li>Type, grid, and colour fundamentals book</li>
           <li>Ten client-style briefs with worked solutions</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Graphic_Design_Bench_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
       <article class="product rise">
@@ -672,7 +673,7 @@
           <li>Storyboard pad and shot-list cards</li>
           <li>Six briefs: title sequence, explainer, product spot</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Motion_Video_Kit_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
       <article class="product rise">
@@ -685,7 +686,7 @@
           <li>Client scripts: scope, revisions, saying no</li>
           <li>Invoices, deposits, and chasing late payment</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Skill_to_Income_Pack_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
     </div>
@@ -707,7 +708,7 @@
           <li>Spot-the-fake drills for image, audio, and text</li>
           <li>Digital-footprint audit and capstone build</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: AI_Literacy_Bench_Kit_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
       <article class="product rise">
@@ -720,7 +721,7 @@
           <li>Eight builds, from blink to line-follower</li>
           <li>Circuit-reading and debugging guide</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: Electronics_Robotics_Starter_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
       <article class="product rise">
@@ -729,11 +730,11 @@
         <p>Model it to spec, hold it in your hand, find out where the tolerance was wrong.</p>
         <ul class="contents">
           <li>3D modelling curriculum, parts to assemblies</li>
-          <li>Print credit &mdash; <span class="fill">[service and amount]</span></li>
+          <li>Print credit &mdash; <!-- TODO: print_credit_service_and_amount --></li>
           <li>Calipers and tolerance practice set</li>
           <li>Six printable projects with drawings</li>
         </ul>
-        <div class="price-row"><span class="price">$<span class="fill">[___]</span></span><span class="eligible">ESA eligible</span></div>
+        <div class="price-row"><span class="price">$<!-- TODO: 3D_Design_Fabrication_Intro_price --></span><span class="eligible">ESA eligible</span></div>
         <a class="btn btn-ghost btn-sm btn-block" href="#ordering">Add to order</a>
       </article>
     </div>
@@ -761,9 +762,9 @@
         <p class="mono" style="color:var(--muted)">Funds we currently accept</p>
         <div class="states">
           <span>Texas TEFA</span>
-          <span class="fill">[program, state]</span>
-          <span class="fill">[program, state]</span>
-          <span class="fill">[program, state]</span>
+          <!-- TODO: accepted_programs -->
+          <!-- TODO: accepted_programs -->
+          <!-- TODO: accepted_programs -->
         </div>
         <p style="font-size:.92rem; color:var(--muted); max-width:56ch; padding-top:.35rem">
           We ship to all 50 states. Vendor registration is per program, so if yours isn't listed
@@ -786,8 +787,8 @@
         <li><span class="n">05</span><span>Once you're funded, we set up your vendor details and place a correctly categorised first order.</span></li>
       </ul>
       <div class="fund-meta">
-        <span>Fee <b><span class="fill">[free with first order / $___]</span></b></span>
-        <span>Typical time <b><span class="fill">[__]</span></b></span>
+        <span>Fee <b><!-- TODO: funding_help_fee --></b></span>
+        <span>Typical time <b><!-- TODO: typical_setup_time --></b></span>
       </div>
       <p style="font-size:.88rem; color:var(--muted); line-height:1.6; padding-top:1rem; border-top:1px solid var(--rule-soft); margin-top:1rem">
         We help you file. We don't decide the outcome &mdash; approval rests entirely with the agency
@@ -809,7 +810,7 @@
     <div class="tiers">
       <div class="tier">
         <span class="tier-name">Starter shelf</span>
-        <p class="tier-price">$<span class="fill">[___]</span><small>any two kits</small></p>
+        <p class="tier-price">$<!-- TODO: Starter_shelf_bundle_price --><small>any two kits</small></p>
         <ul>
           <li>Any two kits from any department</li>
           <li>Both project books included</li>
@@ -820,10 +821,10 @@
       </div>
       <div class="tier tier-flag">
         <span class="tier-name">Workshop &mdash; most ordered</span>
-        <p class="tier-price">$<span class="fill">[___]</span><small>any four kits</small></p>
+        <p class="tier-price">$<!-- TODO: Workshop_bundle_price --><small>any four kits</small></p>
         <ul>
           <li>Any four kits, mix departments freely</li>
-          <li>Consumable resupply at <span class="fill">[__]</span> months</li>
+          <li>Consumable resupply at <!-- TODO: consumable_resupply_months --> months</li>
           <li>Priority handling on invoice questions</li>
           <li>Free shipping</li>
         </ul>
@@ -831,10 +832,10 @@
       </div>
       <div class="tier">
         <span class="tier-name">Full year</span>
-        <p class="tier-price">$<span class="fill">[___]</span><small>all twelve kits</small></p>
+        <p class="tier-price">$<!-- TODO: Full_year_bundle_price --><small>all twelve kits</small></p>
         <ul>
           <li>Every kit in the shop</li>
-          <li>Shipped in <span class="fill">[__]</span> staged deliveries</li>
+          <li>Shipped in <!-- TODO: staged_deliveries_count --> staged deliveries</li>
           <li>Consumable resupply throughout</li>
           <li>End-of-year portfolio folder</li>
         </ul>
@@ -863,15 +864,15 @@
         </div>
         <div class="stack g-24">
           <div class="stack g-16">
-            <p class="big-figure"><span class="fill">[__]</span>%</p>
+            <p class="big-figure"><!-- TODO: carbon_percentage -->%</p>
             <p class="big-cap">of every order, committed to carbon reduction and clean-air work</p>
           </div>
           <dl class="ledger">
-            <div class="ledger-row"><span>Verified carbon removal &amp; offset purchase</span><b><span class="fill">[__]</span>%</b></div>
-            <div class="ledger-row"><span>Tree planting and urban canopy projects</span><b><span class="fill">[__]</span>%</b></div>
-            <div class="ledger-row"><span>Low-carbon kit materials and recycled packaging</span><b><span class="fill">[__]</span>%</b></div>
-            <div class="ledger-row"><span>Carbon-neutral shipping on every order</span><b><span class="fill">[__]</span>%</b></div>
-            <div class="ledger-row ledger-total"><span>Total committed per order</span><b><span class="fill">[__]</span>%</b></div>
+            <div class="ledger-row"><span>Verified carbon removal &amp; offset purchase</span><b><!-- TODO: carbon_ledger_row_percent -->%</b></div>
+            <div class="ledger-row"><span>Tree planting and urban canopy projects</span><b><!-- TODO: carbon_ledger_row_percent -->%</b></div>
+            <div class="ledger-row"><span>Low-carbon kit materials and recycled packaging</span><b><!-- TODO: carbon_ledger_row_percent -->%</b></div>
+            <div class="ledger-row"><span>Carbon-neutral shipping on every order</span><b><!-- TODO: carbon_ledger_row_percent -->%</b></div>
+            <div class="ledger-row ledger-total"><span>Total committed per order</span><b><!-- TODO: carbon_total_committed_percent -->%</b></div>
           </dl>
         </div>
       </div>
@@ -892,8 +893,8 @@
       </div>
     </div>
 
-    <p class="honest">We publish the numbers. <span class="fill">[Quarterly / annually]</span> we post
-      what we spent, and with whom &mdash; currently <span class="fill">[partner organisation]</span> &mdash;
+    <p class="honest">We publish the numbers. <!-- TODO: reporting_cadence --> we post
+      what we spent, and with whom &mdash; currently <!-- TODO: carbon_partner_organisation --> &mdash;
       so you can check the claim instead of taking our word for it. If we fall short of the pledge in
       a given period, we'll say so plainly and carry the shortfall forward.</p>
   </div>
@@ -916,7 +917,7 @@
     <li class="step">
       <span class="step-n">Step 02</span>
       <h3 class="h-sm">We quote it</h3>
-      <p>An itemized invoice within <span class="fill">[__]</span> business days, categorised to match what your program will accept.</p>
+      <p>An itemized invoice within <!-- TODO: invoice_turnaround_days --> business days, categorised to match what your program will accept.</p>
     </li>
     <li class="step">
       <span class="step-n">Step 03</span>
@@ -926,7 +927,7 @@
     <li class="step">
       <span class="step-n">Step 04</span>
       <h3 class="h-sm">It ships</h3>
-      <p>Within <span class="fill">[__]</span> business days of approval, tracked, carbon-neutral, to your door.</p>
+      <p>Within <!-- TODO: shipping_turnaround_days --> business days of approval, tracked, carbon-neutral, to your door.</p>
     </li>
   </ol>
 </section>
@@ -973,8 +974,7 @@
       </details>
       <details>
         <summary>Can I buy without using program funds?</summary>
-        <p class="faq-body"><span class="fill">[Yes / no &mdash; state your direct-purchase terms and how to
-          pay.]</span> Plenty of families want a kit outside their allocation or don't qualify for a
+        <p class="faq-body"><!-- TODO: direct_purchase_terms --> Plenty of families want a kit outside their allocation or don't qualify for a
           program at all, so it's worth answering this one clearly.</p>
       </details>
       <details>
@@ -985,14 +985,12 @@
       </details>
       <details>
         <summary>What's your returns policy?</summary>
-        <p class="faq-body"><span class="fill">[State it plainly &mdash; e.g. unopened kits returnable within
-          30 days; consumables and opened software non-returnable; defective items replaced free.]</span>
-          Families spending restricted funds reasonably want this in writing before they order, and
+        <p class="faq-body"><!-- TODO: returns_policy --> Families spending restricted funds reasonably want this in writing before they order, and
           some programs require a published policy on file.</p>
       </details>
       <details>
         <summary>How can I verify the carbon spending you advertise?</summary>
-        <p class="faq-body">We publish a <span class="fill">[quarterly / annual]</span> summary of what
+        <p class="faq-body">We publish a <!-- TODO: reporting_cadence --> summary of what
           was committed and where it went, including the partner we purchased through. Ask for the most
           recent one before you order &mdash; we'd rather you check.</p>
       </details>
@@ -1010,9 +1008,9 @@
         have nothing set up and don't know where to begin." All three land in the same inbox.</p>
       <dl class="lines">
         <div class="line"><dt>Email</dt><dd><a href="mailto:Mmminvestment25@gmail.com">Mmminvestment25@gmail.com</a></dd></div>
-        <div class="line"><dt>Phone</dt><dd><span class="fill">[(000) 000-0000]</span></dd></div>
-        <div class="line"><dt>Hours</dt><dd><span class="fill">[Mon&ndash;Fri, 9:00 AM &ndash; 5:00 PM]</span></dd></div>
-        <div class="line"><dt>Reply time</dt><dd>Within <span class="fill">[__]</span> business days</dd></div>
+        <div class="line"><dt>Phone</dt><dd><!-- TODO: phone_number --></dd></div>
+        <div class="line"><dt>Hours</dt><dd><!-- TODO: hours_of_operation --></dd></div>
+        <div class="line"><dt>Reply time</dt><dd>Within <!-- TODO: reply_time_business_days --> business days</dd></div>
         <div class="line"><dt>Ships to</dt><dd>All 50 states</dd></div>
       </dl>
       <div class="hero-cta">
@@ -1062,10 +1060,10 @@
       confirmed in writing on your invoice.
     </p>
     <p class="foot-meta">
-      <span>&copy; 2026 <span class="fill">[legal business name]</span></span>
+      <span>&copy; 2026 <!-- TODO: legal_business_name --></span>
       <span>Mmminvestment25@gmail.com</span>
-      <span><span class="fill">[(000) 000-0000]</span></span>
-      <span>Updated <span class="fill">[month year]</span></span>
+      <span><!-- TODO: phone_number --></span>
+      <span>Updated <!-- TODO: last_updated --></span>
     </p>
   </div>
 </footer>

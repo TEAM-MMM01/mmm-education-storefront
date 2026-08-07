@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI Literacy Bench Kit — Preparation Station</title>
-<meta name="description" content="Storefront mockup: kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
+<title>AI Literacy Bench Kit — MMM Investment</title>
+<meta name="description" content="Kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
 <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="AI Literacy Bench Kit — Preparation Station">
-<meta property="og:description" content="Storefront mockup: kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
+<meta property="og:title" content="AI Literacy Bench Kit — MMM Investment">
+<meta property="og:description" content="Kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
 <meta property="og:type" content="website">
 <style>
   *,*::before,*::after{box-sizing:border-box}
@@ -16,18 +16,11 @@
 </style>
 </head>
 <body>
-<!--
-  MOCKUP — the single fully-built product page in this prototype, using the
-  AI Literacy Bench Kit (PS-AT-401) as the template every other SKU in the
-  shop would follow in production. See ../../README.md.
--->
-
 <style>
 /* ============================================================
-   Shared design system for the storefront mockups (shop/product/order).
+   Shared design system for the ESA storefront (shop/product/order).
    Same tokens and type system as ../src/page.html — kept as a separate
-   file here (rather than refactoring the approved landing page) so the
-   two can evolve independently while this is still a prototype.
+   file here so the two can evolve independently.
    build.py inlines fonts into this file once, then injects the result
    into each store page at its __STORE_SHARED_CSS__ marker.
    ============================================================ */
@@ -286,8 +279,7 @@ a.product{text-decoration:none; color:inherit}
 .skip{position:absolute; left:-9999px; top:0}
 .skip:focus{left:.75rem; top:.75rem; z-index:99; background:var(--accent); color:var(--on-accent); padding:.6rem .9rem; border-radius:2px; font-family:var(--mono); font-size:.7rem}
 
-.mockup-flag{background:var(--pine-accent); color:var(--on-pine-accent); text-align:center; font-family:var(--mono);
-  font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; padding:.55rem 1rem}
+
 
 /* General Store banner: same tokens, but flagged clay/red rather than the
    ESA store's pine/accent so the two are never mistaken for one another. */
@@ -335,12 +327,11 @@ a.product{text-decoration:none; color:inherit}
 
 <div class="page">
 <a class="skip" href="#main">Skip to content</a>
-<div class="mockup-flag">Prototype — mockup for review, not the live site</div>
 
 <header class="topbar">
   <div class="wrap topbar-in">
     <a class="brand" href="../index.html">
-      <span class="brand-mark">Preparation Station</span>
+      <span class="brand-mark">MMM Investment</span>
       <span class="brand-sub mono">Supply co.</span>
     </a>
     <nav class="nav" aria-label="Primary">
@@ -348,7 +339,6 @@ a.product{text-decoration:none; color:inherit}
       <a href="../index.html#funding">Funding help</a>
       <a href="../index.html#carbon">Carbon</a>
       <a href="../index.html#faq">FAQ</a>
-      <a href="../general-store/shop.html">General Store Preview</a>
     </nav>
     <a class="btn btn-ghost btn-sm" href="order.html">Order <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
   </div>
@@ -363,11 +353,11 @@ a.product{text-decoration:none; color:inherit}
     </nav>
 
     <section class="pd-grid" style="padding-bottom:2.5rem">
-      <div class="pd-gallery" aria-hidden="true">AI Literacy<br>Bench Kit — PS-AT-401</div>
+      <div class="pd-gallery" aria-hidden="true"><span id="pd-title-placeholder">SKU Kit</span></div>
 
       <div class="stack g-20">
         <div class="stack g-8">
-          <span class="mono" style="color:var(--accent)">PS-AT-401 · AI &amp; Emerging Tech Bench</span>
+          <span class="mono" style="color:var(--accent)"><span id="pd-sku-line">SKU-XXX</span></span>
           <h1 class="h-xl">AI Literacy Bench Kit</h1>
         </div>
         <p class="prose" style="max-width:52ch">Starts offline. What a model actually is, where it fails, and
@@ -378,7 +368,7 @@ a.product{text-decoration:none; color:inherit}
         <div class="pd-meta">
           <span>Ages <b>10&ndash;18</b></span>
           <span>Format <b>Physical kit + guide</b></span>
-          <span>Ships <b><span class="fill">[__]</span> business days</b></span>
+          <span>Ships <b><!-- TODO: shipping_turnaround_days --> business days</b></span>
         </div>
 
         <div class="stack g-12">
@@ -396,10 +386,10 @@ a.product{text-decoration:none; color:inherit}
           <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap">
             <span class="qty">
               <button type="button" data-step="-1" data-target="pd-qty" aria-label="Decrease quantity" onclick="var i=document.getElementById('pd-qty'); i.value=Math.max(1,(parseInt(i.value,10)||1)-1)">−</button>
-              <input type="text" id="pd-qty" value="1" inputmode="numeric" data-qty-for="PS-AT-401" aria-label="Quantity">
+              <input type="text" id="pd-qty" value="1" inputmode="numeric" data-qty-for="MMM-AT-401" aria-label="Quantity">
               <button type="button" data-step="1" onclick="var i=document.getElementById('pd-qty'); i.value=(parseInt(i.value,10)||1)+1">+</button>
             </span>
-            <a class="btn btn-solid" href="order.html" data-add-to-cart="PS-AT-401">Add to order</a>
+            <a class="btn btn-solid" href="order.html" data-add-to-cart="MMM-AT-401" id="pd-add-to-cart">Add to order</a>
           </div>
           <p style="font-size:.86rem; color:var(--muted); max-width:48ch">Adding to your order doesn't charge
             anything &mdash; it builds the list we turn into an itemized invoice for your program.</p>
@@ -426,7 +416,7 @@ a.product{text-decoration:none; color:inherit}
         <a class="product" href="shop.html#d04">
           <div class="thumb">Electronics &amp;<br>Robotics Starter</div>
           <div class="pbody">
-            <span class="sku">PS-AT-402</span>
+            <span class="sku">MMM-AT-402</span>
             <h4>Electronics &amp; Robotics Starter</h4>
             <div class="price-row"><span class="price">$127.95</span></div>
           </div>
@@ -434,7 +424,7 @@ a.product{text-decoration:none; color:inherit}
         <a class="product" href="shop.html#d04">
           <div class="thumb">3D Design &amp;<br>Fabrication Intro</div>
           <div class="pbody">
-            <span class="sku">PS-AT-403</span>
+            <span class="sku">MMM-AT-403</span>
             <h4>3D Design &amp; Fabrication Intro</h4>
             <div class="price-row"><span class="price">$462.95</span></div>
           </div>
@@ -442,7 +432,7 @@ a.product{text-decoration:none; color:inherit}
         <a class="product" href="shop.html#d03">
           <div class="thumb">Graphic<br>Design Bench</div>
           <div class="pbody">
-            <span class="sku">PS-CS-301</span>
+            <span class="sku">MMM-CS-301</span>
             <h4>Graphic Design Bench</h4>
             <div class="price-row"><span class="price">$318.95</span></div>
           </div>
@@ -450,7 +440,7 @@ a.product{text-decoration:none; color:inherit}
         <a class="product" href="shop.html#d02">
           <div class="thumb">Focus &amp;<br>Energy System</div>
           <div class="pbody">
-            <span class="sku">PS-SC-202</span>
+            <span class="sku">MMM-SC-202</span>
             <h4>Focus &amp; Energy System</h4>
             <div class="price-row"><span class="price">$52.95</span></div>
           </div>
@@ -463,18 +453,16 @@ a.product{text-decoration:none; color:inherit}
 <footer class="foot">
   <div class="wrap">
     <div class="foot-top">
-      <span class="foot-brand">Preparation Station</span>
+      <span class="foot-brand">MMM Investment</span>
       <nav class="foot-nav" aria-label="Footer">
         <a href="shop.html">Shop</a>
         <a href="order.html">Order</a>
         <a href="../index.html#funding">Funding help</a>
         <a href="../index.html#carbon">Carbon</a>
-        <a href="../general-store/shop.html">General Store Preview</a>
-        <a href="mailto:Mmminvestment25@gmail.com">Email</a>
+          <a href="mailto:Mmminvestment25@gmail.com">Email</a>
       </nav>
     </div>
-    <p class="disclaim">Price shown is illustrative for this mockup, computed from an example cost per
-      PRICING.md, not final. Preparation Station is an independent supplier of educational tools and
+    <p class="disclaim">Price shown is pending final verification against supplier costs. MMM Investment is an independent supplier of educational tools and
       materials, not affiliated with or endorsed by TEFA or any state program.</p>
   </div>
 </footer>

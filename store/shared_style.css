@@ -1,8 +1,7 @@
 /* ============================================================
-   Shared design system for the storefront mockups (shop/product/order).
+   Shared design system for the ESA storefront (shop/product/order).
    Same tokens and type system as ../src/page.html — kept as a separate
-   file here (rather than refactoring the approved landing page) so the
-   two can evolve independently while this is still a prototype.
+   file here so the two can evolve independently.
    build.py inlines fonts into this file once, then injects the result
    into each store page at its __STORE_SHARED_CSS__ marker.
    ============================================================ */
@@ -261,8 +260,7 @@ a.product{text-decoration:none; color:inherit}
 .skip{position:absolute; left:-9999px; top:0}
 .skip:focus{left:.75rem; top:.75rem; z-index:99; background:var(--accent); color:var(--on-accent); padding:.6rem .9rem; border-radius:2px; font-family:var(--mono); font-size:.7rem}
 
-.mockup-flag{background:var(--pine-accent); color:var(--on-pine-accent); text-align:center; font-family:var(--mono);
-  font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; padding:.55rem 1rem}
+
 
 /* General Store banner: same tokens, but flagged clay/red rather than the
    ESA store's pine/accent so the two are never mistaken for one another. */

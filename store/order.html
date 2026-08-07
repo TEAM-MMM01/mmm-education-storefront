@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Your order — Preparation Station</title>
-<meta name="description" content="Storefront mockup: kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
+<title>Your order — MMM Investment</title>
+<meta name="description" content="Kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
 <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Your order — Preparation Station">
-<meta property="og:description" content="Storefront mockup: kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
+<meta property="og:title" content="Your order — MMM Investment">
+<meta property="og:description" content="Kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
 <meta property="og:type" content="website">
 <style>
   *,*::before,*::after{box-sizing:border-box}
@@ -16,23 +16,11 @@
 </style>
 </head>
 <body>
-<!--
-  MOCKUP — the third of three linked storefront-page templates
-  (shop → product → order). See ../../README.md.
-
-  The cart lives in localStorage via cart.js — there is no backend and
-  nothing is ever charged. "Request itemized quote" builds a mailto: link
-  from the cart contents, which matches the real ordering model: browse,
-  build a list, get an invoice, submit it to your program. No checkout,
-  because education funds pay against an approved invoice, not a card.
--->
-
 <style>
 /* ============================================================
-   Shared design system for the storefront mockups (shop/product/order).
+   Shared design system for the ESA storefront (shop/product/order).
    Same tokens and type system as ../src/page.html — kept as a separate
-   file here (rather than refactoring the approved landing page) so the
-   two can evolve independently while this is still a prototype.
+   file here so the two can evolve independently.
    build.py inlines fonts into this file once, then injects the result
    into each store page at its __STORE_SHARED_CSS__ marker.
    ============================================================ */
@@ -291,8 +279,7 @@ a.product{text-decoration:none; color:inherit}
 .skip{position:absolute; left:-9999px; top:0}
 .skip:focus{left:.75rem; top:.75rem; z-index:99; background:var(--accent); color:var(--on-accent); padding:.6rem .9rem; border-radius:2px; font-family:var(--mono); font-size:.7rem}
 
-.mockup-flag{background:var(--pine-accent); color:var(--on-pine-accent); text-align:center; font-family:var(--mono);
-  font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; padding:.55rem 1rem}
+
 
 /* General Store banner: same tokens, but flagged clay/red rather than the
    ESA store's pine/accent so the two are never mistaken for one another. */
@@ -343,12 +330,11 @@ a.product{text-decoration:none; color:inherit}
 
 <div class="page">
 <a class="skip" href="#main">Skip to content</a>
-<div class="mockup-flag">Prototype — mockup for review, not the live site</div>
 
 <header class="topbar">
   <div class="wrap topbar-in">
     <a class="brand" href="../index.html">
-      <span class="brand-mark">Preparation Station</span>
+      <span class="brand-mark">MMM Investment</span>
       <span class="brand-sub mono">Supply co.</span>
     </a>
     <nav class="nav" aria-label="Primary">
@@ -356,7 +342,6 @@ a.product{text-decoration:none; color:inherit}
       <a href="../index.html#funding">Funding help</a>
       <a href="../index.html#carbon">Carbon</a>
       <a href="../index.html#faq">FAQ</a>
-      <a href="../general-store/shop.html">General Store Preview</a>
     </nav>
     <a class="btn btn-ghost btn-sm" href="order.html" aria-current="page">Order <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
   </div>
@@ -413,7 +398,31 @@ a.product{text-decoration:none; color:inherit}
         <p style="font-size:.86rem; color:var(--muted); padding-top:1rem; line-height:1.55">
           This is an estimate. Your actual invoice may adjust once we confirm which items your program
           currently treats as eligible.</p>
-        <a class="btn btn-solid btn-block" id="quote-link" href="mailto:Mmminvestment25@gmail.com" style="margin-top:1rem">Request itemized quote</a>
+        <form id="quote-form" style="display:flex; flex-direction:column; gap:1rem; margin-top:1rem;">
+          <div>
+            <label for="quote-name" style="font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; display:block; padding-bottom:.35rem">Your name</label>
+            <input type="text" id="quote-name" required style="width:100%; padding:.65rem .75rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper); font:inherit">
+          </div>
+          <div>
+            <label for="quote-email" style="font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; display:block; padding-bottom:.35rem">Email</label>
+            <input type="email" id="quote-email" required style="width:100%; padding:.65rem .75rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper); font:inherit">
+          </div>
+          <div>
+            <label for="quote-notes" style="font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; display:block; padding-bottom:.35rem">Notes <span style="text-transform:none; letter-spacing:0; color:var(--muted)">(program / state / special instructions)</span></label>
+            <textarea id="quote-notes" rows="3" style="width:100%; padding:.65rem .75rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper); font:inherit"></textarea>
+          </div>
+          <button type="submit" class="btn btn-solid btn-block">Confirm quote request</button>
+          <p id="quote-error" style="font-size:.82rem; color:#b35; display:none">Please fill in your name and email.</p>
+        </form>
+        <div id="quote-confirmation" style="display:none; padding:1.5rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper)">
+          <h2 class="h-md" style="padding-bottom:.5rem">Quote request sent.</h2>
+          <p class="prose" style="padding-bottom:1rem">We received your request. Save the receipt below for your records. We will reply to the email you provided with your itemized invoice.</p>
+          <div style="display:flex; gap:.75rem; flex-wrap:wrap">
+            <button id="download-receipt" class="btn btn-solid">Download receipt</button>
+            <a class="btn btn-ghost" href="shop.html">Continue shopping</a>
+          </div>
+        </div>
+        <a class="btn btn-ghost btn-block" href="mailto:Mmminvestment25@gmail.com?subject=Order%20enquiry" style="margin-top:.6rem">Or email directly</a>
         <a class="btn btn-ghost btn-block" href="../index.html#funding" style="margin-top:.6rem">No program account yet? Get funding help</a>
       </aside>
     </div>
@@ -423,18 +432,16 @@ a.product{text-decoration:none; color:inherit}
 <footer class="foot">
   <div class="wrap">
     <div class="foot-top">
-      <span class="foot-brand">Preparation Station</span>
+      <span class="foot-brand">MMM Investment</span>
       <nav class="foot-nav" aria-label="Footer">
         <a href="shop.html">Shop</a>
         <a href="order.html">Order</a>
         <a href="../index.html#funding">Funding help</a>
         <a href="../index.html#carbon">Carbon</a>
-        <a href="../general-store/shop.html">General Store Preview</a>
-        <a href="mailto:Mmminvestment25@gmail.com">Email</a>
+          <a href="mailto:Mmminvestment25@gmail.com">Email</a>
       </nav>
     </div>
-    <p class="disclaim">Prices shown are illustrative for this mockup and computed from example costs
-      per PRICING.md, not final. Preparation Station is an independent supplier of educational tools and
+    <p class="disclaim">Prices shown are pending final verification against supplier costs. MMM Investment is an independent supplier of educational tools and
       materials, not affiliated with or endorsed by TEFA or any state program.</p>
   </div>
 </footer>
