@@ -4,30 +4,52 @@
    This is what makes the mockup feel like a real store to click through;
    it is not meant to ship as-is to a live site without a review. */
 (function () {
-  const KEY = 'mmm_cart_v1';
+  const KEY = 'preparation_station_cart_v1';
+  const LEGACY_KEY = 'mmm_cart_v1';
 
   const PRODUCTS = {
-    'MMM-PR-101': { name: 'Home & Repair Tool Roll', price: 83.95, dept: 'Practical & Trade' },
-    'MMM-PR-102': { name: 'Money & First Job Kit', price: 48.95, dept: 'Practical & Trade' },
-    'MMM-PR-103': { name: 'Kitchen & Provision Kit', price: 59.95, dept: 'Practical & Trade' },
-    'MMM-SC-201': { name: 'Situation Handling Deck', price: 30.95, dept: 'Situation Handling & Self-Command' },
-    'MMM-SC-202': { name: 'Focus & Energy System', price: 52.95, dept: 'Situation Handling & Self-Command' },
-    'MMM-SC-203': { name: 'Self-Advocacy Workbook', price: 24.95, dept: 'Situation Handling & Self-Command' },
-    'MMM-SC-204': { name: 'Interview & First Job Prep Kit', price: 39.95, dept: 'Situation Handling & Self-Command' },
-    'MMM-SC-205': { name: 'Adulting Launch Kit', price: 57.95, dept: 'Situation Handling & Self-Command' },
-    'MMM-CS-301': { name: 'Graphic Design Bench', price: 318.95, dept: 'Design & Motion Studio' },
-    'MMM-CS-302': { name: 'Motion & Video Kit', price: 363.95, dept: 'Design & Motion Studio' },
-    'MMM-CS-303': { name: 'Skill-to-Income Pack', price: 35.95, dept: 'Design & Motion Studio' },
-    'MMM-AT-401': { name: 'AI Literacy Bench Kit', price: 92.95, dept: 'AI & Emerging Tech Bench' },
-    'MMM-AT-402': { name: 'Electronics & Robotics Starter', price: 127.95, dept: 'AI & Emerging Tech Bench' },
-    'MMM-AT-403': { name: '3D Design & Fabrication Intro', price: 462.95, dept: 'AI & Emerging Tech Bench' },
-    'MMM-HS-501': { name: 'Core Subjects Workbook Set', price: 70.95, dept: 'Homeschool Essentials' },
-    'MMM-HS-502': { name: 'Homeschool Assessment & Portfolio Kit', price: 57.95, dept: 'Homeschool Essentials' },
-    'MMM-HS-503': { name: 'Daily Supply Restock Box', price: 41.95, dept: 'Homeschool Essentials' },
-    'MMM-HS-504': { name: 'Art & Craft Foundations Kit', price: 46.95, dept: 'Homeschool Essentials' },
+    'PS-PR-101': { name: 'Home & Repair Tool Roll', price: 83.95, dept: 'Practical & Trade' },
+    'PS-PR-102': { name: 'Money & First Job Kit', price: 48.95, dept: 'Practical & Trade' },
+    'PS-PR-103': { name: 'Kitchen & Provision Kit', price: 59.95, dept: 'Practical & Trade' },
+    'PS-SC-201': { name: 'Situation Handling Deck', price: 30.95, dept: 'Situation Handling & Self-Command' },
+    'PS-SC-202': { name: 'Focus & Energy System', price: 52.95, dept: 'Situation Handling & Self-Command' },
+    'PS-SC-203': { name: 'Self-Advocacy Workbook', price: 24.95, dept: 'Situation Handling & Self-Command' },
+    'PS-SC-204': { name: 'Interview & First Job Prep Kit', price: 39.95, dept: 'Situation Handling & Self-Command' },
+    'PS-SC-205': { name: 'Adulting Launch Kit', price: 57.95, dept: 'Situation Handling & Self-Command' },
+    'PS-CS-301': { name: 'Graphic Design Bench', price: 318.95, dept: 'Design & Motion Studio' },
+    'PS-CS-302': { name: 'Motion & Video Kit', price: 363.95, dept: 'Design & Motion Studio' },
+    'PS-CS-303': { name: 'Skill-to-Income Pack', price: 35.95, dept: 'Design & Motion Studio' },
+    'PS-AT-401': { name: 'AI Literacy Bench Kit', price: 92.95, dept: 'AI & Emerging Tech Bench' },
+    'PS-AT-402': { name: 'Electronics & Robotics Starter', price: 127.95, dept: 'AI & Emerging Tech Bench' },
+    'PS-AT-403': { name: '3D Design & Fabrication Intro', price: 462.95, dept: 'AI & Emerging Tech Bench' },
+    'PS-HS-501': { name: 'Core Subjects Workbook Set', price: 70.95, dept: 'Homeschool Essentials' },
+    'PS-HS-502': { name: 'Homeschool Assessment & Portfolio Kit', price: 57.95, dept: 'Homeschool Essentials' },
+    'PS-HS-503': { name: 'Daily Supply Restock Box', price: 41.95, dept: 'Homeschool Essentials' },
+    'PS-HS-504': { name: 'Art & Craft Foundations Kit', price: 46.95, dept: 'Homeschool Essentials' },
   };
 
+  function migrateLegacyCart() {
+    if (localStorage.getItem(KEY) !== null) return;
+
+    const legacyValue = localStorage.getItem(LEGACY_KEY);
+    if (legacyValue === null) return;
+
+    try {
+      const legacyCart = JSON.parse(legacyValue) || {};
+      const cart = {};
+      Object.entries(legacyCart).forEach(function ([sku, qty]) {
+        const currentSku = sku.replace(/^MMM-/, 'PS-');
+        cart[currentSku] = (cart[currentSku] || 0) + qty;
+      });
+      localStorage.setItem(KEY, JSON.stringify(cart));
+      localStorage.removeItem(LEGACY_KEY);
+    } catch (e) {
+      // Leave malformed legacy data untouched so it can be recovered manually.
+    }
+  }
+
   function readCart() {
+    migrateLegacyCart();
     try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
     catch (e) { return {}; }
   }
@@ -72,10 +94,10 @@
   }
 
   function toast(msg) {
-    let t = document.getElementById('mmm-toast');
+    let t = document.getElementById('preparation-station-toast');
     if (!t) {
       t = document.createElement('div');
-      t.id = 'mmm-toast';
+      t.id = 'preparation-station-toast';
       t.style.cssText = 'position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%) translateY(8px);' +
         'background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;' +
         'padding:.65rem 1rem;border-radius:3px;z-index:200;opacity:0;transition:opacity .2s ease, transform .2s ease;pointer-events:none';
@@ -184,7 +206,7 @@
       const p = PRODUCTS[sku] || { name: sku, price: 0 };
       return '- ' + p.name + ' (' + sku + ')  x' + qty + '  @ $' + p.price.toFixed(2);
     });
-    const body = 'Hi MMM Investment,%0D%0A%0D%0AI would like an itemized quote for:%0D%0A%0D%0A' +
+    const body = 'Hi Preparation Station,%0D%0A%0D%0AI would like an itemized quote for:%0D%0A%0D%0A' +
       encodeURIComponent(lines.join('\n')).replace(/%0A/g, '%0D%0A') +
       '%0D%0A%0D%0AEstimated subtotal: $' + cartSubtotal().toFixed(2) +
       '%0D%0A%0D%0AState: [your state]%0D%0AFunding program: [TEFA / other]%0D%0A';
@@ -193,5 +215,5 @@
       '&body=' + body;
   }
 
-  window.mmmCart = { addToCart, removeFromCart, setQty, cartCount, cartSubtotal, PRODUCTS };
+  window.preparationStationCart = { addToCart, removeFromCart, setQty, cartCount, cartSubtotal, PRODUCTS };
 })();

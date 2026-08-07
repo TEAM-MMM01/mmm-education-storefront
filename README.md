@@ -1,13 +1,15 @@
-# Vendor storefront landing page
+# Preparation Station storefront
 
 ## Current launch status
 
 **Recommendation: hold public launch and prepare an ESA-only release.** General Store remains a development preview and must not appear to accept real orders or payments. The ESA path is the priority, but its public placeholders, illustrative pricing, stand-in product-detail routing, and operator-light quote flow must be completed before customer launch.
 
 See [LAUNCH_AUDIT.md](LAUNCH_AUDIT.md) for the keep / improve / trim / hide-relabel matrix, remaining blockers, and launch gates.
+For a staged product-information release, follow
+[docs/workflow/PRODUCT_INFO_SOFT_LAUNCH.md](docs/workflow/PRODUCT_INFO_SOFT_LAUNCH.md).
 
 A self-contained storefront page for families spending TEFA and other state education
-funds with MMM Investment. `index.html` is the deliverable: one file, no build step to
+funds with Preparation Station. `index.html` is the deliverable: one file, no build step to
 view it, no network requests at all. Open it in a browser, upload it to any static host,
 or paste its contents into a vendor profile that accepts HTML.
 
@@ -58,6 +60,16 @@ program guardrails, service monetization, checkout/fulfillment operations, launc
 gates, deployment/shareable-URL decisions, and first-sale workflow. Use it as the
 canonical readiness checklist before removing prototype labels or publishing
 commerce paths.
+
+## Operations workflow
+
+`docs/workflow/` documents how GitHub branches, Codex work, device sync, and pull
+requests should stay organized across Mac, HP, and cloud-agent environments. Start
+with `docs/workflow/NEXT_STEPS.md` for the owner-facing checklist.
+`docs/obsidian/` provides the recommended Obsidian vault structure and safe note
+templates. `docs/omniroute/` records the planned OmniRoute event contracts and
+dashboard widgets; OmniRoute is not connected yet, so those contracts are
+implementation-ready guidance rather than an active routing integration.
 
 ## Editing
 

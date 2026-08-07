@@ -25,24 +25,24 @@ fatter on hardware), split `MARKUP` per department below instead of one global n
 
 | SKU | Product | Example cost | Price shown to customer | Margin |
 |---|---|---:|---:|---:|
-| MMM-PR-101 | Home & Repair Tool Roll | $38.00 | $83.95 | 55% |
-| MMM-PR-102 | Money & First Job Kit | $22.00 | $48.95 | 55% |
-| MMM-PR-103 | Kitchen & Provision Kit | $27.00 | $59.95 | 55% |
-| MMM-SC-201 | Situation Handling Deck | $14.00 | $30.95 | 55% |
-| MMM-SC-202 | Focus & Energy System | $24.00 | $52.95 | 55% |
-| MMM-SC-203 | Self-Advocacy Workbook | $11.00 | $24.95 | 56% |
-| MMM-SC-204 | Interview & First Job Prep Kit | $18.00 | $39.95 | 55% |
-| MMM-SC-205 | Adulting Launch Kit | $26.00 | $57.95 | 55% |
-| MMM-CS-301 | Graphic Design Bench | $145.00 | $318.95 | 55% |
-| MMM-CS-302 | Motion & Video Kit | $165.00 | $363.95 | 55% |
-| MMM-CS-303 | Skill-to-Income Pack | $16.00 | $35.95 | 55% |
-| MMM-AT-401 | AI Literacy Bench Kit | $42.00 | $92.95 | 55% |
-| MMM-AT-402 | Electronics & Robotics Starter | $58.00 | $127.95 | 55% |
-| MMM-AT-403 | 3D Design & Fabrication Intro | $210.00 | $462.95 | 55% |
-| MMM-HS-501 | Core Subjects Workbook Set | $32.00 | $70.95 | 55% |
-| MMM-HS-502 | Homeschool Assessment & Portfolio Kit | $26.00 | $57.95 | 55% |
-| MMM-HS-503 | Daily Supply Restock Box | $19.00 | $41.95 | 55% |
-| MMM-HS-504 | Art & Craft Foundations Kit | $21.00 | $46.95 | 55% |
+| PS-PR-101 | Home & Repair Tool Roll | $38.00 | $83.95 | 55% |
+| PS-PR-102 | Money & First Job Kit | $22.00 | $48.95 | 55% |
+| PS-PR-103 | Kitchen & Provision Kit | $27.00 | $59.95 | 55% |
+| PS-SC-201 | Situation Handling Deck | $14.00 | $30.95 | 55% |
+| PS-SC-202 | Focus & Energy System | $24.00 | $52.95 | 55% |
+| PS-SC-203 | Self-Advocacy Workbook | $11.00 | $24.95 | 56% |
+| PS-SC-204 | Interview & First Job Prep Kit | $18.00 | $39.95 | 55% |
+| PS-SC-205 | Adulting Launch Kit | $26.00 | $57.95 | 55% |
+| PS-CS-301 | Graphic Design Bench | $145.00 | $318.95 | 55% |
+| PS-CS-302 | Motion & Video Kit | $165.00 | $363.95 | 55% |
+| PS-CS-303 | Skill-to-Income Pack | $16.00 | $35.95 | 55% |
+| PS-AT-401 | AI Literacy Bench Kit | $42.00 | $92.95 | 55% |
+| PS-AT-402 | Electronics & Robotics Starter | $58.00 | $127.95 | 55% |
+| PS-AT-403 | 3D Design & Fabrication Intro | $210.00 | $462.95 | 55% |
+| PS-HS-501 | Core Subjects Workbook Set | $32.00 | $70.95 | 55% |
+| PS-HS-502 | Homeschool Assessment & Portfolio Kit | $26.00 | $57.95 | 55% |
+| PS-HS-503 | Daily Supply Restock Box | $19.00 | $41.95 | 55% |
+| PS-HS-504 | Art & Craft Foundations Kit | $21.00 | $46.95 | 55% |
 
 Every "example cost" above is a guess for demonstration purposes, not a real quote from
 any supplier — swap in what you actually pay before these numbers go anywhere near a

@@ -12,7 +12,7 @@ invoice includes a coloring book that isn't obviously curriculum. Hence two stor
 cross-linked but never merged.
 
 `shop.html` → `product.html` → `checkout.html` is the same browse → detail → cart pattern as
-the ESA store, with its own cart (`cart.js`, `localStorage` key `mmm_gs_cart_v1`) so the two
+the ESA store, with its own cart (`cart.js`, `localStorage` key `preparation_station_gs_cart_v1`) so the two
 carts never mix.
 
 ## What's real here and what isn't
