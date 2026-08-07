@@ -9,6 +9,7 @@
    first wiring up an actual PCI-compliant payment processor. */
 (function () {
   const KEY = 'preparation_station_gs_cart_v1';
+  const LEGACY_KEY = 'mmm_gs_cart_v1';
 
   const PRODUCTS = {
     'GEN-BK-001': { name: 'The Vulturian', price: null, format: 'Book' },
@@ -19,7 +20,22 @@
   const TAX_RATE = 0.0825; // placeholder — see general-store/README note
   const SHIPPING = { standard: 4.95, expedited: 12.95 };
 
+  function migrateLegacyCart() {
+    if (localStorage.getItem(KEY) !== null) return;
+
+    const legacyValue = localStorage.getItem(LEGACY_KEY);
+    if (legacyValue === null) return;
+
+    try {
+      localStorage.setItem(KEY, JSON.stringify(JSON.parse(legacyValue) || {}));
+      localStorage.removeItem(LEGACY_KEY);
+    } catch (e) {
+      // Leave malformed legacy data untouched so it can be recovered manually.
+    }
+  }
+
   function readCart() {
+    migrateLegacyCart();
     try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
     catch (e) { return {}; }
   }
