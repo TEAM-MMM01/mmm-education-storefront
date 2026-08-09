@@ -13,6 +13,7 @@ Produces:
     store/shop.html             ESA store mockup: category grid
     store/product.html          ESA store mockup: product detail
     store/order.html             ESA store mockup: order/quote review
+    store/track.html             secure order-history entry point
     general-store/shop.html      General Store mockup: category grid
     general-store/product.html   General Store mockup: product detail
     general-store/checkout.html  General Store mockup: checkout
@@ -93,10 +94,10 @@ def build_main_page():
 def build_store_pages(shared_css: str):
     store = HERE / "store"
     desc = (
-        "Kits, tools, and homeschool resources invoiced against "
-        "TEFA and other state education funds."
+        "Preparation Station educational products; approved TEFA offerings are "
+        "purchased through the official Odyssey Marketplace."
     )
-    for name in ("shop", "product", "order"):
+    for name in ("shop", "product", "order", "track"):
         src = (store / "src" / f"{name}.html").read_text()
         if "__STORE_SHARED_CSS__" not in src:
             raise SystemExit(f"__STORE_SHARED_CSS__ missing from store/src/{name}.html")

@@ -18,10 +18,15 @@
   },
   "programs": {
     "tefa": {
-      "approval_status": "owner_confirmed",
-      "evidence_status": "pending_repository_record",
-      "public_approval_claim_allowed": false,
-      "product_specific_eligibility_required": true
+      "approval_status": "approved",
+      "approved_entity": "Nationwide Acquisitions, LLC",
+      "evidence_status": "owner_provided_approval_email",
+      "evidence_reference": "Private owner-provided TEFA vendor approval email; do not commit the message or attachments.",
+      "public_approval_claim_allowed": true,
+      "product_specific_eligibility_required": true,
+      "offering_review_system": "Odyssey Portal",
+      "funded_purchase_system": "Odyssey Marketplace",
+      "finder_profile_status": "ready_for_website_url"
     },
     "pdses_classwallet": {
       "approval_status": "unknown",
@@ -32,7 +37,8 @@
   },
   "channels": {
     "preparation_station": {
-      "purpose": "education_program_information_products_and_quote_requests",
+      "purpose": "education_program_information_products_requests_and_order_status",
+      "tefa_purchase_system": "official_odyssey_marketplace",
       "retail_payment_enabled": false
     },
     "royal_collexions": {

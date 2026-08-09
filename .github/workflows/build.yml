@@ -25,6 +25,13 @@ jobs:
       - name: Validate canonical project and catalog state
         run: python3 tools/validate_project_state.py
 
+      - name: Validate storefront JavaScript and order boundaries
+        run: |
+          node --check store/cart.js
+          node --check store/track.js
+          node tools/test_request_intake.js
+          node tools/test_order_tracking.js
+
       - name: Run static-site build
         run: python3 build.py
 
@@ -36,6 +43,7 @@ jobs:
             store/shop.html
             store/product.html
             store/order.html
+            store/track.html
             general-store/shop.html
             general-store/product.html
             general-store/checkout.html
