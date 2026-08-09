@@ -2,7 +2,7 @@
 
 ## Current launch status
 
-**Recommendation: hold public launch and prepare an ESA-only release.** General Store remains a development preview and must not appear to accept real orders or payments. The ESA path is the priority, but its public placeholders, illustrative pricing, stand-in product-detail routing, and operator-light quote flow must be completed before customer launch.
+**Current recommendation: publish a truthful TEFA vendor/catalog information release first.** Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor operating Preparation Station. Each offering still requires separate Odyssey review, and TEFA purchases plus official order history remain in Odyssey. General Store remains a development preview and does not accept payment.
 
 See [LAUNCH_AUDIT.md](LAUNCH_AUDIT.md) for the keep / improve / trim / hide-relabel matrix, remaining blockers, and launch gates.
 For a staged product-information release, follow
@@ -15,9 +15,16 @@ must follow [`AGENTS.md`](AGENTS.md); access and PR-only write rules are describ
 in [`docs/workflow/AGENT_ACCESS.md`](docs/workflow/AGENT_ACCESS.md).
 
 A self-contained storefront page for families spending TEFA and other state education
-funds with Preparation Station. `index.html` is the deliverable: one file, no build step to
-view it, no network requests at all. Open it in a browser, upload it to any static host,
+funds with Preparation Station. `index.html` is the main deliverable: one file, no build step to
+view it. Open it in a browser, upload it to any static host,
 or paste its contents into a vendor profile that accepts HTML.
+
+The canonical 18-item educational catalog is in `catalog/products.json`. All
+items remain price-, fulfillment-, and Odyssey-review-pending until verified.
+The customer order entry point is `store/track.html`; its private API is disabled
+until secure email-link authentication and customer-level authorization exist.
+See `docs/workflow/ORDER_OPERATIONS.md` for historical imports, TEFA status
+mirroring, and the separate direct-checkout gate.
 
 The page is a store, not a school: five departments of kits (practical/trade, situation
 handling & self-command, design & motion, AI & emerging tech, homeschool essentials),
@@ -33,8 +40,9 @@ review page with a working (localStorage-only) cart — built to show what runni
 an actual browsable store looks like, rather than one long scrolling page. Open
 `store/shop.html`, click a product, add it to your order, and click through to
 `store/order.html` to see the whole loop, including the "Request itemized quote" button,
-which builds a pre-filled `mailto:` with the cart contents. There's no checkout or payment
-step anywhere, on purpose — education funds pay against an approved invoice, not a card.
+which can create a privacy-minimized product-information request after its backend and SKU
+allowlist are configured. There is no TEFA checkout on this site: families purchase approved
+offerings and review official order history in Odyssey.
 
 Every card in the shop links to the one built product page (the AI Literacy Bench Kit) as
 a stand-in for what every SKU's page would look like in production. Each mockup carries a

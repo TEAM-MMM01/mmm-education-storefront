@@ -1,0 +1,92 @@
+<title>Track an order — Preparation Station</title>
+
+<style>
+__STORE_SHARED_CSS__
+
+.track-intro{max-width:64rem}
+.track-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin-top:2rem}
+.track-card{border:1px solid var(--rule);background:var(--card);border-radius:3px;padding:clamp(1.35rem,3vw,2rem)}
+.track-card h2{padding:.45rem 0 .7rem}
+.track-card p{color:var(--muted);line-height:1.65}
+.track-card .btn{margin-top:1.25rem}
+.track-form{max-width:38rem;margin-top:2.5rem;padding:clamp(1.35rem,3vw,2rem);border:1px solid var(--rule);background:var(--paper)}
+.track-form .field{margin:1rem 0}
+.track-status,.track-error,.track-private{font-size:.86rem;line-height:1.55;margin-top:.85rem}
+.track-status,.track-private{color:var(--muted)}
+.track-error{color:#b35}
+.track-private{border-left:3px solid var(--rule);padding-left:.8rem}
+@media(max-width:760px){.track-grid{grid-template-columns:1fr}}
+</style>
+
+<div class="page">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="../index.html">
+      <span class="brand-mark">Preparation Station</span>
+      <span class="brand-sub mono">Supply co.</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="shop.html">Catalog</a>
+      <a href="../index.html#funding">TEFA</a>
+      <a href="track.html" aria-current="page">Track order</a>
+      <a href="../index.html#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-ghost btn-sm" href="order.html">Request <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="wrap band track-intro">
+    <div class="opener"><span class="mono">Order history</span></div>
+    <h1 class="h-lg">Track TEFA and direct orders without mixing the payment systems.</h1>
+    <p class="prose" style="padding-top:1rem">TEFA purchases and official TEFA order history remain in Odyssey. Preparation Station can mirror our fulfillment updates after an order is securely linked. Direct-site purchases use a separate checkout and appear here after verified payment.</p>
+
+    <div class="track-grid">
+      <article class="track-card">
+        <span class="mono">TEFA / Odyssey</span>
+        <h2 class="h-md">Purchased with TEFA funds</h2>
+        <p>Sign in to the Odyssey Parent Portal, open your profile, and choose <strong>Orders</strong> for the official order status and tracking. Preparation Station does not collect TEFA payment or credentials.</p>
+        <a class="btn btn-solid" href="https://support.withodyssey.com/hc/en-us/articles/51195311077019-How-to-Use-the-Odyssey-Marketplace" rel="external">Odyssey order-history steps</a>
+      </article>
+      <article class="track-card">
+        <span class="mono">Preparation Station direct</span>
+        <h2 class="h-md">Purchased with personal funds</h2>
+        <p>Direct orders are separate from TEFA. Secure tracking will show payment-confirmed, processing, shipped, completed, refunded, or action-required status after direct checkout is activated.</p>
+        <a class="btn btn-ghost" href="mailto:mmminvestment25@gmail.com?subject=Direct%20order%20status">Ask about a direct order</a>
+      </article>
+    </div>
+
+    <form id="order-access-form" class="track-form">
+      <span class="mono">Preparation Station tracking</span>
+      <h2 class="h-md" style="padding-top:.45rem">Get a secure order link</h2>
+      <div class="field">
+        <label for="order-access-email">Adult email used for the order</label>
+        <input id="order-access-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+      </div>
+      <button id="order-access-submit" type="submit" class="btn btn-solid" disabled aria-disabled="true">Secure tracking is being configured</button>
+      <p id="order-access-status" class="track-status" role="status" aria-live="polite">Checking secure order access.</p>
+      <p id="order-access-error" class="track-error" role="alert" hidden></p>
+      <p class="track-private">For privacy, this page never displays orders from an email and order number alone. Do not send a child name, school record, TEFA login, bank information, or card number.</p>
+    </form>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <span class="foot-brand">Preparation Station</span>
+      <nav class="foot-nav" aria-label="Footer">
+        <a href="shop.html">Catalog</a>
+        <a href="order.html">Request</a>
+        <a href="track.html">Track order</a>
+        <a href="mailto:mmminvestment25@gmail.com">Email</a>
+      </nav>
+    </div>
+    <p class="disclaim">Preparation Station is operated by Nationwide Acquisitions, LLC. TEFA purchases and official TEFA order history remain in the Odyssey Marketplace.</p>
+  </div>
+</footer>
+</div>
+
+<script src="track.js" defer></script>

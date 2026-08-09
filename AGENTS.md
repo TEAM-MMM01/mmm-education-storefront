@@ -42,8 +42,9 @@ When storefront source changes, commit the matching generated HTML from
   Acquisitions, LLC."
 - Temporary support email: `mmminvestment25@gmail.com`.
 - Complete requests are acknowledged within one business day.
-- TEFA approval is owner-confirmed, but evidence must be filed before a public
-  approval claim is enabled.
+- Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor based on
+  the owner-provided approval email. Public claims must name the approved legal
+  entity and state that each offering is reviewed separately in Odyssey.
 - PDSES/ClassWallet status is unknown and must not be advertised as approved.
 - The Vulturian is a confirmed title; its author credit, ISBN, price, format,
   description, cover, and printing/fulfillment source remain pending.
@@ -57,6 +58,9 @@ When storefront source changes, commit the matching generated HTML from
 - Books and coloring books may appear on both sites, but both listings must use
   one canonical SKU and fulfillment record.
 - Keep retail payment and funded quote/invoice flows separate.
+- TEFA purchases and official TEFA order history stay in Odyssey. Preparation
+  Station may mirror fulfillment status only after a secure, attributable import
+  or supported integration.
 - Do not describe a product as TEFA- or PDSES-eligible unless current,
   product-specific evidence is recorded and approved for publication.
 
