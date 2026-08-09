@@ -6,6 +6,20 @@ __STORE_SHARED_CSS__
 
 .order-empty{padding:3rem 0; text-align:center; color:var(--muted)}
 .order-empty a{color:var(--accent)}
+.request-form{display:flex; flex-direction:column; gap:1rem; margin-top:1rem}
+.request-form .field textarea{font-family:var(--body); font-size:.98rem; color:var(--ink); background:var(--card);
+  border:1px solid var(--rule); border-radius:2px; padding:.7rem .8rem; width:100%; resize:vertical}
+.request-form .field textarea:focus-visible{outline:2.5px solid var(--focus); outline-offset:1px}
+.request-form .label-note{text-transform:none; letter-spacing:0; color:var(--muted)}
+.request-notice,.request-status,.request-error{font-size:.8rem; line-height:1.55}
+.request-notice{color:var(--muted); border-left:3px solid var(--rule); padding-left:.75rem}
+.request-status{color:var(--muted)}
+.request-error{color:#b35}
+.request-confirmation{padding:1.5rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper)}
+.request-confirmation .h-md{padding-bottom:.5rem}
+.request-confirmation .prose{padding-bottom:1rem}
+.request-honeypot{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
 </style>
 
 <div class="page">
@@ -78,27 +92,40 @@ __STORE_SHARED_CSS__
         <p style="font-size:.86rem; color:var(--muted); padding-top:1rem; line-height:1.55">
           This is an estimate. Your actual invoice may adjust once we confirm which items your program
           currently treats as eligible.</p>
-        <form id="quote-form" style="display:flex; flex-direction:column; gap:1rem; margin-top:1rem;">
-          <div>
-            <label for="quote-name" style="font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; display:block; padding-bottom:.35rem">Your name</label>
-            <input type="text" id="quote-name" required style="width:100%; padding:.65rem .75rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper); font:inherit">
+        <form id="quote-form" class="request-form">
+          <div class="field">
+            <label for="quote-name">Adult contact name</label>
+            <input type="text" id="quote-name" name="adult_name" autocomplete="name" maxlength="120" required>
           </div>
-          <div>
-            <label for="quote-email" style="font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; display:block; padding-bottom:.35rem">Email</label>
-            <input type="email" id="quote-email" required style="width:100%; padding:.65rem .75rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper); font:inherit">
+          <div class="field">
+            <label for="quote-email">Adult contact email</label>
+            <input type="email" id="quote-email" name="email" autocomplete="email" maxlength="254" required>
           </div>
-          <div>
-            <label for="quote-notes" style="font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; display:block; padding-bottom:.35rem">Notes <span style="text-transform:none; letter-spacing:0; color:var(--muted)">(program / state / special instructions)</span></label>
-            <textarea id="quote-notes" rows="3" style="width:100%; padding:.65rem .75rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper); font:inherit"></textarea>
+          <div class="field">
+            <label for="quote-program">Funding or purchase path</label>
+            <select id="quote-program" name="program" required>
+              <option value="">Choose one</option>
+              <option value="TEFA">TEFA</option>
+              <option value="PDSES/ClassWallet">PDSES / ClassWallet</option>
+              <option value="Self-pay">Self-pay</option>
+              <option value="Other / not sure">Other / not sure</option>
+            </select>
           </div>
-          <button type="submit" class="btn btn-solid btn-block">Confirm quote request</button>
-          <p id="quote-error" style="font-size:.82rem; color:#b35; display:none">Please fill in your name and email.</p>
+          <div class="field">
+            <label for="quote-notes">Nonsensitive notes <span class="label-note">(optional)</span></label>
+            <textarea id="quote-notes" name="notes" rows="4" maxlength="1000"
+              placeholder="Product preferences or general questions only."></textarea>
+          </div>
+          <p id="quote-privacy" class="request-notice"></p>
+          <button type="submit" id="quote-submit" class="btn btn-solid btn-block" disabled aria-disabled="true">Online requests not configured</button>
+          <p id="quote-status" class="request-status" role="status" aria-live="polite">Checking whether the request service is available.</p>
+          <p id="quote-error" class="request-error" role="alert" hidden></p>
         </form>
-        <div id="quote-confirmation" style="display:none; padding:1.5rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper)">
-          <h2 class="h-md" style="padding-bottom:.5rem">Quote request sent.</h2>
-          <p class="prose" style="padding-bottom:1rem">We received your request. Save the receipt below for your records. We will reply to the email you provided with your itemized invoice.</p>
+        <div id="quote-confirmation" class="request-confirmation" role="status" aria-live="polite" tabindex="-1" hidden>
+          <h2 class="h-md">Quote request received.</h2>
+          <p class="prose">No payment was collected. Save this client reference: <strong id="quote-reference"></strong>. We acknowledge complete requests within one business day and confirm pricing, availability, the applicable funding path, and expected delivery in writing.</p>
           <div style="display:flex; gap:.75rem; flex-wrap:wrap">
-            <button id="download-receipt" class="btn btn-solid">Download receipt</button>
+            <button type="button" id="download-receipt" class="btn btn-solid" disabled>Download receipt</button>
             <a class="btn btn-ghost" href="shop.html">Continue shopping</a>
           </div>
         </div>

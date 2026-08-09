@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = ROOT / "config" / "project-state.json"
 BOOKS_PATH = ROOT / "catalog" / "books.json"
+REQUEST_CONFIG_PATH = ROOT / "config" / "request-intake.json"
 GENERATED_HTML = [
     ROOT / "index.html",
     ROOT / "store" / "shop.html",
@@ -216,12 +217,103 @@ def validate_books(catalog: dict) -> None:
         require(isbn is None, "Pending ISBN must remain null")
 
 
+def validate_request_config(config: dict, state: dict) -> None:
+    allowed_keys = {
+        "schema_version",
+        "provider",
+        "enabled",
+        "endpoint",
+        "support_email",
+        "retention_days",
+        "allowed_skus",
+        "allowed_submission_fields",
+    }
+    require(set(config) == allowed_keys, "Unexpected request-intake configuration keys")
+    require(config.get("schema_version") == 1, "Unsupported request-intake schema")
+    require(config.get("provider") == "formspree", "Unexpected request-intake provider")
+    require(isinstance(config.get("enabled"), bool), "Request-intake enabled flag must be boolean")
+    require(
+        config.get("support_email") == state.get("business", {}).get("support_email"),
+        "Request-intake support email must match canonical project state",
+    )
+    retention_days = config.get("retention_days")
+    require(
+        isinstance(retention_days, int) and 1 <= retention_days <= 90,
+        "Request-intake retention must be between 1 and 90 days",
+    )
+    expected_fields = {
+        "_gotcha",
+        "adult_name",
+        "cart_items",
+        "client_reference",
+        "email",
+        "internal_owner",
+        "notes",
+        "program",
+        "source",
+        "submitted_at",
+    }
+    fields = config.get("allowed_submission_fields")
+    require(isinstance(fields, list), "Request-intake field allowlist must be a list")
+    require(set(fields) == expected_fields, "Request-intake field allowlist changed")
+    require(len(fields) == len(expected_fields), "Request-intake field allowlist has duplicates")
+
+    cart_source = (ROOT / "store" / "cart.js").read_text(encoding="utf-8")
+    known_skus = set(re.findall(r"'(PS-[A-Z]{2}-\d{3})':\s*\{", cart_source))
+    require(known_skus, "Could not identify request catalog SKUs")
+    allowed_skus = config.get("allowed_skus")
+    require(isinstance(allowed_skus, list), "Request-intake allowed SKUs must be a list")
+    require(len(allowed_skus) == len(set(allowed_skus)), "Request-intake allowed SKUs have duplicates")
+    require(
+        all(isinstance(sku, str) and sku in known_skus for sku in allowed_skus),
+        "Request-intake allowed SKUs must exist in the request catalog",
+    )
+
+    endpoint = config.get("endpoint")
+    require(isinstance(endpoint, str), "Request-intake endpoint must be a string")
+    if endpoint:
+        require(
+            re.fullmatch(r"https://formspree\.io/f/[A-Za-z0-9_-]+/?", endpoint) is not None,
+            "Request-intake endpoint must be a current HTTPS Formspree form endpoint",
+        )
+    if config.get("enabled"):
+        require(bool(endpoint), "Enabled request intake requires a Formspree endpoint")
+        require(bool(allowed_skus), "Enabled request intake requires at least one allowed SKU")
+
+
+def validate_request_form() -> None:
+    source = (ROOT / "store" / "src" / "order.html").read_text(encoding="utf-8")
+    form_match = re.search(r'<form id="quote-form"(?P<body>.*?)</form>', source, re.DOTALL)
+    require(form_match is not None, "Quote request form is missing")
+    form = form_match.group(0)
+    require(" action=" not in form, "Quote request form must not have an unreviewed action")
+    require(
+        'id="quote-submit"' in form and " disabled" in form,
+        "Quote request submit button must be disabled by default",
+    )
+    forbidden = {
+        'type="file"': "file upload",
+        'type="tel"': "phone collection",
+        'name="student': "student field",
+        'name="child': "child field",
+        'name="school': "school field",
+        'name="ssn': "Social Security field",
+        'name="account': "account field",
+        'name="payment': "payment field",
+    }
+    for needle, label in forbidden.items():
+        require(needle not in form.lower(), f"Quote request form contains forbidden {label}")
+
+
 def main() -> None:
-    validate_state(load_json(STATE_PATH))
+    state = load_json(STATE_PATH)
+    validate_state(state)
     validate_books(load_json(BOOKS_PATH))
+    validate_request_config(load_json(REQUEST_CONFIG_PATH), state)
+    validate_request_form()
     validate_public_source()
     validate_generated_html()
-    print("Project state and book catalog are valid.")
+    print("Project state, book catalog, and request intake are valid.")
 
 
 if __name__ == "__main__":
