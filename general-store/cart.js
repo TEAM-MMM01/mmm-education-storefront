@@ -13,9 +13,9 @@
 
   const PRODUCTS = {
     'GEN-BK-001': { name: 'The Vulturian', price: null, format: 'Book' },
-    'GEN-CB-101': { name: 'Future Founders — Coloring Book', price: 8.95, format: 'Coloring book' },
-    'GEN-CB-102': { name: 'Tools & Trades — Coloring Book', price: 8.95, format: 'Coloring book' },
-    'GEN-CB-103': { name: 'Big Feelings, Big Wins — Coloring Book', price: 8.95, format: 'Coloring book' },
+    'GEN-CB-101': { name: 'Future Founders — Coloring Book', price: null, format: 'Concept' },
+    'GEN-CB-102': { name: 'Tools & Trades — Coloring Book', price: null, format: 'Concept' },
+    'GEN-CB-103': { name: 'Big Feelings, Big Wins — Coloring Book', price: null, format: 'Concept' },
   };
   const TAX_RATE = 0.0825; // placeholder — see general-store/README note
   const SHIPPING = { standard: 4.95, expedited: 12.95 };

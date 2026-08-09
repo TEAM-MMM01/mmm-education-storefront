@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-08-09",
+  "canonical_record_owner": "Royal Collexions",
+  "items": [
+    {
+      "sku": "GEN-BK-001",
+      "title": "The Vulturian",
+      "title_status": "confirmed",
+      "product_type": "book",
+      "record_status": "metadata_pending",
+      "public_listing_allowed": false,
+      "channels": [
+        "preparation_station",
+        "royal_collexions"
+      ],
+      "author_credit": null,
+      "isbn": null,
+      "isbn_status": "pending",
+      "format": null,
+      "page_count": null,
+      "description": null,
+      "cover_asset": null,
+      "pricing_mode": "quote_only",
+      "retail_price_usd": null,
+      "printing_source": null,
+      "inventory_status": "unknown",
+      "funding_eligibility": {
+        "tefa": "pending_product_evidence",
+        "pdses_classwallet": "unknown"
+      }
+    },
+    {
+      "sku": "GEN-CB-101",
+      "title": "Future Founders",
+      "title_status": "working_title",
+      "product_type": "coloring_book_concept",
+      "record_status": "concept",
+      "public_listing_allowed": false,
+      "channels": [
+        "preparation_station",
+        "royal_collexions"
+      ],
+      "pricing_mode": "not_for_sale",
+      "retail_price_usd": null,
+      "printing_source": null,
+      "inventory_status": "not_created",
+      "funding_eligibility": {
+        "tefa": "not_evaluated",
+        "pdses_classwallet": "not_evaluated"
+      }
+    },
+    {
+      "sku": "GEN-CB-102",
+      "title": "Tools & Trades",
+      "title_status": "working_title",
+      "product_type": "coloring_book_concept",
+      "record_status": "concept",
+      "public_listing_allowed": false,
+      "channels": [
+        "preparation_station",
+        "royal_collexions"
+      ],
+      "pricing_mode": "not_for_sale",
+      "retail_price_usd": null,
+      "printing_source": null,
+      "inventory_status": "not_created",
+      "funding_eligibility": {
+        "tefa": "not_evaluated",
+        "pdses_classwallet": "not_evaluated"
+      }
+    },
+    {
+      "sku": "GEN-CB-103",
+      "title": "Big Feelings, Big Wins",
+      "title_status": "working_title",
+      "product_type": "coloring_book_concept",
+      "record_status": "concept",
+      "public_listing_allowed": false,
+      "channels": [
+        "preparation_station",
+        "royal_collexions"
+      ],
+      "pricing_mode": "not_for_sale",
+      "retail_price_usd": null,
+      "printing_source": null,
+      "inventory_status": "not_created",
+      "funding_eligibility": {
+        "tefa": "not_evaluated",
+        "pdses_classwallet": "not_evaluated"
+      }
+    }
+  ]
+}

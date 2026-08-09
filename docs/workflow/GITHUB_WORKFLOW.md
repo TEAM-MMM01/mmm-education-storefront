@@ -29,11 +29,15 @@ only after the owner approves the change.
 ## Automated checks
 
 Pull requests and pushes to `main` run the `Build storefront` GitHub Actions workflow. The
-workflow runs `python3 build.py` and fails if generated storefront pages differ from the
-committed files.
+workflow validates `config/project-state.json` and `catalog/books.json`, runs
+`python3 build.py`, and fails if generated storefront pages differ from the committed files.
 
 Issue templates capture storefront, OmniRoute, and Obsidian tasks with the context needed
 for agent routing and owner review.
+
+Codex, Claude, Devin, and any future automation follow the same repository-level rules in
+`AGENTS.md`. Their access is granted independently; no service receives a shared owner token.
+See `AGENT_ACCESS.md` for the access matrix and verification procedure.
 
 ## Storefront-specific rules
 

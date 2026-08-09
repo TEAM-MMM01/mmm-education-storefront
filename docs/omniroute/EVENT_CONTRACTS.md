@@ -11,6 +11,11 @@ with the real OmniRoute API before production use.
   "source": "github|codex|obsidian|dashboard|storefront",
   "repository": "TEAM-MMM01/mmm-education-storefront",
   "branch": "string",
+  "actor": {
+    "system": "codex|claude|devin|human|other",
+    "identity": "attributable GitHub actor or app",
+    "access_mode": "read|branch_write|pull_request"
+  },
   "risk": "low|medium|high",
   "summary": "string",
   "links": [],
@@ -30,6 +35,8 @@ with the real OmniRoute API before production use.
 | `launch.blocker.resolved` | A launch blocker was removed. |
 | `obsidian.note.promoted` | A note became structured operating context. |
 | `product.ready_for_review` | A product has enough confirmed details for review. |
+| `agent.task.requested` | A redacted, bounded task is ready to be assigned. |
+| `agent.pull_request.opened` | An attributable agent branch produced a draft PR. |
 
 ## Model-routing fields
 
@@ -41,3 +48,13 @@ Every routable task should include:
 - Must-run checks.
 - Output format.
 - Human approval requirement.
+
+## Access boundary
+
+OmniRoute routes redacted task envelopes; it does not grant repository access. Codex,
+Claude, Devin, and any later agent must authenticate to GitHub independently and follow
+`AGENTS.md`. Never include a GitHub token, application private key, customer record, child
+information, or raw Obsidian note in an event payload.
+
+OmniRoute must not push to `main`, merge, deploy, or reuse one agent's branch for another
+agent. Its safe write boundary is an attributable agent branch and draft pull request.

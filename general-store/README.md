@@ -17,6 +17,10 @@ carts never mix.
 
 ## What's real here and what isn't
 
+- **Canonical records live outside generated HTML.** `../catalog/books.json` is the
+  reviewed source for confirmed titles, working-title status, ISBN status, pricing mode,
+  printing source, inventory status, channels, and funding-evidence state. Generated pages
+  must not be treated as product records.
 - **The product catalog is real in structure, fake in specifics.** The Vulturian is listed
   with its title only — price, page count, ISBN, cover, and description are all `[___]`
   placeholders, because this is a real book by real people and nothing about its content has
