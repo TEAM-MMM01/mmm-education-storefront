@@ -6,9 +6,17 @@
 
 - [ ] Storefront source changed
 - [ ] Generated HTML changed by `python3 build.py`
+- [ ] Canonical project or catalog state changed
 - [ ] Documentation only
 - [ ] OmniRoute/dashboard planning only
 - [ ] Obsidian/workflow planning only
+
+## Agent and access safety
+
+- [ ] Work is on a unique branch and does not push directly to `main`.
+- [ ] The author read `AGENTS.md` and the canonical JSON state.
+- [ ] No shared agent credential, customer data, private vault content, or secret was added.
+- [ ] Any agent-access statement distinguishes public read access from verified write access.
 
 ## Storefront safety checklist
 
@@ -25,6 +33,7 @@
 
 ## Testing
 
+- [ ] `python3 tools/validate_project_state.py`
 - [ ] `python3 build.py`
 - [ ] `git diff --check`
 - [ ] Other checks:

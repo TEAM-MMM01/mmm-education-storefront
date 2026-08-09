@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-08-09",
+  "repository": {
+    "current": "TEAM-MMM01/mmm-education-storefront",
+    "preferred_future_name": "TEAM-MMM01/preparation-station",
+    "rename_status": "deferred_pending_pages_domain_and_dependency_audit",
+    "default_branch": "main"
+  },
+  "business": {
+    "brand": "Preparation Station",
+    "legal_operator": "Nationwide Acquisitions, LLC",
+    "public_operator_disclosure": "Preparation Station is operated by Nationwide Acquisitions, LLC.",
+    "assumed_name_status": "unverified",
+    "support_email": "mmminvestment25@gmail.com",
+    "support_email_status": "temporary",
+    "complete_request_acknowledgement": "within_one_business_day"
+  },
+  "programs": {
+    "tefa": {
+      "approval_status": "owner_confirmed",
+      "evidence_status": "pending_repository_record",
+      "public_approval_claim_allowed": false,
+      "product_specific_eligibility_required": true
+    },
+    "pdses_classwallet": {
+      "approval_status": "unknown",
+      "evidence_status": "not_confirmed",
+      "public_approval_claim_allowed": false,
+      "product_specific_eligibility_required": true
+    }
+  },
+  "channels": {
+    "preparation_station": {
+      "purpose": "education_program_information_products_and_quote_requests",
+      "retail_payment_enabled": false
+    },
+    "royal_collexions": {
+      "purpose": "shopify_non_funded_retail_dropshipping_and_fulfillment",
+      "repository": "TEAM-MMM01/royal-collexions-commerce",
+      "repository_status": "planned_or_unverified"
+    }
+  },
+  "systems": {
+    "github": "canonical_code_and_reviewed_docs",
+    "obsidian": "private_human_authored_operating_notes",
+    "omniroute": "model_gateway_not_source_control",
+    "hermes_os": "orchestration_runtime_separate_from_storefront"
+  },
+  "agents": {
+    "codex": {
+      "github_access": "connector_verified_for_this_repository",
+      "write_policy": "branch_and_pull_request_only"
+    },
+    "claude": {
+      "github_access": "requires_separate_github_app_setup",
+      "write_policy": "branch_and_pull_request_only"
+    },
+    "devin": {
+      "github_access": "requires_separate_github_app_setup",
+      "write_policy": "branch_and_pull_request_only"
+    },
+    "omniroute": {
+      "github_access": "not_a_github_permission_manager",
+      "write_policy": "no_shared_repository_credential"
+    }
+  }
+}

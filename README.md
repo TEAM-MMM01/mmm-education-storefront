@@ -8,6 +8,12 @@ See [LAUNCH_AUDIT.md](LAUNCH_AUDIT.md) for the keep / improve / trim / hide-rela
 For a staged product-information release, follow
 [docs/workflow/PRODUCT_INFO_SOFT_LAUNCH.md](docs/workflow/PRODUCT_INFO_SOFT_LAUNCH.md).
 
+Canonical business/program state is recorded in
+[`config/project-state.json`](config/project-state.json), and canonical starter
+book records are in [`catalog/books.json`](catalog/books.json). All coding agents
+must follow [`AGENTS.md`](AGENTS.md); access and PR-only write rules are described
+in [`docs/workflow/AGENT_ACCESS.md`](docs/workflow/AGENT_ACCESS.md).
+
 A self-contained storefront page for families spending TEFA and other state education
 funds with Preparation Station. `index.html` is the deliverable: one file, no build step to
 view it, no network requests at all. Open it in a browser, upload it to any static host,

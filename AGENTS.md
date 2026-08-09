@@ -1,0 +1,83 @@
+# Preparation Station Agent Instructions
+
+These instructions apply to Codex, Claude, Devin, local scripts, and any other
+automation working in this repository.
+
+## Source of truth
+
+- GitHub is the source of truth for code and reviewed operating documentation.
+- Read `config/project-state.json`, `catalog/books.json`, `LAUNCH_AUDIT.md`, and
+  the relevant file under `docs/workflow/` before changing behavior or claims.
+- Do not use OmniRoute, Obsidian, a laptop, or an agent workspace as a second
+  canonical copy of this repository.
+
+## Git workflow
+
+- Start from current `main` and work on `agent/<short-task-name>`.
+- Never push directly to `main`, force-push, auto-merge, or deploy without the
+  owner's explicit approval.
+- Keep one focused change per pull request and explain all generated files.
+- Do not rename the repository in the same pull request as a product, workflow,
+  deployment, or domain change.
+
+## Build and validation
+
+Run these checks before requesting review:
+
+```bash
+python3 tools/validate_project_state.py
+python3 build.py
+git diff --check
+git status --short
+```
+
+When storefront source changes, commit the matching generated HTML from
+`python3 build.py`. Never edit generated HTML as the only source change.
+
+## Approved business facts
+
+- Public brand: Preparation Station.
+- Legal operator: Nationwide Acquisitions, LLC.
+- Approved public disclosure: "Preparation Station is operated by Nationwide
+  Acquisitions, LLC."
+- Temporary support email: `mmminvestment25@gmail.com`.
+- Complete requests are acknowledged within one business day.
+- TEFA approval is owner-confirmed, but evidence must be filed before a public
+  approval claim is enabled.
+- PDSES/ClassWallet status is unknown and must not be advertised as approved.
+- The Vulturian is a confirmed title; its author credit, ISBN, price, format,
+  description, cover, and printing/fulfillment source remain pending.
+
+## Product and channel boundaries
+
+- Preparation Station owns education-program information, educational product
+  presentation, and request/quote workflows.
+- Royal Collexions owns non-funded Shopify commerce, dropshipping, fulfillment,
+  and canonical coloring-book/book master records.
+- Books and coloring books may appear on both sites, but both listings must use
+  one canonical SKU and fulfillment record.
+- Keep retail payment and funded quote/invoice flows separate.
+- Do not describe a product as TEFA- or PDSES-eligible unless current,
+  product-specific evidence is recorded and approved for publication.
+
+## Safety and privacy
+
+- Never commit credentials, tokens, customer records, child information,
+  disability records, school identifiers, financial documents, or raw Obsidian
+  vault contents.
+- Do not share one GitHub credential among agents. Each service must use its own
+  GitHub App or narrowly scoped credential.
+- Every automated write must be attributable to a branch, commit, and pull
+  request. Concurrent agents must use separate branches.
+- Treat OmniRoute as a model gateway. It may route redacted task envelopes, but
+  it does not grant GitHub access and must not receive repository credentials.
+
+## Code Review Rules
+
+- Block unsupported approval, price, inventory, shipping, fulfillment, legal,
+  or launch-readiness claims.
+- Block changes that mix retail checkout with TEFA/PDSES quote or invoice flows.
+- Block direct edits to generated HTML when the corresponding source file was
+  not updated.
+- Block secrets, private notes, or sensitive customer data in tracked files.
+- Require `tools/validate_project_state.py` and `build.py` to pass.
