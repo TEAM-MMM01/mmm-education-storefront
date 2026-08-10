@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "deployment_enabled": false,
+  "release_skus": [],
+  "request_backend": {
+    "e2e_verified": false,
+    "verified_at": null,
+    "owner_notification_verified": false,
+    "customer_confirmation_verified": false
+  },
+  "source_allowlist": {
+    "required": [
+      "index.html",
+      "store/shop.html",
+      "store/product.html",
+      "store/order.html",
+      "store/track.html",
+      "store/cart.js",
+      "store/track.js"
+    ],
+    "optional": [
+      "config/request-intake.json",
+      "config/order-portal.json"
+    ]
+  }
+}
