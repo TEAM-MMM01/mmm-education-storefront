@@ -45,6 +45,9 @@ async function main() {
     intake.validateRequestConfig({ ...readyConfig, allowed_skus: ['PS-PR-101', 'PS-PR-101'] }),
     { valid: false, reason: 'invalid_allowed_skus' },
   );
+  assert.equal(intake.requestSkuEnabled(readyConfig, 'PS-PR-101'), true);
+  assert.equal(intake.requestSkuEnabled(readyConfig, 'PS-HS-504'), false);
+  assert.equal(intake.requestSkuEnabled({ ...readyConfig, enabled: false }, 'PS-PR-101'), false);
   for (const endpoint of [
     'http://formspree.io/f/test',
     'https://evil.example/f/test',

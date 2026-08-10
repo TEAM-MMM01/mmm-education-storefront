@@ -91,6 +91,7 @@ def validate_public_source() -> None:
         "Free shipping": "unsupported free-shipping claim",
         "% of every order": "unsupported environmental sales claim",
         "fixed share": "unsupported environmental sales claim",
+        "carbon reinvested": "unsupported environmental sales claim",
     }
     for path in source_paths:
         text = path.read_text(encoding="utf-8")
@@ -113,6 +114,7 @@ def validate_generated_html() -> None:
         "Free shipping": "unsupported free-shipping claim",
         "% of every order": "unsupported environmental sales claim",
         "fixed share": "unsupported environmental sales claim",
+        "carbon reinvested": "unsupported environmental sales claim",
     }
     for path in GENERATED_HTML:
         text = path.read_text(encoding="utf-8")
@@ -284,6 +286,19 @@ def validate_products(catalog: dict) -> set[str]:
         text = path.read_text(encoding="utf-8")
         require(re.search(r"\$\d+\.\d{2}", text) is None, f"Unverified public price in {path.relative_to(ROOT)}")
         require("data-add-to-cart" not in text, f"Unverified product is addable in {path.relative_to(ROOT)}")
+    request_button_skus = set(
+        re.findall(
+            r'data-request-sku="(PS-[A-Z]{2}-\d{3})"',
+            (ROOT / "store" / "src" / "shop.html").read_text(encoding="utf-8"),
+        )
+    )
+    request_button_skus.update(
+        re.findall(
+            r'data-request-sku="(PS-[A-Z]{2}-\d{3})"',
+            (ROOT / "store" / "src" / "product.html").read_text(encoding="utf-8"),
+        )
+    )
+    require(request_button_skus == seen, "Information-request controls must cover every canonical SKU")
     return seen
 
 

@@ -69,7 +69,7 @@ __STORE_SHARED_CSS__
               <input type="text" id="pd-qty" value="1" inputmode="numeric" data-qty-for="PS-AT-401" aria-label="Quantity">
               <button type="button" data-step="1" onclick="var i=document.getElementById('pd-qty'); i.value=(parseInt(i.value,10)||1)+1">+</button>
             </span>
-            <button class="btn btn-solid" type="button" disabled aria-disabled="true">Offering review pending</button>
+            <button class="btn btn-solid" type="button" data-request-sku="PS-AT-401" disabled aria-disabled="true">Offering review pending</button>
           </div>
           <p style="font-size:.86rem; color:var(--muted); max-width:48ch">Adding to this list does not charge
             anything. TEFA purchases happen in Odyssey after the offering is approved; this site only
