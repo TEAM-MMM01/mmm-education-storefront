@@ -68,9 +68,11 @@ supports it; do not claim email confirmation until that workflow is tested.
    credential; never commit an API key, deploy key, token, or account password.
 6. Add only verified launch products to `allowed_skus`. Each value must be an
    existing `PS-...` SKU in `store/cart.js`. Keep the list empty while no
-   product has verified price, availability, and fulfillment facts. A mixed
-   cart containing any SKU outside this allowlist is refused rather than
-   silently submitting an incomplete request.
+   product has verified price, availability, and fulfillment facts. When the
+   configuration is enabled, the browser changes only allowlisted products from
+   “Offering review pending” to “Add to information request.” A mixed cart
+   containing any SKU outside this allowlist is refused rather than silently
+   submitting an incomplete request.
 7. Set the endpoint in `config/request-intake.json`, then set `enabled` to
    `true` in the same reviewed pull request. Validation rejects an enabled
    configuration with an empty or unknown SKU allowlist.

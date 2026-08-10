@@ -1,18 +1,18 @@
 # TEFA / ESA launch audit
 
-Reviewed against the merged `main` state from pull request #1. This audit treats the repository as the source of truth and does not assume that prototype behavior is production-ready.
+Reviewed against the merged `main` state from pull request #10. This audit treats the repository as the source of truth and does not assume that disabled foundations are production services.
 
 ## Recommendation
 
-**Hold public launch. Prepare an ESA-only release. Keep General Store outside the public buyer path.**
+**Publish only a truthful TEFA vendor and catalog-information release. Keep every purchase, request, and order-data service disabled until its own gate passes.**
 
-The separation between ESA-funded ordering and direct retail is correct. However, the current ESA experience still includes launch placeholders, illustrative pricing, stand-in product-detail routing, and an operator-light `mailto:` quote flow. General Store remains a useful prototype but does not have real payments, tax calculation, finalized product data, order creation, or fulfillment operations.
+Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor operating Preparation Station. Each offering still requires separate Odyssey review, and TEFA purchases plus official order history remain in Odyssey. Direct retail is a separate future channel.
 
 ## 1. Keep
 
 - The strict separation between ESA/TEFA invoice flows and direct retail.
-- ESA's invoice-first, approval-aware ordering model with no fake card checkout.
-- Funding copy that leaves eligibility, approval, and reimbursement decisions with program administrators.
+- Odyssey as the only TEFA purchase and official order-history system.
+- Funding copy that distinguishes vendor approval from offering approval.
 - The shared styling/build structure, accessible themes, print support, and reduced-motion behavior.
 - General Store as a development-only preview for staged rollout.
 
@@ -21,7 +21,7 @@ The separation between ESA-funded ordering and direct retail is correct. However
 - Replace all public placeholders: contact details, hours, response times, shipping turnaround, legal business identity, returns, accepted programs, and operating commitments.
 - Verify supplier cost, public price, margin, packaging, inventory/made-to-order rule, and fulfillment expectations for every ESA SKU.
 - Give each ESA product a complete, accurate product-detail page instead of routing all cards to one stand-in page.
-- Replace the `mailto:`-only quote path with a reliable customer confirmation plus internal owner, record, task, and follow-up.
+- Configure and rehearse the disabled Formspree request path only after at least one SKU is verified and allowlisted.
 - Add final mobile/desktop regression coverage after real content is inserted.
 
 ## 3. Trim
@@ -42,15 +42,15 @@ The separation between ESA-funded ordering and direct retail is correct. However
 
 ### Business facts
 
-Phone, hours, legal business name, response time, shipping turnaround, returns, direct-purchase terms, and support ownership must be verified.
+Phone, hours, shipping turnaround, returns, direct-purchase terms, and permanent support ownership must be verified. The legal operator and temporary support email are recorded.
 
 ### Product truth
 
 Illustrative pricing, repeated stand-in product pages, unfinished book metadata, working-title coloring books, and placeholder images cannot appear as finished customer facts.
 
-### ESA operations
+### TEFA operations
 
-Quote requests need a dependable confirmation and internal record. The team must be able to receive, own, fulfill, and follow up on each request without improvising.
+Upload offerings in Odyssey, record each offering ID and review status, and keep funded purchases in Odyssey. The website request path stays disabled until its Formspree endpoint and SKU allowlist pass rehearsal.
 
 ### Retail operations
 
@@ -58,12 +58,12 @@ General Store needs a PCI-compliant processor, real tax configuration, accurate 
 
 ## Launch gates
 
-The ESA-only release can move forward when all of the following are true:
+The public information release can move forward when all of the following are true:
 
 - No public ESA page contains `[___]`, `[__]`, `TBD`, unfinished business claims, or prototype-only stand-ins.
 - Every public ESA product has verified content, price, fit, shipping expectation, and return/support guidance.
-- Every quote request sends a customer confirmation and creates an owned internal task/record.
-- Navigation makes ESA the obvious primary path and keeps General Store out of the buyer journey.
+- No disabled request, tracking, or checkout control implies that a live service exists.
+- Navigation makes TEFA/Odyssey the obvious funded-purchase path and keeps General Store out of the deployed artifact.
 - Build and smoke checks pass on the final generated pages at mobile and desktop widths.
 
 ## Ruthless review conclusion
@@ -71,4 +71,4 @@ The ESA-only release can move forward when all of the following are true:
 - **Improved:** launch language, path priority, and the documented source of truth.
 - **Trimmed:** false-live retail signals and equal prominence for unfinished commerce.
 - **Intentionally left out:** fake payments, generic tax/legal claims, invented book/product details, and speculative public promises.
-- **Ship decision:** do not ship the current tree as public commerce. Complete the gates above, then launch ESA only.
+- **Ship decision:** do not ship the current tree as public commerce. Complete the gates above, then publish the TEFA vendor and catalog-information release only.

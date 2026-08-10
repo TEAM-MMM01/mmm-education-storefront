@@ -304,6 +304,36 @@
     });
   }
 
+  function requestSkuEnabled(config, sku) {
+    return Boolean(
+      config &&
+      config.enabled === true &&
+      Array.isArray(config.allowed_skus) &&
+      config.allowed_skus.includes(sku) &&
+      Object.prototype.hasOwnProperty.call(PRODUCTS, sku)
+    );
+  }
+
+  function configureRequestButtons(config) {
+    if (typeof document === 'undefined') return;
+    document.querySelectorAll('[data-request-sku]').forEach(function (button) {
+      const sku = button.getAttribute('data-request-sku');
+      const enabled = requestSkuEnabled(config, sku);
+      button.disabled = !enabled;
+      button.setAttribute('aria-disabled', String(!enabled));
+      button.textContent = enabled ? 'Add to information request' : 'Offering review pending';
+      if (!enabled || button.dataset.requestHandlerBound === 'true') return;
+      button.dataset.requestHandlerBound = 'true';
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        const qtyInput = document.querySelector('[data-qty-for="' + sku + '"]');
+        const qty = qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1;
+        addToCart(sku, qty);
+        toast(PRODUCTS[sku].name + ' added — ' + cartCount() + ' in request');
+      });
+    });
+  }
+
   function toast(msg) {
     let t = document.getElementById('preparation-station-toast');
     if (!t) {
@@ -338,6 +368,7 @@
           toast((p ? p.name : sku) + ' added — ' + cartCount() + ' in order');
         });
       });
+      initializeRequestButtons();
 
       // Order page render and request intake.
       const list = document.getElementById('order-list');
@@ -529,6 +560,17 @@
     return response.json();
   }
 
+  async function initializeRequestButtons() {
+    if (typeof document === 'undefined' || !document.querySelector('[data-request-sku]')) return;
+    try {
+      const config = await loadRequestConfig();
+      const result = validateRequestConfig(config);
+      configureRequestButtons(result.valid && result.enabled ? config : null);
+    } catch (error) {
+      configureRequestButtons(null);
+    }
+  }
+
   function requestFormValues(form) {
     return {
       adultName: form.querySelector('#quote-name').value,
@@ -683,6 +725,7 @@
       postRequest,
       friendlyRequestError,
       privacyNotice,
+      requestSkuEnabled,
     },
   };
   if (typeof window !== 'undefined') window.preparationStationCart = exported;

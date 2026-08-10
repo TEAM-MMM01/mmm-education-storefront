@@ -117,6 +117,7 @@
     }
 
     status.textContent = 'Enter the adult email used for the order. We will send a secure access link if a matching account exists.';
+    button.textContent = 'Email my secure tracking link';
     button.disabled = false;
     button.removeAttribute('aria-disabled');
 
