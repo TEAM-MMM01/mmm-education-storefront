@@ -54,3 +54,13 @@ jobs:
             echo "$changes"
             exit 1
           fi
+
+      - name: Build non-deployable release artifact for boundary checks
+        run: >-
+          python3 tools/build_pages_release.py
+          --output "${{ runner.temp }}/pages-release"
+
+      - name: Smoke-test release artifact boundaries
+        run: >-
+          python3 tools/test_pages_release.py
+          "${{ runner.temp }}/pages-release"
