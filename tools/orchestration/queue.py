@@ -123,7 +123,11 @@ def cmd_enqueue(args: argparse.Namespace) -> int:
         "created_at": now_iso(),
         "updated_at": now_iso(),
     }
-    _safe_record_path(workflow_id).write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+    record_path = _safe_record_path(workflow_id)
+    if record_path.exists():
+        print(f"ERROR: workflow {workflow_id} already exists; use 'update' instead", file=sys.stderr)
+        return 1
+    record_path.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     print(f"enqueued {workflow_id} ({args.state})")
     return 0
 
