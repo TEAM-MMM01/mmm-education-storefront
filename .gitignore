@@ -24,3 +24,6 @@ tools/agent_loop/report.json
 
 # Local notification credentials (never commit)
 .env
+
+# Local notification credentials (never commit)
+.env
