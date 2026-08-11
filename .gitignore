@@ -18,3 +18,9 @@ _audits/
 # Python virtualenvs
 .venv/
 venv/
+
+# Baby-agent run output (regenerated on every invocation)
+tools/agent_loop/report.json
+
+# Orchestration runtime output (regenerated on every invocation)
+.hermes-mac/

@@ -27,12 +27,46 @@ Run these checks before requesting review:
 ```bash
 python3 tools/validate_project_state.py
 python3 build.py
+python3 tools/check_untracked.py   # once PR #13 lands on main
 git diff --check
 git status --short
 ```
 
 When storefront source changes, commit the matching generated HTML from
 `python3 build.py`. Never edit generated HTML as the only source change.
+
+For the device sync recipe (clones, branches, daily routine, recovery),
+follow `docs/workflow/SYNC_RUNBOOK.md` in addition to the workflow docs
+listed below.
+
+For Mac orchestration (queue, connectivity, EOD Huddle agenda), use
+`tools/orchestration/` in this repo. These scripts are pure local and
+require no remote calls.
+
+## Tiered execution and EOD Huddle
+
+This repository follows the HermesOS Control Plane doctrine. Every agent
+session must classify its work by tier and L4 risk:
+
+- **Tier 1** — begin automatically: read-only discovery, audits, docs,
+  drafts, queue design, test plans, local verification.
+- **Tier 2** — begin after scope verification: reversible implementation,
+  branch-based code changes, local scripts, PR-ready implementations.
+- **Tier 3** — prepare, verify, then request Richie approval before
+  executing: production deployments, secret rotation, customer
+  communications, financial actions, destructive changes, public
+  messaging, pricing or strategy changes.
+
+Workflow truth states (use only these exact seven):
+
+`Locally Complete`, `Queued for Remote Execution`, `Remote Attempted`,
+`Remotely Verified`, `Blocked`, `Awaiting Approval`, `Needs Richie's Lock`.
+
+A successful UI, a local commit, a sent message, or a green CI run is
+never by itself proof of completion. Verifiers must be a different
+model from the writer for L4-2 and above. Unresolved questions are
+parked in the EOD Huddle ledger (`obsidian-vault/00-HQ/EOD-Huddle/`)
+so nothing disappears.
 
 ## Approved business facts
 
