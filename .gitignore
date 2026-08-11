@@ -27,8 +27,5 @@ venv/
 # Baby-agent run output (regenerated on every invocation)
 tools/agent_loop/report.json
 
-# Local notification credentials (never commit)
-.env
-
-# Local notification credentials (never commit)
-.env
+# Orchestration runtime output (regenerated on every invocation)
+.hermes-mac/
