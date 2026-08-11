@@ -43,7 +43,7 @@ or writes anything outside the repository root.
 ```bash
 # 1. Write a task spec under tasks/<name>.md (see tasks/README.md).
 # 2. From the repo root, on current main:
-bash tools/agent_loop/run.sh fix/typo-in-README
+bash tools/agent_loop/run.sh agent/fix-typo-in-README
 
 # 3. Read report.json for the PR URL (or the failure reason).
 cat report.json
@@ -60,8 +60,7 @@ cat report.json
   no `shell=True`. User-supplied strings are passed only as positional
   arguments after explicit allowlist checks.
 - **Allowlisted branch prefixes.** The harness refuses any task name that
-  would produce a branch not starting with `agent/`, `feature/`, `docs/`,
-  or `fix/`.
+  would produce a branch not starting with `agent/`.
 - **Allowlisted file paths.** The baby-agent edits only files declared in
   `tasks/<name>.md` under a `paths:` list. Files outside the list cause an
   abort.

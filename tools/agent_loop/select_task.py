@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 TASKS_DIR = ROOT / "tools" / "agent_loop" / "tasks"
 
 TASK_NAME_RE = re.compile(r"^[a-zA-Z0-9._/-]+$")
-ALLOWED_BRANCH_PREFIXES = ("agent/", "feature/", "docs/", "fix/")
+ALLOWED_BRANCH_PREFIXES = ("agent/",)
 
 
 def main() -> int:
@@ -38,7 +38,11 @@ def main() -> int:
         )
         return 2
 
-    spec_path = TASKS_DIR / f"{args.task_name}.md"
+    # Prevent directory traversal.
+    spec_path = (TASKS_DIR / f"{args.task_name}.md").resolve()
+    if not str(spec_path).startswith(str(TASKS_DIR.resolve()) + "/"):
+        print(f"ERROR: task name escapes the tasks directory", file=sys.stderr)
+        return 2
     if not spec_path.exists():
         print(f"ERROR: no task spec at {spec_path.relative_to(ROOT)}", file=sys.stderr)
         return 1

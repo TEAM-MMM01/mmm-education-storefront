@@ -35,7 +35,8 @@ ROOT = Path(__file__).resolve().parents[2]
 TASKS_DIR = ROOT / "tools" / "agent_loop" / "tasks"
 REPORT_PATH = ROOT / "tools" / "agent_loop" / "report.json"
 
-ALLOWED_BRANCH_PREFIXES = ("agent/", "feature/", "docs/", "fix/")
+# Only agent/ branches per AGENTS.md convention.
+ALLOWED_BRANCH_PREFIXES = ("agent/",)
 TASK_NAME_RE = re.compile(r"^[a-zA-Z0-9._/-]+$")
 
 
@@ -123,28 +124,50 @@ def validate_task_name(name: str) -> str:
             + ", ".join(ALLOWED_BRANCH_PREFIXES)
             + f" (got: {name!r})"
         )
+    # Prevent directory traversal: resolved path must stay under TASKS_DIR.
+    candidate = (TASKS_DIR / f"{name}.md").resolve()
+    if not str(candidate).startswith(str(TASKS_DIR.resolve()) + "/"):
+        raise SystemExit(f"ERROR: task name {name!r} escapes the tasks directory")
     return name
 
 
 def load_task_spec(name: str) -> dict:
-    spec_path = TASKS_DIR / f"{name}.md"
+    spec_path = (TASKS_DIR / f"{name}.md").resolve()
+    # Double-check traversal guard at runtime.
+    if not str(spec_path).startswith(str(TASKS_DIR.resolve()) + "/"):
+        raise SystemExit(f"ERROR: task spec path escapes the tasks directory")
     if not spec_path.exists():
         raise SystemExit(f"ERROR: missing task spec at {spec_path.relative_to(ROOT)}")
     text = spec_path.read_text(encoding="utf-8")
     paths: list[str] = []
-    summary = ""
+    summary_lines: list[str] = []
+    in_paths = False
+    in_summary = False
     for line in text.splitlines():
         stripped = line.strip()
-        if stripped.startswith("- "):
+        # Track sections by heading.
+        if stripped.lower().rstrip(":") in ("paths", "summary"):
+            in_paths = stripped.lower().startswith("paths")
+            in_summary = stripped.lower().startswith("summary")
+            continue
+        # A new heading resets section tracking.
+        if stripped.startswith("#") and not stripped.startswith("- "):
+            in_paths = False
+            in_summary = False
+            continue
+        if in_paths and stripped.startswith("- "):
             candidate = stripped[2:].strip()
             if candidate and not candidate.startswith("#"):
                 paths.append(candidate)
+        elif in_summary and stripped:
+            summary_lines.append(stripped)
         elif stripped.lower().startswith("summary:"):
-            summary = stripped.split(":", 1)[1].strip()
+            summary_lines.append(stripped.split(":", 1)[1].strip())
     if not paths:
         raise SystemExit(
-            f"ERROR: task spec {spec_path.relative_to(ROOT)} must declare at least one path under a `- ` list"
+            f"ERROR: task spec {spec_path.relative_to(ROOT)} must declare at least one path under a `paths:` section"
         )
+    summary = "\n".join(summary_lines).strip()
     return {"path": spec_path, "paths": paths, "summary": summary}
 
 
@@ -161,9 +184,22 @@ def create_branch(name: str, report: dict) -> None:
     if existing.stdout.strip():
         fail(report, f"branch {name!r} already exists locally; pick a new task name")
     run_git("checkout", "main", check=True)
-    run_git("pull", "--ff-only", "origin", "main", check=False)
+    # Fail hard if main is not up to date — do not silently continue.
+    pull = run_git("pull", "--ff-only", "origin", "main", check=False)
+    if pull.returncode != 0:
+        fail(report, f"git pull --ff-only failed: {pull.stderr.strip()}")
     run_git("checkout", "-b", name, check=True)
     report["branch"] = name
+
+
+def verify_on_branch(report: dict) -> None:
+    """In verify mode, confirm we're on the expected task branch."""
+    result = run_git("rev-parse", "--abbrev-ref", "HEAD", check=False)
+    branch = result.stdout.strip()
+    expected = report["task_name"]
+    if branch != expected:
+        fail(report, f"expected to be on branch {expected!r}, but on {branch!r}")
+    report["branch"] = branch
 
 
 def verify_paths_only(spec_paths: list[str]) -> None:
@@ -178,7 +214,13 @@ def verify_paths_only(spec_paths: list[str]) -> None:
     for line in changed:
         path = line[3:]
         if " -> " in path:
-            path = path.split(" -> ", 1)[1]
+            # Validate both sides of a rename.
+            src, dst = path.split(" -> ", 1)
+            if src not in spec_paths:
+                offending.append(src)
+            if dst not in spec_paths:
+                offending.append(dst)
+            continue
         if path not in spec_paths:
             offending.append(path)
     if offending:
@@ -193,9 +235,13 @@ def run_checks(report: dict) -> None:
         ("check_untracked", "tools/check_untracked.py"),
         ("validate_project_state", "tools/validate_project_state.py"),
         ("build", "build.py"),
+        ("git_diff_check", None),  # special: inline
     ]
     for name, script in checks:
-        completed = run_python(script, check=False)
+        if name == "git_diff_check":
+            completed = run_git("diff", "--check", check=False)
+        else:
+            completed = run_python(script, check=False)
         report["checks"][name] = {
             "exit_code": completed.returncode,
             "stdout_tail": completed.stdout[-400:],
@@ -207,39 +253,25 @@ def run_checks(report: dict) -> None:
 
 def commit_and_push(spec: dict, report: dict) -> None:
     run_git("add", "--", *spec["paths"], check=True)
+    # Re-check for build-generated changes that may have appeared after checks.
+    status = run_git("status", "--porcelain", check=False)
+    if not status.stdout.strip():
+        fail(report, "no staged changes; baby-agent made no edits")
+    # Stage everything tracked (including build outputs).
+    run_git("add", "-A", check=True)
     diff = run_git("diff", "--cached", "--stat", check=True).stdout
     if not diff.strip():
-        fail(report, "no staged changes; baby-agent made no edits")
+        fail(report, "no staged changes after build; baby-agent made no edits")
     title = f"agent: {Path(report['task_name']).name}"
-    body_lines = [
-        spec["summary"] or "Automated change by tools/agent_loop/baby_agent.py.",
-        "",
-        "Scope (paths touched, declared in task spec):",
-        *[f"- `{p}`" for p in spec["paths"]],
-        "",
-        "Pre-PR checks:",
-        "- check_untracked.py (local-only path guard)",
-        "- validate_project_state.py (canonical facts + catalog + JS portals)",
-        "- build.py (idempotent static-site build)",
-        "",
-        "Draft PR only. Owner review and merge required per AGENTS.md.",
-    ]
     run_git("commit", "-m", title, check=True)
-    run_git("push", "--set-upstream", "origin", report["branch"], check=True)
+    # Record commit/push failures through fail() instead of raising.
+    push = run_git("push", "--set-upstream", "origin", report["branch"], check=False)
+    if push.returncode != 0:
+        fail(report, f"git push failed: {push.stderr.strip()}")
 
 
-def open_draft_pr(report: dict) -> None:
+def open_draft_pr(report: dict, body: str) -> None:
     title = f"agent: {Path(report['task_name']).name}"
-    body = "\n".join(
-        [
-            "Draft PR opened by `tools/agent_loop/baby_agent.py`.",
-            "",
-            "Owner action required per AGENTS.md.",
-            "",
-            "- [ ] Owner review",
-            "- [ ] Manual merge (no auto-merge configured)",
-        ]
-    )
     completed = run_gh(
         "pr",
         "create",
@@ -267,7 +299,8 @@ def open_draft_pr(report: dict) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run a baby-agent task.")
-    parser.add_argument("task_name", help="Task name, e.g. fix/typo-in-README")
+    parser.add_argument("--verify", action="store_true", help="Run checks, push, and open the draft PR")
+    parser.add_argument("task_name", help="Task name, e.g. agent/fix-typo-in-README")
     args = parser.parse_args()
     task_name = validate_task_name(args.task_name)
 
@@ -275,29 +308,41 @@ def main() -> int:
     spec = load_task_spec(task_name)
     report["notes"].append(f"loaded spec with {len(spec['paths'])} allowed paths")
 
-    ensure_clean_main(report)
-    create_branch(task_name, report)
-    report["notes"].append("branch created; waiting for caller to apply edits and re-invoke --verify")
-
-    # The harness is intentionally a state machine: a parent agent applies
-    # the edit, then re-invokes this script with --verify to finish the
-    # push + PR step. We do not edit files ourselves in this scaffold so
-    # the harness is auditable and the parent stays in control.
-    if "--verify" not in sys.argv:
+    if not args.verify:
+        # Phase 1: create branch, then exit for the caller to apply edits.
+        ensure_clean_main(report)
+        create_branch(task_name, report)
+        report["notes"].append("branch created; waiting for caller to apply edits and re-invoke --verify")
+        report["result"] = "branched"
+        report["finished_at"] = now_iso()
+        report_write(report)
         print(
             "Branch created. Apply the edits declared in "
             f"{spec['path'].relative_to(ROOT)}, then re-run:\n"
             f"  python3 tools/agent_loop/baby_agent.py --verify {task_name}"
         )
-        report["result"] = "branched"
-        report["finished_at"] = now_iso()
-        report_write(report)
         return 0
 
+    # Phase 2: verify, commit, push, open PR.
+    verify_on_branch(report)
     verify_paths_only(spec["paths"])
     run_checks(report)
     commit_and_push(spec, report)
-    open_draft_pr(report)
+    body_lines = [
+        spec["summary"] or "Automated change by tools/agent_loop/baby_agent.py.",
+        "",
+        "Scope (paths touched, declared in task spec):",
+        *[f"- `{p}`" for p in spec["paths"]],
+        "",
+        "Pre-PR checks:",
+        "- check_untracked.py (local-only path guard)",
+        "- validate_project_state.py (canonical facts + catalog + JS portals)",
+        "- build.py (idempotent static-site build)",
+        "- git diff --check (whitespace errors)",
+        "",
+        "Draft PR only. Owner review and merge required per AGENTS.md.",
+    ]
+    open_draft_pr(report, "\n".join(body_lines))
 
     report["result"] = "pr_opened"
     report["finished_at"] = now_iso()
