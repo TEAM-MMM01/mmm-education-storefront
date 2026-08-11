@@ -4,12 +4,7 @@
 
 **Current recommendation: publish a truthful TEFA vendor/catalog information release first.** Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor operating Preparation Station. Each offering still requires separate Odyssey review, and TEFA purchases plus official order history remain in Odyssey. General Store remains a development preview and does not accept payment.
 
-Per the HermesOS Control Plane doctrine (recorded 2026-08-10), the
-storefront is currently in **ESA-only / internal-complete** posture — not
-a public launch. Public-facing launch requires explicit owner lock on
-each item in
-[`obsidian-vault/00-HQ/EOD-Huddle/EOD-Huddle-Pending-Locks.md`](https://github.com/TEAM-MMM01/obsidian-vault/blob/main/00-HQ/EOD-Huddle/EOD-Huddle-Pending-Locks.md)
-and resolution of open issues
+The storefront is in **private-preview / not publicly launched**. Public-facing launch requires resolution of open issues
 [#5](https://github.com/TEAM-MMM01/mmm-education-storefront/issues/5),
 [#6](https://github.com/TEAM-MMM01/mmm-education-storefront/issues/6),
 [#7](https://github.com/TEAM-MMM01/mmm-education-storefront/issues/7), and
