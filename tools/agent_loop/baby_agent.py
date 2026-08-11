@@ -49,6 +49,9 @@ _BRANCH_RE = re.compile(r"^[a-zA-Z0-9_\-/]+$")
 # Only these executables may be invoked by the baby-agent harness.
 _ALLOWED_CMDS = frozenset({"git", "python3", "gh"})
 
+# Timeout for each subprocess call (seconds). Prevents indefinite hangs.
+TIMEOUT_SECONDS = 120
+
 
 def _sanitize_branch(name: str) -> str:
     """Validate a branch name to prevent shell injection."""
@@ -61,17 +64,17 @@ def _sanitize_branch(name: str) -> str:
 
 def run_git(*args: str, check: bool = True, cwd: Path | None = None) -> subprocess.CompletedProcess:
     """Run a git command with validated arguments."""
-    return subprocess.run(["git", *args], cwd=cwd or ROOT, check=check, capture_output=True, text=True)
+    return subprocess.run(["git", *args], cwd=cwd or ROOT, check=check, capture_output=True, text=True, timeout=TIMEOUT_SECONDS)
 
 
 def run_python(script: str, *args: str, check: bool = True, cwd: Path | None = None) -> subprocess.CompletedProcess:
     """Run a python3 script with validated arguments."""
-    return subprocess.run(["python3", script, *args], cwd=cwd or ROOT, check=check, capture_output=True, text=True)
+    return subprocess.run(["python3", script, *args], cwd=cwd or ROOT, check=check, capture_output=True, text=True, timeout=TIMEOUT_SECONDS)
 
 
 def run_gh(*args: str, check: bool = True, cwd: Path | None = None) -> subprocess.CompletedProcess:
     """Run a gh CLI command with validated arguments."""
-    return subprocess.run(["gh", *args], cwd=cwd or ROOT, check=check, capture_output=True, text=True)
+    return subprocess.run(["gh", *args], cwd=cwd or ROOT, check=check, capture_output=True, text=True, timeout=TIMEOUT_SECONDS)
 
 
 def run(argv: list[str], *, check: bool = True, cwd: Path | None = None) -> subprocess.CompletedProcess:
@@ -92,6 +95,7 @@ def run(argv: list[str], *, check: bool = True, cwd: Path | None = None) -> subp
         check=check,
         capture_output=True,
         text=True,
+        timeout=TIMEOUT_SECONDS,
     )
 
 
@@ -268,13 +272,22 @@ def run_checks(report: dict) -> None:
 
 
 def commit_and_push(spec: dict, report: dict) -> None:
+    # Stage only the paths declared in the task spec.
     run_git("add", "--", *spec["paths"], check=True)
-    # Re-check for build-generated changes that may have appeared after checks.
     status = run_git("status", "--porcelain", check=False)
     if not status.stdout.strip():
         fail(report, "no staged changes; baby-agent made no edits")
-    # Stage everything tracked (including build outputs).
-    run_git("add", "-A", check=True)
+    # Warn if there are unstaged changes outside allowed paths (do not stage them).
+    unstaged = run_git("status", "--porcelain", "--", *spec["paths"], check=False)
+    all_files = run_git("status", "--porcelain", check=False)
+    allowed_set = set(spec["paths"])
+    for line in all_files.stdout.strip().splitlines():
+        if not line.strip():
+            continue
+        # Status format: XY filename
+        fname = line[3:].strip()
+        if fname not in allowed_set:
+            report["notes"].append(f"WARNING: unstaged change outside allowed paths: {fname}")
     diff = run_git("diff", "--cached", "--stat", check=True).stdout
     if not diff.strip():
         fail(report, "no staged changes after build; baby-agent made no edits")

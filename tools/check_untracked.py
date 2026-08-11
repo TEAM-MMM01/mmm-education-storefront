@@ -34,6 +34,9 @@ FORBIDDEN: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r".*/?\.DS_Store$"), "macOS Finder metadata"),
     (re.compile(r".*\.log$"), "Log file (likely local scratch)"),
     (re.compile(r".*\.(swp|swo)$|.*~$", re.IGNORECASE), "Editor swap/backup file"),
+    (re.compile(r"(^|.*/)\.env$"), "Environment token file (NEVER commit)"),
+    (re.compile(r"(^|.*/)\.env\.(?!example$)[^/]+$"), "Environment token file (NEVER commit)"),
+    (re.compile(r"(^|.*/)\.hermes-mac(/|$)"), "HermesOS local queue state (never commit)"),
 ]
 
 # Top-level entries we never descend into, even if they exist on disk.

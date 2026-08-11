@@ -19,6 +19,11 @@ _audits/
 .venv/
 venv/
 
+# Environment tokens (NEVER commit)
+.env
+.env.*
+!.env.example
+
 # Baby-agent run output (regenerated on every invocation)
 tools/agent_loop/report.json
 

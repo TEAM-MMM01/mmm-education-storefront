@@ -21,7 +21,6 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
 import sys
 from urllib.request import Request, urlopen
 from urllib.error import URLError
