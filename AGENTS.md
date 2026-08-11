@@ -31,8 +31,17 @@ git diff --check
 git status --short
 ```
 
+The first command also runs the storefront JavaScript / order-portal checks
+defined in `tools/` (request intake, order tracking). The build pipeline
+itself runs `python3 tools/check_untracked.py` (via `.github/workflows/build.yml`)
+to reject any forbidden local-only path that has slipped past `.gitignore`.
+
 When storefront source changes, commit the matching generated HTML from
 `python3 build.py`. Never edit generated HTML as the only source change.
+
+For the device sync recipe (clones, branches, daily routine, recovery),
+follow `docs/workflow/SYNC_RUNBOOK.md` in addition to the workflow docs
+listed below.
 
 ## Approved business facts
 
