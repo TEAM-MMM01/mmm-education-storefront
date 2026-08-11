@@ -122,15 +122,12 @@ def fail(report: dict, message: str, code: int = 1) -> "None":
 
 def _notify_failure(task_name: str, error: str) -> None:
     """Best-effort notification on failure. Never blocks the main flow."""
-def _notify_failure(task_name: str, error: str) -> None:
-    """Best-effort notification on failure. Never blocks the main flow."""
     try:
         if str(ROOT) not in sys.path:
             sys.path.insert(0, str(ROOT))
-        from tools.notifications import send_telegram, send_slack, fmt_task_failed
+        from tools.notifications import notify_routed, fmt_task_failed
         text = fmt_task_failed(task_name, error)
-        send_telegram(text)
-        send_slack(text)
+        notify_routed(text, business="preparation-station", event_type="task")
     except Exception:
         pass  # Notification is best-effort; never crash on failure.
 
@@ -384,13 +381,12 @@ def main() -> int:
 def _notify_pr_opened(report: dict) -> None:
     """Best-effort notification when a PR is opened. Never blocks."""
     try:
-        from tools.notifications import send_telegram, send_slack, fmt_pr_opened
+        from tools.notifications import notify_routed, fmt_pr_opened
         pr_num = report["pr"].get("number", 0)
         branch = report["branch"]
         task = Path(report["task_name"]).name
         text = fmt_pr_opened(pr_num, branch, f"agent: {task}")
-        send_telegram(text)
-        send_slack(text)
+        notify_routed(text, business="preparation-station", event_type="pr")
     except Exception:
         pass
 
