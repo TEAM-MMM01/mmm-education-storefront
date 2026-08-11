@@ -112,7 +112,19 @@ def fail(report: dict, message: str, code: int = 1) -> "None":
     report["finished_at"] = now_iso()
     report_write(report)
     print(f"ERROR: {message}", file=sys.stderr)
+    _notify_failure(report["task_name"], message)
     raise SystemExit(code)
+
+
+def _notify_failure(task_name: str, error: str) -> None:
+    """Best-effort notification on failure. Never blocks the main flow."""
+    try:
+        from tools.notifications import send_telegram, send_slack, fmt_task_failed
+        text = fmt_task_failed(task_name, error)
+        send_telegram(text)
+        send_slack(text)
+    except Exception:
+        pass  # Notification is best-effort; never crash on failure.
 
 
 def validate_task_name(name: str) -> str:
@@ -348,7 +360,22 @@ def main() -> int:
     report["finished_at"] = now_iso()
     report_write(report)
     print(f"PR opened: {report['pr']['url']}")
+    _notify_pr_opened(report)
     return 0
+
+
+def _notify_pr_opened(report: dict) -> None:
+    """Best-effort notification when a PR is opened. Never blocks."""
+    try:
+        from tools.notifications import send_telegram, send_slack, fmt_pr_opened
+        pr_num = report["pr"].get("number", 0)
+        branch = report["branch"]
+        task = Path(report["task_name"]).name
+        text = fmt_pr_opened(pr_num, branch, f"agent: {task}")
+        send_telegram(text)
+        send_slack(text)
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":
