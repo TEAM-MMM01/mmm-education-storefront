@@ -21,3 +21,6 @@ venv/
 
 # Baby-agent run output (regenerated on every invocation)
 tools/agent_loop/report.json
+
+# Local notification credentials (never commit)
+.env
