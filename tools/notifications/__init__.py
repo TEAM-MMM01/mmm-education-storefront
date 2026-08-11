@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
-"""Notification dispatchers with multi-bot Telegram routing.
+"""Notification dispatchers with multi-bot Telegram + Slack routing.
 
 Architecture: Hub-and-spoke. The main bot (@Hermes_OS1bot) receives all
-events and routes to business-specific bots based on the `business` tag.
+events and routes to business-specific bots + Slack channels.
 
-Bot mapping (stored in Keychain, read via shell profile exports):
-    @Hermes_OS1bot   – CFO/COO router (all events, always notified)
-    @HermesOS2_Bot   – Preparation Station (ops/education)
-    @RichieRichPF_Bot – Revenue/Product (future: Royal Collexions)
+Telegram Bot Mapping:
+    @Hermes_OS1bot    – HermesOS_Main (CFO/COO router, all events)
+    @HermesOS2_Bot    – Preparation Station (education/TEFA)
+    @RichieRichPF_Bot – PumpFun (crypto/trading)
+    (TBD)             – Royal Collexions (commerce)
+    (TBD)             – Oracle (trading signals)
+    (TBD)             – HermesOS_Voice (voice input)
 
-Environment variables:
-    TELEGRAM_BOT_TOKEN        – Main router bot token
-    TELEGRAM_CHAT_ID          – Your chat ID (for router)
-    TELEGRAM_BOT_TOKEN_PS     – Preparation Station bot token
-    TELEGRAM_CHAT_ID_PS       – PS bot chat ID (usually same as main)
-    TELEGRAM_BOT_TOKEN_RC     – Royal Collexions bot token (future)
-    TELEGRAM_CHAT_ID_RC       – RC bot chat ID (future)
-    SLACK_WEBHOOK_URL         – Slack webhook URL
-    SLACK_BOT_TOKEN           – Slack API token (optional)
+Slack Channel Mapping:
+    #hermesos-ops        – agent orchestration, system health
+    #preparation-station – education/TEFA updates
+    #pumpfun             – trading activity
+    #royal-collexions    – commerce/orders
+    #oracle              – trading signals
 
 Usage:
     from tools.notifications import notify_routed
@@ -33,35 +33,54 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError
 
 
-# ── Business → Bot mapping ─────────────────────────────────────────
+# ── Business → Bot/Channel mapping ──────────────────────────────────
 
-BUSINESS_BOTS: dict[str, dict[str, str | None]] = {
+BUSINESS_CONFIG: dict[str, dict[str, str | None]] = {
     "preparation-station": {
-        "token_env": "TELEGRAM_BOT_TOKEN_PS",
-        "chat_env": "TELEGRAM_CHAT_ID_PS",
+        "telegram_token_env": "TELEGRAM_BOT_TOKEN_PS",
+        "telegram_chat_env": "TELEGRAM_CHAT_ID_PS",
+        "slack_channel": "#preparation-station",
         "label": "Preparation Station",
     },
     "royal-collexions": {
-        "token_env": "TELEGRAM_BOT_TOKEN_RC",
-        "chat_env": "TELEGRAM_CHAT_ID_RC",
+        "telegram_token_env": "TELEGRAM_BOT_TOKEN_RC",
+        "telegram_chat_env": "TELEGRAM_CHAT_ID_RC",
+        "slack_channel": "#royal-collexions",
         "label": "Royal Collexions",
+    },
+    "pumpfun": {
+        "telegram_token_env": "TELEGRAM_BOT_TOKEN_PF",
+        "telegram_chat_env": "TELEGRAM_CHAT_ID_PF",
+        "slack_channel": "#pumpfun",
+        "label": "PumpFun",
+    },
+    "oracle": {
+        "telegram_token_env": "TELEGRAM_BOT_TOKEN_ORACLE",
+        "telegram_chat_env": "TELEGRAM_CHAT_ID_ORACLE",
+        "slack_channel": "#oracle",
+        "label": "Oracle",
+    },
+    "hermesos": {
+        "telegram_token_env": "TELEGRAM_BOT_TOKEN",
+        "telegram_chat_env": "TELEGRAM_CHAT_ID",
+        "slack_channel": "#hermesos-ops",
+        "label": "HermesOS",
     },
 }
 
-# Event type → which bots should receive it
+# Event type → which routes should receive it
 EVENT_ROUTING: dict[str, list[str]] = {
-    # PR and build events go to the business bot + always to router
     "pr": ["business", "router"],
     "build": ["business", "router"],
     "task": ["business", "router"],
-    # Revenue events go to revenue bot + router
-    "order": ["revenue", "router"],
-    "request": ["revenue", "router"],
-    # Audit/log events only go to router
+    "order": ["business", "router"],
+    "request": ["business", "router"],
+    "trade": ["business", "router"],
+    "signal": ["business", "router"],
     "audit": ["router"],
     "huddle": ["router"],
-    # Blockers always go everywhere
-    "blocker": ["business", "revenue", "router"],
+    "blocker": ["business", "router"],
+    "system": ["router"],
 }
 
 
@@ -90,9 +109,12 @@ def _send_telegram_raw(text: str, token: str, chat_id: str, *, silent: bool = Fa
 def send_telegram(text: str, *, silent: bool = False, bot: str = "router") -> bool:
     """Send via Telegram. `bot` selects which token/chat to use.
 
-    bot="router"  → main CFO/COO bot
-    bot="ps"      → Preparation Station bot
-    bot="rc"      → Royal Collexions bot
+    bot="router"  → main CFO/COO bot (@Hermes_OS1bot)
+    bot="ps"      → Preparation Station (@HermesOS2_Bot)
+    bot="pf"      → PumpFun (@RichieRichPF_Bot)
+    bot="rc"      → Royal Collexions (TBD)
+    bot="oracle"  → Oracle (TBD)
+    bot="voice"   → HermesOS_Voice (TBD)
     """
     if bot == "router":
         token = _env("TELEGRAM_BOT_TOKEN")
@@ -100,9 +122,18 @@ def send_telegram(text: str, *, silent: bool = False, bot: str = "router") -> bo
     elif bot == "ps":
         token = _env("TELEGRAM_BOT_TOKEN_PS")
         chat_id = _env("TELEGRAM_CHAT_ID_PS")
+    elif bot == "pf":
+        token = _env("TELEGRAM_BOT_TOKEN_PF")
+        chat_id = _env("TELEGRAM_CHAT_ID_PF")
     elif bot == "rc":
         token = _env("TELEGRAM_BOT_TOKEN_RC")
         chat_id = _env("TELEGRAM_CHAT_ID_RC")
+    elif bot == "oracle":
+        token = _env("TELEGRAM_BOT_TOKEN_ORACLE")
+        chat_id = _env("TELEGRAM_CHAT_ID_ORACLE")
+    elif bot == "voice":
+        token = _env("TELEGRAM_BOT_TOKEN_VOICE")
+        chat_id = _env("TELEGRAM_CHAT_ID_VOICE")
     else:
         print(f"WARN: unknown bot {bot!r}", file=sys.stderr)
         return False
@@ -158,23 +189,25 @@ def notify_routed(
 ) -> dict[str, bool]:
     """Send notification with business routing.
 
-    Routes to the correct Telegram bot based on business + event_type.
-    Also sends to Slack if configured.
+    Routes to the correct Telegram bot + Slack channel based on business.
+    Always sends to the router (main bot) for your visibility.
 
-    Returns {"telegram_router": bool, "telegram_business": bool, "slack": bool}
+    Returns dict of {channel: success} for each target that was reached.
     """
     results: dict[str, bool] = {}
     targets = channels or ["telegram", "slack"]
+    biz_config = BUSINESS_CONFIG.get(business, {})
 
     if "telegram" in targets:
         # Always send to router (main bot)
         results["telegram_router"] = send_telegram(text, bot="router")
 
         # Route to business-specific bot
-        bot_map = BUSINESS_BOTS.get(business)
-        if bot_map:
-            token = _env(bot_map["token_env"])
-            chat_id = _env(bot_map["chat_env"])
+        token_env = biz_config.get("telegram_token_env")
+        chat_env = biz_config.get("telegram_chat_env")
+        if token_env and chat_env:
+            token = _env(token_env)
+            chat_id = _env(chat_env)
             if token and chat_id:
                 results["telegram_business"] = _send_telegram_raw(text, token, chat_id)
             else:
@@ -183,7 +216,11 @@ def notify_routed(
             results["telegram_business"] = False
 
     if "slack" in targets:
-        results["slack"] = send_slack(text)
+        slack_channel = biz_config.get("slack_channel")
+        if slack_channel:
+            results["slack"] = send_slack(text, channel=slack_channel)
+        else:
+            results["slack"] = send_slack(text)
 
     return results
 
@@ -220,3 +257,9 @@ def fmt_state_change(workflow_id: str, old_state: str, new_state: str) -> str:
 
 def fmt_blocker_added(blocker: str) -> str:
     return f"Blocker added: {blocker}"
+
+def fmt_trade(signal: str, pair: str, action: str) -> str:
+    return f"Trade signal: {signal}\nPair: {pair}\nAction: {action}"
+
+def fmt_order(order_id: str, status: str, total: str) -> str:
+    return f"Order {order_id}: {status}\nTotal: {total}"
