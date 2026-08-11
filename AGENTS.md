@@ -32,11 +32,16 @@ git diff --check
 git status --short
 ```
 
+The first command also runs the storefront JavaScript / order-portal checks
+defined in `tools/` (request intake, order tracking). The build pipeline
+itself runs `python3 tools/check_untracked.py` (via `.github/workflows/build.yml`)
+to reject any forbidden local-only path that has slipped past `.gitignore`.
+
 When storefront source changes, commit the matching generated HTML from
 `python3 build.py`. Never edit generated HTML as the only source change.
 
 For the device sync recipe (clones, branches, daily routine, recovery),
-follow `docs/workflow/DEVICE_SYNC.md` in addition to the workflow docs
+follow `docs/workflow/SYNC_RUNBOOK.md` in addition to the workflow docs
 listed below.
 
 For Mac orchestration (queue, connectivity, EOD Huddle agenda), use
@@ -109,6 +114,23 @@ so nothing disappears.
   request. Concurrent agents must use separate branches.
 - Treat OmniRoute as a model gateway. It may route redacted task envelopes, but
   it does not grant GitHub access and must not receive repository credentials.
+
+## Agent quality checklist (from Devin AI review)
+
+Before requesting review on any PR, verify:
+
+- **Full execution flow traced.** Walk through every phase of multi-phase
+  workflows end-to-end. If a script has `--verify`, mentally execute phase 2
+  and confirm argparse, state, and file paths all work.
+- **Docstring/contract match.** Re-read the module docstring after every change.
+  If it says "any error counts as offline", catch all exceptions. If it says
+  "pure local", don't make network calls by default.
+- **AGENTS.md compliance.** Grep AGENTS.md for the relevant constraint before
+  any change. Branch prefixes, source-of-truth rules, and approved facts are
+  enforced by code review.
+- **Conflict documented.** When two requirements conflict (e.g. CodeQL vs test
+  isolation), document the tradeoff explicitly rather than silently breaking
+  one side.
 
 ## Code Review Rules
 
