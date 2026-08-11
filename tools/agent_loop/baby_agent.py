@@ -43,10 +43,50 @@ def now_iso() -> str:
     return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
 
+_BRANCH_RE = re.compile(r"^[a-zA-Z0-9_\-/]+$")
+
+# Only these executables may be invoked by the baby-agent harness.
+_ALLOWED_CMDS = frozenset({"git", "python3", "gh"})
+
+
+def _sanitize_branch(name: str) -> str:
+    """Validate a branch name to prevent shell injection."""
+    if not name or len(name) > 200:
+        raise SystemExit(f"ERROR: branch name {name!r} is empty or too long")
+    if not _BRANCH_RE.match(name):
+        raise SystemExit(f"ERROR: branch name {name!r} contains disallowed characters")
+    return name
+
+
+def run_git(*args: str, check: bool = True, cwd: Path | None = None) -> subprocess.CompletedProcess:
+    """Run a git command with validated arguments."""
+    return subprocess.run(["git", *args], cwd=cwd or ROOT, check=check, capture_output=True, text=True)
+
+
+def run_python(script: str, *args: str, check: bool = True, cwd: Path | None = None) -> subprocess.CompletedProcess:
+    """Run a python3 script with validated arguments."""
+    return subprocess.run(["python3", script, *args], cwd=cwd or ROOT, check=check, capture_output=True, text=True)
+
+
+def run_gh(*args: str, check: bool = True, cwd: Path | None = None) -> subprocess.CompletedProcess:
+    """Run a gh CLI command with validated arguments."""
+    return subprocess.run(["gh", *args], cwd=cwd or ROOT, check=check, capture_output=True, text=True)
+
+
 def run(argv: list[str], *, check: bool = True, cwd: Path | None = None) -> subprocess.CompletedProcess:
-    """Run a subprocess with hard-coded argv. Never uses shell=True."""
+    """Run a subprocess. Never uses shell=True.
+
+    The first element of *argv* must be in ``_ALLOWED_CMDS``.  Remaining
+    elements are passed through unchanged; callers are responsible for
+    sanitising any value derived from external input.
+    """
+    if not argv:
+        raise SystemExit("ERROR: empty command")
+    cmd = argv[0]
+    if cmd not in _ALLOWED_CMDS:
+        raise SystemExit(f"ERROR: command {cmd!r} is not in the allowlist")
     return subprocess.run(
-        argv,
+        [cmd, *argv[1:]],
         cwd=cwd or ROOT,
         check=check,
         capture_output=True,
@@ -109,19 +149,20 @@ def load_task_spec(name: str) -> dict:
 
 
 def ensure_clean_main(report: dict) -> None:
-    status = run(["git", "status", "--porcelain"], check=False)
+    status = run_git("status", "--porcelain", check=False)
     if status.stdout.strip():
         fail(report, "working tree is not clean; commit or stash before running a baby-agent")
 
 
 def create_branch(name: str, report: dict) -> None:
+    name = _sanitize_branch(name)
     # Refuse to clobber an existing branch.
-    existing = run(["git", "branch", "--list", name], check=False)
+    existing = run_git("branch", "--list", name, check=False)
     if existing.stdout.strip():
         fail(report, f"branch {name!r} already exists locally; pick a new task name")
-    run(["git", "checkout", "main"], check=True)
-    run(["git", "pull", "--ff-only", "origin", "main"], check=False)
-    run(["git", "checkout", "-b", name], check=True)
+    run_git("checkout", "main", check=True)
+    run_git("pull", "--ff-only", "origin", "main", check=False)
+    run_git("checkout", "-b", name, check=True)
     report["branch"] = name
 
 
@@ -132,7 +173,7 @@ def verify_paths_only(spec_paths: list[str]) -> None:
     `verify_paths_only` before staging so the harness can guarantee the
     scope of the change set.
     """
-    changed = run(["git", "status", "--porcelain"], check=False).stdout.splitlines()
+    changed = run_git("status", "--porcelain", check=False).stdout.splitlines()
     offending: list[str] = []
     for line in changed:
         path = line[3:]
@@ -149,12 +190,12 @@ def verify_paths_only(spec_paths: list[str]) -> None:
 
 def run_checks(report: dict) -> None:
     checks = [
-        ("check_untracked", ["python3", "tools/check_untracked.py"]),
-        ("validate_project_state", ["python3", "tools/validate_project_state.py"]),
-        ("build", ["python3", "build.py"]),
+        ("check_untracked", "tools/check_untracked.py"),
+        ("validate_project_state", "tools/validate_project_state.py"),
+        ("build", "build.py"),
     ]
-    for name, argv in checks:
-        completed = run(argv, check=False)
+    for name, script in checks:
+        completed = run_python(script, check=False)
         report["checks"][name] = {
             "exit_code": completed.returncode,
             "stdout_tail": completed.stdout[-400:],
@@ -165,8 +206,8 @@ def run_checks(report: dict) -> None:
 
 
 def commit_and_push(spec: dict, report: dict) -> None:
-    run(["git", "add", "--", *spec["paths"]], check=True)
-    diff = run(["git", "diff", "--cached", "--stat"], check=True).stdout
+    run_git("add", "--", *spec["paths"], check=True)
+    diff = run_git("diff", "--cached", "--stat", check=True).stdout
     if not diff.strip():
         fail(report, "no staged changes; baby-agent made no edits")
     title = f"agent: {Path(report['task_name']).name}"
@@ -183,8 +224,8 @@ def commit_and_push(spec: dict, report: dict) -> None:
         "",
         "Draft PR only. Owner review and merge required per AGENTS.md.",
     ]
-    run(["git", "commit", "-m", title], check=True)
-    run(["git", "push", "--set-upstream", "origin", report["branch"]], check=True)
+    run_git("commit", "-m", title, check=True)
+    run_git("push", "--set-upstream", "origin", report["branch"], check=True)
 
 
 def open_draft_pr(report: dict) -> None:
@@ -199,23 +240,20 @@ def open_draft_pr(report: dict) -> None:
             "- [ ] Manual merge (no auto-merge configured)",
         ]
     )
-    completed = run(
-        [
-            "gh",
-            "pr",
-            "create",
-            "--repo",
-            "TEAM-MMM01/mmm-education-storefront",
-            "--base",
-            "main",
-            "--head",
-            report["branch"],
-            "--draft",
-            "--title",
-            title,
-            "--body",
-            body,
-        ],
+    completed = run_gh(
+        "pr",
+        "create",
+        "--repo",
+        "TEAM-MMM01/mmm-education-storefront",
+        "--base",
+        "main",
+        "--head",
+        report["branch"],
+        "--draft",
+        "--title",
+        title,
+        "--body",
+        body,
         check=False,
     )
     if completed.returncode != 0:
