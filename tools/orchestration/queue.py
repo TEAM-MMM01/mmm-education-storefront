@@ -31,20 +31,28 @@ def _resolve_queue_root() -> Path:
     raw = os.environ.get("HERMES_MAC_QUEUE_ROOT")
     if raw:
         candidate = Path(raw).resolve()
-        # Ensure the resolved path is a reasonable location (under home or /tmp).
+        # Ensure the resolved path is UNDER home or /tmp (not equal to them).
         home = Path.home().resolve()
         tmp = Path("/tmp").resolve()
-        if not (str(candidate).startswith(str(home) + os.sep)
-                or str(candidate).startswith(str(tmp) + os.sep)
-                or candidate == home
-                or candidate == tmp):
-            raise SystemExit(f"ERROR: HERMES_MAC_QUEUE_ROOT {candidate} escapes home/tmp")
+        candidate_str = str(candidate)
+        home_prefix = str(home) + os.sep
+        tmp_prefix = str(tmp) + os.sep
+        if not (candidate_str.startswith(home_prefix) or candidate_str.startswith(tmp_prefix)):
+            raise SystemExit(f"ERROR: HERMES_MAC_QUEUE_ROOT {candidate} escapes home/tmp (must be a subdirectory)")
         return candidate
     return _DEFAULT_QUEUE_ROOT
 
 
-QUEUE_ROOT = _resolve_queue_root()
-QUEUE_ROOT.mkdir(parents=True, exist_ok=True)
+QUEUE_ROOT: Path | None = None
+
+
+def _get_queue_root() -> Path:
+    """Lazy-initialize queue root to avoid side effects on import."""
+    global QUEUE_ROOT
+    if QUEUE_ROOT is None:
+        QUEUE_ROOT = _resolve_queue_root()
+        QUEUE_ROOT.mkdir(parents=True, exist_ok=True)
+    return QUEUE_ROOT
 
 # Workflow IDs and record IDs must match this pattern.  Anything else is
 # rejected before it can touch the filesystem, preventing path traversal.
@@ -61,8 +69,9 @@ def _sanitize_id(raw: str) -> str:
 def _safe_record_path(workflow_id: str) -> Path:
     """Return the record path, aborting if it would escape QUEUE_ROOT."""
     wid = _sanitize_id(workflow_id)
-    resolved = (QUEUE_ROOT / f"{wid}.json").resolve()
-    if not str(resolved).startswith(str(QUEUE_ROOT.resolve()) + os.sep):
+    root = _get_queue_root()
+    resolved = (root / f"{wid}.json").resolve()
+    if not str(resolved).startswith(str(root.resolve()) + os.sep):
         raise SystemExit(f"ERROR: path {resolved} escapes queue root")
     return resolved
 
@@ -142,28 +151,34 @@ def cmd_update(args: argparse.Namespace) -> int:
         print(f"ERROR: state {args.new_state!r} is not allowed", file=sys.stderr)
         return 2
     if args.new_state:
-        record["history"].append({"ts": now_iso(), "event": "state-change", "from": record["state"], "to": args.new_state, "note": args.note})
+        record["history"].append({"ts": now_iso(), "event": "state-change", "from": record["state"], "to": args.new_state})
         record["state"] = args.new_state
         if args.new_state == "Remote Attempted":
             record["retry_count"] = record.get("retry_count", 0) + 1
     record["updated_at"] = now_iso()
     if args.next_action:
         record["next_action"] = args.next_action
-    if args.note:
+    # Notes are only appended once — either as part of a state change or standalone.
+    if args.note and not args.new_state:
         record.setdefault("history", []).append({"ts": now_iso(), "event": "note", "text": args.note})
+    elif args.note:
+        # Attach note to the state-change entry instead of duplicating.
+        if record["history"]:
+            record["history"][-1]["note"] = args.note
     path.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     print(f"updated {args.id} -> {record['state']}")
     return 0
 
 
 def cmd_list(_args: argparse.Namespace) -> int:
-    rows = sorted(QUEUE_ROOT.glob("wf-*.json"))
+    root = _get_queue_root()
+    rows = sorted(root.glob("wf-*.json"))
     if not rows:
         print("(no workflows)")
         return 0
     for row in rows:
         resolved = row.resolve()
-        if not str(resolved).startswith(str(QUEUE_ROOT.resolve()) + os.sep):
+        if not str(resolved).startswith(str(root.resolve()) + os.sep):
             continue
         record = json.loads(resolved.read_text(encoding="utf-8"))
         print(
