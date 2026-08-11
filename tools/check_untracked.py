@@ -31,6 +31,7 @@ FORBIDDEN: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r"(^|.*/)\.claude(/|$)"), "Claude session memory (local-only)"),
     (re.compile(r"(^|.*/)_org-backup(/|$)"), "Local snapshot directory (never commit)"),
     (re.compile(r"(^|.*/)_audits(/|$)"), "Local audit run directory (never commit)"),
+    (re.compile(r"(^|.*/)\.hermes-mac(/|$)"), "Orchestration runtime output (local-only)"),
     (re.compile(r".*/?\.DS_Store$"), "macOS Finder metadata"),
     (re.compile(r".*\.log$"), "Log file (likely local scratch)"),
     (re.compile(r".*\.(swp|swo)$|.*~$", re.IGNORECASE), "Editor swap/backup file"),

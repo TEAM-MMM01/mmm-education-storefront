@@ -23,7 +23,27 @@ import uuid
 from pathlib import Path
 
 
-QUEUE_ROOT = Path.home() / ".hermes-mac" / "queue"
+_DEFAULT_QUEUE_ROOT = Path.home() / ".hermes-mac" / "queue"
+
+
+def _resolve_queue_root() -> Path:
+    """Resolve queue root, honoring HERMES_MAC_QUEUE_ROOT for test isolation."""
+    raw = os.environ.get("HERMES_MAC_QUEUE_ROOT")
+    if raw:
+        candidate = Path(raw).resolve()
+        # Ensure the resolved path is a reasonable location (under home or /tmp).
+        home = Path.home().resolve()
+        tmp = Path("/tmp").resolve()
+        if not (str(candidate).startswith(str(home) + os.sep)
+                or str(candidate).startswith(str(tmp) + os.sep)
+                or candidate == home
+                or candidate == tmp):
+            raise SystemExit(f"ERROR: HERMES_MAC_QUEUE_ROOT {candidate} escapes home/tmp")
+        return candidate
+    return _DEFAULT_QUEUE_ROOT
+
+
+QUEUE_ROOT = _resolve_queue_root()
 QUEUE_ROOT.mkdir(parents=True, exist_ok=True)
 
 # Workflow IDs and record IDs must match this pattern.  Anything else is
@@ -76,6 +96,8 @@ def cmd_enqueue(args: argparse.Namespace) -> int:
         "workflow_id": workflow_id,
         "task_name": args.task_name,
         "work_lane": args.lane,
+        "tier": args.tier,
+        "l4_risk": args.l4_risk,
         "state": args.state,
         "device": args.device,
         "environment": args.environment,
@@ -162,6 +184,8 @@ def build_parser() -> argparse.ArgumentParser:
     en = sub.add_parser("enqueue", help="Create a workflow record")
     en.add_argument("--task-name", required=True)
     en.add_argument("--lane", choices=["build", "revenue", "audit", "support", "research", "protected"], required=True)
+    en.add_argument("--tier", choices=["1", "2", "3"], required=True, help="Execution tier (1=auto, 2=scope-verified, 3=owner-lock)")
+    en.add_argument("--l4-risk", choices=["L4-0", "L4-1", "L4-2", "L4-3"], default="L4-0", help="L4 risk classification")
     en.add_argument("--state", choices=sorted(ALLOWED_STATES), required=True)
     en.add_argument("--device", default="mac")
     en.add_argument("--environment", default="local")
