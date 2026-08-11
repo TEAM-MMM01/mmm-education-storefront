@@ -28,9 +28,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 # (regex matched against a POSIX-style relative path, reason)
 FORBIDDEN: list[tuple[re.Pattern[str], str]] = [
-    (re.compile(r"^\.claude(/|$)"), "Claude session memory (local-only)"),
-    (re.compile(r"^_org-backup(/|$)"), "Local snapshot directory (never commit)"),
-    (re.compile(r"^_audits(/|$)"), "Local audit run directory (never commit)"),
+    (re.compile(r"(^|.*/)\.claude(/|$)"), "Claude session memory (local-only)"),
+    (re.compile(r"(^|.*/)_org-backup(/|$)"), "Local snapshot directory (never commit)"),
+    (re.compile(r"(^|.*/)_audits(/|$)"), "Local audit run directory (never commit)"),
     (re.compile(r".*/?\.DS_Store$"), "macOS Finder metadata"),
     (re.compile(r".*\.log$"), "Log file (likely local scratch)"),
     (re.compile(r".*\.(swp|swo)$|.*~$", re.IGNORECASE), "Editor swap/backup file"),
