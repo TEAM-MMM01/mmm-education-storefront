@@ -17,13 +17,34 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import sys
 import uuid
 from pathlib import Path
 
 
-QUEUE_ROOT = Path(os.environ.get("HERMES_MAC_QUEUE_ROOT", str(Path.home() / ".hermes-mac" / "queue")))
+QUEUE_ROOT = Path.home() / ".hermes-mac" / "queue"
 QUEUE_ROOT.mkdir(parents=True, exist_ok=True)
+
+# Workflow IDs and record IDs must match this pattern.  Anything else is
+# rejected before it can touch the filesystem, preventing path traversal.
+_VALID_ID_RE = re.compile(r"^wf-\d{8}T\d{6}-[0-9a-f]{8}$")
+
+
+def _sanitize_id(raw: str) -> str:
+    """Validate a workflow/record ID and return it, or abort."""
+    if _VALID_ID_RE.match(raw):
+        return raw
+    raise SystemExit(f"ERROR: invalid workflow id {raw!r}")
+
+
+def _safe_record_path(workflow_id: str) -> Path:
+    """Return the record path, aborting if it would escape QUEUE_ROOT."""
+    wid = _sanitize_id(workflow_id)
+    resolved = (QUEUE_ROOT / f"{wid}.json").resolve()
+    if not str(resolved).startswith(str(QUEUE_ROOT.resolve()) + os.sep):
+        raise SystemExit(f"ERROR: path {resolved} escapes queue root")
+    return resolved
 
 # The seven allowed workflow states. Anything else is a bug.
 ALLOWED_STATES = {
@@ -43,10 +64,6 @@ def now_iso() -> str:
 
 def new_workflow_id() -> str:
     return f"wf-{dt.datetime.now(dt.timezone.utc).strftime('%Y%m%dT%H%M%S')}-{uuid.uuid4().hex[:8]}"
-
-
-def record_path(workflow_id: str) -> Path:
-    return QUEUE_ROOT / f"{workflow_id}.json"
 
 
 def cmd_enqueue(args: argparse.Namespace) -> int:
@@ -84,13 +101,13 @@ def cmd_enqueue(args: argparse.Namespace) -> int:
         "created_at": now_iso(),
         "updated_at": now_iso(),
     }
-    record_path(workflow_id).write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+    _safe_record_path(workflow_id).write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     print(f"enqueued {workflow_id} ({args.state})")
     return 0
 
 
 def cmd_update(args: argparse.Namespace) -> int:
-    path = record_path(args.id)
+    path = _safe_record_path(args.id)
     if not path.exists():
         print(f"ERROR: no workflow with id {args.id}", file=sys.stderr)
         return 1
@@ -119,7 +136,10 @@ def cmd_list(_args: argparse.Namespace) -> int:
         print("(no workflows)")
         return 0
     for row in rows:
-        record = json.loads(row.read_text(encoding="utf-8"))
+        resolved = row.resolve()
+        if not str(resolved).startswith(str(QUEUE_ROOT.resolve()) + os.sep):
+            continue
+        record = json.loads(resolved.read_text(encoding="utf-8"))
         print(
             f"{record['workflow_id']:38s}  {record['state']:24s}  retries={record.get('retry_count', 0):>2}  {record.get('task_name', '')}"
         )
@@ -127,7 +147,7 @@ def cmd_list(_args: argparse.Namespace) -> int:
 
 
 def cmd_show(args: argparse.Namespace) -> int:
-    path = record_path(args.id)
+    path = _safe_record_path(args.id)
     if not path.exists():
         print(f"ERROR: no workflow with id {args.id}", file=sys.stderr)
         return 1
