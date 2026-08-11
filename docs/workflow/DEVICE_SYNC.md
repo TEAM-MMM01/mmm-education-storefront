@@ -2,6 +2,10 @@
 
 The operating rule is simple: devices are access points, not the source of truth.
 
+For the executable, copy-pasteable recipe (clone URLs, branch names, daily
+sync commands, recovery on a lost device), see
+[`SYNC_RUNBOOK.md`](SYNC_RUNBOOK.md).
+
 ## Source-of-truth map
 
 | Area | Source of truth | Sync method |
