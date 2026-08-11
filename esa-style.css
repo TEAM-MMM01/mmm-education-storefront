@@ -167,6 +167,22 @@ a:hover { color: var(--accent-hover); }
   font-size: 1.05rem;
 }
 
+/* ── Category Groups ── */
+.category-group {
+  margin-bottom: 48px;
+}
+
+.category-title {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--pine);
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
 /* ── Steps Grid ── */
 .steps-grid {
   display: grid;
