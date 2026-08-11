@@ -85,6 +85,23 @@ listed below.
 - Treat OmniRoute as a model gateway. It may route redacted task envelopes, but
   it does not grant GitHub access and must not receive repository credentials.
 
+## Agent quality checklist (from Devin AI review)
+
+Before requesting review on any PR, verify:
+
+- **Full execution flow traced.** Walk through every phase of multi-phase
+  workflows end-to-end. If a script has `--verify`, mentally execute phase 2
+  and confirm argparse, state, and file paths all work.
+- **Docstring/contract match.** Re-read the module docstring after every change.
+  If it says "any error counts as offline", catch all exceptions. If it says
+  "pure local", don't make network calls by default.
+- **AGENTS.md compliance.** Grep AGENTS.md for the relevant constraint before
+  any change. Branch prefixes, source-of-truth rules, and approved facts are
+  enforced by code review.
+- **Conflict documented.** When two requirements conflict (e.g. CodeQL vs test
+  isolation), document the tradeoff explicitly rather than silently breaking
+  one side.
+
 ## Code Review Rules
 
 - Block unsupported approval, price, inventory, shipping, fulfillment, legal,

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "task_name": null,
+  "branch": null,
+  "started_at": null,
+  "finished_at": null,
+  "result": null,
+  "checks": {
+    "check_untracked": null,
+    "validate_project_state": null,
+    "build": null
+  },
+  "pr": {
+    "url": null,
+    "number": null,
+    "draft": true
+  },
+  "error": null,
+  "notes": []
+}
