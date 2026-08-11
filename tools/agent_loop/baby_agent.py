@@ -119,6 +119,8 @@ def fail(report: dict, message: str, code: int = 1) -> "None":
 def _notify_failure(task_name: str, error: str) -> None:
     """Best-effort notification on failure. Never blocks the main flow."""
     try:
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
         from tools.notifications import send_telegram, send_slack, fmt_task_failed
         text = fmt_task_failed(task_name, error)
         send_telegram(text)
