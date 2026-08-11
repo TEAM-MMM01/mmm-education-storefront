@@ -36,7 +36,7 @@ When storefront source changes, commit the matching generated HTML from
 `python3 build.py`. Never edit generated HTML as the only source change.
 
 For the device sync recipe (clones, branches, daily routine, recovery),
-follow `docs/workflow/SYNC_RUNBOOK.md` in addition to the workflow docs
+follow `docs/workflow/DEVICE_SYNC.md` in addition to the workflow docs
 listed below.
 
 For Mac orchestration (queue, connectivity, EOD Huddle agenda), use
