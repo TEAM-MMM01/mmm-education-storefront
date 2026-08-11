@@ -2,8 +2,8 @@
 """Notification dispatchers for Telegram and Slack.
 
 Reads tokens from environment variables (never from files or hard-coded).
-All functions are pure local — they make HTTP requests only to the
-configured messaging API and never touch the repository filesystem.
+All functions make outbound HTTPS requests to the configured messaging API
+and never touch the repository filesystem.
 
 Environment variables:
     TELEGRAM_BOT_TOKEN   – BotFather token for the Preparation Station bot
