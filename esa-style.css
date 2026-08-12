@@ -107,7 +107,7 @@ a:hover { color: var(--accent-hover); }
 .btn-secondary {
   background: transparent;
   color: var(--on-pine);
-  border: 2px solid var(--pine-muted);
+  border: 2px solid var(--on-pine);
 }
 .btn-secondary:hover { border-color: var(--on-pine); color: var(--on-pine); }
 
