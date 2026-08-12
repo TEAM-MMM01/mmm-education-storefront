@@ -91,7 +91,7 @@ def read_session_state():
     for line in lines:
         if "Last updated:" in line:
             info["last_updated"] = line.split(":", 1)[1].strip()
-        elif "COMPLETED THIS SESSION" in line.upper():
+        elif "COMPLETED" in line.upper() and line.lstrip().startswith("#"):
             current_section = "completed"
         elif "OPEN LOCKS" in line.upper():
             current_section = "locks"
