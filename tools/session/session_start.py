@@ -38,7 +38,9 @@ def get_telegram_config():
             text=True
         ).strip()
         return token, chat_id
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, OSError):
+        # CalledProcessError: keychain lookup failed.
+        # OSError (incl. FileNotFoundError): `security` is unavailable (non-macOS).
         token = os.environ.get("TELEGRAM_BOT_TOKEN_PS")
         chat_id = os.environ.get("TELEGRAM_CHAT_ID_PS")
         return token, chat_id
@@ -67,23 +69,49 @@ def send_telegram(token, chat_id, message):
         return False
 
 
-def pull_latest():
-    """Pull latest changes from GitHub."""
-    print("Pulling latest from GitHub...")
+def current_branch(repo):
+    """Return the checked-out branch name for `repo`, or None if unavailable."""
     try:
-        # Pull vault
-        subprocess.run(
-            ["git", "pull", "--ff-only", "origin", "main"],
-            cwd=str(VAULT_PATH), capture_output=True, timeout=30
+        result = subprocess.run(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            cwd=str(repo), capture_output=True, text=True, timeout=10
         )
-        # Pull repo
-        subprocess.run(
-            ["git", "pull", "--ff-only", "origin", "agent/esa-landing-page"],
-            cwd=str(REPO_ROOT), capture_output=True, timeout=30
-        )
-        print("Latest pulled")
-    except Exception as e:
-        print(f"Pull failed (non-critical): {e}")
+    except OSError:
+        return None
+    if result.returncode != 0:
+        return None
+    branch = result.stdout.strip()
+    return branch or None
+
+
+def pull_latest():
+    """Fast-forward each repo's own checked-out branch from origin.
+
+    Never merges a hard-coded feature branch into whatever is checked out;
+    each repo pulls its own current branch so this keeps working after the
+    landing-page branch merges and is deleted.
+    """
+    print("Pulling latest from GitHub...")
+    for repo in (VAULT_PATH, REPO_ROOT):
+        if not (repo / ".git").exists():
+            print(f"Pull skipped: {repo} is not a git repository")
+            continue
+        branch = current_branch(repo)
+        if not branch or branch == "HEAD":
+            print(f"Pull skipped for {repo}: could not resolve current branch")
+            continue
+        try:
+            result = subprocess.run(
+                ["git", "pull", "--ff-only", "origin", branch],
+                cwd=str(repo), capture_output=True, text=True, timeout=30
+            )
+        except OSError as e:
+            print(f"Pull failed for {repo} (non-critical): {e}")
+            continue
+        if result.returncode == 0:
+            print(f"Pulled {repo} ({branch})")
+        else:
+            print(f"Pull failed for {repo} ({branch}): {result.stderr.strip()}")
 
 
 def read_vault_note():
