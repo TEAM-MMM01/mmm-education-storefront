@@ -8,6 +8,7 @@ so the next session can pick up seamlessly.
 Usage:
     python3 tools/session/session_end.py
     python3 tools/session/session_end.py --dry-run
+    python3 tools/session/session_end.py --push  # opt-in: commit + push vault note
 """
 
 import json
@@ -174,8 +175,43 @@ def write_vault_note(info, summary):
     return VAULT_SESSION_NOTE
 
 
+def push_vault_note():
+    """Commit the vault note to a session branch and push it.
+
+    Never pushes to main directly (see AGENTS.md git workflow); every
+    automated write goes to a dedicated branch so it stays attributable
+    and reviewable. Returns True only if every git step succeeds.
+    """
+    if not (VAULT_PATH / ".git").exists():
+        print(f"Vault push skipped: {VAULT_PATH} is not a git repository")
+        return False
+
+    branch = f"session/end-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    steps = [
+        ["git", "checkout", "-b", branch],
+        ["git", "add", "00-HQ/HermesOS/State/latest-session.md"],
+        ["git", "commit", "-m", f"Session end: {datetime.now().strftime('%Y-%m-%d %H:%M')}"],
+        ["git", "push", "origin", branch],
+    ]
+    for step in steps:
+        try:
+            result = subprocess.run(
+                step, cwd=str(VAULT_PATH), capture_output=True, text=True, timeout=30
+            )
+        except Exception as e:
+            print(f"Vault push failed ({' '.join(step)}): {e}")
+            return False
+        if result.returncode != 0:
+            print(f"Vault push failed ({' '.join(step)}): {result.stderr.strip()}")
+            return False
+
+    print(f"Vault note pushed to branch '{branch}' — open a PR to land it on main")
+    return True
+
+
 def main():
     dry_run = "--dry-run" in sys.argv
+    do_push = "--push" in sys.argv
 
     print("Reading session state...")
     info = read_session_state()
@@ -199,24 +235,12 @@ def main():
     note_path = write_vault_note(info, summary)
     print(f"Vault note: {note_path}")
 
-    # Git push vault
-    print("Pushing vault to GitHub...")
-    try:
-        subprocess.run(
-            ["git", "add", "00-HQ/HermesOS/State/latest-session.md"],
-            cwd=str(VAULT_PATH), capture_output=True
-        )
-        subprocess.run(
-            ["git", "commit", "-m", f"Session end: {datetime.now().strftime('%Y-%m-%d %H:%M')}"],
-            cwd=str(VAULT_PATH), capture_output=True
-        )
-        subprocess.run(
-            ["git", "push", "origin", "main"],
-            cwd=str(VAULT_PATH), capture_output=True, timeout=30
-        )
-        print("Vault pushed")
-    except Exception as e:
-        print(f"Vault push failed (non-critical): {e}")
+    # Git push vault (opt-in; never touches main directly)
+    if do_push:
+        print("Pushing vault note to a session branch...")
+        push_vault_note()
+    else:
+        print(f"Vault note written to {note_path} (not pushed; pass --push to commit + push)")
 
     print("\nSession end complete.")
 

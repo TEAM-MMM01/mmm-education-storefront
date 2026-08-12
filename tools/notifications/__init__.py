@@ -5,12 +5,12 @@ Architecture: Hub-and-spoke. Hermes COO receives all events and routes
 to business-specific bots + Slack channels.
 
 Standardized Bot Names:
-    Hermes COO (@HermesCOO_bot)       – CFO/COO router (all events)
-    Prep Station (@PrepStationAlpha_bot) – Education/TEFA
-    Hermes PF (@RichieRichPF_bot)     – PumpFun trading
-    Royal Collexions (@RoyalCXL_bot)  – Commerce
-    The Oracle (@OracleSignals_bot)   – Trading signals
-    Hermes Voice (@HermesVoice_bot)   – Voice input
+    Hermes COO (@Hermes_OS1bot)            – CFO/COO router (all events)
+    Prep Station (@HermesPrepStation_Bot)  – Education/TEFA
+    Hermes PF (@RichieRichPF_bot)          – PumpFun trading
+    Royal Collexions (@RoyalCXL_Bot)       – Commerce
+    The Oracle (@OracleSignalsProphet_Bot) – Trading signals
+    Hermes Voice (@HermesOS2_Bot)          – Voice input
 
 Slack Channels:
     #hermesos-ops        – agent orchestration, system health
@@ -109,12 +109,12 @@ def _send_telegram_raw(text: str, token: str, chat_id: str, *, silent: bool = Fa
 def send_telegram(text: str, *, silent: bool = False, bot: str = "router") -> bool:
     """Send via Telegram. `bot` selects which token/chat to use.
 
-    bot="router"  → Hermes COO (@HermesCOO_bot)
-    bot="ps"      → Prep Station (@PrepStationAlpha_bot)
+    bot="router"  → Hermes COO (@Hermes_OS1bot)
+    bot="ps"      → Prep Station (@HermesPrepStation_Bot)
     bot="pf"      → Hermes PF (@RichieRichPF_bot)
-    bot="rc"      → Royal Collexions (@RoyalCXL_bot)
-    bot="oracle"  → The Oracle (@OracleSignals_bot)
-    bot="voice"   → Hermes Voice (@HermesVoice_bot)
+    bot="rc"      → Royal Collexions (@RoyalCXL_Bot)
+    bot="oracle"  → The Oracle (@OracleSignalsProphet_Bot)
+    bot="voice"   → Hermes Voice (@HermesOS2_Bot)
     """
     if bot == "router":
         token = _env("TELEGRAM_BOT_TOKEN")
