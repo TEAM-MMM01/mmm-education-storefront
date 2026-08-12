@@ -112,7 +112,7 @@ def build_welcome_back(vault_note, session_state):
     if session_state:
         for line in session_state.split("\n"):
             if "Last updated:" in line:
-                lines.append(f"Last session: {line.split(':', 1)[1].strip()}")
+                lines.append(f"Last session: {line.split(':', 1)[1].strip().strip('*').strip()}")
             elif "SITE SUBMISSION STATUS" in line.upper():
                 lines.append("\n*Site status:*")
                 lines.append("  Deadline was Monday — now overdue")
