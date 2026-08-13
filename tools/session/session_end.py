@@ -175,37 +175,102 @@ def write_vault_note(info, summary):
     return VAULT_SESSION_NOTE
 
 
+def _current_branch(repo):
+    """Return the checked-out branch name for `repo`, or None if unavailable."""
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            cwd=str(repo), capture_output=True, text=True, timeout=10
+        )
+    except OSError:
+        return None
+    if result.returncode != 0:
+        return None
+    branch = result.stdout.strip()
+    return branch or None
+
+
+def _run_git(step, cwd):
+    """Run a git step; return CompletedProcess or raise OSError on spawn failure."""
+    try:
+        return subprocess.run(
+            step, cwd=str(cwd), capture_output=True, text=True, timeout=30
+        )
+    except OSError as e:
+        print(f"Vault push failed ({' '.join(step)}): {e}")
+        raise
+
+
 def push_vault_note():
     """Commit the vault note to a session branch and push it.
 
     Never pushes to main directly (see AGENTS.md git workflow); every
     automated write goes to a dedicated branch so it stays attributable
-    and reviewable. Returns True only if every git step succeeds.
+    and reviewable. Always restores the previously checked-out branch
+    via finally-style cleanup so the vault never gets parked on a
+    one-off branch. An empty commit ('nothing to commit') is treated
+    as a benign no-op rather than a hard failure. Returns True only
+    if the push (or the no-op) completed.
     """
     if not (VAULT_PATH / ".git").exists():
         print(f"Vault push skipped: {VAULT_PATH} is not a git repository")
         return False
 
+    start_branch = _current_branch(VAULT_PATH)
+    if not start_branch or start_branch == "HEAD":
+        print(
+            f"Vault push skipped: could not resolve current branch "
+            f"in {VAULT_PATH} (got {start_branch!r})"
+        )
+        return False
+
     branch = f"session/end-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-    steps = [
-        ["git", "checkout", "-b", branch],
-        ["git", "add", "00-HQ/HermesOS/State/latest-session.md"],
-        ["git", "commit", "-m", f"Session end: {datetime.now().strftime('%Y-%m-%d %H:%M')}"],
-        ["git", "push", "origin", branch],
-    ]
-    for step in steps:
-        try:
-            result = subprocess.run(
-                step, cwd=str(VAULT_PATH), capture_output=True, text=True, timeout=30
-            )
-        except Exception as e:
-            print(f"Vault push failed ({' '.join(step)}): {e}")
-            return False
+    pushed = False
+    try:
+        result = _run_git(["git", "checkout", "-b", branch], VAULT_PATH)
         if result.returncode != 0:
-            print(f"Vault push failed ({' '.join(step)}): {result.stderr.strip()}")
+            print(f"Vault push failed (checkout -b {branch}): {result.stderr.strip()}")
             return False
 
-    print(f"Vault note pushed to branch '{branch}' — open a PR to land it on main")
+        result = _run_git(
+            ["git", "add", "00-HQ/HermesOS/State/latest-session.md"], VAULT_PATH
+        )
+        if result.returncode != 0:
+            print(f"Vault push failed (git add): {result.stderr.strip()}")
+            return False
+
+        result = _run_git(
+            ["git", "commit", "-m", f"Session end: {datetime.now().strftime('%Y-%m-%d %H:%M')}"],
+            VAULT_PATH,
+        )
+        if result.returncode != 0:
+            combined = (result.stdout + result.stderr).lower()
+            if "nothing to commit" in combined:
+                print(
+                    f"Vault push: no changes to commit on {branch} (benign no-op)"
+                )
+            else:
+                print(f"Vault push failed (git commit): {result.stderr.strip()}")
+                return False
+        else:
+            result = _run_git(["git", "push", "origin", branch], VAULT_PATH)
+            if result.returncode != 0:
+                print(f"Vault push failed (git push): {result.stderr.strip()}")
+                return False
+            pushed = True
+    finally:
+        # Always restore the original branch so session_start.py's
+        # `git pull --ff-only` continues to target the user's branch,
+        # not the one-off session branch we just created.
+        result = _run_git(["git", "checkout", start_branch], VAULT_PATH)
+        if result.returncode != 0:
+            print(
+                f"Vault push warning: could not restore branch '{start_branch}' "
+                f"in {VAULT_PATH}: {result.stderr.strip()}"
+            )
+
+    if pushed:
+        print(f"Vault note pushed to branch '{branch}' — open a PR to land it on main")
     return True
 
 
