@@ -34,10 +34,13 @@ alias session-start="python3 ~/Projects/TEAM-MMM01/mmm-education-storefront/tool
 ## Auto-trigger (launchd)
 
 The launchd agent `com.hermes.session-start.plist` runs `session_start.py`
-on Mac login. To install:
+on Mac login. The plist ships with a `REPLACE_WITH_ABSOLUTE_PATH` placeholder;
+substitute your own clone's absolute path when installing:
 
 ```bash
-cp tools/session/com.hermes.session-start.plist ~/Library/LaunchAgents/
+sed "s#REPLACE_WITH_ABSOLUTE_PATH#$(pwd)#" \
+  tools/session/com.hermes.session-start.plist \
+  > ~/Library/LaunchAgents/com.hermes.session-start.plist
 launchctl load ~/Library/LaunchAgents/com.hermes.session-start.plist
 ```
 

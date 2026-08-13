@@ -6,8 +6,9 @@
     <string>com.hermes.session-start</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/opt/homebrew/bin/python3</string>
-        <string>/Users/queent./Projects/TEAM-MMM01/mmm-education-storefront/tools/session/session_start.py</string>
+        <string>/usr/bin/env</string>
+        <string>python3</string>
+        <string>REPLACE_WITH_ABSOLUTE_PATH/tools/session/session_start.py</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
