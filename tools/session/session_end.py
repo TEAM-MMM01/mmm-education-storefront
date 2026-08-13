@@ -41,8 +41,9 @@ def get_telegram_config():
             text=True
         ).strip()
         return token, chat_id
-    except subprocess.CalledProcessError:
-        # Fallback to env vars
+    except (subprocess.CalledProcessError, OSError):
+        # CalledProcessError: keychain lookup failed.
+        # OSError (incl. FileNotFoundError): `security` is unavailable (non-macOS).
         token = os.environ.get("TELEGRAM_BOT_TOKEN_PS")
         chat_id = os.environ.get("TELEGRAM_CHAT_ID_PS")
         return token, chat_id
@@ -63,8 +64,8 @@ def send_telegram(token, chat_id, message):
 
     req = Request(url, data=data, headers={"Content-Type": "application/json"})
     try:
-        resp = urlopen(req, timeout=15)
-        result = json.loads(resp.read())
+        with urlopen(req, timeout=15) as resp:
+            result = json.loads(resp.read())
         return result.get("ok", False)
     except Exception as e:
         print(f"Telegram send failed: {e}")
@@ -108,6 +109,19 @@ def read_session_state():
     return info
 
 
+def escape_markdown(text):
+    """Escape characters that Telegram's legacy Markdown parser treats as entities.
+
+    The summary body is copied verbatim from docs/session-state.md, which
+    contains stray `_`, `*`, `` ` `` and `[` characters. Unbalanced markers make
+    Telegram reject the whole message with HTTP 400, so escape dynamic text
+    before interpolating it into an otherwise fixed template.
+    """
+    for char in ("_", "*", "`", "["):
+        text = text.replace(char, f"\\{char}")
+    return text
+
+
 def build_summary(info):
     """Build a concise session summary for Telegram."""
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -120,7 +134,7 @@ def build_summary(info):
     if info and info["completed"]:
         lines.append("*Completed:*")
         for item in info["completed"][:10]:  # Cap at 10
-            lines.append(f"  {item}")
+            lines.append(f"  {escape_markdown(item)}")
         if len(info["completed"]) > 10:
             lines.append(f"  _...and {len(info['completed']) - 10} more_")
         lines.append("")
@@ -129,7 +143,7 @@ def build_summary(info):
     if info and info["locks"]:
         lines.append("*Awaiting your decision:*")
         for lock in info["locks"][:5]:
-            lines.append(f"  {lock}")
+            lines.append(f"  {escape_markdown(lock)}")
         lines.append("")
 
     # Next actions
@@ -175,38 +189,76 @@ def write_vault_note(info, summary):
     return VAULT_SESSION_NOTE
 
 
+def _git(step):
+    """Run a git command in the vault, returning the CompletedProcess or None."""
+    try:
+        return subprocess.run(
+            step, cwd=str(VAULT_PATH), capture_output=True, text=True, timeout=30
+        )
+    except Exception as e:
+        print(f"Vault git command failed ({' '.join(step)}): {e}")
+        return None
+
+
 def push_vault_note():
     """Commit the vault note to a session branch and push it.
 
     Never pushes to main directly (see AGENTS.md git workflow); every
     automated write goes to a dedicated branch so it stays attributable
-    and reviewable. Returns True only if every git step succeeds.
+    and reviewable. Returns True only if every git step succeeds. The vault
+    is always returned to its original branch, even on failure, so later
+    edits and pulls do not silently happen on a throwaway session branch.
     """
     if not (VAULT_PATH / ".git").exists():
         print(f"Vault push skipped: {VAULT_PATH} is not a git repository")
         return False
 
+    origin = _git(["git", "rev-parse", "--abbrev-ref", "HEAD"])
+    if origin is None or origin.returncode != 0:
+        print("Vault push skipped: could not resolve current branch")
+        return False
+    original_branch = origin.stdout.strip()
+
     branch = f"session/end-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-    steps = [
-        ["git", "checkout", "-b", branch],
-        ["git", "add", "00-HQ/HermesOS/State/latest-session.md"],
-        ["git", "commit", "-m", f"Session end: {datetime.now().strftime('%Y-%m-%d %H:%M')}"],
-        ["git", "push", "origin", branch],
-    ]
-    for step in steps:
-        try:
-            result = subprocess.run(
-                step, cwd=str(VAULT_PATH), capture_output=True, text=True, timeout=30
-            )
-        except Exception as e:
-            print(f"Vault push failed ({' '.join(step)}): {e}")
-            return False
-        if result.returncode != 0:
-            print(f"Vault push failed ({' '.join(step)}): {result.stderr.strip()}")
+    try:
+        checkout = _git(["git", "checkout", "-b", branch])
+        if checkout is None or checkout.returncode != 0:
+            print(f"Vault push failed (git checkout -b {branch}): "
+                  f"{checkout.stderr.strip() if checkout else 'command error'}")
             return False
 
-    print(f"Vault note pushed to branch '{branch}' — open a PR to land it on main")
-    return True
+        add = _git(["git", "add", "00-HQ/HermesOS/State/latest-session.md"])
+        if add is None or add.returncode != 0:
+            print(f"Vault push failed (git add): "
+                  f"{add.stderr.strip() if add else 'command error'}")
+            return False
+
+        commit = _git(
+            ["git", "commit", "-m", f"Session end: {datetime.now().strftime('%Y-%m-%d %H:%M')}"]
+        )
+        if commit is None:
+            return False
+        if commit.returncode != 0:
+            # "nothing to commit" is a benign no-op, not a failure.
+            if "nothing to commit" in (commit.stdout + commit.stderr).lower():
+                print("Vault note unchanged — nothing to push")
+                return True
+            print(f"Vault push failed (git commit): {commit.stderr.strip()}")
+            return False
+
+        push = _git(["git", "push", "origin", branch])
+        if push is None or push.returncode != 0:
+            print(f"Vault push failed (git push): "
+                  f"{push.stderr.strip() if push else 'command error'}")
+            return False
+
+        print(f"Vault note pushed to branch '{branch}' — open a PR to land it on main")
+        return True
+    finally:
+        restore = _git(["git", "checkout", original_branch])
+        if restore is None or restore.returncode != 0:
+            print(f"Warning: vault left on branch '{branch}'; "
+                  f"could not restore '{original_branch}'")
 
 
 def main():

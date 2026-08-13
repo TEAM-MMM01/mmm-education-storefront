@@ -122,7 +122,7 @@ All bots route to the owner chat ID stored in the `TELEGRAM_CHAT_ID` keychain/en
 ## DISK STATE
 
 - **Available:** ~16 GiB (80% used of 228 GiB)
-- **Keychain:** All 6 Telegram bot tokens + chat ID + Slack bot token + webhook URL
+- **Keychain:** Telegram bot tokens, chat ID, and Slack credentials are stored by named reference only (values not recorded here; see docs/HERMESOS-OPERATING-CONTRACT.md Secrets section)
 - **Shell exports:** Added to `~/.zshrc`
 
 ## WHAT'S NEXT (priority order)
