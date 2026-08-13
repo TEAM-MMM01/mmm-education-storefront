@@ -61,11 +61,13 @@ def send_telegram(token, chat_id, message):
 
     req = Request(url, data=data, headers={"Content-Type": "application/json"})
     try:
-        resp = urlopen(req, timeout=15)
-        result = json.loads(resp.read())
+        with urlopen(req, timeout=15) as resp:
+            result = json.loads(resp.read())
         return result.get("ok", False)
     except Exception as e:
-        print(f"Telegram send failed: {e}")
+        # Some urllib errors render the full request URL, which embeds the bot
+        # token; redact it before printing so it never lands in logs.
+        print(f"Telegram send failed: {str(e).replace(token, '<redacted-token>')}")
         return False
 
 
