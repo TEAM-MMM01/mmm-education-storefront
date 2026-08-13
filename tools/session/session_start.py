@@ -128,6 +128,19 @@ def read_session_state():
     return SESSION_STATE.read_text()
 
 
+def escape_markdown(text):
+    """Escape characters Telegram's legacy Markdown parser treats as entities.
+
+    The `Last updated:` value is copied verbatim from docs/session-state.md.
+    A stray `_`, `*`, `` ` `` or `[` would make Telegram reject the whole
+    message with HTTP 400, so escape dynamic text before interpolating it into
+    an otherwise fixed template (mirrors tools/session/session_end.py).
+    """
+    for char in ("_", "*", "`", "["):
+        text = text.replace(char, f"\\{char}")
+    return text
+
+
 def build_welcome_back(vault_note, session_state):
     """Build a welcome-back message."""
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -140,7 +153,8 @@ def build_welcome_back(vault_note, session_state):
     if session_state:
         for line in session_state.split("\n"):
             if "Last updated:" in line:
-                lines.append(f"Last session: {line.split(':', 1)[1].strip().strip('*').strip()}")
+                last = line.split(':', 1)[1].strip().strip('*').strip()
+                lines.append(f"Last session: {escape_markdown(last)}")
             elif "SITE SUBMISSION STATUS" in line.upper():
                 lines.append("\n*Site status:*")
                 lines.append("  Deadline was Monday — now overdue")
