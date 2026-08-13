@@ -147,6 +147,11 @@ HERMESOS OPERATING CONTRACT
 
 ## REFERENCE: WORKFLOW STATES (8)
 
+These are COO lifecycle stages, **not** the canonical status vocabulary.
+`AGENTS.md` is authoritative for reported task status; only its seven workflow
+truth states may be used there. See the mapping table in
+`docs/HERMESOS-OPERATING-CONTRACT.md` (Workflow States section).
+
 1. `DRAFT`
 2. `QUEUED`
 3. `PLANNING`

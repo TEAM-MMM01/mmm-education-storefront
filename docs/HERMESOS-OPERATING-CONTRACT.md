@@ -38,6 +38,25 @@ DRAFT → QUEUED → PLANNING → APPROVED → IMPLEMENTING → VALIDATING → R
                                                                               BLOCKED | FAILED_WITH_EVIDENCE | CANCELLED
 ```
 
+The lifecycle stages above describe how a work order moves through COO
+coordination. They are **not** a replacement for the canonical status
+vocabulary in `AGENTS.md`. When an agent reports status on a repository task,
+`AGENTS.md` is authoritative and only its seven workflow truth states may be
+used (`Locally Complete`, `Queued for Remote Execution`, `Remote Attempted`,
+`Remotely Verified`, `Blocked`, `Awaiting Approval`, `Needs Richie's Lock`).
+Map lifecycle stages onto those truth states rather than inventing new ones:
+
+| Lifecycle stage | AGENTS.md truth state |
+|---|---|
+| DRAFT / QUEUED / PLANNING | Queued for Remote Execution |
+| APPROVED | Awaiting Approval → cleared |
+| IMPLEMENTING / VALIDATING | Locally Complete → Remote Attempted |
+| READY_FOR_PR | Remote Attempted |
+| COMPLETE_VERIFIED | Remotely Verified |
+| BLOCKED | Blocked |
+| FAILED_WITH_EVIDENCE | Blocked (with evidence) |
+| CANCELLED | (terminal; record reason) |
+
 Every task must resolve to:
 1. A named owner
 2. A named specialist lane or temporary scoped worker

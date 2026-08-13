@@ -11,6 +11,8 @@
   "source_allowlist": {
     "required": [
       "index.html",
+      "esa.html",
+      "esa-style.css",
       "store/shop.html",
       "store/product.html",
       "store/order.html",
