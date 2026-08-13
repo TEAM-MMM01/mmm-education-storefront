@@ -67,7 +67,7 @@
 | Royal Collexions | @RoyalCXL_Bot | Royal Collexions | Shopify commerce |
 | The Oracle | @OracleSignalsProphet_Bot | The Oracle | Trading signals |
 
-All bots route to chat ID: 7584154252 (Richie Rich)
+All bots route to the owner chat ID stored in the `TELEGRAM_CHAT_ID` keychain/env reference (value not recorded here).
 
 ## VAULT SYNC (Mac ↔ HP)
 
