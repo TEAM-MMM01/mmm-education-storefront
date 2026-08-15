@@ -117,10 +117,6 @@ so nothing disappears.
 
 ## Agent quality checklist (from Devin AI review)
 
-For the full reusable execution skill (self-validation loop, recurring defect
-patterns, downstream-risk checks, and a paste-in pre-review self-check), follow
-`docs/workflow/AGENT_EXECUTION_SKILL.md`.
-
 Before requesting review on any PR, verify:
 
 - **Full execution flow traced.** Walk through every phase of multi-phase

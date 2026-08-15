@@ -2,3 +2,8 @@
   publish = "pages-release"
   command = "python3 tools/build_pages_release.py --output pages-release --require-ready"
 
+[[redirects]]
+  from = "/esa"
+  to = "/esa.html"
+  status = 200
+
