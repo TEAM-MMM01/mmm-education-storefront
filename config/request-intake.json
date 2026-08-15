@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "provider": "formspree",
+  "enabled": true,
+  "endpoint": "https://formspree.io/f/example-request-skU123",
+  "support_email": "mmminvestment25@gmail.com",
+  "retention_days": 30,
+  "allowed_skus": [],
+  "allowed_submission_fields": [
+    "_gotcha",
+    "adult_name",
+    "cart_items",
+    "client_reference",
+    "email",
+    "internal_owner",
+    "notes",
+    "program",
+    "source",
+    "submitted_at"
+  ]
+}
