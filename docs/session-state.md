@@ -29,7 +29,7 @@
 | `agent/esa-landing-page` | #18 | DRAFT | netlify.toml + vault + operating contract pushed |
 | `main` | — | — | All PRs 13-17 merged |
 
-## WHAT'S BEEN COMPLETED (this session)
+## COMPLETED THIS SESSION
 
 - [x] PR #13 merged (gitignore guard + check_untracked)
 - [x] PRs #14-17 merged (sync, orchestration, agent-loop, README)

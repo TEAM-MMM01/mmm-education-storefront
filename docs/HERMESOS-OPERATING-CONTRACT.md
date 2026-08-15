@@ -128,10 +128,7 @@ Founder: Approves restricted transitions
 
 ```
 main (protected, no direct pushes)
-├── codex/<task-slug>
-├── devin/<task-slug>
-├── coo/<task-slug>
-└── qa/<task-slug>
+├── agent/<short-task-name>
 ```
 
 ### Codex/Devin Policy

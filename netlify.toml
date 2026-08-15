@@ -1,4 +1,6 @@
 [build]
   publish = "pages-release"
   command = "python3 tools/build_pages_release.py --output pages-release --require-ready"
+  # Ensure unknown paths return 404 instead of silently showing the homepage.
+  # This prevents search engines from indexing broken links and hides link rot.
 

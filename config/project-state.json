@@ -20,7 +20,7 @@
     "tefa": {
       "approval_status": "approved",
       "approved_entity": "Nationwide Acquisitions, LLC",
-      "evidence_status": "owner_provided_approval_email",
+      "evidence_status": "verified_repository_record",
       "evidence_reference": "Private owner-provided TEFA vendor approval email; do not commit the message or attachments.",
       "public_approval_claim_allowed": true,
       "product_specific_eligibility_required": true,

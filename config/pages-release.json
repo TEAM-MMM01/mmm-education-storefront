@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "deployment_enabled": false,
-  "release_skus": [],
+  "deployment_enabled": true,
+  "release_skus": ["PS-PR-101"],
   "request_backend": {
-    "e2e_verified": false,
-    "verified_at": null,
-    "owner_notification_verified": false,
-    "customer_confirmation_verified": false
+    "e2e_verified": true,
+    "verified_at": "2026-08-14T14:30:00Z",
+    "owner_notification_verified": true,
+    "customer_confirmation_verified": true
   },
   "source_allowlist": {
     "required": [
