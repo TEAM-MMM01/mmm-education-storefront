@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """Notification dispatchers with multi-bot Telegram + Slack routing.
 
-Architecture: Hub-and-spoke. The main bot (@Hermes_OS1bot) receives all
-events and routes to business-specific bots + Slack channels.
+Architecture: Hub-and-spoke. Hermes COO receives all events and routes
+to business-specific bots + Slack channels.
 
-Telegram Bot Mapping:
-    @Hermes_OS1bot    – HermesOS_Main (CFO/COO router, all events)
-    @HermesOS2_Bot    – Preparation Station (education/TEFA)
-    @RichieRichPF_Bot – PumpFun (crypto/trading)
-    (TBD)             – Royal Collexions (commerce)
-    (TBD)             – Oracle (trading signals)
-    (TBD)             – HermesOS_Voice (voice input)
+Standardized Bot Names:
+    Hermes COO (@Hermes_OS1bot)            – CFO/COO router (all events)
+    Prep Station (@HermesPrepStation_Bot)  – Education/TEFA
+    Hermes PF (@RichieRichPF_bot)          – PumpFun trading
+    Royal Collexions (@RoyalCXL_Bot)       – Commerce
+    The Oracle (@OracleSignalsProphet_Bot) – Trading signals
+    Hermes Voice (@HermesOS2_Bot)          – Voice input
 
-Slack Channel Mapping:
+Slack Channels:
     #hermesos-ops        – agent orchestration, system health
     #preparation-station – education/TEFA updates
     #pumpfun             – trading activity
@@ -109,12 +109,12 @@ def _send_telegram_raw(text: str, token: str, chat_id: str, *, silent: bool = Fa
 def send_telegram(text: str, *, silent: bool = False, bot: str = "router") -> bool:
     """Send via Telegram. `bot` selects which token/chat to use.
 
-    bot="router"  → main CFO/COO bot (@Hermes_OS1bot)
-    bot="ps"      → Preparation Station (@HermesOS2_Bot)
-    bot="pf"      → PumpFun (@RichieRichPF_Bot)
-    bot="rc"      → Royal Collexions (TBD)
-    bot="oracle"  → Oracle (TBD)
-    bot="voice"   → HermesOS_Voice (TBD)
+    bot="router"  → Hermes COO (@Hermes_OS1bot)
+    bot="ps"      → Prep Station (@HermesPrepStation_Bot)
+    bot="pf"      → Hermes PF (@RichieRichPF_bot)
+    bot="rc"      → Royal Collexions (@RoyalCXL_Bot)
+    bot="oracle"  → The Oracle (@OracleSignalsProphet_Bot)
+    bot="voice"   → Hermes Voice (@HermesOS2_Bot)
     """
     if bot == "router":
         token = _env("TELEGRAM_BOT_TOKEN")
