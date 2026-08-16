@@ -33,20 +33,8 @@
   --measure:1180px;
   --grid-line:#15201B0a;
 }
-@media (prefers-color-scheme:dark){
-  :root{
-    --paper:#0E1613; --paper-2:#121D19; --card:#16211D;
-    --ink:#E7ECE5; --ink-soft:#C2CDC5; --muted:#93A39A;
-    --pine:#0C1F19; --pine-deep:#081511; --on-pine:#E7EFE9; --pine-muted:#8FB3A3;
-    --accent:#E9A340; --accent-lit:#F0B257; --on-accent:#15201B; --accent-hover:#F3BE72;
-    --pine-accent:#EDB25E; --on-pine-accent:#12261E;
-    --clay:#D08064;
-    --good:#5FAE84; --on-good:#0E1613;
-    --rule:#E7ECE526; --rule-soft:#E7ECE514;
-    --shadow:0 1px 2px #0006, 0 16px 34px -20px #000a;
-    --grid-line:#E7ECE508;
-  }
-}
+/* Site palette is fixed to the beige/teal light scheme; the OS dark-mode
+   preference must not override the background to dark brown. */
 :root[data-theme="dark"]{
   --paper:#0E1613; --paper-2:#121D19; --card:#16211D;
   --ink:#E7ECE5; --ink-soft:#C2CDC5; --muted:#93A39A;
