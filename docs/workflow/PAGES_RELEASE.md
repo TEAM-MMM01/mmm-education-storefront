@@ -75,3 +75,22 @@ the repository owner should unpublish or disable the existing Pages site in
 The obsolete sample Next.js workflow was removed from active Actions. Its full
 history remains recoverable in Git, so no archive copy is deployed or kept as a
 second runnable workflow.
+## Host mirroring (Cloudflare Pages)
+
+The release artifact is host-agnostic. To mirror on Cloudflare Pages, either:
+
+1. **Dashboard Direct Upload** (no secrets): create a Cloudflare Pages project
+   and set
+   - Build command: `python3 tools/build_pages_release.py --output pages-release --require-ready`
+   - Build output directory: `pages-release`
+   The `--require-ready` gate fails the build until every gate in
+   `config/pages-release.json` is complete — do not drop it.
+2. **CI workflow** (mirrors static.yml): run
+   `.github/workflows/cloudflare.yml` from the Actions tab on `main`. Requires
+   repo secrets `CLOUDFLARE_API_TOKEN` (Pages:Edit scope) and
+   `CLOUDFLARE_ACCOUNT_ID`, and a Cloudflare Pages project named
+   `preparation-station`. The workflow enforces the same `--require-ready`
+   gate and artifact boundary checks as the GitHub Pages path.
+
+Cloudflare Pages is a mirror, never a bypass: the same launch gates, allowlist,
+and smoke checks apply before anything is uploaded.
