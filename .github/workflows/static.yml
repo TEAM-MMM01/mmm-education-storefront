@@ -1,13 +1,11 @@
 # Manual, gated deployment of the explicit Preparation Station release artifact.
-# Pages is configured to serve from: main branch → /release folder.
-# This workflow builds the vetted artifact and commits it to release/ on main.
 name: Deploy vetted Pages release
 
 on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # needs write to commit release/ back to main
+  contents: read
 
 concurrency:
   group: "pages"
@@ -15,15 +13,20 @@ concurrency:
 
 jobs:
   deploy:
-    name: Validate, build, and commit release artifact
+    name: Validate and deploy allowlisted artifact
     if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Check out the selected main commit
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -58,23 +61,22 @@ jobs:
       - name: Enforce release-readiness gates and build artifact
         run: >-
           python3 tools/build_pages_release.py
-          --output release
+          --output "${{ runner.temp }}/pages-release"
           --require-ready
 
       - name: Smoke-test artifact boundaries
         run: >-
           python3 tools/test_pages_release.py
-          release
+          "${{ runner.temp }}/pages-release"
 
-      - name: Commit release/ folder to main
-        shell: bash
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add release/
-          if git diff --cached --quiet; then
-            echo "release/ is already up to date — no commit needed."
-          else
-            git commit -m "chore(release): update Pages artifact [skip ci]"
-            git push origin main
-          fi
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/pages-release
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
