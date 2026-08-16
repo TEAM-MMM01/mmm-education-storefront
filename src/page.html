@@ -32,19 +32,8 @@ until a catalog record is verified and approved for publication. -->
   --measure:1120px;
   --grid-line:#15201B0a;
 }
-@media (prefers-color-scheme:dark){
-  :root{
-    --paper:#0E1613; --paper-2:#121D19; --card:#16211D;
-    --ink:#E7ECE5; --ink-soft:#C2CDC5; --muted:#93A39A;
-    --pine:#0C1F19; --pine-deep:#081511; --on-pine:#E7EFE9; --pine-muted:#8FB3A3;
-    --accent:#E9A340; --accent-lit:#F0B257; --on-accent:#15201B; --accent-hover:#F3BE72;
-    --pine-accent:#EDB25E; --on-pine-accent:#12261E;
-    --clay:#D08064;
-    --rule:#E7ECE526; --rule-soft:#E7ECE514;
-    --shadow:0 1px 2px #0006, 0 16px 34px -20px #000a;
-    --grid-line:#E7ECE508;
-  }
-}
+/* Site palette is fixed to the beige/teal light scheme; the OS dark-mode
+   preference must not override the background to dark brown. */
 :root[data-theme="dark"]{
   --paper:#0E1613; --paper-2:#121D19; --card:#16211D;
   --ink:#E7ECE5; --ink-soft:#C2CDC5; --muted:#93A39A;
@@ -166,22 +155,6 @@ until a catalog record is verified and approved for publication. -->
 .hero-foot{display:flex; align-items:center; gap:.6rem; color:var(--muted); font-size:.9rem; padding-top:.6rem}
 .hero-foot a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
 
-/* ---------- Product information preview ---------- */
-.release-note{border-block:1px solid var(--rule); background:var(--card)}
-.release-note-in{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1.5rem; align-items:center;
-  padding-block:1.15rem}
-.release-copy{display:flex; gap:1rem; align-items:flex-start}
-.release-tag{flex:none; color:var(--accent); border:1px solid var(--accent); border-radius:999px;
-  padding:.28rem .55rem; font-family:var(--mono); font-size:.58rem; letter-spacing:.09em; text-transform:uppercase}
-.release-copy p{margin:.15rem 0 0; color:var(--muted); line-height:1.55}
-.release-copy strong{color:var(--ink)}
-.release-actions{display:flex; gap:.65rem; flex-wrap:wrap; justify-content:flex-end}
-@media (max-width:760px){
-  .release-note-in{grid-template-columns:1fr}
-  .release-actions{justify-content:flex-start; padding-left:0}
-  .release-copy{flex-direction:column; gap:.65rem}
-}
-
 /* counter card + stamp */
 .spec{position:relative; background:var(--card); border:1px solid var(--rule); border-radius:3px;
   padding:1.6rem 1.5rem 1.4rem; box-shadow:var(--shadow)}
@@ -230,41 +203,9 @@ until a catalog record is verified and approved for publication. -->
 .pillar p{color:var(--ink-soft); font-size:1rem; max-width:58ch}
 @media (max-width:640px){.pillar{grid-template-columns:1fr; gap:.5rem}}
 
-/* ---------- Shop ---------- */
-.dept{display:flex; align-items:baseline; gap:1rem; padding:2.5rem 0 1.25rem; border-bottom:1px solid var(--rule); flex-wrap:wrap}
-.dept-code{font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:500; white-space:nowrap}
-.dept h3{font-size:clamp(1.35rem,2.4vw,1.75rem); font-weight:750; letter-spacing:-.025em}
-.dept p{color:var(--muted); font-size:.95rem; margin-left:auto; max-width:40ch; line-height:1.5}
-@media (max-width:760px){.dept p{margin-left:0; flex-basis:100%}}
-
-.shelf{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.15rem; padding-top:1.5rem}
-@media (max-width:940px){.shelf{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.shelf{grid-template-columns:1fr}}
-
-.product{display:flex; flex-direction:column; gap:.9rem; background:var(--card); border:1px solid var(--rule);
-  border-radius:3px; padding:1.35rem 1.3rem 1.25rem;
-  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
-.product:hover{transform:translateY(-3px); box-shadow:var(--shadow); border-color:color-mix(in oklab,var(--accent-lit) 45%,var(--rule))}
-.sku{font-family:var(--mono); font-size:.61rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:500}
-.product h4{font-family:var(--display); font-size:1.12rem; font-weight:750; letter-spacing:-.022em; line-height:1.2}
-.product > p{color:var(--ink-soft); font-size:.95rem; line-height:1.55}
-.contents{display:flex; flex-direction:column; gap:.42rem; border-top:1px solid var(--rule-soft); padding-top:.85rem}
-.contents li{display:grid; grid-template-columns:.95rem 1fr; gap:.55rem; font-size:.9rem; line-height:1.45; color:var(--ink-soft)}
-.contents li::before{content:"\2713"; font-family:var(--mono); font-size:.68rem; color:var(--accent); line-height:1.7}
-.price-row{display:flex; align-items:baseline; justify-content:space-between; gap:1rem;
-  border-top:1px solid var(--rule-soft); padding-top:.9rem; margin-top:auto}
-.price{font-family:var(--display); font-weight:750; font-size:1.5rem; letter-spacing:-.03em; font-variant-numeric:tabular-nums}
-.eligible{font-family:var(--mono); font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent);
-  border:1px solid currentColor; border-radius:2px; padding:.26rem .42rem; white-space:nowrap}
-.note{display:flex; gap:.75rem; align-items:flex-start; border-left:2px solid var(--accent-lit); padding-left:1rem; color:var(--ink-soft); font-size:.97rem; max-width:70ch}
-
-/* ---------- Bundles ---------- */
-.tiers{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.25rem}
-@media (max-width:860px){.tiers{grid-template-columns:1fr}}
+/* ---------- Single offering module ---------- */
 .tier{display:flex; flex-direction:column; gap:1rem; border:1px solid var(--rule); border-radius:3px;
   padding:1.5rem 1.4rem; background:var(--card)}
-.tier-flag{border-color:var(--accent-lit); box-shadow:var(--shadow)}
-.tier-flag .tier-name{color:var(--accent)}
 .tier-name{font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; font-weight:500; color:var(--muted)}
 .tier-price{font-family:var(--display); font-weight:750; font-size:2rem; letter-spacing:-.03em; line-height:1}
 .tier-price small{font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:500; display:block; padding-top:.5rem}
@@ -402,20 +343,17 @@ until a catalog record is verified and approved for publication. -->
   <div class="wrap topbar-in">
     <a class="brand" href="#top">
       <span class="brand-mark">Preparation Station</span>
-      <span class="brand-sub mono">Supply co.</span>
+      <span class="brand-sub mono">Nationwide Acquisitions, LLC</span>
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="esa.html">Use Your TEFA Account</a>
-      <a href="store/shop.html">Product preview</a>
-      <a href="#shop">Shop</a>
-      <a href="#skills">What it builds</a>
-      <a href="#funding">Funding help</a>
-      <a href="#bundles">Bundles</a>
-      <a href="#ordering">Ordering</a>
-      <a href="store/track.html">Track order</a>
+      <a href="#how">How funded purchase works</a>
+      <a href="#offering">Current offering</a>
+      <a href="#eligibility">Eligibility</a>
+      <a href="#support">Support</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-solid btn-sm" href="store/shop.html">Preview products</a>
+    <a class="btn btn-solid btn-sm" href="#how">Start a request</a>
   </div>
 </header>
 
@@ -425,352 +363,181 @@ until a catalog record is verified and approved for publication. -->
   <div class="hero-grid">
     <div class="stack g-24">
       <p class="hero-eyebrow mono rise" style="--d:0ms">
-        <span>Texas program request review</span><span class="dot" aria-hidden="true"></span>
-        <span>Product eligibility confirmed before ordering</span>
+        <span>Approved TEFA Marketplace vendor</span><span class="dot" aria-hidden="true"></span>
+        <span>Every offering reviewed separately in Odyssey</span>
       </p>
-      <h1 class="h-xl rise" style="--d:70ms">A storefront for the skills school doesn't <span class="mark">stock</span>.</h1>
+      <h1 class="h-xl rise" style="--d:70ms">Educational supplies for families who fund <span class="mark">purchases</span> through approved programs.</h1>
       <p class="lede rise" style="--d:140ms">
-        Tools, kits, and equipment your student can actually use &mdash; practical trades, design and
-        motion, AI and electronics, and the harder stuff nobody sells: handling a situation,
-        holding your ground, turning a skill into value.
+        Preparation Station is operated by Nationwide Acquisitions, LLC &mdash; an approved TEFA
+        Marketplace vendor. We present products for review, confirm facts and eligibility before any
+        purchase, and never collect payment on this site.
       </p>
       <div class="hero-cta rise" style="--d:210ms">
-        <a class="btn btn-solid" href="store/shop.html">Preview product pages</a>
-        <a class="btn btn-ghost" href="#funding">No account yet? Start here</a>
+        <a class="btn btn-solid" href="#how">How funded purchase works</a>
+        <a class="btn btn-ghost" href="#offering">See the current offering</a>
       </div>
-      <p class="hero-foot rise" style="--d:280ms">Preparation Station is operated by Nationwide Acquisitions, LLC.</p>
+      <p class="hero-foot rise" style="--d:280ms">No payment is collected here. TEFA purchases happen in Odyssey.</p>
     </div>
 
-    <aside class="spec rise" style="--d:340ms" aria-label="Store information">
+    <aside class="spec rise" style="--d:340ms" aria-label="How we review">
       <div class="stamp" aria-hidden="true"><span>Education<b>ESA</b>Supplier</span></div>
-      <p class="spec-title mono">At the counter</p>
+      <p class="spec-title mono">How we handle your request</p>
       <dl class="stack">
-        <div class="spec-row"><dt>Shipping</dt><dd>Coverage and timing confirmed on each written quote</dd></div>
-        <div class="spec-row"><dt>Programs</dt><dd>Approved TEFA Marketplace vendor; each offering is reviewed separately in Odyssey</dd></div>
-        <div class="spec-row"><dt>How you pay</dt><dd>TEFA purchases happen in Odyssey; direct purchases use a separate checkout when available</dd></div>
-        <div class="spec-row"><dt>Turnaround</dt><dd>Confirmed in writing before an order is accepted</dd></div>
-        <div class="spec-row"><dt>Ages</dt><dd>Kits are graded 8&ndash;18 by readiness, not grade level</dd></div>
-        <div class="spec-row"><dt>No account?</dt><dd>We point you to the applicable official program resources</dd></div>
+        <div class="spec-row"><dt>Step 1</dt><dd>You identify a product or SKU you're interested in</dd></div>
+        <div class="spec-row"><dt>Step 2</dt><dd>We confirm facts, availability, and eligibility evidence</dd></div>
+        <div class="spec-row"><dt>Step 3</dt><dd>You follow the confirmed purchasing pathway &mdash; usually Odyssey</dd></div>
+        <div class="spec-row"><dt>Step 4</dt><dd>Fulfillment begins on the written timeline</dd></div>
+        <div class="spec-row"><dt>Acknowledgement</dt><dd>Complete requests answered within one business day</dd></div>
+        <div class="spec-row"><dt>No payment here</dt><dd>This site collects no card or account information</dd></div>
       </dl>
     </aside>
   </div>
 </section>
 
-<!-- ============ PRODUCT INFORMATION PREVIEW ============ -->
-<section class="release-note" aria-labelledby="release-title">
-  <div class="wrap release-note-in">
-    <div class="release-copy">
-      <span class="release-tag">Preview release</span>
-      <p id="release-title"><strong>Product and information pages are ready for private review.</strong>
-        Browse the catalog and sample product detail page while ordering, final availability, and
-        fulfillment details remain under review. No payment is collected in this preview.</p>
-    </div>
-    <div class="release-actions">
-      <a class="btn btn-solid btn-sm" href="store/shop.html">Browse catalog</a>
-      <a class="btn btn-ghost btn-sm" href="store/product.html">View sample product</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TRUST STRIP ============ -->
-<section class="strip" aria-label="At a glance">
+<!-- ============ TRUST RAIL ============ -->
+<section class="strip" aria-label="What we do and don't do">
   <div class="wrap">
     <div class="strip-grid">
-      <div class="strip-item"><span class="mono">Request review</span><p>Availability, shipping coverage, and timing are confirmed before an order is accepted.</p></div>
-      <div class="strip-item"><span class="mono">Program-specific</span><p>TEFA and PDSES/ClassWallet are reviewed as separate purchasing pathways.</p></div>
-      <div class="strip-item"><span class="mono">Quote-first</span><p>Product facts, price, and eligibility evidence are checked before payment.</p></div>
-      <div class="strip-item"><span class="mono">Two clear paths</span><p>TEFA purchases stay in Odyssey; direct purchases stay separate.</p></div>
+      <div class="strip-item"><span class="mono">Vendor approval</span><p>Nationwide Acquisitions, LLC is approved as a TEFA Marketplace vendor.</p></div>
+      <div class="strip-item"><span class="mono">Product review</span><p>Company approval does not approve every item; each offering is reviewed separately in Odyssey.</p></div>
+      <div class="strip-item"><span class="mono">No payment on site</span><p>We never collect payment, card, or program account information here.</p></div>
+      <div class="strip-item"><span class="mono">Written confirmation</span><p>Price, availability, and fulfillment are confirmed in writing before an order is accepted.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ WHAT IT BUILDS ============ -->
-<section class="band wrap" id="skills">
-  <div class="opener"><span class="mono">What these tools build</span></div>
+<!-- ============ BENEFITS ============ -->
+<section class="band wrap" id="benefits">
+  <div class="opener"><span class="mono">What families get here</span></div>
   <div class="split">
     <div class="stack g-20">
-      <h2 class="h-lg">School covers the basics. We stock everything after that.</h2>
+      <h2 class="h-lg">One honest path from interest to approved purchase.</h2>
     </div>
     <div class="stack g-16 prose">
       <p>
-        A young person can pass every class and still not know what to do when a situation turns,
-        when they're the only one in the room who thinks something is wrong, or when they have a
-        skill and no idea what it's worth.
+        Preparation Station presents products and answers questions about funding pathways. We do
+        not decide eligibility, guarantee an award, or process payment. What we do is verify facts,
+        confirm each offering's review status, and point you to the correct official marketplace.
       </p>
       <p>
-        That's the gap we supply. Not another curriculum &mdash; equipment, kits, and guided projects
-        a student works through and keeps. What they build is capability they can point at, and the
-        confidence that comes with it, which is a far better defence against bad influence than
-        being told to make good choices.
+        TEFA purchases happen in Odyssey. PDSES/ClassWallet status remains unconfirmed until
+        evidence is recorded. Nothing on this site is official program guidance.
       </p>
     </div>
   </div>
 
   <div class="pillars" style="margin-top:clamp(2.5rem,5vw,3.75rem)">
     <div class="pillar rise">
-      <span class="mono">Handling it</span>
+      <span class="mono">Verified facts</span>
       <div class="stack">
-        <h3 class="h-md">Knowing what to do when something goes sideways</h3>
-        <p>Conflict, pressure, authority, emergencies, being blamed, being wrong. Rehearsed
-           before it counts, so the first time isn't the real time.</p>
+        <h3 class="h-md">Prices, availability, and eligibility confirmed before purchase</h3>
+        <p>Every product request is checked against current evidence before you commit to a purchasing pathway.</p>
       </div>
     </div>
     <div class="pillar rise">
-      <span class="mono">Self-command</span>
+      <span class="mono">Separate reviews</span>
       <div class="stack">
-        <h3 class="h-md">Running yourself when nobody is checking</h3>
-        <p>Attention, follow-through, and the discipline to finish a build that stopped being
-           fun in the middle. The habit transfers everywhere.</p>
+        <h3 class="h-md">Vendor approval is not product approval</h3>
+        <p>Each offering is reviewed separately in Odyssey. If an offering hasn't completed review, we say so plainly.</p>
       </div>
     </div>
     <div class="pillar rise">
-      <span class="mono">Channelled energy</span>
+      <span class="mono">No payment here</span>
       <div class="stack">
-        <h3 class="h-md">Somewhere to put it</h3>
-        <p>Restlessness isn't a defect, it's unspent fuel. Every kit gives it a direction and a
-           finish line &mdash; hours that would otherwise go looking for something to do.</p>
+        <h3 class="h-md">This site never collects payment or account details</h3>
+        <p>No card forms, no program account numbers, no financial documents &mdash; ever.</p>
       </div>
     </div>
     <div class="pillar rise">
-      <span class="mono">Adding value</span>
+      <span class="mono">Written confirmations</span>
       <div class="stack">
-        <h3 class="h-md">Being the person who can do the thing</h3>
-        <p>Fixing what's broken, designing what's needed, shipping what was promised &mdash; and
-           knowing how to price it. Value you create is leverage nobody can take.</p>
-      </div>
-    </div>
-    <div class="pillar rise">
-      <span class="mono">Practical skill</span>
-      <div class="stack">
-        <h3 class="h-md">Hands that know things</h3>
-        <p>Tools, materials, measurement, machines, software. Competence with real objects,
-           which is still the fastest way to stop feeling powerless.</p>
+        <h3 class="h-md">Everything in writing before an order is accepted</h3>
+        <p>Complete requests are acknowledged within one business day, with the pathway and timeline stated in writing.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ SHOP ============ -->
-<section class="band band-tint" id="shop">
+<!-- ============ HOW FUNDED PURCHASE WORKS ============ -->
+<section class="band wrap" id="how">
+  <div class="opener"><span class="mono">How funded purchase works</span></div>
+  <div class="split" style="padding-bottom:.5rem">
+    <h2 class="h-lg">Four steps, one confirmed path.</h2>
+    <p class="prose">There is no live checkout here on purpose. We confirm the correct official
+      pathway in writing before any purchase, and we never collect payment on this site.</p>
+  </div>
+  <ol class="steps">
+    <li class="step">
+      <span class="step-n">Step 01</span>
+      <h3 class="h-sm">Review an approved offering</h3>
+      <p>Find the product you're interested in and confirm its current offering and eligibility
+        status. We say plainly when an offering hasn't completed review.</p>
+    </li>
+    <li class="step">
+      <span class="step-n">Step 02</span>
+      <h3 class="h-sm">Submit a request</h3>
+      <p>Send your request with the SKU, program name, and general details. Do not email account
+        numbers, disability records, school identifiers, or financial documents.</p>
+    </li>
+    <li class="step">
+      <span class="step-n">Step 03</span>
+      <h3 class="h-sm">Confirm the pathway</h3>
+      <p>We acknowledge a complete request within one business day and confirm the purchasing
+        pathway, price, availability, and delivery timeline in writing.</p>
+    </li>
+    <li class="step">
+      <span class="step-n">Step 04</span>
+      <h3 class="h-sm">Purchase through Odyssey</h3>
+      <p>TEFA purchases happen in Odyssey. Fulfillment begins on the written timeline after the
+        order is accepted there.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ============ CURRENT OFFERING ============ -->
+<section class="band band-tint" id="offering">
   <div class="wrap">
-    <div class="opener"><span class="mono">The shop &mdash; four departments</span></div>
+    <div class="opener"><span class="mono">Current offering</span></div>
     <div class="split">
-      <h2 class="h-lg">Everything here is a kit, and every kit ends in something finished.</h2>
-      <p class="prose">Browse a single item or build a list. TEFA purchases happen in Odyssey after
-        each offering is approved. If a product has not completed offering review, we say so before
-        presenting it as available for TEFA purchase.</p>
+      <h2 class="h-lg">The catalog is under offering review.</h2>
+      <p class="prose">No product is listed for TEFA purchase until its offering has completed
+        review in Odyssey. We publish one verified offering at a time rather than a shelf of
+        unverified claims.</p>
     </div>
 
-    <!-- DEPT 01 -->
-    <div class="dept">
-      <span class="dept-code">Dept. 01</span>
-      <h3>Practical &amp; Trade</h3>
-      <p>Real tools, real repairs, real money. The competence that makes a household run.</p>
-    </div>
-    <div class="shelf">
-      <article class="product rise">
-        <span class="sku">PS-PR-101</span>
-        <h4>Home &amp; Repair Tool Roll</h4>
-        <p>A proper set of tools the student owns, plus the eight repairs that cover most of what breaks in a house.</p>
-        <ul class="contents">
-          <li>18-piece tool roll, full size, not toy grade</li>
-          <li>Safety card and supervised competency checklist</li>
-          <li>Project book: drywall, fixtures, fasteners, bikes</li>
-          <li>Measuring and estimating worksheets</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-      <article class="product rise">
-        <span class="sku">PS-PR-102</span>
-        <h4>Money &amp; First Job Kit</h4>
-        <p>What a paycheck actually is, where it goes, and how to ask for more of it without flinching.</p>
-        <ul class="contents">
-          <li>Budget ledger and account-opening walkthrough</li>
-          <li>First-paycheck simulation with real deductions</li>
-          <li>Negotiation and rate-setting card deck</li>
-          <li>Contracts, invoices, and getting paid</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-      <article class="product rise">
-        <span class="sku">PS-PR-103</span>
-        <h4>Kitchen &amp; Provision Kit</h4>
-        <p>Feeding yourself well and cheaply, which turns out to be a life skill and a maths lesson at once.</p>
-        <ul class="contents">
-          <li>Knife, board, and technique card set</li>
-          <li>Meal planning deck and grocery-run challenge</li>
-          <li>Cost-per-serving worksheets</li>
-          <li>Food safety and kitchen emergency card</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
+    <!-- SINGLE SKU MODULE -->
+    <div class="tier" style="margin-top:clamp(1.75rem,3.5vw,2.5rem)">
+      <span class="tier-name">First offering &mdash; in review</span>
+      <p class="tier-price" style="font-size:1.6rem">Nothing for sale yet</p>
+      <ul>
+        <li>Catalog items are being reviewed as Odyssey offerings</li>
+        <li>Once the first offering completes review, its SKU, price, and eligibility status appear here</li>
+        <li>Until then, no purchase is possible &mdash; on this site or in Odyssey</li>
+      </ul>
+      <div class="hero-cta" style="padding-top:.4rem">
+        <a class="btn btn-solid" href="store/shop.html">Browse the catalog for reference</a>
+        <a class="btn btn-ghost" href="mailto:mmminvestment25@gmail.com?subject=Product%20request">Ask about a product</a>
+      </div>
     </div>
 
-    <!-- DEPT 02 -->
-    <div class="dept">
-      <span class="dept-code">Dept. 02</span>
-      <h3>Situation Handling &amp; Self-Command</h3>
-      <p>The department nobody else stocks. Rehearsal for the moments that actually decide things.</p>
-    </div>
-    <div class="shelf">
-      <article class="product rise">
-        <span class="sku">PS-SC-201</span>
-        <h4>Situation Handling Deck</h4>
-        <p>Sixty scenarios worked through before they happen &mdash; so the response is practised, not improvised.</p>
-        <ul class="contents">
-          <li>Conflict, pressure, and walking away</li>
-          <li>Dealing with authority, fairly and firmly</li>
-          <li>Emergencies: medical, roadside, household</li>
-          <li>Being wrong in public and recovering from it</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-      <article class="product rise">
-        <span class="sku">PS-SC-202</span>
-        <h4>Focus &amp; Energy System</h4>
-        <p>A physical planning system for students who bounce off apps. Paper holds people accountable better.</p>
-        <ul class="contents">
-          <li>Wall planning board and week cards</li>
-          <li>Habit ledger with an honest weekly review</li>
-          <li>Energy audit: where the hours actually went</li>
-          <li>Goal ladder broken into finishable steps</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-      <article class="product rise">
-        <span class="sku">PS-SC-203</span>
-        <h4>Self-Advocacy Workbook</h4>
-        <p>Asking for what you need, holding a boundary, and putting it in writing when it matters.</p>
-        <ul class="contents">
-          <li>Scripts for hard conversations</li>
-          <li>Boundaries and how to hold one under pressure</li>
-          <li>Documenting a problem so it gets taken seriously</li>
-          <li>Knowing which adult to go to, and when</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-    </div>
-
-    <!-- DEPT 03 -->
-    <div class="dept">
-      <span class="dept-code">Dept. 03</span>
-      <h3>Design &amp; Motion Studio</h3>
-      <p>Professional creative tools, taught to a finished portfolio &mdash; and to a first paid job.</p>
-    </div>
-    <div class="shelf">
-      <article class="product rise">
-        <span class="sku">PS-CS-301</span>
-        <h4>Graphic Design Bench</h4>
-        <p>A real drawing tablet and the fundamentals that separate design from decoration.</p>
-        <ul class="contents">
-          <li>Drawing tablet and stylus</li>
-          <li>Software licence specification pending</li>
-          <li>Type, grid, and colour fundamentals book</li>
-          <li>Ten client-style briefs with worked solutions</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-      <article class="product rise">
-        <span class="sku">PS-CS-302</span>
-        <h4>Motion &amp; Video Kit</h4>
-        <p>Lighting, sound, and an edit that holds attention. Six finished pieces by the end.</p>
-        <ul class="contents">
-          <li>LED light, lav mic, and tripod mount</li>
-          <li>Motion graphics curriculum &mdash; keyframes to easing</li>
-          <li>Storyboard pad and shot-list cards</li>
-          <li>Six briefs: title sequence, explainer, product spot</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-      <article class="product rise">
-        <span class="sku">PS-CS-303</span>
-        <h4>Skill-to-Income Pack</h4>
-        <p>The part creative courses skip: what the work is worth and how to actually get paid for it.</p>
-        <ul class="contents">
-          <li>Pricing worksheets and rate floors</li>
-          <li>Portfolio build and case-study template</li>
-          <li>Client scripts: scope, revisions, saying no</li>
-          <li>Invoices, deposits, and chasing late payment</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-    </div>
-
-    <!-- DEPT 04 -->
-    <div class="dept">
-      <span class="dept-code">Dept. 04</span>
-      <h3>AI &amp; Emerging Tech Bench</h3>
-      <p>How the machines actually work, built and tested by hand &mdash; not narrated on a screen.</p>
-    </div>
-    <div class="shelf">
-      <article class="product rise">
-        <span class="sku">PS-AT-401</span>
-        <h4>AI Literacy Bench Kit</h4>
-        <p>Starts offline. What a model is, where it fails, and how not to be fooled by one.</p>
-        <ul class="contents">
-          <li>How models work, explained without jargon</li>
-          <li>Prompt practice deck: asking, then checking</li>
-          <li>Spot-the-fake drills for image, audio, and text</li>
-          <li>Digital-footprint audit and capstone build</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-      <article class="product rise">
-        <span class="sku">PS-AT-402</span>
-        <h4>Electronics &amp; Robotics Starter</h4>
-        <p>A microcontroller, a pile of sensors, and eight builds that end in something that moves.</p>
-        <ul class="contents">
-          <li>Microcontroller board and sensor set</li>
-          <li>Breadboard, jumpers, and motor driver</li>
-          <li>Eight builds, from blink to line-follower</li>
-          <li>Circuit-reading and debugging guide</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-      <article class="product rise">
-        <span class="sku">PS-AT-403</span>
-        <h4>3D Design &amp; Fabrication Intro</h4>
-        <p>Model it to spec, hold it in your hand, find out where the tolerance was wrong.</p>
-        <ul class="contents">
-          <li>3D modelling curriculum, parts to assemblies</li>
-          <li>Print credit specification pending</li>
-          <li>Calipers and tolerance practice set</li>
-          <li>Six printable projects with drawings</li>
-        </ul>
-        <div class="price-row"><span class="price">Price pending</span><span class="eligible">Odyssey review pending</span></div>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </article>
-    </div>
-
-    <p class="note" style="margin-top:2rem">Eligible categories differ by program and by state. Tell us
-      where you are and what you're looking at, and we'll confirm what your funds cover before you
-      order anything &mdash; including when the honest answer is that they don't.</p>
+    <p class="note" style="margin-top:1.75rem">You can still browse catalog previews for planning,
+      but a catalog listing is not an offer for sale and not a guarantee of eligibility. TEFA
+      purchases happen only in Odyssey after an offering completes review.</p>
   </div>
 </section>
 
-<!-- ============ FUNDING HELP ============ -->
-<section class="band wrap" id="funding">
-  <div class="opener"><span class="mono">Educational product &amp; funding review</span></div>
+<!-- ============ ELIGIBILITY ============ -->
+<section class="band wrap" id="eligibility">
+  <div class="opener"><span class="mono">Program &amp; eligibility status</span></div>
   <div class="fund-grid">
     <div class="stack g-20">
-      <h2 class="h-lg">Tell us what you need and how you plan to pay.</h2>
-      <p class="prose">Nationwide Acquisitions, LLC is approved as a TEFA Marketplace vendor and operates
-        Preparation Station. Each product or service offering is reviewed separately in Odyssey before
-        families can purchase it with TEFA funds.</p>
-      <p class="prose">TEFA and PDSES/ClassWallet are separate programs. Approval for one program does
-        not establish approval for the other, and company approval does not by itself prove that a
-        specific product is eligible.</p>
+      <h2 class="h-lg">Approval status is published, not promised.</h2>
+      <p class="prose">Nationwide Acquisitions, LLC is approved as a TEFA Marketplace vendor and
+        operates Preparation Station. Each product or service offering is reviewed separately in
+        Odyssey before families can purchase it with TEFA funds.</p>
+      <p class="prose">TEFA and PDSES/ClassWallet are separate programs. Approval for one program
+        does not establish approval for the other, and company approval does not by itself prove
+        that a specific product is eligible.</p>
       <div class="stack g-12">
         <p class="mono" style="color:var(--muted)">Current program status</p>
         <div class="states">
@@ -781,20 +548,16 @@ until a catalog record is verified and approved for publication. -->
           TEFA purchases and official TEFA order history remain in Odyssey. A vendor approval does not
           mean every catalog item has completed Odyssey offering review.</p>
       </div>
-      <div class="hero-cta">
-        <a class="btn btn-solid" href="mailto:mmminvestment25@gmail.com?subject=Educational%20product%20and%20funding%20review">Request a review</a>
-        <a class="btn btn-ghost" href="#faq">Read the fine print</a>
-      </div>
     </div>
 
     <div class="fund-panel">
-      <span class="mono">What the request review covers</span>
+      <span class="mono">What we confirm before a purchase</span>
       <ul class="fund-list">
-        <li><span class="n">01</span><span>Identify the requested product and canonical SKU.</span></li>
-        <li><span class="n">02</span><span>Confirm whether the request is self-pay, TEFA, or PDSES/ClassWallet.</span></li>
-        <li><span class="n">03</span><span>Check current product facts, availability, price, and fulfillment source.</span></li>
-        <li><span class="n">04</span><span>Check product-specific program evidence without guaranteeing eligibility.</span></li>
-        <li><span class="n">05</span><span>For TEFA, complete the purchase in Odyssey; for self-pay, use the separate direct path when enabled.</span></li>
+        <li><span class="n">01</span><span>The requested product and its canonical SKU.</span></li>
+        <li><span class="n">02</span><span>Whether the request is self-pay, TEFA, or PDSES/ClassWallet.</span></li>
+        <li><span class="n">03</span><span>Current product facts, availability, price, and fulfillment source.</span></li>
+        <li><span class="n">04</span><span>Product-specific program evidence &mdash; without guaranteeing eligibility.</span></li>
+        <li><span class="n">05</span><span>For TEFA, purchase in Odyssey; for self-pay, the separate direct path when enabled.</span></li>
       </ul>
       <div class="fund-meta">
         <span>Any service fee <b>Confirmed before work begins</b></span>
@@ -804,55 +567,6 @@ until a catalog record is verified and approved for publication. -->
         Preparation Station is not a Texas government agency. Final eligibility and approved
         purchasing pathways are determined by the applicable official program.</p>
     </div>
-  </div>
-</section>
-
-<!-- ============ BUNDLES ============ -->
-<section class="band band-tint" id="bundles">
-  <div class="wrap">
-    <div class="opener"><span class="mono">Bundles</span></div>
-    <div class="split" style="padding-bottom:clamp(1.75rem,3.5vw,2.5rem)">
-      <h2 class="h-lg">Buy the shelf, not the item.</h2>
-      <p class="prose">Bundle concepts remain under review. Any TEFA bundle must be uploaded and approved
-        as an Odyssey offering before families can purchase it with program funds.</p>
-    </div>
-    <div class="tiers">
-      <div class="tier">
-        <span class="tier-name">Starter shelf</span>
-        <p class="tier-price">Price pending<small>bundle concept</small></p>
-        <ul>
-          <li>Any two kits from any department</li>
-          <li>Both project books included</li>
-          <li>Single itemized invoice</li>
-          <li>Shipping confirmed before purchase</li>
-        </ul>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </div>
-      <div class="tier tier-flag">
-        <span class="tier-name">Workshop &mdash; most ordered</span>
-        <p class="tier-price">Price pending<small>bundle concept</small></p>
-        <ul>
-          <li>Any four kits, mix departments freely</li>
-          <li>Consumable resupply schedule pending</li>
-          <li>Priority handling on invoice questions</li>
-          <li>Shipping confirmed before purchase</li>
-        </ul>
-        <span class="btn btn-solid btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </div>
-      <div class="tier">
-        <span class="tier-name">Full year</span>
-        <p class="tier-price">Price pending<small>bundle concept</small></p>
-        <ul>
-          <li>Every kit in the shop</li>
-          <li>Staged delivery schedule pending</li>
-          <li>Consumable resupply throughout</li>
-          <li>End-of-year portfolio folder</li>
-        </ul>
-        <span class="btn btn-ghost btn-sm btn-block" aria-disabled="true">Offering review pending</span>
-      </div>
-    </div>
-    <p class="note" style="margin-top:1.75rem">Tell us the products you are comparing. We can help identify
-      the correct listing, but Odyssey controls each TEFA-funded purchase and its official order record.</p>
   </div>
 </section>
 
@@ -903,40 +617,6 @@ until a catalog record is verified and approved for publication. -->
   </div>
 </section>
 
-<!-- ============ ORDERING ============ -->
-<section class="band wrap" id="ordering">
-  <div class="opener"><span class="mono">How ordering works &mdash; four steps</span></div>
-  <div class="split" style="padding-bottom:.5rem">
-    <h2 class="h-lg">From basket to doorstep.</h2>
-    <p class="prose">There's no live checkout button here on purpose. We confirm whether a request is
-      self-pay or must use an official program marketplace, then provide the correct written path.</p>
-  </div>
-  <ol class="steps">
-    <li class="step">
-      <span class="step-n">Step 01</span>
-      <h3 class="h-sm">Send us your list</h3>
-      <p>Email the SKUs you want, the program name, and general age range. Do not email account
-        numbers, disability records, school identifiers, or financial documents.</p>
-    </li>
-    <li class="step">
-      <span class="step-n">Step 02</span>
-      <h3 class="h-sm">We quote it</h3>
-      <p>We acknowledge a complete request within one business day and confirm price, availability,
-        the purchasing pathway, and expected delivery before accepting an order.</p>
-    </li>
-    <li class="step">
-      <span class="step-n">Step 03</span>
-      <h3 class="h-sm">Use the confirmed pathway</h3>
-      <p>Follow the written self-pay or official program instructions provided for the request.</p>
-    </li>
-    <li class="step">
-      <span class="step-n">Step 04</span>
-      <h3 class="h-sm">Fulfillment begins</h3>
-      <p>The product-specific fulfillment window disclosed in writing begins after the order is accepted.</p>
-    </li>
-  </ol>
-</section>
-
 <!-- ============ FAQ ============ -->
 <section class="band band-tint" id="faq">
   <div class="wrap">
@@ -970,12 +650,13 @@ until a catalog record is verified and approved for publication. -->
         <summary>Why is there no checkout button?</summary>
         <p class="faq-body">TEFA purchases happen in Odyssey. Preparation Station's separate direct
           checkout remains disabled until product prices, tax, shipping, returns, payment, and fulfillment
-          are configured.</p>
+          are configured. This site never collects payment or program account information.</p>
       </details>
       <details>
         <summary>Can I buy without using program funds?</summary>
         <p class="faq-body">Direct purchase is planned but not active. No card information is collected
-          on this preview. A direct Buy button will appear only for verified retail products.</p>
+          on this site. A direct purchase path will open only for verified retail products, separate
+          from TEFA and PDSES/ClassWallet.</p>
       </details>
       <details>
         <summary>What ages are these for?</summary>
@@ -997,24 +678,26 @@ until a catalog record is verified and approved for publication. -->
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
-<section class="band wrap" id="contact">
-  <div class="opener"><span class="mono">Contact &amp; getting started</span></div>
+<!-- ============ SUPPORT & POLICIES ============ -->
+<section class="band wrap" id="support">
+  <div class="opener"><span class="mono">Support &amp; policies</span></div>
   <div class="contact-grid">
     <div class="stack g-24">
-      <h2 class="h-lg">Tell us your state and your list.</h2>
-      <p class="prose">One email starts it, whether that's an order, an eligibility question, or "we
-        have nothing set up and don't know where to begin." All three land in the same inbox.</p>
+      <h2 class="h-lg">Ask before you buy &mdash; it's the whole point.</h2>
+      <p class="prose">One email starts it, whether that's a product request, an eligibility question,
+        or "we have nothing set up and don't know where to begin." All of it is confirmed in writing
+        before any purchase, and no payment is collected on this site.</p>
       <dl class="lines">
         <div class="line"><dt>Email</dt><dd><a href="mailto:Mmminvestment25@gmail.com">Mmminvestment25@gmail.com</a></dd></div>
         <div class="line"><dt>Support</dt><dd>Email; complete requests acknowledged within one business day</dd></div>
         <div class="line"><dt>Reply time</dt><dd>Complete requests acknowledged within one business day</dd></div>
-        <div class="line"><dt>Shipping</dt><dd>Coverage and timing confirmed per quote</dd></div>
+        <div class="line"><dt>Shipping</dt><dd>Coverage and timing confirmed per written quote</dd></div>
+        <div class="line"><dt>Returns</dt><dd>Product-specific policy shown before purchase, in Odyssey or the direct path</dd></div>
+        <div class="line"><dt>Payment</dt><dd>Disabled on this site; TEFA purchases happen in Odyssey</dd></div>
       </dl>
       <div class="hero-cta">
-        <a class="btn btn-solid" href="store/shop.html">Browse the catalog</a>
+        <a class="btn btn-solid" href="mailto:mmminvestment25@gmail.com?subject=Product%20and%20funding%20review">Start a request</a>
         <a class="btn btn-ghost" href="store/track.html">Track an order</a>
-        <a class="btn btn-ghost" href="mailto:mmminvestment25@gmail.com?subject=Educational%20product%20and%20funding%20review">Request a review</a>
       </div>
     </div>
 
@@ -1042,9 +725,9 @@ until a catalog record is verified and approved for publication. -->
         <span class="mono" style="color:var(--pine-muted)">Educational tools &amp; resources &middot; TEFA purchases through Odyssey</span>
       </div>
       <nav class="foot-nav" aria-label="Footer">
-        <a href="#shop">Shop</a><a href="#skills">What it builds</a><a href="#funding">Funding help</a>
-        <a href="#bundles">Bundles</a><a href="#ordering">Ordering</a><a href="store/track.html">Track order</a>
-        <a href="mailto:Mmminvestment25@gmail.com">Email</a>
+        <a href="#how">How funded purchase works</a><a href="#offering">Current offering</a>
+        <a href="#eligibility">Eligibility</a><a href="#support">Support</a><a href="#faq">FAQ</a>
+        <a href="store/track.html">Track order</a><a href="mailto:Mmminvestment25@gmail.com">Email</a>
       </nav>
     </div>
     <p class="disclaim">
@@ -1058,7 +741,7 @@ until a catalog record is verified and approved for publication. -->
     <p class="foot-meta">
       <span>&copy; 2026 Nationwide Acquisitions, LLC</span>
       <span>mmminvestment25@gmail.com</span>
-      <span>Updated August 9, 2026</span>
+      <span>Updated August 16, 2026</span>
     </p>
   </div>
 </footer>
