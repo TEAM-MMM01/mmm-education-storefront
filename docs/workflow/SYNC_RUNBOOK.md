@@ -20,7 +20,7 @@ Optional companion repos (clone only if the device needs them):
 
 | Repo | Purpose |
 | --- | --- |
-| `royal-collexions-commerce` | Royal Collexions retail/dropshipping (planned; clone only after it exists and is reviewed) |
+| `royal-collexions-brand-system` | Royal Collexions retail/dropshipping (planned; clone only after it exists and is reviewed) |
 | `HermesOS-*` | Orchestration runtime; treat as separate from this storefront repo per `config/project-state.json` |
 
 ## 2. Recommended layout on a device
