@@ -1,6 +1,6 @@
 # TEFA / ESA launch audit
 
-Reviewed against the merged `main` state from pull request #10. This audit treats the repository as the source of truth and does not assume that disabled foundations are production services.
+Reviewed against the repository state on 2026-08-15. This audit treats the repository as the source of truth and does not assume that disabled foundations are production services.
 
 ## Recommendation
 
@@ -55,6 +55,28 @@ Upload offerings in Odyssey, record each offering ID and review status, and keep
 ### Retail operations
 
 General Store needs a PCI-compliant processor, real tax configuration, accurate shipping rates, finalized product metadata, order creation, customer email, and fulfillment tracking.
+
+## Repository-verifiable release evidence
+
+**Workflow truth state: `Blocked`.** This is Tier 2 release-record maintenance; the
+Tier 3 production deployment remains outside this change and requires Richie’s
+explicit approval. The following values reflect only evidence present in this
+repository as of 2026-08-15:
+
+| Release check | Repository record | Recorded result |
+| --- | --- | --- |
+| TEFA release SKU | `config/pages-release.json` has an empty `release_skus` list; no item under `catalog/` records `funding_eligibility.tefa` as `verified_product_evidence`. | No release SKU is verified. Company-level vendor approval is not product eligibility. |
+| Request-intake endpoint | `config/request-intake.json` is disabled and its `endpoint` is empty. | No endpoint is verified. |
+| Backend end-to-end rehearsal | `config/pages-release.json` records `request_backend.e2e_verified` as `false`. | Not verified. |
+| Owner notification | `config/pages-release.json` records `owner_notification_verified` as `false`. | Not verified. |
+| Customer confirmation | `config/pages-release.json` records `customer_confirmation_verified` as `false`. | Not verified. |
+| Verification time | `config/pages-release.json` records `verified_at` as `null`. | No timestamp is recorded because no end-to-end verification evidence exists; when verification occurs, this field must contain a timezone-aware ISO 8601 value. |
+
+`deployment_enabled` remains `false`. A local build or static test does not
+satisfy any remote or operational release check. Set verification fields only
+after privacy-safe evidence from the same end-to-end rehearsal is attached to a
+reviewed pull request, and do not deploy unless all gates pass and Richie
+explicitly approves the Tier 3 action.
 
 ## Launch gates
 
