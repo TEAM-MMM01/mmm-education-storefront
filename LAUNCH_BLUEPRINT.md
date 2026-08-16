@@ -33,7 +33,7 @@ can be hosted anywhere that serves HTML, CSS, JavaScript, and assets.
   GitHub Pages and use the generated preview URL. This is the link to share
   privately before the business is ready to transact.
 - **Production link for customers**: connect a purchased domain such as
-  `mmminvestment.com`, `shop.mmminvestment.com`, or the final brand domain to the
+  the verified Preparation Station domain to the
   hosting provider. This is the public link for families, ads, vendor profiles,
   QR codes, email signatures, and social profiles.
 - **Commerce path**: a static host can display the catalog and run client-side

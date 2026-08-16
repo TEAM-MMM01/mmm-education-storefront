@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the TEFA vendor landing page and the storefront mockups.
+"""Build the Preparation Station landing page and storefront mockups.
 
 Inlines the subset webfonts from fonts/ into each source page and writes
 self-contained HTML documents. No build dependencies, no network, no CDN —
@@ -13,6 +13,7 @@ Produces:
     store/shop.html             ESA store mockup: category grid
     store/product.html          ESA store mockup: product detail
     store/order.html             ESA store mockup: order/quote review
+    store/track.html             secure order-history entry point
     general-store/shop.html      General Store mockup: category grid
     general-store/product.html   General Store mockup: product detail
     general-store/checkout.html  General Store mockup: checkout
@@ -93,10 +94,10 @@ def build_main_page():
 def build_store_pages(shared_css: str):
     store = HERE / "store"
     desc = (
-        "Storefront mockup: kits, tools, and homeschool resources invoiced against "
-        "TEFA and other state education funds."
+        "Preparation Station educational products; approved TEFA offerings are "
+        "purchased through the official Odyssey Marketplace."
     )
-    for name in ("shop", "product", "order"):
+    for name in ("shop", "product", "order", "track"):
         src = (store / "src" / f"{name}.html").read_text()
         if "__STORE_SHARED_CSS__" not in src:
             raise SystemExit(f"__STORE_SHARED_CSS__ missing from store/src/{name}.html")
@@ -112,8 +113,8 @@ def build_store_pages(shared_css: str):
 def build_general_store_pages(shared_css: str):
     gs = HERE / "general-store"
     desc = (
-        "General Store mockup: family titles and activity books sold at retail, "
-        "kept separate from the TEFA/ESA-funded storefront."
+        "General Store preview: family titles and activity books sold at retail, "
+        "kept separate from the ESA/TEFA-funded storefront."
     )
     for name in ("shop", "product", "checkout"):
         src = (gs / "src" / f"{name}.html").read_text()

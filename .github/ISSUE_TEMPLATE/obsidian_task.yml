@@ -1,0 +1,32 @@
+name: Obsidian operations task
+description: Request vault structure, templates, SOPs, or synced operating-doc work.
+title: "Obsidian: "
+labels: [obsidian, operations]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What note, template, SOP, or vault structure should be created or improved?
+    validations:
+      required: true
+  - type: dropdown
+    id: sync_method
+    attributes:
+      label: Sync method
+      options:
+        - Obsidian Sync
+        - Private GitHub repo
+        - Hybrid Obsidian Sync plus selected GitHub docs
+        - Not decided yet
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: Do not include secrets, access tokens, private customer data, or personal mail in repo docs.
+          required: true
+        - label: Keep private daily notes separate from storefront source code.
+          required: true

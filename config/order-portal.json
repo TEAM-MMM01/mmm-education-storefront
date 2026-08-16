@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "enabled": false,
+  "provider": "api_adapter",
+  "api_base_url": "",
+  "authentication": "email_magic_link",
+  "customer_visible_sources": [
+    "tefa_odyssey",
+    "direct_site"
+  ],
+  "tefa": {
+    "purchase_system": "odyssey_marketplace",
+    "order_history_authority": "odyssey",
+    "preparation_station_role": "fulfillment_status_mirror",
+    "sync_mode": "manual_or_approved_export_until_api_available",
+    "family_order_help_url": "https://support.withodyssey.com/hc/en-us/articles/51195311077019-How-to-Use-the-Odyssey-Marketplace"
+  },
+  "direct_commerce": {
+    "enabled": false,
+    "provider": "stripe_checkout",
+    "webhook_required": true,
+    "allowed_skus": [],
+    "payment_links": {}
+  },
+  "privacy": {
+    "public_order_lookup_allowed": false,
+    "store_order_data_in_browser": false,
+    "child_data_allowed": false
+  }
+}

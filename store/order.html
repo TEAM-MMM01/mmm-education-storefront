@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Your order — MMM Investment</title>
-<meta name="description" content="Storefront mockup: kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
+<title>Your order — Preparation Station</title>
+<meta name="description" content="Preparation Station educational products; approved TEFA offerings are purchased through the official Odyssey Marketplace.">
 <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Your order — MMM Investment">
-<meta property="og:description" content="Storefront mockup: kits, tools, and homeschool resources invoiced against TEFA and other state education funds.">
+<meta property="og:title" content="Your order — Preparation Station">
+<meta property="og:description" content="Preparation Station educational products; approved TEFA offerings are purchased through the official Odyssey Marketplace.">
 <meta property="og:type" content="website">
 <style>
   *,*::before,*::after{box-sizing:border-box}
@@ -16,23 +16,11 @@
 </style>
 </head>
 <body>
-<!--
-  MOCKUP — the third of three linked storefront-page templates
-  (shop → product → order). See ../../README.md.
-
-  The cart lives in localStorage via cart.js — there is no backend and
-  nothing is ever charged. "Request itemized quote" builds a mailto: link
-  from the cart contents, which matches the real ordering model: browse,
-  build a list, get an invoice, submit it to your program. No checkout,
-  because education funds pay against an approved invoice, not a card.
--->
-
 <style>
 /* ============================================================
-   Shared design system for the storefront mockups (shop/product/order).
+   Shared design system for the ESA storefront (shop/product/order).
    Same tokens and type system as ../src/page.html — kept as a separate
-   file here (rather than refactoring the approved landing page) so the
-   two can evolve independently while this is still a prototype.
+   file here so the two can evolve independently.
    build.py inlines fonts into this file once, then injects the result
    into each store page at its __STORE_SHARED_CSS__ marker.
    ============================================================ */
@@ -291,8 +279,7 @@ a.product{text-decoration:none; color:inherit}
 .skip{position:absolute; left:-9999px; top:0}
 .skip:focus{left:.75rem; top:.75rem; z-index:99; background:var(--accent); color:var(--on-accent); padding:.6rem .9rem; border-radius:2px; font-family:var(--mono); font-size:.7rem}
 
-.mockup-flag{background:var(--pine-accent); color:var(--on-pine-accent); text-align:center; font-family:var(--mono);
-  font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; padding:.55rem 1rem}
+
 
 /* General Store banner: same tokens, but flagged clay/red rather than the
    ESA store's pine/accent so the two are never mistaken for one another. */
@@ -339,24 +326,36 @@ a.product{text-decoration:none; color:inherit}
 
 .order-empty{padding:3rem 0; text-align:center; color:var(--muted)}
 .order-empty a{color:var(--accent)}
+.request-form{display:flex; flex-direction:column; gap:1rem; margin-top:1rem}
+.request-form .field textarea{font-family:var(--body); font-size:.98rem; color:var(--ink); background:var(--card);
+  border:1px solid var(--rule); border-radius:2px; padding:.7rem .8rem; width:100%; resize:vertical}
+.request-form .field textarea:focus-visible{outline:2.5px solid var(--focus); outline-offset:1px}
+.request-form .label-note{text-transform:none; letter-spacing:0; color:var(--muted)}
+.request-notice,.request-status,.request-error{font-size:.8rem; line-height:1.55}
+.request-notice{color:var(--muted); border-left:3px solid var(--rule); padding-left:.75rem}
+.request-status{color:var(--muted)}
+.request-error{color:#b35}
+.request-confirmation{padding:1.5rem; border:1px solid var(--rule); border-radius:3px; background:var(--paper)}
+.request-confirmation .h-md{padding-bottom:.5rem}
+.request-confirmation .prose{padding-bottom:1rem}
+.request-honeypot{position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
 </style>
 
 <div class="page">
 <a class="skip" href="#main">Skip to content</a>
-<div class="mockup-flag">Prototype — mockup for review, not the live site</div>
 
 <header class="topbar">
   <div class="wrap topbar-in">
     <a class="brand" href="../index.html">
-      <span class="brand-mark">MMM Investment</span>
+      <span class="brand-mark">Preparation Station</span>
       <span class="brand-sub mono">Supply co.</span>
     </a>
     <nav class="nav" aria-label="Primary">
       <a href="shop.html">Shop</a>
       <a href="../index.html#funding">Funding help</a>
-      <a href="../index.html#carbon">Carbon</a>
+      <a href="track.html">Track order</a>
       <a href="../index.html#faq">FAQ</a>
-      <a href="../general-store/shop.html">General Store Preview</a>
     </nav>
     <a class="btn btn-ghost btn-sm" href="order.html" aria-current="page">Order <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
   </div>
@@ -365,15 +364,16 @@ a.product{text-decoration:none; color:inherit}
 <main id="main">
   <div class="wrap band">
     <div class="opener"><span class="mono">Your order</span></div>
-    <h1 class="h-lg" style="padding-bottom:.5rem">Review before you request a quote.</h1>
-    <p class="prose" style="padding-bottom:1.5rem">Nothing here is charged. This list becomes an itemized
-      invoice, categorised to match your program, that you submit for approval.</p>
+    <h1 class="h-lg" style="padding-bottom:.5rem">Review before you request product information.</h1>
+    <p class="prose" style="padding-bottom:1.5rem">Nothing here is charged. TEFA-funded purchases are
+      completed in the official Odyssey Marketplace after an offering is approved. This form only
+      asks Preparation Station to confirm product facts or the correct purchase path.</p>
 
     <ol class="progress" style="padding-bottom:2rem; max-width:34rem">
       <li data-state="done">Browse</li>
       <li data-state="active">Review order</li>
-      <li data-state="">Get invoice</li>
-      <li data-state="">Program approves</li>
+      <li data-state="">Confirm pathway</li>
+      <li data-state="">Purchase in Odyssey or direct checkout</li>
       <li data-state="">Ships</li>
     </ol>
 
@@ -408,12 +408,50 @@ a.product{text-decoration:none; color:inherit}
       <aside class="summary">
         <span class="mono">Order summary</span>
         <div class="sum-row"><span>Subtotal</span><span id="order-subtotal">$0.00</span></div>
-        <div class="sum-row"><span>Shipping</span><span>Carbon-neutral, included</span></div>
+        <div class="sum-row"><span>Shipping</span><span>Confirmed before purchase</span></div>
         <div class="sum-row sum-total"><span>Estimated total</span><span id="order-total">$0.00</span></div>
         <p style="font-size:.86rem; color:var(--muted); padding-top:1rem; line-height:1.55">
-          This is an estimate. Your actual invoice may adjust once we confirm which items your program
-          currently treats as eligible.</p>
-        <a class="btn btn-solid btn-block" id="quote-link" href="mailto:Mmminvestment25@gmail.com" style="margin-top:1rem">Request itemized quote</a>
+          This is an unverified estimate. The approved Odyssey offering or direct checkout, when enabled,
+          is the source of the final price.</p>
+        <form id="quote-form" class="request-form">
+          <div class="field">
+            <label for="quote-name">Adult contact name</label>
+            <input type="text" id="quote-name" name="adult_name" autocomplete="name" maxlength="120" required>
+          </div>
+          <div class="field">
+            <label for="quote-email">Adult contact email</label>
+            <input type="email" id="quote-email" name="email" autocomplete="email" maxlength="254" required>
+          </div>
+          <div class="field">
+            <label for="quote-program">Funding or purchase path</label>
+            <select id="quote-program" name="program" required>
+              <option value="">Choose one</option>
+              <option value="TEFA">TEFA — purchase in Odyssey</option>
+              <option value="PDSES/ClassWallet">PDSES / ClassWallet</option>
+              <option value="Self-pay">Self-pay</option>
+              <option value="Other / not sure">Other / not sure</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="quote-notes">Nonsensitive notes <span class="label-note">(optional)</span></label>
+            <textarea id="quote-notes" name="notes" rows="4" maxlength="1000"
+              placeholder="Product preferences or general questions only."></textarea>
+          </div>
+          <p id="quote-privacy" class="request-notice"></p>
+          <button type="submit" id="quote-submit" class="btn btn-solid btn-block" disabled aria-disabled="true">Online requests not configured</button>
+          <p id="quote-status" class="request-status" role="status" aria-live="polite">Checking whether the request service is available.</p>
+          <p id="quote-error" class="request-error" role="alert" hidden></p>
+        </form>
+        <div id="quote-confirmation" class="request-confirmation" role="status" aria-live="polite" tabindex="-1" hidden>
+          <h2 class="h-md">Product request received.</h2>
+          <p class="prose">No payment was collected. Save this client reference: <strong id="quote-reference"></strong>. We acknowledge complete requests within one business day and confirm pricing, availability, the applicable funding path, and expected delivery in writing.</p>
+          <div style="display:flex; gap:.75rem; flex-wrap:wrap">
+            <button type="button" id="download-receipt" class="btn btn-solid" disabled>Download receipt</button>
+            <a class="btn btn-ghost" href="shop.html">Continue shopping</a>
+            <a class="btn btn-ghost" href="track.html">Track an order</a>
+          </div>
+        </div>
+        <a class="btn btn-ghost btn-block" href="mailto:Mmminvestment25@gmail.com?subject=Order%20enquiry" style="margin-top:.6rem">Or email directly</a>
         <a class="btn btn-ghost btn-block" href="../index.html#funding" style="margin-top:.6rem">No program account yet? Get funding help</a>
       </aside>
     </div>
@@ -423,19 +461,18 @@ a.product{text-decoration:none; color:inherit}
 <footer class="foot">
   <div class="wrap">
     <div class="foot-top">
-      <span class="foot-brand">MMM Investment</span>
+      <span class="foot-brand">Preparation Station</span>
       <nav class="foot-nav" aria-label="Footer">
         <a href="shop.html">Shop</a>
         <a href="order.html">Order</a>
+        <a href="track.html">Track order</a>
         <a href="../index.html#funding">Funding help</a>
-        <a href="../index.html#carbon">Carbon</a>
-        <a href="../general-store/shop.html">General Store Preview</a>
-        <a href="mailto:Mmminvestment25@gmail.com">Email</a>
+          <a href="mailto:Mmminvestment25@gmail.com">Email</a>
       </nav>
     </div>
-    <p class="disclaim">Prices shown are illustrative for this mockup and computed from example costs
-      per PRICING.md, not final. MMM Investment is an independent supplier of educational tools and
-      materials, not affiliated with or endorsed by TEFA or any state program.</p>
+    <p class="disclaim">Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor operating
+      Preparation Station. Each offering is reviewed separately by Odyssey. TEFA purchases and official
+      TEFA order history remain in the Odyssey Marketplace.</p>
   </div>
 </footer>
 </div>

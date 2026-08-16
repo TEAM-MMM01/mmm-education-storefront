@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Agent session memory (local-only; never commit)
+.claude/
+
+# Local snapshot directories (timestamps + scratch dumps; never commit)
+_org-backup/
+_audits/
+
+# Editor + shell artifacts
+*.log
+*.swp
+*.swo
+*~
+
+# Python virtualenvs
+.venv/
+venv/
+
+# Environment tokens (NEVER commit)
+.env
+.env.*
+!.env.example
+
+# Baby-agent run output (regenerated on every invocation)
+tools/agent_loop/report.json
+
+# Orchestration runtime output (regenerated on every invocation)
+.hermes-mac/

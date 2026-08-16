@@ -1,0 +1,82 @@
+# Manual, gated deployment of the explicit Preparation Station release artifact.
+name: Deploy vetted Pages release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Validate and deploy allowlisted artifact
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the selected main commit
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Validate canonical project and catalog state
+        run: python3 tools/validate_project_state.py
+
+      - name: Rebuild generated pages
+        run: python3 build.py
+
+      - name: Confirm generated pages are committed
+        shell: bash
+        run: |
+          generated_pages=(
+            index.html
+            store/shop.html
+            store/product.html
+            store/order.html
+            general-store/shop.html
+            general-store/product.html
+            general-store/checkout.html
+          )
+          changes="$(git status --porcelain --untracked-files=all -- "${generated_pages[@]}")"
+          if [[ -n "$changes" ]]; then
+            echo "Generated storefront pages are not up to date:"
+            echo "$changes"
+            exit 1
+          fi
+
+      - name: Enforce release-readiness gates and build artifact
+        run: >-
+          python3 tools/build_pages_release.py
+          --output "${{ runner.temp }}/pages-release"
+          --require-ready
+
+      - name: Smoke-test artifact boundaries
+        run: >-
+          python3 tools/test_pages_release.py
+          "${{ runner.temp }}/pages-release"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/pages-release
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

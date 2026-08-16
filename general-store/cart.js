@@ -8,18 +8,34 @@
    this file must not be extended with a real card-number field without
    first wiring up an actual PCI-compliant payment processor. */
 (function () {
-  const KEY = 'mmm_gs_cart_v1';
+  const KEY = 'preparation_station_gs_cart_v1';
+  const LEGACY_KEY = 'mmm_gs_cart_v1';
 
   const PRODUCTS = {
     'GEN-BK-001': { name: 'The Vulturian', price: null, format: 'Book' },
-    'GEN-CB-101': { name: 'Future Founders — Coloring Book', price: 8.95, format: 'Coloring book' },
-    'GEN-CB-102': { name: 'Tools & Trades — Coloring Book', price: 8.95, format: 'Coloring book' },
-    'GEN-CB-103': { name: 'Big Feelings, Big Wins — Coloring Book', price: 8.95, format: 'Coloring book' },
+    'GEN-CB-101': { name: 'Future Founders — Coloring Book', price: null, format: 'Concept' },
+    'GEN-CB-102': { name: 'Tools & Trades — Coloring Book', price: null, format: 'Concept' },
+    'GEN-CB-103': { name: 'Big Feelings, Big Wins — Coloring Book', price: null, format: 'Concept' },
   };
   const TAX_RATE = 0.0825; // placeholder — see general-store/README note
   const SHIPPING = { standard: 4.95, expedited: 12.95 };
 
+  function migrateLegacyCart() {
+    if (localStorage.getItem(KEY) !== null) return;
+
+    const legacyValue = localStorage.getItem(LEGACY_KEY);
+    if (legacyValue === null) return;
+
+    try {
+      localStorage.setItem(KEY, JSON.stringify(JSON.parse(legacyValue) || {}));
+      localStorage.removeItem(LEGACY_KEY);
+    } catch (e) {
+      // Leave malformed legacy data untouched so it can be recovered manually.
+    }
+  }
+
   function readCart() {
+    migrateLegacyCart();
     try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
     catch (e) { return {}; }
   }
@@ -64,10 +80,10 @@
   }
 
   function toast(msg) {
-    let t = document.getElementById('mmm-toast');
+    let t = document.getElementById('preparation-station-toast');
     if (!t) {
       t = document.createElement('div');
-      t.id = 'mmm-toast';
+      t.id = 'preparation-station-toast';
       t.style.cssText = 'position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%) translateY(8px);' +
         'background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;' +
         'padding:.65rem 1rem;border-radius:3px;z-index:200;opacity:0;transition:opacity .2s ease, transform .2s ease;pointer-events:none';
@@ -197,5 +213,5 @@
     });
   }
 
-  window.mmmGsCart = { addToCart, removeFromCart, setQty, cartCount, cartSubtotal, PRODUCTS };
+  window.preparationStationGsCart = { addToCart, removeFromCart, setQty, cartCount, cartSubtotal, PRODUCTS };
 })();
