@@ -4,22 +4,26 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --paper: #F2F4EF;
-  --paper-2: #EAEEE6;
-  --card: #FBFCF9;
-  --ink: #15201B;
-  --ink-soft: #33453C;
-  --muted: #63736B;
+  --paper: #f8f4ed;
+  --paper-2: #f3eee6;
+  --card: #fbf8f3;
+  --ink: #4a3f35;
+  --ink-soft: #685f55;
+  --muted: #8a7f72;
   --pine: #1C4B3C;
   --pine-deep: #123227;
   --on-pine: #EAF2ED;
-  --accent: #8F5606;
-  --accent-lit: #D08D22;
-  --on-accent: #FFF9F0;
-  --accent-hover: #7A4905;
+  --accent: #01696f;
+  --accent-lit: #dce9e7;
+  --on-accent: #fffdf9;
+  --accent-hover: #0c4e54;
+  --btn: #2f6f68;
+  --btn-hover: #265450;
+  --eyebrow-bg: #dbe8e2;
+  --eyebrow-text: #123b35;
   --clay: #A44E36;
-  --rule: #15201B26;
-  --shadow: 0 1px 2px #15201B0d, 0 12px 28px -18px #15201B40;
+  --rule: #4a3f3526;
+  --shadow: 0 1px 2px #4a3f350d, 0 12px 28px -18px #4a3f3540;
   --display: 'Bricolage', ui-sans-serif, system-ui, sans-serif;
   --body: 'Newsreader', Georgia, 'Times New Roman', serif;
   --mono: 'DMMono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
@@ -29,7 +33,9 @@
 body {
   font-family: var(--body);
   color: var(--ink);
-  background: var(--paper);
+  background:
+    radial-gradient(circle at top left, rgba(47, 111, 104, 0.05), transparent 30%),
+    linear-gradient(to bottom, #f8f4ed 0%, #f3eee6 100%);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -99,10 +105,10 @@ a:hover { color: var(--accent-hover); }
 .btn:hover { transform: translateY(-1px); }
 
 .btn-primary {
-  background: var(--accent);
+  background: var(--btn);
   color: var(--on-accent);
 }
-.btn-primary:hover { background: var(--accent-hover); color: var(--on-accent); }
+.btn-primary:hover { background: var(--btn-hover); color: var(--on-accent); }
 
 .btn-secondary {
   background: transparent;
@@ -145,6 +151,11 @@ a:hover { color: var(--accent-hover); }
 /* ── Sections ── */
 .section {
   padding: 72px 0;
+  background: transparent;
+}
+
+.section:nth-of-type(even) {
+  background: var(--section-even, rgba(251, 247, 241, 0.96));
 }
 
 .section-alt {
@@ -201,8 +212,8 @@ a:hover { color: var(--accent-hover); }
 .step-number {
   width: 40px;
   height: 40px;
-  background: var(--pine);
-  color: var(--on-pine);
+  background: var(--accent);
+  color: var(--on-accent);
   border-radius: 50%;
   display: flex;
   align-items: center;
