@@ -1,0 +1,86 @@
+# Manual, gated deployment of the explicit Preparation Station release artifact
+# to Cloudflare Pages. Mirrors .github/workflows/static.yml (GitHub Pages) so the
+# same launch gates apply regardless of host; the artifact must never be
+# uploaded while any gate in config/pages-release.json is incomplete.
+#
+# Setup (one-time, owner):
+#   1. Create a Cloudflare Pages project for this repository.
+#   2. Add repo secrets:
+#        CLOUDFLARE_API_TOKEN   (Pages:Edit scoped token)
+#        CLOUDFLARE_ACCOUNT_ID  (your Cloudflare account ID)
+#   3. Run this workflow from the Actions tab on main.
+#
+# Alternative: Cloudflare's dashboard "Direct Upload" with
+#   Build command:       python3 tools/build_pages_release.py --output pages-release --require-ready
+#   Build output dir:    pages-release
+# in which case this workflow is optional.
+
+name: Deploy vetted Pages release to Cloudflare
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "cloudflare-pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Validate and deploy allowlisted artifact
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the selected main commit
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Validate canonical project and catalog state
+        run: python3 tools/validate_project_state.py
+
+      - name: Rebuild generated pages
+        run: python3 build.py
+
+      - name: Confirm generated pages are committed
+        shell: bash
+        run: |
+          generated_pages=(
+            index.html
+            store/shop.html
+            store/product.html
+            store/order.html
+            general-store/shop.html
+            general-store/product.html
+            general-store/checkout.html
+          )
+          changes="$(git status --porcelain --untracked-files=all -- "${generated_pages[@]}")"
+          if [[ -n "$changes" ]]; then
+            echo "Generated storefront pages are not up to date:"
+            echo "$changes"
+            exit 1
+          fi
+
+      - name: Enforce release-readiness gates and build artifact
+        run: >-
+          python3 tools/build_pages_release.py
+          --output "${{ runner.temp }}/pages-release"
+          --require-ready
+
+      - name: Smoke-test artifact boundaries
+        run: >-
+          python3 tools/test_pages_release.py
+          "${{ runner.temp }}/pages-release"
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy "${{ runner.temp }}/pages-release" --project-name=preparation-station

@@ -1,0 +1,18 @@
+# Netlify is no longer the deploy target for this site.
+#
+# The production artifact is built by `tools/build_pages_release.py`, which
+# writes a plain static bundle to `pages-release/` (allowlisted HTML/CSS/JS,
+# `robots.txt`, `.nojekyll`) and is deployed by `.github/workflows/static.yml`.
+# That bundle is host-agnostic and serves cleanly on any static host, including
+# Cloudflare Pages, with no Netlify-specific build steps.
+#
+# For Cloudflare Pages, configure the project with:
+#   Build command:       python3 tools/build_pages_release.py --output pages-release --require-ready
+#   Build output directory: pages-release
+#
+# `--require-ready` is a deliberate launch gate (see config/pages-release.json);
+# do not drop it to force a deploy.
+#
+# This file is retained only as a stub so no stale Netlify build runs if a
+# Netlify project is still linked. It intentionally defines no build or
+# redirect rules.
