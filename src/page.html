@@ -1,12 +1,17 @@
-<title>Preparation Station — Tools & Resources for Skill-Building Families</title>
+<title>Preparation Station — Mission Control for Skill-Building Families</title>
 
-<!-- Product-specific price, availability, and eligibility values remain pending
-until a catalog record is verified and approved for publication. -->
+<!-- Catalog listings are information only and are not an offer for sale.
+     Product-specific price, availability, and eligibility values are published
+     only when a catalog record is verified and approved. -->
 
 <style>
 /* ---------- Faces ---------- */
-@font-face{font-family:'Bricolage';src:url(data:font/woff2;base64,__BRIC__) format('woff2');font-weight:200 800;font-style:normal;font-display:swap}
-@font-face{font-family:'Newsreader';src:url(data:font/woff2;base64,__NEWS__) format('woff2');font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:'Satoshi';src:url(data:font/woff2;base64,__SAT4__) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Satoshi';src:url(data:font/woff2;base64,__SAT5__) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Satoshi';src:url(data:font/woff2;base64,__SAT7__) format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Cabinet Grotesk';src:url(data:font/woff2;base64,__CAB5__) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Cabinet Grotesk';src:url(data:font/woff2;base64,__CAB7__) format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Cabinet Grotesk';src:url(data:font/woff2;base64,__CAB8__) format('woff2');font-weight:800;font-style:normal;font-display:swap}
 @font-face{font-family:'DMMono';src:url(data:font/woff2;base64,__MONO4__) format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'DMMono';src:url(data:font/woff2;base64,__MONO5__) format('woff2');font-weight:500;font-style:normal;font-display:swap}
 
@@ -14,757 +19,876 @@ until a catalog record is verified and approved for publication. -->
 :root{
   --paper:#f8f4ed; --paper-2:#f3eee6; --card:#fbf8f3;
   --ink:#4a3f35; --ink-soft:#685f55; --muted:#8a7f72;
-  --pine:#1C4B3C; --pine-deep:#123227; --on-pine:#EAF2ED; --pine-muted:#9DBFB0;
-  /* --accent carries text and button fills (contrast-safe on paper);
-     --accent-lit is decorative only; --pine-accent is the band-inverted pair. */
   --accent:#01696f; --accent-lit:#dce9e7; --on-accent:#fffdf9; --accent-hover:#0c4e54;
   --btn:#2f6f68; --btn-hover:#265450;
-  --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
-  --section-even:rgba(251, 247, 241, 0.96);
+  --pine:#1C4B3C; --pine-deep:#123227; --on-pine:#EAF2ED; --pine-muted:#9DBFB0;
   --pine-accent:#EDB25E; --on-pine-accent:#12261E;
-  --clay:#A44E36;
+  --clay:#A44E36; --clay-lit:#f4e3dc;
+  --gold:#B07D2B; --gold-lit:#f5e9d3;
+  --plum:#5B3B6E; --plum-lit:#ece3f1;
+  --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
   --rule:#15201B26; --rule-soft:#15201B14;
   --focus:var(--accent);
   --shadow:0 1px 2px #15201B0d, 0 12px 28px -18px #15201B40;
-  --display:'Bricolage',ui-sans-serif,system-ui,sans-serif;
-  --body:'Newsreader',Georgia,'Times New Roman',serif;
+  --shadow-lg:0 2px 4px #15201B0d, 0 24px 48px -24px #15201B55;
+  --display:'Cabinet Grotesk',ui-sans-serif,system-ui,sans-serif;
+  --body:'Satoshi',ui-sans-serif,system-ui,sans-serif;
   --mono:'DMMono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   --measure:1120px;
-  --grid-line:#15201B0a;
 }
-/* Site palette is fixed to the beige/teal light scheme; the OS dark-mode
-   preference must not override the background to dark brown. */
-:root[data-theme="dark"]{
-  --paper:#0E1613; --paper-2:#121D19; --card:#16211D;
-  --ink:#E7ECE5; --ink-soft:#C2CDC5; --muted:#93A39A;
-  --pine:#0C1F19; --pine-deep:#081511; --on-pine:#E7EFE9; --pine-muted:#8FB3A3;
-  --accent:#E9A340; --accent-lit:#F0B257; --on-accent:#15201B; --accent-hover:#F3BE72;
-  --pine-accent:#EDB25E; --on-pine-accent:#12261E;
-  --clay:#D08064;
-  --rule:#E7ECE526; --rule-soft:#E7ECE514;
-  --shadow:0 1px 2px #0006, 0 16px 34px -20px #000a;
-  --grid-line:#E7ECE508;
-}
-:root[data-theme="light"]{
-  --paper:#f8f4ed; --paper-2:#f3eee6; --card:#fbf8f3;
-  --ink:#4a3f35; --ink-soft:#685f55; --muted:#8a7f72;
-  --pine:#1C4B3C; --pine-deep:#123227; --on-pine:#EAF2ED; --pine-muted:#9DBFB0;
-  --accent:#01696f; --accent-lit:#dce9e7; --on-accent:#fffdf9; --accent-hover:#0c4e54;
-  --btn:#2f6f68; --btn-hover:#265450;
-  --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
-  --section-even:rgba(251, 247, 241, 0.96);
-  --pine-accent:#EDB25E; --on-pine-accent:#12261E;
-  --clay:#A44E36;
-  --rule:#15201B26; --rule-soft:#15201B14;
-  --shadow:0 1px 2px #15201B0d, 0 12px 28px -18px #15201B40;
-  --grid-line:#15201B0a;
-}
-/* Inverted bands re-point the accent so focus rings and fills stay legible. */
-.carbon,.foot{--accent:var(--pine-accent); --accent-lit:var(--pine-accent); --focus:var(--pine-accent); --clay:#EDA487}
 
 /* ---------- Base ---------- */
 *,*::before,*::after{box-sizing:border-box}
 .page{
-  font-family:var(--body); font-size:1.0625rem; line-height:1.72;
+  font-family:var(--body); font-size:1rem; line-height:1.7;
   color:var(--ink); background:
-    radial-gradient(circle at top left, rgba(47, 111, 104, 0.05), transparent 30%),
+    radial-gradient(circle at top left, rgba(47, 111, 104, 0.06), transparent 32%),
     linear-gradient(to bottom, #f8f4ed 0%, #f3eee6 100%);
   min-height:100vh; min-height:100dvh;
   -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden;
 }
-/* min-height matters here, not just for looks: overflow-x:hidden gives .page
-   a used overflow-y of auto, which makes it a clipping container for the
-   fixed-position grid background below — on a page shorter than the
-   viewport, that background would otherwise clip to content height and
-   leave bare white beneath it. */
 .page::before{
   content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
-  background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),
-                   linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
-  background-size:28px 28px;
+  background-image:linear-gradient(var(--grid-line,#15201B0a) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid-line,#15201B0a) 1px,transparent 1px);
+  background-size:32px 32px;
 }
 .page > *{position:relative; z-index:1}
 .page p{margin:0; text-wrap:pretty}
-.page h1,.page h2,.page h3,.page h4{margin:0; font-family:var(--display); font-weight:750; letter-spacing:-.02em; line-height:1.06; text-wrap:balance}
+.page h1,.page h2,.page h3,.page h4{margin:0; font-family:var(--display); font-weight:800; letter-spacing:-.02em; line-height:1.06; text-wrap:balance}
 .page ul,.page ol{margin:0; padding:0; list-style:none}
 .page a{color:inherit}
 .page :focus-visible{outline:2.5px solid var(--focus); outline-offset:3px; border-radius:2px}
-
 .wrap{width:100%; max-width:var(--measure); margin-inline:auto; padding-inline:clamp(1.15rem,4vw,2.5rem)}
-.band{padding-block:clamp(3.75rem,8vw,7rem)}
-.band-tint{background:var(--section-even)}
-.eyebrow{display:inline-block; font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase;
-  font-weight:500; background:var(--eyebrow-bg); color:var(--eyebrow-text); padding:.3rem .65rem; border-radius:2px}
-.section:nth-of-type(even){background:var(--section-even)}
+.band{padding-block:clamp(3.75rem,8vw,6.5rem)}
+.band-tint{background:var(--section-even,#f7f3ec)}
+.eyebrow{display:inline-block; font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  font-weight:500; background:var(--eyebrow-bg); color:var(--eyebrow-text); padding:.3rem .65rem; border-radius:3px}
 .stack{display:flex; flex-direction:column}
 .g-8{gap:.5rem} .g-12{gap:.75rem} .g-16{gap:1rem} .g-20{gap:1.25rem}
 .g-24{gap:1.5rem} .g-32{gap:2rem} .g-40{gap:2.5rem} .g-56{gap:3.5rem}
 
 /* ---------- Repeating type roles ---------- */
-.mono{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; font-weight:500}
-.lede{font-size:clamp(1.1rem,1.9vw,1.3rem); line-height:1.62; color:var(--ink-soft); max-width:38ch}
+.mono{font-family:var(--mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; font-weight:500}
+.lede{font-size:clamp(1.05rem,1.7vw,1.25rem); line-height:1.62; color:var(--ink-soft); max-width:44ch}
 .prose{max-width:62ch; color:var(--ink-soft)}
-.h-xl{font-size:clamp(2.4rem,5.9vw,4.35rem); font-weight:800; letter-spacing:-.035em}
-.h-lg{font-size:clamp(1.85rem,3.7vw,2.85rem); font-weight:750; letter-spacing:-.028em}
-.h-md{font-size:clamp(1.2rem,1.9vw,1.42rem); font-weight:700; letter-spacing:-.02em; line-height:1.2}
-.h-sm{font-size:1.0625rem; font-weight:700; letter-spacing:-.01em; line-height:1.28; font-family:var(--display)}
+.h-xl{font-size:clamp(2.3rem,5.6vw,4rem); font-weight:800; letter-spacing:-.035em; line-height:1.02}
+.h-lg{font-size:clamp(1.8rem,3.6vw,2.7rem); font-weight:800; letter-spacing:-.028em}
+.h-md{font-size:clamp(1.15rem,1.8vw,1.35rem); font-weight:700; letter-spacing:-.02em; line-height:1.2}
 
-/* section opener: mono label + hairline rule */
-.opener{display:flex; align-items:center; gap:1rem; padding-bottom:1.5rem}
-.opener .mono{color:var(--accent); white-space:nowrap}
-.opener::after{content:""; flex:1; height:1px; background:var(--rule)}
-.opener-inv::after{background:#EAF2ED2e}
-
-/* editable placeholder */
-.fill{font-family:var(--mono); font-size:.9em; font-weight:500; color:var(--clay);
-  border-bottom:1.5px dotted currentColor; padding-bottom:1px; white-space:nowrap}
-
-/* ---------- Nav ---------- */
-.topbar{position:sticky; top:0; z-index:40; background:rgba(243, 238, 230, 0.88);
-  backdrop-filter:blur(12px) saturate(1.3); border-bottom:1px solid var(--rule)}
-.topbar-in{display:flex; align-items:center; gap:1.5rem; height:60px}
-.brand{display:flex; align-items:baseline; gap:.55rem; text-decoration:none; margin-right:auto}
-.brand-mark{font-family:var(--display); font-weight:800; font-size:1.02rem; letter-spacing:-.045em}
-.brand-sub{color:var(--muted); font-size:.62rem}
-.nav{display:flex; gap:1.5rem; align-items:center}
-.nav a{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
-  text-decoration:none; color:var(--muted); transition:color .18s ease}
-.nav a:hover{color:var(--ink)}
-@media (max-width:1040px){.nav{display:none}}
-
-.btn{display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-  font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500;
-  padding:.72rem 1.15rem; border-radius:2px; text-decoration:none; border:1.5px solid transparent;
-  transition:transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease; cursor:pointer}
-.btn-solid{background:var(--btn); color:#fffdf9; border-color:var(--btn)}
-.btn-solid:hover{background:var(--btn-hover); border-color:var(--btn-hover); transform:translateY(-2px)}
-.btn-ghost{border-color:var(--rule); color:var(--ink)}
-.btn-ghost:hover{border-color:var(--ink); transform:translateY(-2px)}
-.btn-sm{padding:.55rem .85rem; font-size:.66rem}
-.btn-block{width:100%}
-@media (max-width:640px){.topbar .btn{display:none}}
+/* ---------- Header ---------- */
+.site-head{position:sticky; top:0; z-index:60; background:rgba(248,244,237,.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--rule-soft); transition:box-shadow .2s ease}
+.site-head.scrolled{box-shadow:0 10px 30px -18px #15201B66}
+.head-in{display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding-block:.9rem; flex-wrap:wrap}
+.brand{font-family:var(--display); font-weight:800; font-size:clamp(1.4rem,2.6vw,2rem); letter-spacing:-.02em; color:var(--ink); text-decoration:none; line-height:1.08}
+.brand small{display:block; font-family:var(--mono); font-size:.54rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:500; padding-top:.22rem}
+.nav{display:flex; align-items:center; gap:clamp(.3rem,1vw,.9rem); flex-wrap:wrap}
+.nav a{font-family:var(--body); font-size:.92rem; font-weight:500; color:var(--ink-soft); text-decoration:none; padding:.45rem .6rem; border-radius:7px; transition:color .16s ease, background .16s ease}
+.nav a:hover{color:var(--accent); background:var(--accent-lit)}
+.nav a:active{transform:translateY(1px)}
+.nav .btn{padding:.5rem .9rem; font-weight:700; color:var(--on-accent)}
+.nav-toggle{display:none; font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500;
+  background:none; border:1.5px solid var(--rule); border-radius:8px; padding:.5rem .75rem; cursor:pointer; color:var(--ink)}
+@media (max-width:880px){
+  .nav-toggle{display:inline-block}
+  .nav{display:none; flex-basis:100%; flex-direction:column; align-items:flex-start; padding-block:.4rem}
+  .nav.open{display:flex}
+}
+.btn{display:inline-flex; align-items:center; gap:.45rem; font-family:var(--body); font-size:.94rem; font-weight:700;
+  text-decoration:none; border-radius:9px; padding:.65rem 1.2rem; border:1.5px solid transparent; cursor:pointer;
+  transition:transform .16s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease}
+.btn-solid{background:var(--btn); color:var(--on-accent)}
+.btn-solid:hover{background:var(--btn-hover); transform:translateY(-2px); box-shadow:var(--shadow)}
+.btn-ghost{border-color:var(--rule); color:var(--ink); background:transparent}
+.btn-ghost:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-2px)}
+.btn-line{border-color:transparent; color:var(--accent); padding-inline:.4rem}
+.btn-line:hover{transform:translateX(3px)}
+.btn .arr{transition:transform .16s ease}
+.btn:hover .arr{transform:translateX(3px)}
+.btn[disabled]{opacity:.55; cursor:not-allowed; transform:none!important}
 
 /* ---------- Hero ---------- */
-.hero{padding-block:clamp(3.25rem,7.5vw,5.75rem) clamp(3rem,6vw,4.75rem)}
-.hero-grid{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:clamp(2rem,5vw,4rem); align-items:start}
-@media (max-width:940px){.hero-grid{grid-template-columns:1fr; gap:2.75rem}}
-.hero-eyebrow{display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; color:var(--muted)}
-.hero-eyebrow .dot{width:4px; height:4px; border-radius:50%; background:var(--accent-lit)}
-.hero h1 .mark{color:var(--accent); font-style:italic; font-family:var(--body); font-weight:600; letter-spacing:-.01em}
-.hero-cta{display:flex; flex-wrap:wrap; gap:.75rem; padding-top:.4rem}
-.hero-foot{display:flex; align-items:center; gap:.6rem; color:var(--muted); font-size:.9rem; padding-top:.6rem}
-.hero-foot a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
-
-/* counter card + stamp */
-.spec{position:relative; background:var(--card); border:1px solid var(--rule); border-radius:3px;
-  padding:1.6rem 1.5rem 1.4rem; box-shadow:var(--shadow)}
-.spec::before{content:""; position:absolute; left:0; right:0; top:0; height:3px; background:var(--accent-lit)}
-.spec-title{color:var(--muted); padding-bottom:1.1rem; border-bottom:1px solid var(--rule-soft); margin-bottom:.35rem}
-.spec-row{display:grid; grid-template-columns:8.5rem 1fr; gap:.75rem; padding:.7rem 0; border-bottom:1px solid var(--rule-soft); align-items:baseline}
-.spec-row:last-child{border-bottom:0}
-.spec-row dt{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:500}
-.spec-row dd{margin:0; font-size:.97rem; line-height:1.45; color:var(--ink)}
-@media (max-width:420px){.spec-row{grid-template-columns:1fr; gap:.15rem}}
-.stamp{position:absolute; right:-14px; top:-22px; width:96px; height:96px; border-radius:50%;
-  border:1.5px solid var(--accent-lit); color:var(--accent-lit); background:var(--paper);
-  display:grid; place-items:center; text-align:center; transform:rotate(-8deg); opacity:.92}
-.stamp::before{content:""; position:absolute; inset:5px; border:1px solid currentColor; border-radius:50%; opacity:.5}
-.stamp span{font-family:var(--mono); font-size:.5rem; letter-spacing:.09em; line-height:1.35; text-transform:uppercase; font-weight:500; padding:0 .55rem}
-.stamp b{display:block; font-size:.8rem; letter-spacing:.05em; font-weight:500}
-@media (max-width:940px){.stamp{right:-6px; top:-18px; width:84px; height:84px}}
+.hero{position:relative; padding-block:clamp(3.5rem,8vw,6rem); overflow:hidden}
+.hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(1.5rem,4vw,3.5rem); align-items:center}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.hero-copy{display:flex; flex-direction:column; gap:1.4rem; align-items:flex-start}
+.hero h1 span.accent{color:var(--accent)}
+.hero-sub{max-width:48ch; color:var(--ink-soft); font-size:clamp(1rem,1.6vw,1.15rem); line-height:1.62}
+.hero-ctas{display:flex; gap:.9rem; flex-wrap:wrap; align-items:center}
+.hero-chips{display:flex; gap:.55rem; flex-wrap:wrap}
+.chip{font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; font-weight:500;
+  border:1px solid var(--rule); border-radius:999px; padding:.32rem .68rem; color:var(--ink-soft); background:var(--card)}
+.chip.ok{color:var(--accent); border-color:var(--accent); background:var(--accent-lit)}
+.chip.warn{color:var(--gold); border-color:var(--gold)}
+/* orbital animation field */
+.orbit{position:absolute; inset:auto; top:-30%; right:-12%; width:min(64vw,760px); aspect-ratio:1; pointer-events:none; opacity:.5}
+.orbit::before,.orbit::after{content:""; position:absolute; inset:0; border-radius:50%; border:1.5px dashed rgba(1,105,111,.22)}
+.orbit::before{animation:spin 60s linear infinite}
+.orbit::after{inset:12%; border-color:rgba(237,178,94,.35); animation:spin 40s linear infinite reverse}
+.orbit .dot{position:absolute; width:9px; height:9px; border-radius:50%; background:var(--accent); top:50%; left:50%; box-shadow:0 0 18px rgba(1,105,111,.8)}
+.orbit .dot.b{background:var(--gold); box-shadow:0 0 18px rgba(237,178,94,.8)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-glow{position:absolute; top:-8rem; left:-6rem; width:34rem; height:34rem; border-radius:50%;
+  background:radial-gradient(circle, rgba(1,105,111,.12), transparent 62%); filter:blur(10px); pointer-events:none; animation:float 9s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@media (max-width:860px){.orbit{display:none}}
 
 /* ---------- Trust strip ---------- */
-.strip{border-block:1px solid var(--rule); background:var(--paper-2)}
-.strip-grid{display:grid; grid-template-columns:repeat(4,1fr)}
-.strip-item{padding:1.6rem 1.4rem; border-right:1px solid var(--rule)}
-.strip-item:last-child{border-right:0}
-.strip-item .mono{color:var(--accent); display:block; padding-bottom:.45rem}
-.strip-item p{font-size:.94rem; line-height:1.45; color:var(--ink-soft)}
-@media (max-width:860px){
-  .strip-grid{grid-template-columns:repeat(2,1fr)}
-  .strip-item:nth-child(2n){border-right:0}
-  .strip-item:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+.trust{border-block:1px solid var(--rule-soft); background:var(--card)}
+.trust-in{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.25rem; padding-block:1.4rem}
+@media (max-width:860px){.trust-in{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.trust-item{display:flex; gap:.8rem; align-items:flex-start}
+.trust-ic{flex:none; width:2.1rem; height:2.1rem; border-radius:50%; display:grid; place-items:center;
+  background:var(--accent-lit); color:var(--accent); font-family:var(--mono); font-size:.8rem; font-weight:500}
+.trust-item b{display:block; font-family:var(--body); font-weight:700; font-size:.95rem}
+.trust-item span{color:var(--muted); font-size:.85rem; line-height:1.5}
+
+/* ---------- Timeline ---------- */
+.timeline{display:flex; flex-direction:column; position:relative}
+.timeline::before{content:""; position:absolute; left:1.05rem; top:.6rem; bottom:.6rem; width:2px; background:linear-gradient(var(--accent-lit), var(--pine-accent))}
+@media (min-width:900px){.timeline::before{left:50%; transform:translateX(-50%)}}
+.t-band{position:relative; display:grid; grid-template-columns:auto 1fr; gap:1.6rem; padding-block:1.1rem}
+@media (min-width:900px){.t-band{grid-template-columns:1fr 1fr; gap:3rem}}
+.t-node{grid-column:1; z-index:1; width:2.1rem; height:2.1rem; border-radius:50%; display:grid; place-items:center;
+  background:var(--card); border:2px solid var(--accent); color:var(--accent); font-family:var(--mono); font-size:.68rem; font-weight:500; box-shadow:var(--shadow)}
+.t-band:nth-child(even) .t-node{border-color:var(--pine-accent); color:var(--gold)}
+@media (min-width:900px){
+  .t-band .t-card{grid-column:2}
+  .t-band:nth-child(even){grid-template-columns:1fr 1fr}
+  .t-band:nth-child(even) .t-node{grid-column:1; justify-self:end; transform:none}
+  .t-band:nth-child(even) .t-card{grid-column:1; grid-row:1; text-align:right}
+  .t-band:nth-child(even)::after{content:""; grid-column:2; grid-row:1}
 }
-@media (max-width:460px){
-  .strip-grid{grid-template-columns:1fr}
-  .strip-item{border-right:0; border-bottom:1px solid var(--rule)}
-  .strip-item:last-child{border-bottom:0}
-}
+.t-card{grid-column:2; background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:1.2rem 1.3rem; box-shadow:var(--shadow); transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+.t-card:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--accent-lit)}
+.t-card .mono{color:var(--accent); display:block; margin-bottom:.45rem}
+.t-card h3{font-size:1.3rem; margin-bottom:.4rem}
+.t-card p{color:var(--ink-soft); font-size:.94rem; line-height:1.6; margin-bottom:.7rem}
+.t-card .band-link{font-family:var(--body); font-weight:700; font-size:.9rem; color:var(--accent); text-decoration:none}
+.t-card .band-link:hover{text-decoration:underline}
 
-/* ---------- Two-column section head ---------- */
-.split{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(2rem,5vw,4.5rem); align-items:start}
-@media (max-width:900px){.split{grid-template-columns:1fr; gap:2rem}}
+/* ---------- Departments ---------- */
+.dept-grid{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:1.1rem}
+@media (max-width:900px){.dept-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.dept-grid{grid-template-columns:1fr}}
+.dept-card{grid-column:span 2; background:var(--card); border:1px solid var(--rule); border-radius:16px; padding:1.5rem 1.4rem;
+  text-decoration:none; color:inherit; display:flex; flex-direction:column; gap:.85rem; box-shadow:var(--shadow);
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+.dept-card:nth-child(3n){grid-column:span 3}
+.dept-card:hover{transform:translateY(-5px); box-shadow:var(--shadow-lg); border-color:var(--accent-lit)}
+.dept-num{font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; color:var(--accent); font-weight:500}
+.dept-card h3{font-size:1.2rem; line-height:1.2}
+.dept-card p{color:var(--ink-soft); font-size:.92rem; line-height:1.6}
+.dept-count{font-family:var(--mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-top:auto}
+.dept-card .tone{width:2.6rem; height:4px; border-radius:999px}
+.tone-a{background:var(--accent)} .tone-b{background:var(--clay)} .tone-c{background:var(--gold)} .tone-d{background:var(--plum)} .tone-e{background:var(--pine)}
 
-/* ---------- Pillars ---------- */
-.pillars{display:grid; gap:0; border-top:1px solid var(--rule)}
-.pillar{display:grid; grid-template-columns:11rem 1fr; gap:1.5rem; padding:1.4rem 0; border-bottom:1px solid var(--rule); align-items:start}
-.pillar .mono{color:var(--accent); padding-top:.35rem}
-.pillar h3{padding-bottom:.35rem}
-.pillar p{color:var(--ink-soft); font-size:1rem; max-width:58ch}
-@media (max-width:640px){.pillar{grid-template-columns:1fr; gap:.5rem}}
+/* ---------- Mission Guide ---------- */
+.guide-wrap{display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.5rem,4vw,3rem); align-items:start}
+@media (max-width:900px){.guide-wrap{grid-template-columns:1fr}}
+.guide-box{background:var(--card); border:1px solid var(--rule); border-radius:18px; padding:clamp(1.3rem,3vw,2rem); box-shadow:var(--shadow-lg); position:relative; overflow:hidden}
+.guide-box::before{content:""; position:absolute; inset:0 0 auto 0; height:5px; background:linear-gradient(90deg,var(--accent),var(--pine-accent))}
+.g-step{display:none}
+.g-step.active{display:flex; flex-direction:column; gap:1rem}
+.g-options{display:grid; grid-template-columns:1fr 1fr; gap:.7rem}
+@media (max-width:560px){.g-options{grid-template-columns:1fr}}
+.g-opt{border:1.5px solid var(--rule); border-radius:12px; background:var(--paper); padding:.95rem 1rem; cursor:pointer;
+  text-align:left; font:inherit; color:var(--ink); font-weight:500; line-height:1.45; transition:border-color .16s ease, background .16s ease, transform .16s ease}
+.g-opt:hover{border-color:var(--accent); transform:translateY(-2px)}
+.g-opt.sel{border-color:var(--accent); background:var(--accent-lit)}
+.g-opt small{display:block; color:var(--muted); font-weight:400; font-size:.85rem; margin-top:.25rem}
+.g-bar{display:flex; justify-content:space-between; align-items:center; gap:1rem}
+.g-back{font-family:var(--body); font-size:.9rem; color:var(--muted); background:none; border:none; cursor:pointer; text-decoration:underline}
+.g-results{display:flex; flex-direction:column; gap:.6rem; max-height:22rem; overflow:auto}
+.g-item{display:flex; align-items:center; gap:.85rem; border:1px solid var(--rule-soft); border-radius:12px; padding:.85rem 1rem; background:var(--paper)}
+.g-item .gi-info{flex:1; min-width:0}
+.g-item h4{font-size:1rem; font-weight:700; line-height:1.25}
+.g-item .gi-sku{font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.g-item .gi-dept{font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.g-add{flex:none; font-family:var(--body); font-size:.8rem; font-weight:700; border:1.5px solid var(--accent); color:var(--accent);
+  background:transparent; border-radius:999px; padding:.4rem .85rem; cursor:pointer; transition:background .16s ease, color .16s ease}
+.g-add.on{background:var(--accent); color:var(--on-accent)}
+.g-add:disabled{opacity:.4; cursor:not-allowed}
+.g-actions{display:flex; gap:.7rem; flex-wrap:wrap; align-items:center}
+.g-note{font-size:.83rem; color:var(--muted); line-height:1.55}
+.g-empty{color:var(--muted); padding:1rem .2rem; font-size:.95rem}
+.guide-aside{display:flex; flex-direction:column; gap:1.1rem}
+.g-quickp{font-family:var(--mono); font-size:.6rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:.4rem}
+.quick-pill{display:inline-block; border:1.5px solid var(--rule); border-radius:999px; padding:.42rem .85rem; font-size:.9rem;
+  font-family:var(--body); font-weight:500; color:var(--ink-soft); background:var(--card); cursor:pointer; margin:.2rem; transition:border-color .16s ease, color .16s ease}
+.quick-pill:hover{border-color:var(--accent); color:var(--accent)}
 
-/* ---------- Single offering module ---------- */
-.tier{display:flex; flex-direction:column; gap:1rem; border:1px solid var(--rule); border-radius:3px;
-  padding:1.5rem 1.4rem; background:var(--card)}
-.tier-name{font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; font-weight:500; color:var(--muted)}
-.tier-price{font-family:var(--display); font-weight:750; font-size:2rem; letter-spacing:-.03em; line-height:1}
-.tier-price small{font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:500; display:block; padding-top:.5rem}
-.tier ul{display:flex; flex-direction:column; gap:.5rem; border-top:1px solid var(--rule-soft); padding-top:1rem; margin-top:auto}
-.tier li{display:grid; grid-template-columns:1rem 1fr; gap:.55rem; font-size:.93rem; line-height:1.5; color:var(--ink-soft)}
-.tier li::before{content:"\2713"; font-family:var(--mono); font-size:.7rem; color:var(--accent); line-height:1.8}
+/* ---------- Status board ---------- */
+.status-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.1rem}
+@media (max-width:860px){.status-grid{grid-template-columns:1fr}}
+.status-card{background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:1.3rem 1.35rem; box-shadow:var(--shadow)}
+.status-card .st-ic{font-family:var(--mono); font-size:.85rem; font-weight:500}
+.status-card.ok .st-ic{color:var(--accent)}
+.status-card.wait .st-ic{color:var(--gold)}
+.status-card h3{font-size:1.05rem; margin-block:.5rem .35rem}
+.status-card p{color:var(--ink-soft); font-size:.9rem; line-height:1.55}
 
-/* ---------- Funding help ---------- */
-.fund-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.9fr); gap:clamp(2rem,5vw,3.5rem); align-items:start}
-@media (max-width:900px){.fund-grid{grid-template-columns:1fr; gap:2.25rem}}
-.fund-panel{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:1.6rem 1.5rem; box-shadow:var(--shadow)}
-.fund-panel .mono{color:var(--accent); display:block; padding-bottom:1rem}
-.fund-list{display:flex; flex-direction:column}
-.fund-list li{display:grid; grid-template-columns:1.6rem 1fr; gap:.7rem; padding:.62rem 0; border-bottom:1px solid var(--rule-soft);
-  font-size:.96rem; line-height:1.5; color:var(--ink-soft)}
-.fund-list li:last-child{border-bottom:0}
-.fund-list .n{font-family:var(--mono); font-size:.68rem; color:var(--accent); font-weight:500; line-height:1.75}
-.fund-meta{display:flex; flex-wrap:wrap; gap:.5rem 1.75rem; padding-top:1.1rem; margin-top:1.1rem; border-top:1px solid var(--rule)}
-.fund-meta span{font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
-.fund-meta b{color:var(--ink); font-weight:500}
-.states{display:flex; flex-wrap:wrap; gap:.45rem; padding-top:.4rem}
-.states span{font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; text-transform:uppercase;
-  border:1px solid var(--rule); border-radius:2px; padding:.34rem .55rem; color:var(--ink-soft)}
-
-/* ---------- Skills list ---------- */
-.safety{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.9rem 2rem}
-@media (max-width:760px){.safety{grid-template-columns:1fr}}
-.safety li{display:grid; grid-template-columns:1.4rem 1fr; gap:.65rem; align-items:start; font-size:1rem; line-height:1.55; color:var(--ink-soft); padding:.55rem 0; border-bottom:1px solid var(--rule-soft)}
-.safety li::before{content:"\2713"; font-family:var(--mono); font-size:.75rem; color:var(--accent); line-height:1.9}
-
-/* ---------- Carbon band ---------- */
-.carbon{background:var(--pine); color:var(--on-pine); border-block:1px solid var(--pine-deep); position:relative; overflow:hidden}
-.carbon::before{content:""; position:absolute; inset:0;
-  background:radial-gradient(120% 80% at 88% 0%, #EDB05e1f, transparent 62%); pointer-events:none}
-.carbon .prose{color:var(--pine-muted)}
-.carbon-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(2rem,5vw,4rem); align-items:start}
-@media (max-width:900px){.carbon-grid{grid-template-columns:1fr; gap:2.5rem}}
-.big-figure{font-family:var(--display); font-weight:800; font-size:clamp(4.5rem,13vw,8.5rem); line-height:.86;
-  letter-spacing:-.05em; color:var(--accent); font-variant-numeric:tabular-nums}
-/* At display size the bracket glyphs already read as a blank to fill,
-   and the dotted rule would collide with the caption below. */
-.big-figure .fill{font-size:.9em; color:inherit; border-bottom:0; padding-bottom:0}
-.big-cap{font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--pine-muted); max-width:26ch; line-height:1.7}
-.ledger{border-top:1px solid #EAF2ED2e; font-variant-numeric:tabular-nums}
-.ledger-row{display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:baseline; padding:.72rem 0; border-bottom:1px solid #EAF2ED1a}
-.ledger-row span{font-size:.95rem; line-height:1.45}
-.ledger-row b{font-family:var(--mono); font-size:.9rem; font-weight:500; color:var(--accent)}
-.ledger-total{border-bottom:0; border-top:1.5px solid #EAF2ED3d; margin-top:.35rem; padding-top:.9rem}
-.ledger-total span{font-family:var(--display); font-weight:700; font-size:1.02rem}
-.ledger-total b{font-size:1.05rem}
-.honest{border-left:2px solid var(--accent); padding-left:1rem; color:var(--pine-muted); font-size:.97rem; max-width:62ch}
-.carbon-kicker{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.25rem}
-@media (max-width:760px){.carbon-kicker{grid-template-columns:1fr}}
-.kick{border:1px solid #EAF2ED26; border-radius:3px; padding:1.25rem 1.2rem; background:#EAF2ED0a}
-.kick .mono{color:var(--accent); display:block; padding-bottom:.5rem}
-.kick p{color:var(--pine-muted); font-size:.95rem; line-height:1.55}
-
-/* ---------- Steps ---------- */
-.steps{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; border-top:1px solid var(--rule)}
+/* ---------- How it works ---------- */
+.steps{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.1rem}
 @media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){.steps{grid-template-columns:1fr}}
-.step{display:flex; flex-direction:column; gap:.55rem; padding:1.6rem 1.4rem 1.6rem 0; border-bottom:1px solid var(--rule)}
-.step-n{font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; color:var(--accent); font-weight:500}
-.step p{font-size:.95rem; line-height:1.55; color:var(--ink-soft)}
+.step{background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:1.3rem 1.25rem; box-shadow:var(--shadow); transition:transform .2s ease, box-shadow .2s ease}
+.step:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg)}
+.step-n{font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; color:var(--accent); font-weight:500}
+.step h3{font-size:1.08rem; margin-block:.55rem .4rem}
+.step p{color:var(--ink-soft); font-size:.9rem; line-height:1.58}
+.request-panel{margin-top:2.5rem; background:var(--pine); color:var(--on-pine); border-radius:20px; padding:clamp(1.5rem,4vw,2.4rem); display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:center}
+@media (max-width:860px){.request-panel{grid-template-columns:1fr}}
+.request-panel .mono{color:var(--pine-accent)}
+.request-panel h3{font-size:clamp(1.2rem,2.4vw,1.6rem); margin-block:.6rem .5rem; color:var(--on-pine)}
+.request-panel p{color:var(--pine-muted); font-size:.95rem; line-height:1.6; max-width:56ch}
+.request-panel .btn-solid{background:var(--pine-accent); color:var(--on-pine-accent)}
+.request-panel .btn-solid:hover{background:#f4c27a}
 
 /* ---------- FAQ ---------- */
-.faq{border-top:1px solid var(--rule); max-width:78ch}
-.faq details{border-bottom:1px solid var(--rule)}
-.faq summary{display:flex; align-items:flex-start; justify-content:space-between; gap:1.5rem; cursor:pointer;
-  padding:1.15rem 0; font-family:var(--display); font-weight:650; font-size:1.05rem; letter-spacing:-.012em; line-height:1.35; list-style:none}
+.faq details{border-bottom:1px solid var(--rule-soft); padding-block:1rem}
+.faq summary{font-family:var(--display); font-weight:700; font-size:1.06rem; cursor:pointer; color:var(--ink); padding-block:.2rem; list-style:none}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+"; font-family:var(--mono); font-size:1.1rem; color:var(--accent); flex:none; line-height:1.25; transition:transform .2s ease}
-.faq details[open] summary::after{transform:rotate(45deg)}
-.faq-body{padding:0 0 1.25rem; color:var(--ink-soft); font-size:1rem; max-width:66ch}
-
-/* ---------- Contact ---------- */
-.contact-grid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(2rem,5vw,4rem); align-items:start}
-@media (max-width:900px){.contact-grid{grid-template-columns:1fr; gap:2.5rem}}
-.lines{border-top:1px solid var(--rule)}
-.line{display:grid; grid-template-columns:7.5rem 1fr; gap:1rem; padding:.95rem 0; border-bottom:1px solid var(--rule); align-items:baseline}
-.line dt{font-family:var(--mono); font-size:.66rem; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:500}
-.line dd{margin:0; font-size:1.02rem; line-height:1.45}
-.line a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px; word-break:break-word}
-@media (max-width:460px){.line{grid-template-columns:1fr; gap:.2rem}}
-.checklist{background:var(--card); border:1px solid var(--rule); border-radius:3px; padding:1.5rem 1.4rem}
-.checklist .mono{color:var(--accent); display:block; padding-bottom:.9rem}
-.checklist li{display:grid; grid-template-columns:1.1rem 1fr; gap:.6rem; padding:.5rem 0; border-bottom:1px solid var(--rule-soft);
-  font-size:.96rem; line-height:1.5; color:var(--ink-soft)}
-.checklist li:last-child{border-bottom:0}
-.checklist li::before{content:"\25A2"; font-family:var(--mono); font-size:.85rem; color:var(--accent); line-height:1.55}
+.faq summary::before{content:"+"; font-family:var(--mono); color:var(--accent); margin-right:.7rem}
+.faq details[open] summary::before{content:"\2013"}
+.faq summary:hover{color:var(--accent)}
+.faq .faq-body{padding-top:.65rem; color:var(--ink-soft); max-width:62ch; line-height:1.65}
 
 /* ---------- Footer ---------- */
-.foot{background:var(--pine-deep); color:var(--on-pine); padding-block:3rem 2.5rem}
-.foot-top{display:flex; flex-wrap:wrap; gap:1.5rem 2.5rem; align-items:baseline; justify-content:space-between;
-  padding-bottom:1.5rem; border-bottom:1px solid #EAF2ED1f}
-.foot-brand{font-family:var(--display); font-weight:800; font-size:1.1rem; letter-spacing:-.045em}
-.foot-nav{display:flex; flex-wrap:wrap; gap:1.25rem}
-.foot-nav a{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pine-muted); text-decoration:none; transition:color .18s ease}
-.foot-nav a:hover{color:var(--on-pine)}
-.disclaim{color:var(--pine-muted); font-size:.86rem; line-height:1.65; max-width:78ch; padding-top:1.5rem}
-.foot-meta{display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; padding-top:1.25rem; color:#8AAB9B; font-family:var(--mono); font-size:.63rem; letter-spacing:.1em; text-transform:uppercase}
+.foot{margin-top:auto; background:var(--pine-deep); color:var(--on-pine)}
+.foot-in{display:grid; grid-template-columns:1.2fr repeat(3,1fr); gap:2rem; padding-block:3.2rem 2.2rem}
+@media (max-width:860px){.foot-in{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){.foot-in{grid-template-columns:1fr}}
+.foot h4{font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--pine-muted); margin-bottom:.9rem}
+.foot ul{display:flex; flex-direction:column; gap:.55rem}
+.foot a{color:var(--on-pine); text-decoration:none; font-size:.92rem; transition:color .16s ease}
+.foot a:hover{color:var(--pine-accent)}
+.foot .foot-blurb{color:var(--pine-muted); font-size:.9rem; line-height:1.6; max-width:30ch}
+.foot-base{border-top:1px solid #EAF2ED26; padding-block:1.4rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.85rem; color:var(--pine-muted)}
+.foot-base a{color:var(--pine-muted)}
+.foot-base a:hover{color:var(--pine-accent)}
 
-.skip{position:absolute; left:-9999px; top:0}
-.skip:focus{left:.75rem; top:.75rem; z-index:99; background:var(--accent); color:var(--on-accent); padding:.6rem .9rem; border-radius:2px; font-family:var(--mono); font-size:.7rem}
+/* ---------- Launcher ---------- */
+.launcher{position:fixed; right:1.3rem; bottom:1.3rem; z-index:70; display:flex; flex-direction:column; gap:.55rem; align-items:flex-end}
+.launch-chip{background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:var(--shadow-lg);
+  padding:.7rem 1rem; font-size:.88rem; font-weight:500; color:var(--ink-soft); max-width:16rem; display:none}
+.launch-chip.show{display:block; animation:pop .3s ease}
+@keyframes pop{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+.launch-btn{width:3.4rem; height:3.4rem; border-radius:50%; border:none; cursor:pointer; background:var(--btn); color:var(--on-accent);
+  font-family:var(--mono); font-size:1rem; box-shadow:var(--shadow-lg); display:grid; place-items:center;
+  transition:transform .2s ease, background .2s ease}
+.launch-btn:hover{background:var(--btn-hover); transform:translateY(-3px) scale(1.05)}
+.launch-btn .pulse{position:absolute; inset:0; border-radius:50%; border:2px solid rgba(47,111,104,.5); animation:ring 2.4s ease-out infinite}
+@keyframes ring{0%{transform:scale(1); opacity:1}100%{transform:scale(1.7); opacity:0}}
 
 /* ---------- Motion ---------- */
-.rise{opacity:0; transform:translateY(14px); transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1)}
-.rise.in{opacity:1; transform:none}
-.hero .rise{transition-delay:var(--d,0ms)}
+.reveal{opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease}
+.reveal.in{opacity:1; transform:none}
+.d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s} .d4{transition-delay:.32s}
 @media (prefers-reduced-motion:reduce){
-  .rise{opacity:1; transform:none; transition:none}
-  .product:hover,.btn:hover{transform:none}
-  *{animation:none !important}
-}
-
-/* ---------- Print (families print this for their funding file) ---------- */
-@media print{
-  .page{background:#fff; color:#000; font-size:10.5pt}
-  .page::before,.topbar,.hero-cta,.stamp{display:none !important}
-  .carbon,.foot{background:#fff !important; color:#000 !important; border:1px solid #999}
-  .carbon .prose,.honest,.kick p,.disclaim,.big-cap{color:#333 !important}
-  .big-figure,.ledger-row b,.eligible,.step-n,.opener .mono,.dept-code{color:#000 !important}
-  .band{padding-block:1.25rem}
-  .product,.tier,.checklist,.spec,.fund-panel{break-inside:avoid; box-shadow:none}
-  .faq details{break-inside:avoid}
-  .faq .faq-body{display:block}
+  .reveal{opacity:1; transform:none; transition:none}
+  .orbit,.hero-glow{display:none}
+  .launch-btn .pulse{display:none}
+  *{animation-duration:.001s!important}
 }
 </style>
-
 <div class="page">
-<a class="skip" href="#main">Skip to content</a>
 
-<!-- ============ NAV ============ -->
-<header class="topbar">
-  <div class="wrap topbar-in">
-    <a class="brand" href="#top">
-      <span class="brand-mark">Preparation Station</span>
-      <span class="brand-sub mono">Nationwide Acquisitions, LLC</span>
-    </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="esa.html">Use Your TEFA Account</a>
-      <a href="#how">How funded purchase works</a>
-      <a href="#offering">Current offering</a>
-      <a href="#eligibility">Eligibility</a>
-      <a href="#support">Support</a>
-      <a href="#faq">FAQ</a>
+<!-- ============ HEADER ============ -->
+<header class="site-head" id="top">
+  <div class="wrap head-in">
+    <a class="brand" href="#top">Preparation Station<small>Nationwide Acquisitions, LLC</small></a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" id="navToggle">Menu</button>
+    <nav class="nav" id="mainNav">
+      <a href="store/shop.html">Shop</a>
+      <a href="shop-by-age.html">Shop by Age</a>
+      <a href="store/shop.html">Catalog</a>
+      <a href="#guide">Mission Guide</a>
+      <a href="esa.html">Funding Help</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a class="btn btn-solid" href="#how">Start a request</a>
     </nav>
-    <a class="btn btn-solid btn-sm" href="#how">Start a request</a>
   </div>
 </header>
 
-<main id="main">
 <!-- ============ HERO ============ -->
-<section class="wrap hero" id="top">
-  <div class="hero-grid">
-    <div class="stack g-24">
-      <p class="hero-eyebrow mono rise" style="--d:0ms">
-        <span>Approved TEFA Marketplace vendor</span><span class="dot" aria-hidden="true"></span>
-        <span>Every offering reviewed separately in Odyssey</span>
-      </p>
-      <h1 class="h-xl rise" style="--d:70ms">Educational supplies for families who fund <span class="mark">purchases</span> through approved programs.</h1>
-      <p class="lede rise" style="--d:140ms">
-        Preparation Station is operated by Nationwide Acquisitions, LLC &mdash; an approved TEFA
-        Marketplace vendor. We present products for review, confirm facts and eligibility before any
-        purchase, and never collect payment on this site.
-      </p>
-      <div class="hero-cta rise" style="--d:210ms">
-        <a class="btn btn-solid" href="#how">How funded purchase works</a>
-        <a class="btn btn-ghost" href="#offering">See the current offering</a>
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="orbit" aria-hidden="true">
+    <span class="dot"></span>
+    <span class="dot b" style="top:14%; left:78%"></span>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Approved TEFA Marketplace vendor</span>
+      <h1 class="h-xl">Mission control for <span class="accent">skill-building</span> families.</h1>
+      <p class="hero-sub">Hands-on project kits, workbooks, and curriculum guides for
+        practical skills, self-command, design, and emerging tech — matched to the
+        learner's age and goals, and purchased through the approved programs you already
+        use.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-solid" href="store/shop.html">Browse the catalog <span class="arr">&rarr;</span></a>
+        <a class="btn btn-ghost" href="#departments">View departments</a>
+        <a class="btn btn-line" href="#guide">Try the Mission Guide <span class="arr">&rarr;</span></a>
       </div>
-      <p class="hero-foot rise" style="--d:280ms">No payment is collected here. TEFA purchases happen in Odyssey.</p>
+      <div class="hero-chips">
+        <span class="chip ok">TEFA vendor approved</span>
+        <span class="chip">Catalog under offering review</span>
+        <span class="chip warn">No payment collected here</span>
+      </div>
     </div>
-
-    <aside class="spec rise" style="--d:340ms" aria-label="How we review">
-      <div class="stamp" aria-hidden="true"><span>Education<b>ESA</b>Supplier</span></div>
-      <p class="spec-title mono">How we handle your request</p>
-      <dl class="stack">
-        <div class="spec-row"><dt>Step 1</dt><dd>You identify a product or SKU you're interested in</dd></div>
-        <div class="spec-row"><dt>Step 2</dt><dd>We confirm facts, availability, and eligibility evidence</dd></div>
-        <div class="spec-row"><dt>Step 3</dt><dd>You follow the confirmed purchasing pathway &mdash; usually Odyssey</dd></div>
-        <div class="spec-row"><dt>Step 4</dt><dd>Fulfillment begins on the written timeline</dd></div>
-        <div class="spec-row"><dt>Acknowledgement</dt><dd>Complete requests answered within one business day</dd></div>
-        <div class="spec-row"><dt>No payment here</dt><dd>This site collects no card or account information</dd></div>
-      </dl>
-    </aside>
+    <div class="stack g-20 reveal d2">
+      <div class="t-card" style="margin:0">
+        <span class="mono">How we handle your request</span>
+        <h3>From request to Odyssey in four steps</h3>
+        <ol class="stack g-12" style="margin-top:.8rem">
+          <li class="g-item" style="padding:.7rem .9rem"><span class="gi-dept">01</span><span class="gi-info" style="font-size:.92rem; color:var(--ink-soft)">Review the approved offering in the catalog</span></li>
+          <li class="g-item" style="padding:.7rem .9rem"><span class="gi-dept">02</span><span class="gi-info" style="font-size:.92rem; color:var(--ink-soft)">Submit a request — we confirm the pathway in writing</span></li>
+          <li class="g-item" style="padding:.7rem .9rem"><span class="gi-dept">03</span><span class="gi-info" style="font-size:.92rem; color:var(--ink-soft)">Confirm eligibility before any purchase</span></li>
+          <li class="g-item" style="padding:.7rem .9rem"><span class="gi-dept">04</span><span class="gi-info" style="font-size:.92rem; color:var(--ink-soft)">Purchase through the official Odyssey Marketplace</span></li>
+        </ol>
+        <p class="g-note" style="margin-top:.8rem">No payment is collected on this site. TEFA
+          purchases and official order history stay in Odyssey.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ============ TRUST RAIL ============ -->
-<section class="strip" aria-label="What we do and don't do">
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust">
+  <div class="wrap trust-in">
+    <div class="trust-item reveal"><span class="trust-ic">F</span><div><b>Funding help</b><span>See TEFA and PDSES/ClassWallet status before you buy</span></div></div>
+    <div class="trust-item reveal d1"><span class="trust-ic">T</span><div><b>Track order</b><span>Official TEFA order history stays in Odyssey</span></div></div>
+    <div class="trust-item reveal d2"><span class="trust-ic">W</span><div><b>Written confirmation</b><span>We confirm the correct pathway in writing</span></div></div>
+    <div class="trust-item reveal d3"><span class="trust-ic">$</span><div><b>No payment here</b><span>This site never collects card or program details</span></div></div>
+  </div>
+</section>
+
+<!-- ============ MISSION TIMELINE ============ -->
+<section class="band" id="timeline">
   <div class="wrap">
-    <div class="strip-grid">
-      <div class="strip-item"><span class="mono">Vendor approval</span><p>Nationwide Acquisitions, LLC is approved as a TEFA Marketplace vendor.</p></div>
-      <div class="strip-item"><span class="mono">Product review</span><p>Company approval does not approve every item; each offering is reviewed separately in Odyssey.</p></div>
-      <div class="strip-item"><span class="mono">No payment on site</span><p>We never collect payment, card, or program account information here.</p></div>
-      <div class="strip-item"><span class="mono">Written confirmation</span><p>Price, availability, and fulfillment are confirmed in writing before an order is accepted.</p></div>
+    <div class="stack g-24 reveal">
+      <span class="eyebrow">Shop by age</span>
+      <h2 class="h-lg">The Mission Timeline</h2>
+      <p class="lede">Five bands, graded by readiness rather than grade level — from
+        first exposure to serious skills with income potential.</p>
+    </div>
+    <div class="timeline" style="margin-top:2.2rem">
+      <div class="t-band reveal">
+        <span class="t-node">3&ndash;5</span>
+        <div class="t-card">
+          <span class="mono">Ages 3–5 · Launchpad</span>
+          <h3>First exposure, hands-on basics</h3>
+          <p>Core workbook foundations, art and craft basics, and the daily supply restock
+            box — everything with adult supervision.</p>
+          <a class="band-link" href="shop-by-age.html">See Launchpad picks &rarr;</a>
+        </div>
+      </div>
+      <div class="t-band reveal">
+        <span class="t-node">6&ndash;8</span>
+        <div class="t-card">
+          <span class="mono">Ages 6–8 · Explorer</span>
+          <h3>Guided practice with supervision</h3>
+          <p>Kitchen and provision skills, art and craft foundations, core workbook sets,
+            and the daily supply box.</p>
+          <a class="band-link" href="shop-by-age.html">See Explorer picks &rarr;</a>
+        </div>
+      </div>
+      <div class="t-band reveal">
+        <span class="t-node">9&ndash;12</span>
+        <div class="t-card">
+          <span class="mono">Ages 9–12 · Mission Control</span>
+          <h3>Independent projects, first real tools</h3>
+          <p>Home and repair tool roll, situation handling deck, focus and energy system,
+            graphic design bench, AI literacy, and robotics.</p>
+          <a class="band-link" href="shop-by-age.html">See Mission Control picks &rarr;</a>
+        </div>
+      </div>
+      <div class="t-band reveal">
+        <span class="t-node">13&ndash;17</span>
+        <div class="t-card">
+          <span class="mono">Ages 13–17 · Advanced Command</span>
+          <h3>Serious skills with income potential</h3>
+          <p>Money and first job kit, interview prep, adulting launch kit, motion and
+            video, skill-to-income pack, and 3D fabrication intro.</p>
+          <a class="band-link" href="shop-by-age.html">See Advanced Command picks &rarr;</a>
+        </div>
+      </div>
+      <div class="t-band reveal">
+        <span class="t-node">P/E</span>
+        <div class="t-card">
+          <span class="mono">Parent / Educator · Planner Mode</span>
+          <h3>Plan the whole runway</h3>
+          <p>Assessment and portfolio kit, supply restock box, and the full catalog for
+            building a year-long plan.</p>
+          <a class="band-link" href="shop-by-age.html">See Planner Mode picks &rarr;</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ BENEFITS ============ -->
-<section class="band wrap" id="benefits">
-  <div class="opener"><span class="mono">What families get here</span></div>
-  <div class="split">
-    <div class="stack g-20">
-      <h2 class="h-lg">One honest path from interest to approved purchase.</h2>
-    </div>
-    <div class="stack g-16 prose">
-      <p>
-        Preparation Station presents products and answers questions about funding pathways. We do
-        not decide eligibility, guarantee an award, or process payment. What we do is verify facts,
-        confirm each offering's review status, and point you to the correct official marketplace.
-      </p>
-      <p>
-        TEFA purchases happen in Odyssey. PDSES/ClassWallet status remains unconfirmed until
-        evidence is recorded. Nothing on this site is official program guidance.
-      </p>
-    </div>
-  </div>
-
-  <div class="pillars" style="margin-top:clamp(2.5rem,5vw,3.75rem)">
-    <div class="pillar rise">
-      <span class="mono">Verified facts</span>
-      <div class="stack">
-        <h3 class="h-md">Prices, availability, and eligibility confirmed before purchase</h3>
-        <p>Every product request is checked against current evidence before you commit to a purchasing pathway.</p>
-      </div>
-    </div>
-    <div class="pillar rise">
-      <span class="mono">Separate reviews</span>
-      <div class="stack">
-        <h3 class="h-md">Vendor approval is not product approval</h3>
-        <p>Each offering is reviewed separately in Odyssey. If an offering hasn't completed review, we say so plainly.</p>
-      </div>
-    </div>
-    <div class="pillar rise">
-      <span class="mono">No payment here</span>
-      <div class="stack">
-        <h3 class="h-md">This site never collects payment or account details</h3>
-        <p>No card forms, no program account numbers, no financial documents &mdash; ever.</p>
-      </div>
-    </div>
-    <div class="pillar rise">
-      <span class="mono">Written confirmations</span>
-      <div class="stack">
-        <h3 class="h-md">Everything in writing before an order is accepted</h3>
-        <p>Complete requests are acknowledged within one business day, with the pathway and timeline stated in writing.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ HOW FUNDED PURCHASE WORKS ============ -->
-<section class="band wrap" id="how">
-  <div class="opener"><span class="mono">How funded purchase works</span></div>
-  <div class="split" style="padding-bottom:.5rem">
-    <h2 class="h-lg">Four steps, one confirmed path.</h2>
-    <p class="prose">There is no live checkout here on purpose. We confirm the correct official
-      pathway in writing before any purchase, and we never collect payment on this site.</p>
-  </div>
-  <ol class="steps">
-    <li class="step">
-      <span class="step-n">Step 01</span>
-      <h3 class="h-sm">Review an approved offering</h3>
-      <p>Find the product you're interested in and confirm its current offering and eligibility
-        status. We say plainly when an offering hasn't completed review.</p>
-    </li>
-    <li class="step">
-      <span class="step-n">Step 02</span>
-      <h3 class="h-sm">Submit a request</h3>
-      <p>Send your request with the SKU, program name, and general details. Do not email account
-        numbers, disability records, school identifiers, or financial documents.</p>
-    </li>
-    <li class="step">
-      <span class="step-n">Step 03</span>
-      <h3 class="h-sm">Confirm the pathway</h3>
-      <p>We acknowledge a complete request within one business day and confirm the purchasing
-        pathway, price, availability, and delivery timeline in writing.</p>
-    </li>
-    <li class="step">
-      <span class="step-n">Step 04</span>
-      <h3 class="h-sm">Purchase through Odyssey</h3>
-      <p>TEFA purchases happen in Odyssey. Fulfillment begins on the written timeline after the
-        order is accepted there.</p>
-    </li>
-  </ol>
-</section>
-
-<!-- ============ CURRENT OFFERING ============ -->
-<section class="band band-tint" id="offering">
+<!-- ============ DEPARTMENTS ============ -->
+<section class="band band-tint" id="departments">
   <div class="wrap">
-    <div class="opener"><span class="mono">Current offering</span></div>
-    <div class="split">
-      <h2 class="h-lg">The catalog is under offering review.</h2>
-      <p class="prose">No product is listed for TEFA purchase until its offering has completed
-        review in Odyssey. We publish one verified offering at a time rather than a shelf of
-        unverified claims.</p>
+    <div class="stack g-24 reveal">
+      <span class="eyebrow">Catalog departments</span>
+      <h2 class="h-lg">Five departments, one mission</h2>
+      <p class="lede">Every item is real and under offering review. Listings are
+        information only and are not an offer for sale.</p>
     </div>
-
-    <!-- SINGLE SKU MODULE -->
-    <div class="tier" style="margin-top:clamp(1.75rem,3.5vw,2.5rem)">
-      <span class="tier-name">First offering &mdash; in review</span>
-      <p class="tier-price" style="font-size:1.6rem">Nothing for sale yet</p>
-      <ul>
-        <li>Catalog items are being reviewed as Odyssey offerings</li>
-        <li>Once the first offering completes review, its SKU, price, and eligibility status appear here</li>
-        <li>Until then, no purchase is possible &mdash; on this site or in Odyssey</li>
-      </ul>
-      <div class="hero-cta" style="padding-top:.4rem">
-        <a class="btn btn-solid" href="store/shop.html">Browse the catalog for reference</a>
-        <a class="btn btn-ghost" href="mailto:mmminvestment25@gmail.com?subject=Product%20request">Ask about a product</a>
-      </div>
-    </div>
-
-    <p class="note" style="margin-top:1.75rem">You can still browse catalog previews for planning,
-      but a catalog listing is not an offer for sale and not a guarantee of eligibility. TEFA
-      purchases happen only in Odyssey after an offering completes review.</p>
-  </div>
-</section>
-
-<!-- ============ ELIGIBILITY ============ -->
-<section class="band wrap" id="eligibility">
-  <div class="opener"><span class="mono">Program &amp; eligibility status</span></div>
-  <div class="fund-grid">
-    <div class="stack g-20">
-      <h2 class="h-lg">Approval status is published, not promised.</h2>
-      <p class="prose">Nationwide Acquisitions, LLC is approved as a TEFA Marketplace vendor and
-        operates Preparation Station. Each product or service offering is reviewed separately in
-        Odyssey before families can purchase it with TEFA funds.</p>
-      <p class="prose">TEFA and PDSES/ClassWallet are separate programs. Approval for one program
-        does not establish approval for the other, and company approval does not by itself prove
-        that a specific product is eligible.</p>
-      <div class="stack g-12">
-        <p class="mono" style="color:var(--muted)">Current program status</p>
-        <div class="states">
-          <span>Texas TEFA &mdash; Nationwide Acquisitions, LLC approved as a Marketplace vendor</span>
-          <span>PDSES/ClassWallet &mdash; status not yet confirmed</span>
-        </div>
-        <p style="font-size:.92rem; color:var(--muted); max-width:56ch; padding-top:.35rem">
-          TEFA purchases and official TEFA order history remain in Odyssey. A vendor approval does not
-          mean every catalog item has completed Odyssey offering review.</p>
-      </div>
-    </div>
-
-    <div class="fund-panel">
-      <span class="mono">What we confirm before a purchase</span>
-      <ul class="fund-list">
-        <li><span class="n">01</span><span>The requested product and its canonical SKU.</span></li>
-        <li><span class="n">02</span><span>Whether the request is self-pay, TEFA, or PDSES/ClassWallet.</span></li>
-        <li><span class="n">03</span><span>Current product facts, availability, price, and fulfillment source.</span></li>
-        <li><span class="n">04</span><span>Product-specific program evidence &mdash; without guaranteeing eligibility.</span></li>
-        <li><span class="n">05</span><span>For TEFA, purchase in Odyssey; for self-pay, the separate direct path when enabled.</span></li>
-      </ul>
-      <div class="fund-meta">
-        <span>Any service fee <b>Confirmed before work begins</b></span>
-        <span>Acknowledgement <b>Within one business day</b></span>
-      </div>
-      <p style="font-size:.88rem; color:var(--muted); line-height:1.6; padding-top:1rem; border-top:1px solid var(--rule-soft); margin-top:1rem">
-        Preparation Station is not a Texas government agency. Final eligibility and approved
-        purchasing pathways are determined by the applicable official program.</p>
+    <div class="dept-grid" style="margin-top:2.2rem">
+      <a class="dept-card reveal" href="store/shop.html#d01">
+        <span class="tone tone-a"></span>
+        <span class="dept-num">Dept 01</span>
+        <h3>Practical &amp; Trade</h3>
+        <p>Home and repair tool roll, money and first job kit, kitchen and provision kit.</p>
+        <span class="dept-count">3 items · under review</span>
+      </a>
+      <a class="dept-card reveal d1" href="store/shop.html#d02">
+        <span class="tone tone-b"></span>
+        <span class="dept-num">Dept 02</span>
+        <h3>Situation Handling &amp; Self-Command</h3>
+        <p>Situation handling deck, focus and energy system, self-advocacy workbook, interview prep, adulting launch kit.</p>
+        <span class="dept-count">5 items · under review</span>
+      </a>
+      <a class="dept-card reveal d2" href="store/shop.html#d03">
+        <span class="tone tone-c"></span>
+        <span class="dept-num">Dept 03</span>
+        <h3>Design &amp; Motion Studio</h3>
+        <p>Graphic design bench, motion and video kit, skill-to-income pack.</p>
+        <span class="dept-count">3 items · under review</span>
+      </a>
+      <a class="dept-card reveal" href="store/shop.html#d04">
+        <span class="tone tone-d"></span>
+        <span class="dept-num">Dept 04</span>
+        <h3>AI &amp; Emerging Tech Bench</h3>
+        <p>AI literacy bench kit, electronics and robotics starter, 3D design and fabrication intro.</p>
+        <span class="dept-count">3 items · under review</span>
+      </a>
+      <a class="dept-card reveal d1" href="store/shop.html#d05">
+        <span class="tone tone-e"></span>
+        <span class="dept-num">Dept 05</span>
+        <h3>Homeschool Essentials</h3>
+        <p>Core subjects workbook set, assessment and portfolio kit, daily supply restock box, art and craft foundations.</p>
+        <span class="dept-count">4 items · under review</span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ============ RESPONSIBLE OPERATIONS ROADMAP ============ -->
-<section class="carbon band" id="carbon">
-  <div class="wrap stack g-40">
-    <div>
-      <div class="opener opener-inv"><span class="mono">Responsible operations roadmap</span></div>
-      <div class="carbon-grid">
-        <div class="stack g-20">
-          <h2 class="h-lg">Environmental claims stay unpublished until the policy, partner, and records exist.</h2>
-          <p class="prose">Preparation Station is evaluating packaging, shipping, and verified impact options.
-            No percentage, offset, removal, tree-planting, or emissions claim is currently part of a sale.</p>
-          <p class="prose">A future program must have written terms, a named partner, transaction records,
-            and a reporting schedule before it appears as a customer promise.</p>
-        </div>
-        <div class="stack g-24">
-          <div class="stack g-16">
-            <p class="big-figure">Pending</p>
-            <p class="big-cap">No environmental sales commitment is active</p>
+<!-- ============ MISSION GUIDE ============ -->
+<section class="band" id="guide">
+  <div class="wrap">
+    <div class="stack g-24 reveal">
+      <span class="eyebrow">Mission Guide</span>
+      <h2 class="h-lg">Tell us the learner. We'll shortlist the catalog.</h2>
+      <p class="lede">Two quick questions, best-fit picks, and a starter list you can send
+        us. Rule-based and honest: nothing here is for sale until offering review
+        completes in Odyssey.</p>
+    </div>
+    <div class="guide-wrap" style="margin-top:2.2rem">
+      <div class="guide-box reveal">
+        <div class="g-step active" data-step="1">
+          <span class="mono">Step 1 of 2</span>
+          <h3 class="h-md">Who are we shopping for?</h3>
+          <div class="g-options" id="gWho">
+            <button class="g-opt" data-val="3-5">Ages 3–5<small>Launchpad</small></button>
+            <button class="g-opt" data-val="6-8">Ages 6–8<small>Explorer</small></button>
+            <button class="g-opt" data-val="9-12">Ages 9–12<small>Mission Control</small></button>
+            <button class="g-opt" data-val="13-17">Ages 13–17<small>Advanced Command</small></button>
+            <button class="g-opt" data-val="13-17">Myself (adult learner)<small>Learning new skills</small></button>
+            <button class="g-opt" data-val="planner">Parent / Educator<small>Planner Mode</small></button>
           </div>
-          <dl class="ledger">
-            <div class="ledger-row"><span>Written policy</span><b>Pending</b></div>
-            <div class="ledger-row"><span>Named partner and evidence</span><b>Pending</b></div>
-            <div class="ledger-row"><span>Packaging and shipping rules</span><b>Pending</b></div>
-            <div class="ledger-row"><span>Reporting schedule</span><b>Pending</b></div>
-            <div class="ledger-row ledger-total"><span>Public claim status</span><b>Disabled</b></div>
-          </dl>
+        </div>
+        <div class="g-step" data-step="2">
+          <span class="mono">Step 2 of 2</span>
+          <h3 class="h-md">What's the main goal?</h3>
+          <div class="g-options" id="gGoal">
+            <button class="g-opt" data-val="PR">Practical skills<small>Trades, money, home</small></button>
+            <button class="g-opt" data-val="SC">Focus &amp; self-command<small>Deck, workbook, prep</small></button>
+            <button class="g-opt" data-val="CS">Design &amp; motion<small>Graphics, video, income</small></button>
+            <button class="g-opt" data-val="AT">AI &amp; tech<small>AI literacy, robotics, 3D</small></button>
+            <button class="g-opt" data-val="HS">Homeschool essentials<small>Core workbooks, portfolio</small></button>
+            <button class="g-opt" data-val="any">Not sure yet<small>Show me the best fits</small></button>
+          </div>
+        </div>
+        <div class="g-step" data-step="3">
+          <span class="mono">Best-fit picks</span>
+          <h3 class="h-md" id="gTitle">Your shortlist</h3>
+          <div class="g-results" id="gResults"></div>
+          <div class="g-actions" id="gActions" style="display:none">
+            <a class="btn btn-solid" id="gMail" href="#">Email my starter list <span class="arr">&rarr;</span></a>
+            <a class="btn btn-ghost" href="store/shop.html">Open the catalog</a>
+          </div>
+          <p class="g-note">Budget matching arrives when verified prices do. Status: every
+            item is under offering review — not for sale yet. Your starter list stays in
+            your own browser.</p>
+          <div class="g-bar" style="margin-top:1rem"><button class="g-back" id="gBack">&larr; Start over</button></div>
+        </div>
+      </div>
+      <div class="guide-aside reveal d2">
+        <div class="card" style="border-radius:14px">
+          <span class="mono">Quick prompts</span>
+          <p class="g-quickp">Tap one to jump straight in</p>
+          <div>
+            <button class="quick-pill" data-who="3-5">Launchpad (3–5)</button>
+            <button class="quick-pill" data-who="6-8">Explorer (6–8)</button>
+            <button class="quick-pill" data-who="9-12">Mission Control (9–12)</button>
+            <button class="quick-pill" data-who="13-17">Advanced Command (13–17)</button>
+            <button class="quick-pill" data-who="planner">Planner Mode</button>
+            <button class="quick-pill" data-who="13-17" data-goal="AT">AI &amp; tech kits</button>
+            <button class="quick-pill" data-who="13-17" data-goal="CS">Design &amp; motion kits</button>
+            <button class="quick-pill" data-who="planner" data-goal="HS">Homeschool planning</button>
+          </div>
+        </div>
+        <div class="card" style="border-radius:14px">
+          <span class="mono">The honest part</span>
+          <h3 class="h-md" style="margin-bottom:.5rem">Why nothing has a price yet</h3>
+          <p style="color:var(--ink-soft); font-size:.93rem; line-height:1.6">Every catalog
+            item must complete offering review in the official Odyssey Marketplace before
+            it can be purchased with program funds. We don't publish a price until it's
+            verified. <a href="faq.html" style="font-weight:700">See the FAQ &rarr;</a></p>
         </div>
       </div>
     </div>
-
-    <div class="carbon-kicker">
-      <div class="kick">
-        <span class="mono">Evidence first</span>
-        <p>Environmental language must be supported by supplier, shipping, partner, and transaction
-          evidence before it appears on a product, receipt, or package.</p>
-      </div>
-      <div class="kick">
-        <span class="mono">Current rule</span>
-        <p>Do not price an unverified environmental commitment into a product and do not describe
-          ordinary shipping as environmentally neutral.</p>
-      </div>
-    </div>
-
-    <p class="honest">This roadmap is not a pledge, offset, donation, or shipping claim. It becomes
-      publishable only after its supporting operating records are approved.</p>
   </div>
 </section>
 
-<!-- ============ FAQ ============ -->
+<!-- ============ STATUS BOARD ============ -->
+<section class="band band-tint" id="eligibility">
+  <div class="wrap">
+    <div class="stack g-24 reveal">
+      <span class="eyebrow">Program &amp; approval status</span>
+      <h2 class="h-lg">Status is published, not promised</h2>
+      <p class="lede">Approval for one program does not establish approval for another,
+        and company approval does not by itself prove that a specific product is
+        eligible.</p>
+    </div>
+    <div class="status-grid" style="margin-top:2.2rem">
+      <div class="status-card ok reveal">
+        <span class="st-ic">&#10003;</span>
+        <h3>TEFA — vendor approved</h3>
+        <p>Nationwide Acquisitions, LLC is approved as a TEFA Marketplace vendor and
+          operates Preparation Station. Each offering is reviewed separately in Odyssey.</p>
+      </div>
+      <div class="status-card wait reveal d1">
+        <span class="st-ic">&#9679;</span>
+        <h3>Catalog offerings — under review</h3>
+        <p>All 18 items are under offering review. None is for sale yet. Listings are
+          information only and are not an offer for sale.</p>
+      </div>
+      <div class="status-card wait reveal d2">
+        <span class="st-ic">&#9679;</span>
+        <h3>PDSES / ClassWallet — not yet confirmed</h3>
+        <p>Status is not yet confirmed and must not be advertised as approved. We will
+          publish it here in writing when it is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="band" id="how">
+  <div class="wrap">
+    <div class="stack g-24 reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="h-lg">Four steps to a confirmed purchase</h2>
+    </div>
+    <div class="steps" style="margin-top:2.2rem">
+      <div class="step reveal">
+        <span class="step-n">Step 01</span>
+        <h3>Browse the catalog</h3>
+        <p>Explore five departments and 18 items. Every listing shows its real status —
+          nothing is presented as available before it is.</p>
+      </div>
+      <div class="step reveal d1">
+        <span class="step-n">Step 02</span>
+        <h3>Get guided picks</h3>
+        <p>Use the Mission Guide by age and goal, or ask us directly. We shortlist
+          best-fit items and build a starter list with you.</p>
+      </div>
+      <div class="step reveal d2">
+        <span class="step-n">Step 03</span>
+        <h3>Confirm the pathway</h3>
+        <p>We confirm eligibility and the correct program pathway in writing before any
+          purchase — including which offerings are approved in Odyssey.</p>
+      </div>
+      <div class="step reveal d3">
+        <span class="step-n">Step 04</span>
+        <h3>Purchase through Odyssey</h3>
+        <p>TEFA purchases and official order history stay in Odyssey. Track and support
+          questions are answered within one business day.</p>
+      </div>
+    </div>
+    <div class="request-panel reveal">
+      <div>
+        <span class="mono">Start a request</span>
+        <h3>Not sure where to start?</h3>
+        <p>Tell us the student's age and goals. We reply within one business day with
+          best-fit items, program status, and the correct purchase pathway — in writing,
+          before any purchase.</p>
+        <div class="hero-ctas" style="margin-top:1.2rem">
+          <a class="btn btn-solid" href="mailto:mmminvestment25@gmail.com?subject=Product%20request">Email a request <span class="arr">&rarr;</span></a>
+          <a class="btn btn-ghost" style="border-color:#EAF2ED4d; color:var(--on-pine)" href="#guide">Use the Mission Guide</a>
+        </div>
+      </div>
+      <ul class="stack g-12" style="color:var(--pine-muted); font-size:.92rem">
+        <li class="g-item" style="border-color:#EAF2ED26; background:transparent"><span class="gi-dept">1</span><span>We acknowledge every complete request within one business day</span></li>
+        <li class="g-item" style="border-color:#EAF2ED26; background:transparent"><span class="gi-dept">2</span><span>We confirm the correct pathway in writing</span></li>
+        <li class="g-item" style="border-color:#EAF2ED26; background:transparent"><span class="gi-dept">3</span><span>No payment or program account details are ever collected here</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ PREVIEW ============ -->
 <section class="band band-tint" id="faq">
   <div class="wrap">
-    <div class="opener"><span class="mono">Questions families ask</span></div>
-    <div class="faq">
-      <details>
-        <summary>Do you only work with Texas families?</summary>
-        <p class="faq-body">Preparation Station currently centers its program information on Texas.
-          Shipping coverage for an ordinary self-pay request is confirmed on the written quote. We do
-          not claim another state's program approval without current documentation.</p>
-      </details>
-      <details>
-        <summary>Are you a school, a tutor, or a store?</summary>
-        <p class="faq-body">A store. We supply tools, kits, and equipment along with the project books
-          that make them worth owning. We don't enrol students, run classes, or issue grades &mdash; which
-          also means your funds go toward materials your student keeps rather than hours that end.</p>
-      </details>
-      <details>
-        <summary>I don't have an education savings account yet. Can you help?</summary>
-        <p class="faq-body">We can identify the applicable official program resources and explain our
-          product-request process. We do not decide eligibility, approve an account, guarantee an award,
-          or ask you to email sensitive application records.</p>
-      </details>
-      <details>
-        <summary>How do I know an item is eligible before I buy it?</summary>
-        <p class="faq-body">For TEFA, purchase only offerings shown as available in the official Odyssey
-          Marketplace. Each offering is reviewed separately; a vendor approval alone does not approve
-          every item displayed on a vendor website.</p>
-      </details>
-      <details>
-        <summary>Why is there no checkout button?</summary>
-        <p class="faq-body">TEFA purchases happen in Odyssey. Preparation Station's separate direct
-          checkout remains disabled until product prices, tax, shipping, returns, payment, and fulfillment
-          are configured. This site never collects payment or program account information.</p>
-      </details>
-      <details>
-        <summary>Can I buy without using program funds?</summary>
-        <p class="faq-body">Direct purchase is planned but not active. No card information is collected
-          on this site. A direct purchase path will open only for verified retail products, separate
-          from TEFA and PDSES/ClassWallet.</p>
-      </details>
-      <details>
-        <summary>What ages are these for?</summary>
-        <p class="faq-body">Broadly 8&ndash;18, graded by readiness rather than grade level. The tool roll
-          and the electronics bench assume supervision at the younger end; the design, motion, and
-          skill-to-income kits land best from about 13 up. Tell us the student and we'll steer you.</p>
-      </details>
-      <details>
-        <summary>What's your returns policy?</summary>
-        <p class="faq-body">The final product-specific return and cancellation policy will be shown in
-          Odyssey or the direct checkout before purchase. No general return promise is active yet.</p>
-      </details>
-      <details>
-        <summary>Do you make an environmental claim on purchases?</summary>
-        <p class="faq-body">No active environmental percentage, offset, donation, or shipping claim is
-          included in a sale. Any future program will require written terms and supporting records.</p>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SUPPORT & POLICIES ============ -->
-<section class="band wrap" id="support">
-  <div class="opener"><span class="mono">Support &amp; policies</span></div>
-  <div class="contact-grid">
-    <div class="stack g-24">
-      <h2 class="h-lg">Ask before you buy &mdash; it's the whole point.</h2>
-      <p class="prose">One email starts it, whether that's a product request, an eligibility question,
-        or "we have nothing set up and don't know where to begin." All of it is confirmed in writing
-        before any purchase, and no payment is collected on this site.</p>
-      <dl class="lines">
-        <div class="line"><dt>Email</dt><dd><a href="mailto:Mmminvestment25@gmail.com">Mmminvestment25@gmail.com</a></dd></div>
-        <div class="line"><dt>Support</dt><dd>Email; complete requests acknowledged within one business day</dd></div>
-        <div class="line"><dt>Reply time</dt><dd>Complete requests acknowledged within one business day</dd></div>
-        <div class="line"><dt>Shipping</dt><dd>Coverage and timing confirmed per written quote</dd></div>
-        <div class="line"><dt>Returns</dt><dd>Product-specific policy shown before purchase, in Odyssey or the direct path</dd></div>
-        <div class="line"><dt>Payment</dt><dd>Disabled on this site; TEFA purchases happen in Odyssey</dd></div>
-      </dl>
-      <div class="hero-cta">
-        <a class="btn btn-solid" href="mailto:mmminvestment25@gmail.com?subject=Product%20and%20funding%20review">Start a request</a>
-        <a class="btn btn-ghost" href="store/track.html">Track an order</a>
+    <div class="stack g-16 reveal" style="max-width:720px">
+      <span class="eyebrow">FAQ</span>
+      <h2 class="h-lg">Common questions, straight answers</h2>
+      <div class="faq" style="margin-top:1rem">
+        <details>
+          <summary>Why don't I see prices?</summary>
+          <p class="faq-body">No price is published until a catalog record is verified.
+            Every item is under offering review; verified prices will appear at the point
+            of purchase in Odyssey once an offering is approved.</p>
+        </details>
+        <details>
+          <summary>Is anything for sale right now?</summary>
+          <p class="faq-body">Not yet. All 18 catalog items are under offering review.
+            Nothing is for sale until its offering completes review in the official
+            Odyssey Marketplace.</p>
+        </details>
+        <details>
+          <summary>How do I know an item is eligible before I buy it?</summary>
+          <p class="faq-body">For TEFA, purchase only offerings shown as available in the
+            official Odyssey Marketplace. Each offering is reviewed separately; a vendor
+            approval alone does not approve every item displayed on a vendor website.</p>
+        </details>
+        <details>
+          <summary>Why is there no checkout button?</summary>
+          <p class="faq-body">TEFA purchases happen in Odyssey. Direct checkout remains
+            disabled until pricing, fulfillment, shipping, returns, and payment are
+            configured. This site never collects payment or program account information.</p>
+        </details>
+        <details>
+          <summary>Can I buy without using program funds?</summary>
+          <p class="faq-body">Direct purchase is planned but not active. No card
+            information is collected on this site. A direct purchase path will open only
+            for verified retail products, separate from TEFA and PDSES/ClassWallet.</p>
+        </details>
+        <details>
+          <summary>What is the Mission Guide?</summary>
+          <p class="faq-body">A guided selector that asks who you're shopping for, the age
+            band, and the main goal, then suggests best-fit catalog items and builds a
+            starter list you can email us. It is rule-based, not a chatbot, and it never
+            collects payment.</p>
+        </details>
       </div>
-    </div>
-
-    <div class="checklist">
-      <span class="mono">What to include in your first message</span>
-      <ul>
-        <li>Your state, so we can check the right program</li>
-        <li>The program name only &mdash; do not send account numbers or application documents</li>
-        <li>The student's general age range and interests &mdash; do not send the child's full name</li>
-        <li>The SKUs or departments you're looking at</li>
-        <li>Roughly what balance you're working with</li>
-        <li>The best time and way to reach you</li>
-      </ul>
+      <p style="margin-top:.6rem"><a href="faq.html" class="btn btn-ghost">Full FAQ <span class="arr">&rarr;</span></a></p>
     </div>
   </div>
 </section>
-</main>
 
 <!-- ============ FOOTER ============ -->
 <footer class="foot">
-  <div class="wrap">
-    <div class="foot-top">
-      <div class="stack g-8">
-        <span class="foot-brand">Preparation Station</span>
-        <span class="mono" style="color:var(--pine-muted)">Educational tools &amp; resources &middot; TEFA purchases through Odyssey</span>
-      </div>
-      <nav class="foot-nav" aria-label="Footer">
-        <a href="#how">How funded purchase works</a><a href="#offering">Current offering</a>
-        <a href="#eligibility">Eligibility</a><a href="#support">Support</a><a href="#faq">FAQ</a>
-        <a href="store/track.html">Track order</a><a href="mailto:Mmminvestment25@gmail.com">Email</a>
-      </nav>
+  <div class="wrap foot-in">
+    <div>
+      <h4>Preparation Station</h4>
+      <p class="foot-blurb">Skill-building project kits and curriculum guides for
+        families, educators, and homeschool planners. Operated by Nationwide
+        Acquisitions, LLC.</p>
     </div>
-    <p class="disclaim">
-      Preparation Station is operated by Nationwide Acquisitions, LLC. We are not a Texas government
-      agency, and nothing on this page is official program guidance. Program approval and eligible
-      expense categories are separate from product-specific eligibility and can change between program
-      years. Confirm current requirements through the applicable official program. Prices,
-      availability, the purchasing pathway, fulfillment, and any product-eligibility evidence are
-      confirmed in writing before an order is accepted.
-    </p>
-    <p class="foot-meta">
-      <span>&copy; 2026 Nationwide Acquisitions, LLC</span>
-      <span>mmminvestment25@gmail.com</span>
-      <span>Updated August 16, 2026</span>
-    </p>
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="store/shop.html">Catalog</a></li>
+        <li><a href="shop-by-age.html">Shop by Age</a></li>
+        <li><a href="store/shop.html">Departments</a></li>
+        <li><a href="#guide">Mission Guide</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <ul>
+        <li><a href="esa.html">Funding Help / Eligibility</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="store/track.html">Track Order</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        <li><a href="shipping.html">Shipping &amp; Returns</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>Preparation Station is operated by Nationwide Acquisitions, LLC.</span>
+    <span>Updated August 16, 2026</span>
   </div>
 </footer>
+
+<!-- ============ MISSION GUIDE LAUNCHER ============ -->
+<div class="launcher">
+  <div class="launch-chip" id="launchChip">Need a hand? Try the Mission Guide.</div>
+  <button class="launch-btn" id="launchBtn" aria-label="Open Mission Guide"><span class="pulse"></span>AI</button>
 </div>
 
 <script>
-(function () {
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var risers = document.querySelectorAll('.rise');
-  if (reduce || !('IntersectionObserver' in window)) {
-    risers.forEach(function (el) { el.classList.add('in'); });
-    return;
-  }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-  risers.forEach(function (el) { io.observe(el); });
+(function(){
+  "use strict";
+  /* header scroll state */
+  var head=document.querySelector('.site-head');
+  var onScroll=function(){head.classList.toggle('scrolled',window.scrollY>8)};
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
-  // Hero staggers on load rather than on scroll.
-  requestAnimationFrame(function () {
-    document.querySelectorAll('.hero .rise').forEach(function (el) { el.classList.add('in'); });
+  /* mobile nav */
+  var navToggle=document.getElementById('navToggle'), mainNav=document.getElementById('mainNav');
+  navToggle.addEventListener('click',function(){
+    var open=mainNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded',open?'true':'false');
   });
+
+  /* reveal on scroll */
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var r=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in'); r.unobserve(e.target)}})},{threshold:.1});
+    document.querySelectorAll('.reveal').forEach(function(el){r.observe(el)});
+  }else{
+    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});
+  }
+
+  /* launcher */
+  var chip=document.getElementById('launchChip'), shown=false;
+  var launchBtn=document.getElementById('launchBtn');
+  launchBtn.addEventListener('click',function(){
+    document.getElementById('guide').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    chip.classList.remove('show');
+  });
+  window.addEventListener('scroll',function(){
+    if(shown||window.scrollY<window.innerHeight*1.2)return;
+    shown=true; chip.classList.add('show');
+    setTimeout(function(){chip.classList.remove('show')},5000);
+  },{passive:true});
+
+  /* ---------- Mission Guide ---------- */
+  var CATALOG=[
+    {sku:"PS-PR-101",name:"Home & Repair Tool Roll",dept:"Practical & Trade",band:["9-12","13-17"],goal:"PR"},
+    {sku:"PS-PR-102",name:"Money & First Job Kit",dept:"Practical & Trade",band:["13-17"],goal:"PR"},
+    {sku:"PS-PR-103",name:"Kitchen & Provision Kit",dept:"Practical & Trade",band:["6-8","9-12"],goal:"PR"},
+    {sku:"PS-SC-201",name:"Situation Handling Deck",dept:"Situation Handling & Self-Command",band:["9-12","13-17"],goal:"SC"},
+    {sku:"PS-SC-202",name:"Focus & Energy System",dept:"Situation Handling & Self-Command",band:["9-12","13-17"],goal:"SC"},
+    {sku:"PS-SC-203",name:"Self-Advocacy Workbook",dept:"Situation Handling & Self-Command",band:["13-17"],goal:"SC"},
+    {sku:"PS-SC-204",name:"Interview & First Job Prep Kit",dept:"Situation Handling & Self-Command",band:["13-17"],goal:"SC"},
+    {sku:"PS-SC-205",name:"Adulting Launch Kit",dept:"Situation Handling & Self-Command",band:["13-17"],goal:"SC"},
+    {sku:"PS-CS-301",name:"Graphic Design Bench",dept:"Design & Motion Studio",band:["9-12","13-17"],goal:"CS"},
+    {sku:"PS-CS-302",name:"Motion & Video Kit",dept:"Design & Motion Studio",band:["13-17"],goal:"CS"},
+    {sku:"PS-CS-303",name:"Skill-to-Income Pack",dept:"Design & Motion Studio",band:["13-17"],goal:"CS"},
+    {sku:"PS-AT-401",name:"AI Literacy Bench Kit",dept:"AI & Emerging Tech Bench",band:["9-12","13-17"],goal:"AT"},
+    {sku:"PS-AT-402",name:"Electronics & Robotics Starter",dept:"AI & Emerging Tech Bench",band:["9-12","13-17"],goal:"AT"},
+    {sku:"PS-AT-403",name:"3D Design & Fabrication Intro",dept:"AI & Emerging Tech Bench",band:["13-17"],goal:"AT"},
+    {sku:"PS-HS-501",name:"Core Subjects Workbook Set",dept:"Homeschool Essentials",band:["3-5","6-8","9-12"],goal:"HS"},
+    {sku:"PS-HS-502",name:"Homeschool Assessment & Portfolio Kit",dept:"Homeschool Essentials",band:["planner"],goal:"HS"},
+    {sku:"PS-HS-503",name:"Daily Supply Restock Box",dept:"Homeschool Essentials",band:["3-5","6-8","planner"],goal:"HS"},
+    {sku:"PS-HS-504",name:"Art & Craft Foundations Kit",dept:"Homeschool Essentials",band:["3-5","6-8"],goal:"HS"}
+  ];
+  var state={who:null,goal:null,list:[]};
+  var steps=document.querySelectorAll('.g-step');
+  var whoBox=document.getElementById('gWho'), goalBox=document.getElementById('gGoal');
+
+  function showStep(n){
+    steps.forEach(function(s,i){s.classList.toggle('active',i===n-1)});
+    steps[n-1].scrollIntoView({block:'nearest',behavior:'auto'});
+  }
+  whoBox.addEventListener('click',function(e){
+    var b=e.target.closest('.g-opt'); if(!b)return;
+    state.who=b.dataset.val; state.goal=null; state.list=[];
+    whoBox.querySelectorAll('.g-opt').forEach(function(o){o.classList.toggle('sel',o===b)});
+    goalBox.querySelectorAll('.g-opt').forEach(function(o){o.classList.remove('sel')});
+    showStep(2);
+  });
+  goalBox.addEventListener('click',function(e){
+    var b=e.target.closest('.g-opt'); if(!b)return;
+    state.goal=b.dataset.val;
+    goalBox.querySelectorAll('.g-opt').forEach(function(o){o.classList.toggle('sel',o===b)});
+    runGuide();
+  });
+  document.querySelectorAll('.quick-pill').forEach(function(p){
+    p.addEventListener('click',function(){
+      state.who=p.dataset.who||state.who; state.goal=p.dataset.goal||state.goal; state.list=[];
+      if(p.dataset.who){
+        whoBox.querySelectorAll('.g-opt').forEach(function(o){o.classList.toggle('sel',o.dataset.val===state.who)});
+      }
+      if(p.dataset.goal){
+        goalBox.querySelectorAll('.g-opt').forEach(function(o){o.classList.toggle('sel',o.dataset.val===state.goal)});
+      }
+      if(state.who&&state.goal)runGuide(); else showStep(state.who?2:1);
+    });
+  });
+  document.getElementById('gBack').addEventListener('click',function(){
+    state={who:null,goal:null,list:[]};
+    whoBox.querySelectorAll('.g-opt').forEach(function(o){o.classList.remove('sel')});
+    goalBox.querySelectorAll('.g-opt').forEach(function(o){o.classList.remove('sel')});
+    showStep(1);
+  });
+
+  function match(item){
+    if(state.who!=='planner'&&item.band.indexOf(state.who)===-1)return false;
+    if(state.goal==='any')return true;
+    return item.goal===state.goal;
+  }
+  function runGuide(){
+    var hits=CATALOG.filter(match);
+    if(state.who==='planner'&&state.goal==='HS'){
+      hits=CATALOG.slice().sort(function(a,b){return (b.goal==='HS'?1:0)-(a.goal==='HS'?1:0)});
+    }
+    var titles={PR:"Practical skills",SC:"Focus & self-command",CS:"Design & motion",AT:"AI & tech",HS:"Homeschool essentials",any:"Best fits"};
+    document.getElementById('gTitle').textContent=titles[state.goal]+" — "+hits.length+" pick"+(hits.length===1?"":"s");
+    var box=document.getElementById('gResults'); box.innerHTML="";
+    if(hits.length===0){
+      box.innerHTML='<p class="g-empty">No picks for that combination yet — try another goal, or ask us directly and we\'ll steer you.</p>';
+      document.getElementById('gActions').style.display='none';
+      showStep(3); return;
+    }
+    hits.forEach(function(it){
+      var row=document.createElement('div'); row.className='g-item';
+      var info=document.createElement('div'); info.className='gi-info';
+      var h=document.createElement('h4'); h.textContent=it.name;
+      var s=document.createElement('span'); s.className='gi-sku'; s.textContent=it.sku+" · under offering review";
+      var d=document.createElement('span'); d.className='gi-dept'; d.textContent=it.dept;
+      info.appendChild(h); info.appendChild(d); info.appendChild(s);
+      var add=document.createElement('button'); add.className='g-add'; add.textContent='Add';
+      add.addEventListener('click',function(){
+        var i=state.list.indexOf(it.sku);
+        if(i===-1){state.list.push(it.sku); add.textContent='Added'; add.classList.add('on');}
+        else{state.list.splice(i,1); add.textContent='Add'; add.classList.remove('on');}
+        syncMail();
+      });
+      row.appendChild(info); row.appendChild(add); box.appendChild(row);
+    });
+    document.getElementById('gActions').style.display='flex';
+    showStep(3);
+    try{localStorage.setItem('ps_starter_list',JSON.stringify(state.list))}catch(err){}
+  }
+  function syncMail(){
+    var items=state.list.map(function(sku){
+      var it=CATALOG.filter(function(c){return c.sku===sku})[0];
+      return "- "+sku+" "+it.name;
+    }).join("\n");
+    var link=document.getElementById('gMail');
+    var sub=encodeURIComponent("Starter list request ("+state.list.length+" item"+(state.list.length===1?"":"s")+")");
+    var body=encodeURIComponent("Best-fit picks from the Preparation Station Mission Guide:\n\n"+items+
+      "\n\n(No prices published yet — please confirm offering status and the correct purchase pathway.)");
+    link.href="mailto:mmminvestment25@gmail.com?subject="+sub+"&body="+body;
+    link.textContent=state.list.length?"Email my starter list ("+state.list.length+")":"Email my starter list";
+  }
 })();
 </script>

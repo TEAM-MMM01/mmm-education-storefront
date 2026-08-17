@@ -37,10 +37,14 @@ import re
 
 HERE = pathlib.Path(__file__).parent
 FONTS = {
-    "__BRIC__": "bricolage.woff2",
-    "__NEWS__": "newsreader.woff2",
     "__MONO4__": "dmmono400.woff2",
     "__MONO5__": "dmmono500.woff2",
+    "__SAT4__": "satoshi400.woff2",
+    "__SAT5__": "satoshi500.woff2",
+    "__SAT7__": "satoshi700.woff2",
+    "__CAB5__": "cabinet500.woff2",
+    "__CAB7__": "cabinet700.woff2",
+    "__CAB8__": "cabinet800.woff2",
 }
 
 
@@ -129,6 +133,20 @@ def build_general_store_pages(shared_css: str):
         print(f"general-store/{name}.html  {out.stat().st_size / 1024:.0f} KB")
 
 
+def build_info_pages(shared_css: str):
+    info = HERE / "src" / "info"
+    desc = "Preparation Station — information, policies, and support."
+    for name in ("about", "contact", "privacy", "terms", "shipping", "shop-by-age", "faq"):
+        src = (info / f"{name}.html").read_text()
+        if "__INFO_SHARED_CSS__" not in src:
+            raise SystemExit(f"__INFO_SHARED_CSS__ missing from src/info/{name}.html")
+        page = src.replace("__INFO_SHARED_CSS__", shared_css)
+        page = resolve_cross_links(page, main="index.html", esa_shop="store/shop.html", general_store="")
+        out = HERE / f"{name}.html"
+        out.write_text(standalone_document(page, desc))
+        print(f"{name}.html  {out.stat().st_size / 1024:.0f} KB")
+
+
 def resolve_cross_links(page: str, main: str, esa_shop: str, general_store: str) -> str:
     return (
         page.replace("MAIN_SITE_URL", main)
@@ -144,3 +162,7 @@ if __name__ == "__main__":
     )
     build_store_pages(_shared_css)
     build_general_store_pages(_shared_css)
+    _info_css = inline_fonts(
+        (HERE / "src" / "info" / "shared.css").read_text(), "src/info/shared.css"
+    )
+    build_info_pages(_info_css)
