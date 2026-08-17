@@ -25,16 +25,27 @@ VAULT_SESSION_NOTE = VAULT_PATH / "00-HQ" / "HermesOS" / "State" / "latest-sessi
 
 
 def get_telegram_config():
-    """Get Telegram bot token and chat ID from Keychain."""
+    """Get Telegram bot token and chat ID.
+
+    Prefers environment variables (docs/workflow/NOTIFICATIONS.md Option A);
+    falls back to Keychain using the documented service names (Option B).
+    Previously used non-existent service names (telegram-prep-station-token,
+    telegram-chat-id) that don't match what NOTIFICATIONS.md actually sets up,
+    so this silently found nothing on a correctly-configured Mac.
+    """
+    env_token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    env_chat = os.environ.get("TELEGRAM_CHAT_ID")
+    if env_token and env_chat:
+        return env_token, env_chat
     try:
         token = subprocess.check_output(
             ["security", "find-generic-password", "-a", "preparation-station",
-             "-s", "telegram-prep-station-token", "-w"],
+             "-s", "telegram", "-w"],
             text=True
         ).strip()
         chat_id = subprocess.check_output(
             ["security", "find-generic-password", "-a", "preparation-station",
-             "-s", "telegram-chat-id", "-w"],
+             "-s", "telegram-chat", "-w"],
             text=True
         ).strip()
         return token, chat_id
@@ -78,7 +89,7 @@ def current_branch(repo):
             ["git", "rev-parse", "--abbrev-ref", "HEAD"],
             cwd=str(repo), capture_output=True, text=True, timeout=10
         )
-    except OSError:
+    except (OSError, subprocess.TimeoutExpired):
         return None
     if result.returncode != 0:
         return None
@@ -107,7 +118,7 @@ def pull_latest():
                 ["git", "pull", "--ff-only", "origin", branch],
                 cwd=str(repo), capture_output=True, text=True, timeout=30
             )
-        except OSError as e:
+        except (OSError, subprocess.TimeoutExpired) as e:
             print(f"Pull failed for {repo} (non-critical): {e}")
             continue
         if result.returncode == 0:
@@ -144,37 +155,57 @@ def escape_markdown(text):
 
 
 def build_welcome_back(vault_note, session_state):
-    """Build a welcome-back message."""
+    """Build a welcome-back message.
+
+    Previously this hardcoded specific claims ("Deadline was Monday — now
+    overdue", "Merge PR #18: waiting on you", literal LOCK-4..LOCK-7 text)
+    that stayed fixed regardless of what session-state.md actually said, and
+    accepted vault_note as a parameter without ever reading it. Both are
+    fixed here: status/lock lines are now extracted from the real file
+    content instead of being reprinted verbatim from memory, and a short
+    excerpt from the vault note is included when present.
+    """
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     lines = []
     lines.append("*Welcome back, Richie*")
     lines.append(f"_Session resumed: {now}_\n")
 
-    # Extract key info from session state
     if session_state:
-        for line in session_state.split("\n"):
+        state_lines = session_state.split("\n")
+        in_status_block = False
+        for line in state_lines:
+            stripped = line.strip()
             if "Last updated:" in line:
                 last = line.split(':', 1)[1].strip().strip('*').strip()
                 lines.append(f"Last session: {escape_markdown(last)}")
             elif "SITE SUBMISSION STATUS" in line.upper():
                 lines.append("\n*Site status:*")
-                lines.append("  Deadline was Monday — now overdue")
-                lines.append("  ESA landing page: done")
-                lines.append("  Merge PR #18: waiting on you")
-                lines.append("  Link Netlify: you're doing this")
+                in_status_block = True
+                continue
             elif "OPEN LOCKS" in line.upper():
+                in_status_block = False
                 lines.append("\n*Awaiting your decision:*")
-            elif "LOCK-4" in line and "|" in line:
-                lines.append("  LOCK-4: HermesOS-Vault disposition")
-            elif "LOCK-5" in line and "|" in line:
-                lines.append("  LOCK-5: OmniRoute provider keys")
-            elif "LOCK-6" in line and "|" in line:
-                lines.append("  LOCK-6: royal-collexions repo")
-            elif "LOCK-7" in line and "|" in line:
-                lines.append("  LOCK-7: HP setup")
+                continue
+            elif in_status_block and stripped and not stripped.startswith('#'):
+                # Real current status text from the file, not a canned string
+                lines.append(f"  {escape_markdown(stripped)}")
+            elif stripped.startswith("LOCK-") and "|" in stripped:
+                # Real lock line from the file, not a hardcoded rewrite
+                lock_desc = stripped.split("|")[0].strip()
+                lines.append(f"  {escape_markdown(lock_desc)}")
+    elif vault_note:
+        # No committed session-state (it's local-only now, see privacy
+        # note in docs/) - fall back to the vault note's own summary
+        # instead of showing nothing.
+        excerpt = vault_note.strip().splitlines()[:5]
+        if excerpt:
+            lines.append("\n*From your last vault note:*")
+            for l in excerpt:
+                if l.strip():
+                    lines.append(f"  {escape_markdown(l.strip())}")
 
-    lines.append("\n*Resume:* `docs/session-state.md`")
+    lines.append("\n*Resume:* `docs/session-state.md` (local, not committed)")
     lines.append("*Full tasks:* `docs/DEFERRED-TASKS.md`")
 
     return "\n".join(lines)
@@ -183,8 +214,14 @@ def build_welcome_back(vault_note, session_state):
 def main():
     dry_run = "--dry-run" in sys.argv
 
-    # Pull latest
-    pull_latest()
+    # Pull latest (skipped entirely in dry-run — was previously running
+    # unconditionally before the dry_run check, so a "print-only rehearsal"
+    # was still doing real network fetches and could fast-forward both
+    # working copies)
+    if not dry_run:
+        pull_latest()
+    else:
+        print("Dry run: skipping repository pull (no network/state changes)")
 
     print("Reading session state...")
     vault_note = read_vault_note()

@@ -29,3 +29,5 @@ tools/agent_loop/report.json
 
 # Orchestration runtime output (regenerated on every invocation)
 .hermes-mac/
+docs/session-state.md
+docs/SPACE-CLEARING.md

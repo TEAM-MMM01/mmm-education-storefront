@@ -12,21 +12,22 @@
 - HermesOS is the master operating platform.
 - HermesOS-COO is the single top-level operating agent.
 - Richie Rich is CEO/CFO and final authority.
-- COO may autonomously perform Tier 0, Tier 1, and pre-approved Tier 2 work.
-- COO must prepare, assess, score, propose, and request explicit approval before any Tier 3 or Tier 4 action.
+- COO may autonomously perform Tier 1 and pre-approved Tier 2 work.
+- COO must prepare, assess, score, propose, and request explicit approval before any Tier 3 action.
 - No platform, bot, device, model, repository, webhook, or channel may create a competing authority above or alongside HermesOS-COO.
 
 ---
 
 ## Tiered Execution
 
+Canonical three-tier model per AGENTS.md L51-63 (this table previously used
+a five-tier Tier 0-4 model that contradicted it):
+
 | Tier | Risk | COO Action | Approval |
 |---|---|---|---|
-| Tier 0 | None | Read-only discovery, audits, docs | Auto |
-| Tier 1 | Low | Drafts, queues, test plans, local verification | Auto |
+| Tier 1 | Low | Read-only discovery, audits, docs, drafts, queues, test plans, local verification | Auto |
 | Tier 2 | Medium | Reversible implementation, branch-based code, local scripts | Scope-verified |
-| Tier 3 | High | Production deploy, secret rotation, customer comms, financials | Richie required |
-| Tier 4 | Critical | Destructive changes, public messaging, pricing, strategy | Richie required |
+| Tier 3 | High/Critical | Production deploy, secret rotation, customer comms, financials, destructive changes, public messaging, pricing, strategy | Richie required |
 
 ---
 
@@ -149,19 +150,26 @@ Founder: Approves restricted transitions
 
 ### Branch Naming
 
+Canonical prefix per AGENTS.md L14-19: all agent branches use `agent/<short-task-name>`,
+regardless of which agent or device is doing the work. Per-agent prefixes
+(codex/, devin/, coo/, qa/) previously specified here contradicted that and
+would produce noncompliant branches.
+
 ```
 main (protected, no direct pushes)
-├── codex/<task-slug>
-├── devin/<task-slug>
-├── coo/<task-slug>
-└── qa/<task-slug>
+└── agent/<short-task-name>
 ```
+
+If distinguishing which agent authored a branch matters operationally, put
+that in the commit message or PR description, not the branch prefix -
+the branch-protection rules and any automation that matches on prefix are
+keyed to `agent/`.
 
 ### Codex/Devin Policy
 
 | Action | Codex | Devin | COO/Richie |
 |---|---|---|---|
-| Read, clone, search | Allowed | Allowed | Tier 0 |
+| Read, clone, search | Allowed | Allowed | Tier 1 |
 | Create branches | Allowed | Allowed | Tier 1 |
 | Edit code, run tests | Allowed | Allowed | Tier 1-2 |
 | Push to feature branches | Allowed | Allowed | Tier 2 |
@@ -199,11 +207,11 @@ main (protected, no direct pushes)
 [COO • OpenCode Handoff]
 
 Work order: PS-YYYYMMDD-###
-Status: READY_FOR_PR
+Status: Remote Attempted
 Writer device: mac-<hostname> | hp-<hostname>
 Reviewer device: mac-<hostname> | hp-<hostname>
 Repository: TEAM-MMM01/mmm-education-storefront
-Branch: opencode/<work-order>
+Branch: agent/<work-order>
 Commits: <sha(s)>
 Files changed: <count and list>
 Validation: lint PASS | typecheck PASS | test PASS | build PASS

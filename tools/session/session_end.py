@@ -23,30 +23,45 @@ from urllib.request import Request, urlopen
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SESSION_STATE = REPO_ROOT / "docs" / "session-state.md"
 DEFERRED_TASKS = REPO_ROOT / "docs" / "DEFERRED-TASKS.md"
-VAULT_PATH = Path.home() / "Projects" / "TEAM-MMM01" / "obsidian-vault"
+# VAULT_PATH was previously hardcoded to one operator's exact folder layout
+# (~/Projects/TEAM-MMM01/obsidian-vault), so on any other machine this
+# script would silently create a new, empty directory tree at that fixed
+# path rather than finding the real vault. HERMES_VAULT_PATH lets each
+# machine point at its actual vault location; the old path remains the
+# default so existing setups keep working unchanged.
+VAULT_PATH = Path(os.environ.get("HERMES_VAULT_PATH",
+                                  str(Path.home() / "Projects" / "TEAM-MMM01" / "obsidian-vault")))
 VAULT_SESSION_NOTE = VAULT_PATH / "00-HQ" / "HermesOS" / "State" / "latest-session.md"
 
 
 def get_telegram_config():
-    """Get Telegram bot token and chat ID from Keychain."""
+    """Get Telegram bot token and chat ID.
+
+    Prefers environment variables (docs/workflow/NOTIFICATIONS.md Option A);
+    falls back to Keychain using the documented service names (Option B).
+    Previously used non-existent Keychain service names and a non-standard
+    env var suffix (_PS) that don't match NOTIFICATIONS.md.
+    """
+    env_token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    env_chat = os.environ.get("TELEGRAM_CHAT_ID")
+    if env_token and env_chat:
+        return env_token, env_chat
     try:
         token = subprocess.check_output(
             ["security", "find-generic-password", "-a", "preparation-station",
-             "-s", "telegram-prep-station-token", "-w"],
+             "-s", "telegram", "-w"],
             text=True
         ).strip()
         chat_id = subprocess.check_output(
             ["security", "find-generic-password", "-a", "preparation-station",
-             "-s", "telegram-chat-id", "-w"],
+             "-s", "telegram-chat", "-w"],
             text=True
         ).strip()
         return token, chat_id
     except (subprocess.CalledProcessError, OSError):
         # CalledProcessError: keychain lookup failed.
         # OSError (incl. FileNotFoundError): `security` is unavailable (non-macOS).
-        token = os.environ.get("TELEGRAM_BOT_TOKEN_PS")
-        chat_id = os.environ.get("TELEGRAM_CHAT_ID_PS")
-        return token, chat_id
+        return None, None
 
 
 def send_telegram(token, chat_id, message):
@@ -160,7 +175,20 @@ def build_summary(info):
 
 
 def write_vault_note(info, summary):
-    """Write a vault note for the next session to read."""
+    """Write a vault note for the next session to read.
+
+    Verifies VAULT_PATH is an existing git repository first. Previously this
+    would silently create the entire directory tree via mkdir(parents=True)
+    even when the vault hadn't been cloned yet (e.g. a freshly set up HP),
+    leaving a non-repository directory sitting at the clone destination -
+    a later `git clone` into that same path then fails because the
+    destination is non-empty. Returns None instead of fabricating a vault.
+    """
+    if not (VAULT_PATH / ".git").exists():
+        print(f"Vault note skipped: {VAULT_PATH} is not an existing git "
+              f"repository. Clone it first: git clone <vault-url> {VAULT_PATH}")
+        return None
+
     VAULT_SESSION_NOTE.parent.mkdir(parents=True, exist_ok=True)
 
     now = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
@@ -202,65 +230,97 @@ def _git(step):
         return None
 
 
-def push_vault_note():
-    """Commit the vault note to a session branch and push it.
+def checkout_session_branch():
+    """Create and check out a dedicated session branch in the vault.
 
-    Never pushes to main directly (see AGENTS.md git workflow); every
-    automated write goes to a dedicated branch so it stays attributable
-    and reviewable. Returns True only if every git step succeeds. The vault
-    is always returned to its original branch, even on failure, so later
-    edits and pulls do not silently happen on a throwaway session branch.
+    Must be called BEFORE write_vault_note() - previously the note was
+    written first, on whatever branch the vault happened to be on
+    (potentially main), and the session branch was only created afterward
+    inside push_vault_note(). That left the vault's current branch dirty
+    on every normal run, even without --push.
+
+    Returns (original_branch, session_branch). session_branch is None if
+    the vault isn't a git repo or branch creation failed - callers should
+    skip the write in that case rather than dirty an unknown branch.
     """
     if not (VAULT_PATH / ".git").exists():
-        print(f"Vault push skipped: {VAULT_PATH} is not a git repository")
-        return False
+        print(f"Vault git skipped: {VAULT_PATH} is not a git repository")
+        return None, None
 
     origin = _git(["git", "rev-parse", "--abbrev-ref", "HEAD"])
     if origin is None or origin.returncode != 0:
-        print("Vault push skipped: could not resolve current branch")
-        return False
+        print("Vault git skipped: could not resolve current branch")
+        return None, None
     original_branch = origin.stdout.strip()
 
     branch = f"session/end-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-    try:
-        checkout = _git(["git", "checkout", "-b", branch])
-        if checkout is None or checkout.returncode != 0:
-            print(f"Vault push failed (git checkout -b {branch}): "
-                  f"{checkout.stderr.strip() if checkout else 'command error'}")
-            return False
+    checkout = _git(["git", "checkout", "-b", branch])
+    if checkout is None or checkout.returncode != 0:
+        print(f"Vault git skipped: could not create branch '{branch}': "
+              f"{checkout.stderr.strip() if checkout else 'command error'}")
+        return original_branch, None
 
-        add = _git(["git", "add", "00-HQ/HermesOS/State/latest-session.md"])
-        if add is None or add.returncode != 0:
-            print(f"Vault push failed (git add): "
-                  f"{add.stderr.strip() if add else 'command error'}")
-            return False
+    return original_branch, branch
 
-        commit = _git(
-            ["git", "commit", "-m", f"Session end: {datetime.now().strftime('%Y-%m-%d %H:%M')}"]
-        )
-        if commit is None:
-            return False
-        if commit.returncode != 0:
-            # "nothing to commit" is a benign no-op, not a failure.
-            if "nothing to commit" in (commit.stdout + commit.stderr).lower():
-                print("Vault note unchanged — nothing to push")
-                return True
-            print(f"Vault push failed (git commit): {commit.stderr.strip()}")
-            return False
 
-        push = _git(["git", "push", "origin", branch])
-        if push is None or push.returncode != 0:
-            print(f"Vault push failed (git push): "
-                  f"{push.stderr.strip() if push else 'command error'}")
-            return False
+def commit_and_push_vault_note(session_branch, do_push):
+    """Commit the vault note on session_branch, and push if do_push.
 
-        print(f"Vault note pushed to branch '{branch}' — open a PR to land it on main")
+    Assumes checkout_session_branch() already succeeded and the vault is
+    currently checked out on session_branch. Returns True only if every
+    attempted git step succeeded.
+    """
+    add = _git(["git", "add", "00-HQ/HermesOS/State/latest-session.md"])
+    if add is None or add.returncode != 0:
+        print(f"Vault commit failed (git add): "
+              f"{add.stderr.strip() if add else 'command error'}")
+        return False
+
+    commit = _git(
+        ["git", "commit", "-m", f"Session end: {datetime.now().strftime('%Y-%m-%d %H:%M')}"]
+    )
+    if commit is None:
+        return False
+    if commit.returncode != 0:
+        # "nothing to commit" is a benign no-op, not a failure.
+        if "nothing to commit" in (commit.stdout + commit.stderr).lower():
+            print("Vault note unchanged — nothing to commit")
+            return True
+        print(f"Vault commit failed: {commit.stderr.strip()}")
+        return False
+
+    if not do_push:
+        print(f"Vault note committed locally on branch '{session_branch}' "
+              f"(not pushed; pass --push to push)")
         return True
-    finally:
-        restore = _git(["git", "checkout", original_branch])
-        if restore is None or restore.returncode != 0:
-            print(f"Warning: vault left on branch '{branch}'; "
-                  f"could not restore '{original_branch}'")
+
+    push = _git(["git", "push", "origin", session_branch])
+    if push is None or push.returncode != 0:
+        print(f"Vault push failed (git push): "
+              f"{push.stderr.strip() if push else 'command error'}")
+        return False
+
+    print(f"Vault note pushed to branch '{session_branch}' — open a PR to land it on main")
+    return True
+
+
+def restore_original_branch(original_branch):
+    """Return the vault to original_branch. Returns True only if it actually succeeded.
+
+    Previously a failed restore only printed a warning while the caller's
+    return value stayed True - callers were told every git step succeeded
+    even when the vault was left stranded on the session branch, which
+    directly violated the "always returns to original branch" contract.
+    """
+    if original_branch is None:
+        return True
+    restore = _git(["git", "checkout", original_branch])
+    if restore is None or restore.returncode != 0:
+        print(f"WARNING: could not restore vault to '{original_branch}' — "
+              f"it is still on a session branch. Check manually before your "
+              f"next pull.")
+        return False
+    return True
 
 
 def main():
@@ -284,17 +344,30 @@ def main():
     sent = send_telegram(token, chat_id, summary)
     print(f"Telegram: {'sent' if sent else 'failed'}")
 
-    # Write vault note
-    print("Writing vault note...")
-    note_path = write_vault_note(info, summary)
-    print(f"Vault note: {note_path}")
+    # Check out a dedicated session branch BEFORE writing anything, so the
+    # write lands on an attributable branch instead of dirtying whatever
+    # branch the vault happened to be on (potentially main).
+    print("Checking out vault session branch...")
+    original_branch, session_branch = checkout_session_branch()
 
-    # Git push vault (opt-in; never touches main directly)
-    if do_push:
-        print("Pushing vault note to a session branch...")
-        push_vault_note()
-    else:
-        print(f"Vault note written to {note_path} (not pushed; pass --push to commit + push)")
+    try:
+        # Write vault note
+        print("Writing vault note...")
+        note_path = write_vault_note(info, summary)
+        if note_path:
+            print(f"Vault note: {note_path}")
+
+        # Commit (and optionally push) on the session branch
+        if session_branch and note_path:
+            commit_and_push_vault_note(session_branch, do_push)
+        elif not do_push:
+            print(f"Vault note written to {note_path} but not committed "
+                  f"(no session branch available)" if note_path else
+                  "Vault note not written (see message above)")
+    finally:
+        restored = restore_original_branch(original_branch)
+        if not restored:
+            print("Session end completed with a vault branch warning above — check manually.")
 
     print("\nSession end complete.")
 
