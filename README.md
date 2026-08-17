@@ -99,6 +99,32 @@ same fonts plus `store/shared_style.css` (shared design tokens for both mockup s
 each `store/*.html` and `general-store/*.html`. Editing the built files directly works
 too, but the next build overwrites them.
 
+## Owner: quick way to update the site
+
+1. **Make your change.** Main page: `src/page.html`. Catalog/store pages:
+   `store/src/*.html`. Shared style: `store/shared_style.css`. Or just tell an
+   agent what to change and it will make the edit.
+2. **Rebuild and check:**
+   ```
+   python3 build.py
+   python3 tools/validate_project_state.py
+   ```
+3. **Commit on a branch and push:**
+   ```
+   git checkout -b agent/your-change
+   git add -A
+   git commit -m "describe the change"
+   git push origin agent/your-change
+   ```
+4. **Open a pull request** (agents can do this for you) and look at the
+   **Files changed** tab and the preview links posted on the PR before merging.
+5. **Merge only after you've reviewed it.** Once you say it looks good, an
+   agent can merge and the site updates automatically on GitHub Pages and
+   Vercel within a couple of minutes.
+
+> If you edit the built `index.html` directly, the next `python3 build.py` run
+> overwrites it — always edit `src/page.html` instead.
+
 ## Before any purchase path goes live
 
 - Record verified price, availability, fulfillment, shipping, returns, and support facts

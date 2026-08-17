@@ -16,6 +16,8 @@ automation working in this repository.
 - Start from current `main` and work on `agent/<short-task-name>`.
 - Never push directly to `main`, force-push, auto-merge, or deploy without the
   owner's explicit approval.
+- Never merge or close a pull request without the owner first reviewing it.
+  Open the PR, post the review/preview links, and wait for the owner's go-ahead.
 - Keep one focused change per pull request and explain all generated files.
 - Do not rename the repository in the same pull request as a product, workflow,
   deployment, or domain change.
