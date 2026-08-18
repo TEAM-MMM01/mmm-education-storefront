@@ -10,7 +10,7 @@
 
 /* ---------- Tokens ---------- */
 :root{
-  --paper:#f8f4ed; --paper-2:#f3eee6; --card:#fbf8f3;
+  --paper:#efe8d8; --paper-2:#e8dfcb; --card:#f6f0e2;
   --ink:#4a3f35; --ink-soft:#685f55; --muted:#8a7f72;
   --accent:#01696f; --accent-lit:#dce9e7; --on-accent:#fffdf9; --accent-hover:#0c4e54;
   --btn:#2f6f68; --btn-hover:#265450;
@@ -55,7 +55,7 @@ html,body{margin:0; padding:0}
 .g-24{gap:1.5rem} .g-32{gap:2rem} .g-40{gap:2.5rem}
 
 /* ---------- Header ---------- */
-.site-head{position:sticky; top:0; z-index:50; background:rgba(248,244,237,.86); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--rule-soft)}
+.site-head{position:sticky; top:0; z-index:50; background:rgba(239,232,216,.9); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--rule-soft)}
 .head-in{display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding-block:.85rem; flex-wrap:wrap}
 .brand{font-family:var(--display); font-weight:800; font-size:clamp(1.35rem,2.4vw,2rem); letter-spacing:-.02em; color:var(--ink); text-decoration:none; line-height:1.1}
 .brand small{display:block; font-family:var(--mono); font-size:.56rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:500; padding-top:.2rem}
