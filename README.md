@@ -4,6 +4,8 @@
 
 **Current recommendation: publish a truthful TEFA vendor/catalog information release first.** Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor operating Preparation Station. Each offering still requires separate Odyssey review, and TEFA purchases plus official order history remain in Odyssey. General Store remains a development preview and does not accept payment.
 
+**Live previews:** production on Cloudflare Pages at https://preparation-station.pages.dev (primary), plus GitHub Pages https://team-mmm01.github.io/mmm-education-storefront/ and Vercel https://mmm-education-storefront-cyx2t2ubp-team-mmm01s-projects.vercel.app. The Netlify host at preparationstation.netlify.app is retired and may serve stale content.
+
 The storefront is in **private-preview / not publicly launched**. Public-facing launch requires resolution of open issues
 [#5](https://github.com/TEAM-MMM01/mmm-education-storefront/issues/5),
 [#6](https://github.com/TEAM-MMM01/mmm-education-storefront/issues/6),
@@ -119,8 +121,9 @@ too, but the next build overwrites them.
 4. **Open a pull request** (agents can do this for you) and look at the
    **Files changed** tab and the preview links posted on the PR before merging.
 5. **Merge only after you've reviewed it.** Once you say it looks good, an
-   agent can merge and the site updates automatically on GitHub Pages and
-   Vercel within a couple of minutes.
+   agent can merge and the site updates automatically on Cloudflare Pages
+   (https://preparation-station.pages.dev), GitHub Pages, and Vercel within a
+   few minutes.
 
 > If you edit the built `index.html` directly, the next `python3 build.py` run
 > overwrites it — always edit `src/page.html` instead.
@@ -138,13 +141,12 @@ too, but the next build overwrites them.
 
 ## How it is built
 
-- **Fonts.** Bricolage Grotesque (display), Newsreader (body), DM Mono (labels,
-  SKUs, and ledger figures), all under the SIL Open Font License. Subset to Latin
-  plus the punctuation in use and instanced to one optical size — 78 KB across four
-  files, inlined as data URIs so the page never calls out to a font CDN.
-- **Themes.** Light and dark are both designed, driven by custom properties.
-  `prefers-color-scheme` carries the OS preference and `data-theme` on the root
-  element overrides it in either direction.
+- **Fonts.** Satoshi (body/nav), Cabinet Grotesk (display), DM Mono (labels,
+  SKUs, and ledger figures), all under the SIL Open Font License. Self-hosted
+  woff2 files are subset and inlined as data URIs so the page never calls out
+  to a font CDN.
+- **Themes.** A single warm beige palette (`--paper: #f8f4ed`) is locked site-wide;
+  there is no OS-dark override, so vendor pages always print and read the same.
 - **Accessibility.** Text and control colours are checked against WCAG AA on both
   grounds. The accent splits into `--accent` for anything carrying text and
   `--accent-lit` for decoration only, because the brighter tone does not hold
