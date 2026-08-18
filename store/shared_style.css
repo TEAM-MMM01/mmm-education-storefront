@@ -7,8 +7,12 @@
    ============================================================ */
 
 /* ---------- Faces ---------- */
-@font-face{font-family:'Bricolage';src:url(data:font/woff2;base64,__BRIC__) format('woff2');font-weight:200 800;font-style:normal;font-display:swap}
-@font-face{font-family:'Newsreader';src:url(data:font/woff2;base64,__NEWS__) format('woff2');font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:'Satoshi';src:url(data:font/woff2;base64,__SAT4__) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Satoshi';src:url(data:font/woff2;base64,__SAT5__) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Satoshi';src:url(data:font/woff2;base64,__SAT7__) format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Cabinet Grotesk';src:url(data:font/woff2;base64,__CAB5__) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Cabinet Grotesk';src:url(data:font/woff2;base64,__CAB7__) format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Cabinet Grotesk';src:url(data:font/woff2;base64,__CAB8__) format('woff2');font-weight:800;font-style:normal;font-display:swap}
 @font-face{font-family:'DMMono';src:url(data:font/woff2;base64,__MONO4__) format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'DMMono';src:url(data:font/woff2;base64,__MONO5__) format('woff2');font-weight:500;font-style:normal;font-display:swap}
 
@@ -27,39 +31,10 @@
   --rule:#15201B26; --rule-soft:#15201B14;
   --focus:var(--accent);
   --shadow:0 1px 2px #15201B0d, 0 12px 28px -18px #15201B40;
-  --display:'Bricolage',ui-sans-serif,system-ui,sans-serif;
-  --body:'Newsreader',Georgia,'Times New Roman',serif;
+--display:'Cabinet Grotesk',ui-sans-serif,system-ui,sans-serif;
+  --body:'Satoshi',ui-sans-serif,system-ui,sans-serif;
   --mono:'DMMono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   --measure:1180px;
-  --grid-line:#15201B0a;
-}
-/* Site palette is fixed to the beige/teal light scheme; the OS dark-mode
-   preference must not override the background to dark brown. */
-:root[data-theme="dark"]{
-  --paper:#0E1613; --paper-2:#121D19; --card:#16211D;
-  --ink:#E7ECE5; --ink-soft:#C2CDC5; --muted:#93A39A;
-  --pine:#0C1F19; --pine-deep:#081511; --on-pine:#E7EFE9; --pine-muted:#8FB3A3;
-  --accent:#E9A340; --accent-lit:#F0B257; --on-accent:#15201B; --accent-hover:#F3BE72;
-  --pine-accent:#EDB25E; --on-pine-accent:#12261E;
-  --clay:#D08064;
-  --good:#5FAE84; --on-good:#0E1613;
-  --rule:#E7ECE526; --rule-soft:#E7ECE514;
-  --shadow:0 1px 2px #0006, 0 16px 34px -20px #000a;
-  --grid-line:#E7ECE508;
-}
-:root[data-theme="light"]{
-  --paper:#f8f4ed; --paper-2:#f3eee6; --card:#fbf8f3;
-  --ink:#4a3f35; --ink-soft:#685f55; --muted:#8a7f72;
-  --pine:#1C4B3C; --pine-deep:#123227; --on-pine:#EAF2ED; --pine-muted:#9DBFB0;
-  --accent:#01696f; --accent-lit:#dce9e7; --on-accent:#fffdf9; --accent-hover:#0c4e54;
-  --btn:#2f6f68; --btn-hover:#265450;
-  --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
-  --section-even:rgba(251, 247, 241, 0.96);
-  --pine-accent:#EDB25E; --on-pine-accent:#12261E;
-  --clay:#A44E36;
-  --good:#2F6B4F; --on-good:#F2FBF6;
-  --rule:#15201B26; --rule-soft:#15201B14;
-  --shadow:0 1px 2px #15201B0d, 0 12px 28px -18px #15201B40;
   --grid-line:#15201B0a;
 }
 
