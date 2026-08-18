@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Preparation Station — Mission Control for Skill-Building Families</title>
+<title>Preparation Station — Tools & Resources for Skill-Building Families</title>
 <meta name="description" content="Hands-on life skills, AI literacy, and focus coaching for students aged 8-18, funded through your family's TEFA account.">
 <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Preparation Station — Mission Control for Skill-Building Families">
+<meta property="og:title" content="Preparation Station — Tools & Resources for Skill-Building Families">
 <meta property="og:description" content="Hands-on life skills, AI literacy, and focus coaching for students aged 8-18, funded through your family's TEFA account.">
 <meta property="og:type" content="website">
 <style>
@@ -16,6 +16,8 @@
 </style>
 </head>
 <body>
+<meta name="description" content="Approved TEFA Marketplace vendor (Nationwide Acquisitions, LLC). Homeschool kits, workbooks, and curriculum guides for practical skills, self-command, design, and tech — catalog under offering review. Preparation Station, Texas ESA vendor.">
+
 <!-- Catalog listings are information only and are not an offer for sale.
      Product-specific price, availability, and eligibility values are published
      only when a catalog record is verified and approved. -->
@@ -33,7 +35,7 @@
 
 /* ---------- Tokens ---------- */
 :root{
-  --paper:#f8f4ed; --paper-2:#f3eee6; --card:#fbf8f3;
+  --paper:#efe8d8; --paper-2:#e8dfcb; --card:#f6f0e2;
   --ink:#4a3f35; --ink-soft:#685f55; --muted:#8a7f72;
   --accent:#01696f; --accent-lit:#dce9e7; --on-accent:#fffdf9; --accent-hover:#0c4e54;
   --btn:#2f6f68; --btn-hover:#265450;
@@ -93,7 +95,7 @@
 .h-md{font-size:clamp(1.15rem,1.8vw,1.35rem); font-weight:700; letter-spacing:-.02em; line-height:1.2}
 
 /* ---------- Header ---------- */
-.site-head{position:sticky; top:0; z-index:60; background:rgba(248,244,237,.85); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--rule-soft); transition:box-shadow .2s ease}
+.site-head{position:sticky; top:0; z-index:60; background:rgba(239,232,216,.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--rule-soft); transition:box-shadow .2s ease}
 .site-head.scrolled{box-shadow:0 10px 30px -18px #15201B66}
 .head-in{display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding-block:.9rem; flex-wrap:wrap}
 .brand{font-family:var(--display); font-weight:800; font-size:clamp(1.4rem,2.6vw,2rem); letter-spacing:-.02em; color:var(--ink); text-decoration:none; line-height:1.08}
@@ -323,7 +325,7 @@
       <a href="esa.html">Funding Help</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
-      <a class="btn btn-solid" href="#how">Start a request</a>
+      <a class="btn btn-solid" href="contact.html">Start a request</a>
     </nav>
   </div>
 </header>
@@ -338,7 +340,7 @@
   <div class="wrap hero-grid">
     <div class="hero-copy reveal">
       <span class="eyebrow">Approved TEFA Marketplace vendor</span>
-      <h1 class="h-xl">Mission control for <span class="accent">skill-building</span> families.</h1>
+      <h1 class="h-xl">Tools &amp; resources for <span class="accent">skill-building</span> families.</h1>
       <p class="hero-sub">Hands-on project kits, workbooks, and curriculum guides for
         practical skills, self-command, design, and emerging tech — matched to the
         learner's age and goals, and purchased through the approved programs you already
@@ -755,7 +757,7 @@
 <!-- ============ MISSION GUIDE LAUNCHER ============ -->
 <div class="launcher">
   <div class="launch-chip" id="launchChip">Need a hand? Try the Mission Guide.</div>
-  <button class="launch-btn" id="launchBtn" aria-label="Open Mission Guide"><span class="pulse"></span>AI</button>
+  <button class="launch-btn" id="launchBtn" aria-label="Open the Mission Guide"><span class="pulse"></span>Guide</button>
 </div>
 
 <script>
@@ -863,6 +865,11 @@
   }
   function runGuide(){
     var hits=CATALOG.filter(match);
+    var fallback=false;
+    if(hits.length===0){
+      hits=CATALOG.filter(function(it){return state.goal==='any'||it.goal===state.goal});
+      fallback=true;
+    }
     if(state.who==='planner'&&state.goal==='HS'){
       hits=CATALOG.slice().sort(function(a,b){return (b.goal==='HS'?1:0)-(a.goal==='HS'?1:0)});
     }
@@ -873,6 +880,12 @@
       box.innerHTML='<p class="g-empty">No picks for that combination yet — try another goal, or ask us directly and we\'ll steer you.</p>';
       document.getElementById('gActions').style.display='none';
       showStep(3); return;
+    }
+    if(fallback){
+      var note=document.createElement('p');
+      note.className='g-empty';
+      note.textContent='No exact age-band match yet — these are the closest fits in the catalog.';
+      box.appendChild(note);
     }
     hits.forEach(function(it){
       var row=document.createElement('div'); row.className='g-item';
@@ -893,18 +906,21 @@
     document.getElementById('gActions').style.display='flex';
     showStep(3);
     try{localStorage.setItem('ps_starter_list',JSON.stringify(state.list))}catch(err){}
+    syncMail();
   }
   function syncMail(){
-    var items=state.list.map(function(sku){
+    var picks=state.list.length?state.list:Array.prototype.map.call(document.querySelectorAll('#gResults .g-item'),function(row){return row.querySelector('h4').textContent});
+    var items=picks.map(function(sku){
       var it=CATALOG.filter(function(c){return c.sku===sku})[0];
-      return "- "+sku+" "+it.name;
+      return it?"- "+it.sku+" "+it.name:"- "+sku;
     }).join("\n");
     var link=document.getElementById('gMail');
-    var sub=encodeURIComponent("Starter list request ("+state.list.length+" item"+(state.list.length===1?"":"s")+")");
+    var n=picks.length;
+    var sub=encodeURIComponent("Starter list request ("+n+" item"+(n===1?"":"s")+")");
     var body=encodeURIComponent("Best-fit picks from the Preparation Station Mission Guide:\n\n"+items+
       "\n\n(No prices published yet — please confirm offering status and the correct purchase pathway.)");
     link.href="mailto:mmminvestment25@gmail.com?subject="+sub+"&body="+body;
-    link.textContent=state.list.length?"Email my starter list ("+state.list.length+")":"Email my starter list";
+    link.textContent="Email my starter list ("+n+")";
   }
 })();
 </script>

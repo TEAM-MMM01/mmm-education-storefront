@@ -48,7 +48,7 @@
 
 /* ---------- Tokens ---------- */
 :root{
-  --paper:#f8f4ed; --paper-2:#f3eee6; --card:#fbf8f3;
+  --paper:#efe8d8; --paper-2:#e8dfcb; --card:#f6f0e2;
   --ink:#4a3f35; --ink-soft:#685f55; --muted:#8a7f72;
   --pine:#1C4B3C; --pine-deep:#123227; --on-pine:#EAF2ED; --pine-muted:#9DBFB0;
   --accent:#01696f; --accent-lit:#dce9e7; --on-accent:#fffdf9; --accent-hover:#0c4e54;
@@ -181,7 +181,9 @@ a.product{text-decoration:none; color:inherit}
 .price-line{display:flex; align-items:baseline; justify-content:space-between; gap:.75rem}
 .price-line .price{font-size:1.3rem}
 .thumb{aspect-ratio:4/3; background:
-    repeating-linear-gradient(135deg, var(--rule-soft) 0 2px, transparent 2px 14px);
+    radial-gradient(120% 90% at 20% 10%, color-mix(in oklab,var(--accent-lit) 70%,transparent), transparent 55%),
+    radial-gradient(110% 90% at 85% 95%, color-mix(in oklab,var(--pine-accent) 22%,transparent), transparent 60%),
+    var(--card);
   border-bottom:1px solid var(--rule); display:flex; align-items:center; justify-content:center;
   color:var(--muted); font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; text-align:center; padding:1rem}
 .pbody{font-family:'Newsreader',Georgia,'Times New Roman',serif; color:#4a3f35; background:
