@@ -42,7 +42,7 @@ __STORE_SHARED_CSS__
 </header>
 
 <main id="main">
-  <div class="wrap band" id="checkout-body">
+  <div class="wrap band reveal" id="checkout-body">
     <div class="opener"><span class="mono" style="color:var(--clay)">Checkout preview</span></div>
     <h1 class="h-lg" style="padding-bottom:.5rem">Review a sample order flow.</h1>
     <p class="prose" style="padding-bottom:2rem">This is a preview of a future retail checkout, kept separate from ESA / TEFA. It does not accept payments, create orders, send email, or calculate real tax or shipping.</p>
@@ -128,7 +128,7 @@ __STORE_SHARED_CSS__
     </div>
   </div>
 
-  <div class="wrap band confirm" id="checkout-confirm" hidden>
+  <div class="wrap band confirm reveal-fade" id="checkout-confirm" hidden>
     <span class="mono">Preview complete &mdash; no order placed</span>
     <h1 class="h-lg" style="padding-bottom:.75rem">No payment was collected and no order was created.</h1>
     <p class="prose" style="margin-inline:auto">This is only a client-side sample state. No information was submitted, nothing was charged, no order was created, and no email was sent.</p>
@@ -160,3 +160,4 @@ __STORE_SHARED_CSS__
 </div>
 
 <script src="cart.js" defer></script>
+<script src="../store/motion.js" defer></script>

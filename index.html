@@ -54,6 +54,14 @@
   --body:'Satoshi',ui-sans-serif,system-ui,sans-serif;
   --mono:'DMMono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   --measure:1120px;
+  /* Motion tokens — see docs/workflow/MOTION_SYSTEM.md */
+  --ease-standard:cubic-bezier(0.16,1,0.3,1);
+  --ease-soft:cubic-bezier(0.22,1,0.36,1);
+  --ease-exit:cubic-bezier(0.4,0,1,1);
+  --dur-fast:160ms; --dur-ui:220ms; --dur-panel:320ms;
+  --dur-section:520ms; --dur-hero:700ms;
+  --motion-y-sm:6px; --motion-y-md:12px; --motion-y-lg:20px;
+  --motion-scale-hover:1.015;
 }
 
 /* ---------- Base ---------- */
@@ -274,6 +282,8 @@
 .faq details[open] summary::before{content:"\2013"}
 .faq summary:hover{color:var(--accent)}
 .faq .faq-body{padding-top:.65rem; color:var(--ink-soft); max-width:62ch; line-height:1.65}
+.faq .faq-body p{margin:0}
+.faq details[open] .faq-body{padding-top:.65rem}
 
 /* ---------- Footer ---------- */
 .foot{margin-top:auto; background:var(--pine-deep); color:var(--on-pine)}
@@ -303,13 +313,42 @@
 @keyframes ring{0%{transform:scale(1); opacity:1}100%{transform:scale(1.7); opacity:0}}
 
 /* ---------- Motion ---------- */
-.reveal{opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease}
-.reveal.in{opacity:1; transform:none}
+/* Reveals are gated behind <html class="js"> so content stays visible with
+   no JS, and reveal children of .stagger cascade on view. Standardized
+   with docs/workflow/MOTION_SYSTEM.md. */
+html.js .reveal{opacity:0; transform:translateY(var(--motion-y-lg)); transition:opacity var(--dur-section) var(--ease-standard), transform var(--dur-section) var(--ease-standard)}
+html.js .reveal.in{opacity:1; transform:none}
+html.js .reveal-fade{opacity:0; transition:opacity var(--dur-ui) var(--ease-standard)}
+html.js .reveal-fade.in{opacity:1}
+html.js .stagger > *{opacity:0; transform:translateY(var(--motion-y-md)); transition:opacity var(--dur-panel) var(--ease-standard), transform var(--dur-panel) var(--ease-standard)}
+html.js .stagger.in > *{opacity:1; transform:none}
+html.js .stagger > *:nth-child(2){transition-delay:.06s} .stagger > *:nth-child(3){transition-delay:.12s}
+html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(5){transition-delay:.24s}
+html.js .stagger > *:nth-child(6){transition-delay:.3s}
 .d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s} .d4{transition-delay:.32s}
+/* nav underline glide */
+.nav a{position:relative}
+.nav a:not(.btn)::after{content:""; position:absolute; left:0; right:100%; bottom:.15rem; height:2px; border-radius:2px;
+  background:var(--accent); transition:right var(--dur-ui) var(--ease-standard)}
+.nav a:not(.btn):hover::after,.nav a:not(.btn)[aria-current="page"]::after{right:0}
+/* sticky-header-compress */
+.site-head{transition:box-shadow var(--dur-ui) var(--ease-standard)}
+.head-in{transition:padding-block var(--dur-ui) var(--ease-standard)}
+.site-head.scrolled .head-in{padding-block:.5rem}
+.site-head.scrolled{box-shadow:0 10px 30px -18px #15201B66}
+/* accordion-expand for the FAQ */
+.faq details .faq-body{display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows var(--dur-panel) var(--ease-standard), opacity var(--dur-ui) var(--ease-standard)}
+.faq details[open] .faq-body{grid-template-rows:1fr; opacity:1}
+.faq .faq-body > *{overflow:hidden; min-height:0; margin:0}
+.faq .faq-body p{overflow:hidden; min-height:0; margin:0}
+.faq details summary::before{transition:transform var(--dur-ui) var(--ease-standard)}
+.faq details[open] summary::before{transform:rotate(45deg)}
 @media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1; transform:none; transition:none}
+  html.js .reveal,html.js .reveal-fade,html.js .stagger > *{opacity:1; transform:none; transition:none; transition-delay:0s}
   .orbit,.hero-glow{display:none}
   .launch-btn .pulse{display:none}
+  .faq details .faq-body{transition:none}
+  .nav a:not(.btn)::after{transition:none}
   *{animation-duration:.001s!important}
 }
 </style>
@@ -343,19 +382,19 @@
     <span class="dot b" style="top:14%; left:78%"></span>
   </div>
   <div class="wrap hero-grid">
-    <div class="hero-copy reveal">
-      <span class="eyebrow">Approved TEFA Marketplace vendor</span>
-      <h1 class="h-xl">Tools &amp; resources for <span class="accent">skill-building</span> families.</h1>
-      <p class="hero-sub">Hands-on project kits, workbooks, and curriculum guides for
+    <div class="hero-copy">
+      <span class="eyebrow reveal">Approved TEFA Marketplace vendor</span>
+      <h1 class="h-xl reveal d1">Tools &amp; resources for <span class="accent">skill-building</span> families.</h1>
+      <p class="hero-sub reveal d2">Hands-on project kits, workbooks, and curriculum guides for
         practical skills, self-command, design, and emerging tech — matched to the
         learner's age and goals, and purchased through the approved programs you already
         use.</p>
-      <div class="hero-ctas">
+      <div class="hero-ctas reveal d3">
         <a class="btn btn-solid" href="store/shop.html">Browse the catalog <span class="arr">&rarr;</span></a>
         <a class="btn btn-ghost" href="#departments">View departments</a>
         <a class="btn btn-line" href="#guide">Try the Mission Guide <span class="arr">&rarr;</span></a>
       </div>
-      <div class="hero-chips">
+      <div class="hero-chips reveal d4">
         <span class="chip ok">TEFA vendor approved</span>
         <span class="chip">Catalog under offering review</span>
         <span class="chip warn">No payment collected here</span>
@@ -675,40 +714,40 @@
       <div class="faq" style="margin-top:1rem">
         <details>
           <summary>Why don't I see prices?</summary>
-          <p class="faq-body">No price is published until a catalog record is verified.
+          <div class="faq-body"><p>No price is published until a catalog record is verified.
             Every item is under offering review; verified prices will appear at the point
-            of purchase in Odyssey once an offering is approved.</p>
+            of purchase in Odyssey once an offering is approved.</p></div>
         </details>
         <details>
           <summary>Is anything for sale right now?</summary>
-          <p class="faq-body">Not yet. All 18 catalog items are under offering review.
+          <div class="faq-body"><p>Not yet. All 18 catalog items are under offering review.
             Nothing is for sale until its offering completes review in the official
-            Odyssey Marketplace.</p>
+            Odyssey Marketplace.</p></div>
         </details>
         <details>
           <summary>How do I know an item is eligible before I buy it?</summary>
-          <p class="faq-body">For TEFA, purchase only offerings shown as available in the
+          <div class="faq-body"><p>For TEFA, purchase only offerings shown as available in the
             official Odyssey Marketplace. Each offering is reviewed separately; a vendor
-            approval alone does not approve every item displayed on a vendor website.</p>
+            approval alone does not approve every item displayed on a vendor website.</p></div>
         </details>
         <details>
           <summary>Why is there no checkout button?</summary>
-          <p class="faq-body">TEFA purchases happen in Odyssey. Direct checkout remains
+          <div class="faq-body"><p>TEFA purchases happen in Odyssey. Direct checkout remains
             disabled until pricing, fulfillment, shipping, returns, and payment are
-            configured. This site never collects payment or program account information.</p>
+            configured. This site never collects payment or program account information.</p></div>
         </details>
         <details>
           <summary>Can I buy without using program funds?</summary>
-          <p class="faq-body">Direct purchase is planned but not active. No card
+          <div class="faq-body"><p>Direct purchase is planned but not active. No card
             information is collected on this site. A direct purchase path will open only
-            for verified retail products, separate from TEFA and PDSES/ClassWallet.</p>
+            for verified retail products, separate from TEFA and PDSES/ClassWallet.</p></div>
         </details>
         <details>
           <summary>What is the Mission Guide?</summary>
-          <p class="faq-body">A guided selector that asks who you're shopping for, the age
+          <div class="faq-body"><p>A guided selector that asks who you're shopping for, the age
             band, and the main goal, then suggests best-fit catalog items and builds a
             starter list you can email us. It is rule-based, not a chatbot, and it never
-            collects payment.</p>
+            collects payment.</p></div>
         </details>
       </div>
       <p style="margin-top:.6rem"><a href="faq.html" class="btn btn-ghost">Full FAQ <span class="arr">&rarr;</span></a></p>
@@ -770,6 +809,7 @@
 <script>
 (function(){
   "use strict";
+  document.documentElement.classList.add('js');
   /* header scroll state */
   var head=document.querySelector('.site-head');
   var onScroll=function(){head.classList.toggle('scrolled',window.scrollY>8)};
@@ -783,12 +823,13 @@
   });
 
   /* reveal on scroll */
+  var rTargets=document.querySelectorAll('.reveal,.reveal-fade,.stagger');
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
     var r=new IntersectionObserver(function(es){es.forEach(function(e){
       if(e.isIntersecting){e.target.classList.add('in'); r.unobserve(e.target)}})},{threshold:.1});
-    document.querySelectorAll('.reveal').forEach(function(el){r.observe(el)});
+    rTargets.forEach(function(el){r.observe(el)});
   }else{
-    document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});
+    rTargets.forEach(function(el){el.classList.add('in')});
   }
 
   /* launcher */
