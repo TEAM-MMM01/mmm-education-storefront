@@ -137,7 +137,7 @@ def build_general_store_pages(shared_css: str):
 def build_info_pages(shared_css: str):
     info = HERE / "src" / "info"
     desc = "Preparation Station — information, policies, and support."
-    for name in ("about", "contact", "privacy", "terms", "shipping", "shop-by-age", "faq"):
+    for name in ("about", "contact", "privacy", "terms", "shipping", "shop-by-age", "faq", "tefa"):
         src = (info / f"{name}.html").read_text()
         if "__INFO_SHARED_CSS__" not in src:
             raise SystemExit(f"__INFO_SHARED_CSS__ missing from src/info/{name}.html")

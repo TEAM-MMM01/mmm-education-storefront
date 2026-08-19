@@ -62,3 +62,26 @@ def price(cost):
 print(price(38.00))   # -> 83.95
 PY
 ```
+
+## Approved public pricing — curriculum pathway ladder (owner-approved 2026-08-19)
+
+The operator approved these prices for public publication on 2026-08-19 (TEFA guide
+submission decision). They are the digital-curriculum pathway framework:
+
+| Tier | Price |
+|---|---:|
+| Starter pathway | $299 |
+| Focused pathway | $1,695 |
+| Complete pathway | $1,995 |
+| Signature curriculum | $2,495 |
+| Structured reading pathway | $2,295 |
+
+Rules that still apply:
+- Tier-to-offering mapping and per-offering availability require Odyssey offering review
+  before anything is purchasable.
+- Standard-retail discounts (including any welcome offer) do NOT apply to TEFA-funded
+  transactions.
+- Physical/supplier-review items and any offering without a verified marketplace record
+  remain unpublished (no public price) per the example table above.
+- This ladder applies to digital curriculum pathways only; the illustrative kit table
+  above remains internal until costs are real supplier quotes.
