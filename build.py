@@ -158,12 +158,13 @@ def resolve_cross_links(page: str, main: str, esa_shop: str, general_store: str)
 
 if __name__ == "__main__":
     build_main_page()
-    _shared_css = inline_fonts(
+    _base_css = (HERE / "src" / "base" / "design-system.css").read_text()
+    _shared_css = _base_css + inline_fonts(
         (HERE / "store" / "shared_style.css").read_text(), "store/shared_style.css"
     )
     build_store_pages(_shared_css)
     build_general_store_pages(_shared_css)
-    _info_css = inline_fonts(
+    _info_css = _base_css + inline_fonts(
         (HERE / "src" / "info" / "shared.css").read_text(), "src/info/shared.css"
     )
     build_info_pages(_info_css)
