@@ -6,6 +6,330 @@
      only when a catalog record is verified and approved. -->
 
 <style>
+/* ============================================================
+   Preparation Station — Master Design System Base
+   Art direction: warm, practical, premium, family-trustworthy,
+   curriculum-forward. One shared header/footer/page system across
+   Home, Catalog, By Age, Mission Guide, Funding Help, About,
+   Contact, FAQ, and support/legal pages.
+
+   Adapted from the owner-approved design-system starter:
+   - Legal entity (Nationwide Acquisitions, LLC) never appears in
+     the global header/footer lockup — reserved for About / TEFA /
+     legal contexts (AGENTS.md approved disclosure).
+   - Motion follows docs/workflow/MOTION_SYSTEM.md: transform/opacity
+     only, reveals gated behind <html class="js">, durations mapped
+     to the repo tokens (160/220/320/520ms) — no animation-based
+     reveals in this file.
+   - Fonts stay in the per-layer files (Satoshi / Cabinet Grotesk /
+     DMMono subsets inlined by build.py).
+   ============================================================ */
+
+:root{
+  /* ---- Design-system tokens ---- */
+  --font-body:'Satoshi',ui-sans-serif,system-ui,sans-serif;
+  --font-display:'Cabinet Grotesk','Satoshi',ui-sans-serif,system-ui,sans-serif;
+  --font-mono:'DMMono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+
+  --text-xs:clamp(0.75rem,0.72rem + 0.18vw,0.875rem);
+  --text-sm:clamp(0.875rem,0.84rem + 0.2vw,1rem);
+  --text-base:clamp(1rem,0.97rem + 0.22vw,1.125rem);
+  --text-lg:clamp(1.125rem,1.04rem + 0.5vw,1.375rem);
+  --text-xl:clamp(1.5rem,1.15rem + 1.2vw,2.125rem);
+  --text-2xl:clamp(2rem,1.45rem + 2vw,3rem);
+  --text-hero:clamp(2.5rem,1.5rem + 4vw,4.75rem);
+
+  --leading-tight:1.12; --leading-heading:1.16; --leading-body:1.62; --leading-loose:1.72;
+  --tracking-tight:-0.03em; --tracking-heading:-0.025em; --tracking-body:-0.01em; --tracking-label:0.12em;
+
+  --space-1:0.25rem; --space-2:0.5rem; --space-3:0.75rem; --space-4:1rem; --space-5:1.25rem;
+  --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem; --space-12:3rem; --space-16:4rem;
+  --space-20:5rem; --space-24:6rem; --space-32:8rem;
+
+  --content-xs:32rem; --content-sm:40rem; --content-md:56rem; --content-lg:72rem;
+  --content-xl:80rem; --content-2xl:90rem; --measure:var(--content-2xl);
+
+  /* Warm neutral + teal */
+  --color-bg:#f6f3ea; --color-surface:#f9f6ef; --color-surface-2:#fcfaf5; --color-surface-3:#f1ece1;
+  --color-panel:rgba(249,246,239,0.9); --color-border:#d8d0c0; --color-border-strong:#c8bda9; --color-divider:#e3dccd;
+  --color-text:#3d352b; --color-text-muted:#6d6458; --color-text-faint:#9e9486; --color-text-inverse:#f7f4ec;
+  --color-primary:#2f7a78; --color-primary-hover:#276967; --color-primary-active:#205754; --color-primary-soft:#dcebe8;
+  --color-accent-sage:#d8e4d7; --color-accent-gold:#d8b261; --color-accent-warm:#edd8b4;
+  --color-success:#5d7e52; --color-warning:#aa7c33; --color-error:#9a4f4f;
+
+  --badge-approved-bg:#dfeae2; --badge-approved-text:#45695a; --badge-approved-border:#bfd0c4;
+  --badge-review-bg:#f3eddd; --badge-review-text:#84714a; --badge-review-border:#d9caa3;
+  --badge-info-bg:#deecea; --badge-info-text:#4b6f6d; --badge-info-border:#b8d0cd;
+
+  --radius-xs:0.375rem; --radius-sm:0.5rem; --radius-md:0.75rem; --radius-lg:1rem;
+  --radius-xl:1.25rem; --radius-2xl:1.5rem; --radius-full:9999px;
+
+  --shadow-xs:0 1px 2px rgba(48,38,24,0.05);
+  --shadow-sm:0 4px 12px rgba(56,42,26,0.06);
+  --shadow-md:0 10px 30px rgba(56,42,26,0.08);
+  --shadow-lg:0 20px 48px rgba(56,42,26,0.1);
+
+  --header-height:5.5rem; --header-height-compact:4.75rem; --header-logo-max:15rem;
+  --grid-gap:clamp(var(--space-4),2vw,var(--space-8));
+  --section-pad-y:clamp(var(--space-10),7vw,var(--space-24));
+  --section-pad-x:clamp(var(--space-4),3vw,var(--space-8));
+
+  /* ---- Motion tokens (MOTION_SYSTEM.md) ---- */
+  --ease-standard:cubic-bezier(0.16,1,0.3,1);
+  --ease-soft:cubic-bezier(0.22,1,0.36,1);
+  --ease-exit:cubic-bezier(0.4,0,1,1);
+  --dur-fast:160ms; --dur-ui:220ms; --dur-base:220ms; --dur-panel:320ms;
+  --dur-section:520ms; --dur-reveal:520ms; --dur-hero:700ms;
+  --motion-y-sm:6px; --motion-y-md:12px; --motion-y-lg:20px;
+  --motion-scale-hover:1.015;
+
+  /* ---- Legacy aliases (mapped to the new palette so existing
+     page styles restyle without markup churn) ---- */
+  --paper:#f6f3ea; --paper-2:#f1ece1; --card:#fcfaf5;
+  --ink:#3d352b; --ink-soft:#6d6458; --muted:#9e9486;
+  --accent:#2f7a78; --accent-lit:#dcebe8; --on-accent:#f7f4ec; --accent-hover:#276967;
+  --btn:#2f7a78; --btn-hover:#276967;
+  --pine:#2a3d38; --pine-deep:#1c2a26; --on-pine:#f3efe4; --pine-muted:#a8bfb4;
+  --pine-accent:#d8b261; --on-pine-accent:#1c2a26;
+  --clay:#a44e36;
+  --eyebrow-bg:#deecea; --eyebrow-text:#2f5a58;
+  --rule:#3d352b26; --rule-soft:#3d352b14;
+  --focus:var(--accent);
+  --shadow:0 1px 2px #3d352b0d,0 12px 28px -18px #3d352b40;
+}
+
+[data-theme="dark"]{
+  --color-bg:#171511; --color-surface:#1d1a16; --color-surface-2:#221f1b; --color-surface-3:#2a2621;
+  --color-panel:rgba(29,26,22,0.92); --color-border:#3e3830; --color-border-strong:#4d453a; --color-divider:#2d2923;
+  --color-text:#ece4d7; --color-text-muted:#c0b6a7; --color-text-faint:#8f8578; --color-text-inverse:#201d19;
+  --color-primary:#6cb3ad; --color-primary-hover:#5aa39d; --color-primary-active:#478c87; --color-primary-soft:#273a39;
+  --color-accent-sage:#344538; --color-accent-gold:#cba85c; --color-accent-warm:#735f41;
+  --color-success:#7fad74; --color-warning:#d0a45f; --color-error:#c87f7f;
+  --badge-approved-bg:#24352b; --badge-approved-text:#afd0bc; --badge-approved-border:#375340;
+  --badge-review-bg:#3e3421; --badge-review-text:#ead598; --badge-review-border:#685736;
+  --badge-info-bg:#243838; --badge-info-text:#abd1ce; --badge-info-border:#3e5f5d;
+  --shadow-xs:0 1px 2px rgba(0,0,0,0.2); --shadow-sm:0 4px 12px rgba(0,0,0,0.22);
+  --shadow-md:0 10px 30px rgba(0,0,0,0.26); --shadow-lg:0 20px 48px rgba(0,0,0,0.32);
+}
+
+/* ---- Base ---- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth; text-size-adjust:none; -webkit-text-size-adjust:none; -moz-text-size-adjust:none}
+body{margin:0; min-height:100dvh; font-family:var(--font-body); font-size:var(--text-base);
+  line-height:var(--leading-body); color:var(--color-text); letter-spacing:var(--tracking-body);
+  background:linear-gradient(to bottom,rgba(255,255,255,0.18),rgba(255,255,255,0)) 0 0/100% 12rem no-repeat,var(--color-bg)}
+a{color:inherit; text-decoration:none; transition:color var(--dur-fast) var(--ease-standard),opacity var(--dur-fast) var(--ease-standard),border-color var(--dur-fast) var(--ease-standard),background-color var(--dur-fast) var(--ease-standard),transform var(--dur-fast) var(--ease-standard),box-shadow var(--dur-fast) var(--ease-standard)}
+a:hover{color:var(--color-primary-hover)}
+img,picture,svg,video,canvas{display:block; max-width:100%}
+button,input,select,textarea{font:inherit; color:inherit}
+button{cursor:pointer}
+h1,h2,h3,h4,h5,h6{margin:0; line-height:var(--leading-heading); letter-spacing:var(--tracking-heading);
+  text-wrap:balance; font-family:var(--font-display); color:var(--color-text)}
+p,li{margin:0; color:var(--color-text-muted); text-wrap:pretty}
+:focus-visible{outline:2px solid var(--color-primary); outline-offset:3px}
+::selection{background:rgba(47,122,120,0.22); color:var(--color-text)}
+.skip-link{position:absolute; left:var(--space-4); top:-3rem; z-index:999; padding:var(--space-3) var(--space-4);
+  border-radius:var(--radius-full); background:var(--color-primary); color:var(--color-text-inverse); box-shadow:var(--shadow-sm)}
+.skip-link:focus{top:var(--space-4)}
+
+/* ---- Shell ---- */
+.page-shell{width:min(100%,var(--content-2xl)); margin-inline:auto; padding-inline:var(--section-pad-x)}
+.page-section{padding-block:var(--section-pad-y)}
+.page-section--tight{padding-block:clamp(var(--space-8),4vw,var(--space-12))}
+.section-heading{display:grid; gap:var(--space-4); margin-bottom:clamp(var(--space-6),4vw,var(--space-10)); max-width:56rem}
+.section-heading .eyebrow{display:inline-flex; align-items:center; gap:var(--space-2); width:fit-content;
+  padding:var(--space-2) var(--space-3); border:1px solid var(--badge-approved-border); border-radius:var(--radius-full);
+  background:var(--badge-info-bg); color:var(--badge-info-text); font-size:var(--text-xs);
+  letter-spacing:var(--tracking-label); text-transform:uppercase; font-weight:700}
+.section-heading h1,.hero-title{font-size:var(--text-hero); max-width:14ch}
+.section-heading h2{font-size:var(--text-2xl); max-width:18ch}
+.section-heading p,.hero-copy{max-width:68ch; font-size:var(--text-base)}
+
+/* ---- Header (global lockup; no legal entity here) ---- */
+.site-header{position:sticky; top:0; z-index:100; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  background:color-mix(in srgb,var(--color-surface) 88%,transparent);
+  border-bottom:1px solid color-mix(in srgb,var(--color-border) 82%,transparent);
+  transition:background-color var(--dur-base) var(--ease-standard),box-shadow var(--dur-base) var(--ease-standard),border-color var(--dur-base) var(--ease-standard),min-height var(--dur-base) var(--ease-standard)}
+.site-header.is-scrolled{box-shadow:var(--shadow-sm)}
+.site-header__inner{min-height:var(--header-height); display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:var(--space-6)}
+.brand{display:inline-grid; gap:0.18rem; align-content:center; max-width:var(--header-logo-max); text-decoration:none}
+.brand__wordmark{font-family:var(--font-display); font-size:clamp(1.35rem,1.1rem + 0.8vw,1.95rem); line-height:1;
+  letter-spacing:-0.03em; color:var(--color-text); font-weight:800}
+.brand__tagline{font-size:var(--text-xs); text-transform:uppercase; letter-spacing:var(--tracking-label);
+  color:var(--color-text-muted); font-weight:700}
+.site-nav{justify-self:center}
+.site-nav__list{display:flex; flex-wrap:wrap; justify-content:center; gap:var(--space-2); padding:0; margin:0; list-style:none}
+.site-nav__link{position:relative; display:inline-flex; align-items:center; min-height:44px; padding:0 var(--space-3);
+  border-radius:var(--radius-full); font-size:var(--text-sm); color:var(--color-text-muted); font-weight:600}
+.site-nav__link:hover,.site-nav__link[aria-current="page"]{color:var(--color-text); background:var(--color-primary-soft)}
+.header-actions{display:flex; align-items:center; gap:var(--space-3)}
+
+/* ---- Buttons ---- */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:var(--space-2); min-height:46px;
+  padding:0 var(--space-5); border-radius:var(--radius-full); border:1px solid transparent; font-size:var(--text-sm);
+  font-weight:700; line-height:1; white-space:nowrap; text-decoration:none;
+  transition:transform var(--dur-fast) var(--ease-standard),box-shadow var(--dur-fast) var(--ease-standard),border-color var(--dur-fast) var(--ease-standard),background-color var(--dur-fast) var(--ease-standard),color var(--dur-fast) var(--ease-standard)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn--primary{background:var(--color-primary); color:var(--color-text-inverse); box-shadow:var(--shadow-sm)}
+.btn--primary:hover{background:var(--color-primary-hover); color:var(--color-text-inverse)}
+.btn--secondary{background:var(--color-surface-2); border-color:var(--color-border); color:var(--color-text)}
+.btn--secondary:hover{border-color:var(--color-border-strong); background:var(--color-surface)}
+.btn--ghost{background:transparent; border-color:transparent; color:var(--color-text-muted)}
+.btn--ghost:hover{background:var(--color-primary-soft); color:var(--color-text)}
+.btn .arr{transition:transform var(--dur-ui) var(--ease-standard)}
+.btn:hover .arr{transform:translateX(3px)}
+
+/* ---- Hero ---- */
+.hero{position:relative; overflow:clip}
+.hero__grid{display:grid; grid-template-columns:minmax(0,1.2fr) minmax(20rem,0.88fr);
+  gap:clamp(var(--space-8),4vw,var(--space-16)); align-items:start}
+.hero__content{display:grid; gap:var(--space-5); align-content:start}
+.hero__actions{display:flex; flex-wrap:wrap; gap:var(--space-3)}
+.hero__badges{display:flex; flex-wrap:wrap; gap:var(--space-3)}
+.hero__panel,.info-panel{padding:clamp(var(--space-5),2vw,var(--space-8)); border-radius:var(--radius-2xl);
+  background:var(--color-panel); border:1px solid var(--color-border); box-shadow:var(--shadow-md)}
+.hero__panel{display:grid; gap:var(--space-4)}
+.step-list{display:grid; gap:var(--space-3); padding:0; margin:0; list-style:none}
+.step-list li{display:grid; grid-template-columns:auto 1fr; gap:var(--space-3); align-items:start;
+  padding:var(--space-4); border-radius:var(--radius-lg); background:var(--color-surface-2); border:1px solid var(--color-divider)}
+.step-index{width:1.75rem; height:1.75rem; border-radius:var(--radius-full); display:inline-grid; place-items:center;
+  font-size:var(--text-xs); font-weight:700; color:var(--color-primary-hover); background:var(--color-primary-soft)}
+
+/* ---- Trust strip ---- */
+.trust-strip{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--space-4); padding:var(--space-5) 0 0}
+.trust-item{display:grid; grid-template-columns:auto 1fr; gap:var(--space-3); align-items:start}
+.trust-item__icon{width:2rem; height:2rem; border-radius:var(--radius-full); display:grid; place-items:center;
+  background:var(--color-primary-soft); color:var(--color-primary-hover); font-size:var(--text-xs); font-weight:700}
+.trust-item strong{display:block; color:var(--color-text); font-size:var(--text-sm); margin-bottom:var(--space-1)}
+.trust-item p{font-size:var(--text-sm)}
+
+/* ---- Tabs / filter chips ---- */
+.tab-row{display:flex; flex-wrap:wrap; gap:var(--space-2); margin-bottom:var(--space-6)}
+.tab,.filter-chip{display:inline-flex; align-items:center; min-height:42px; padding:0 var(--space-4);
+  border-radius:var(--radius-full); border:1px solid var(--color-border); background:var(--color-surface-2);
+  color:var(--color-text-muted); font-size:var(--text-sm); font-weight:700; text-decoration:none}
+.tab:hover,.tab[aria-selected="true"],.filter-chip.is-active{background:var(--color-primary-soft); color:var(--color-text);
+  border-color:color-mix(in srgb,var(--color-primary) 25%,var(--color-border))}
+
+/* ---- Badges ---- */
+.badge{display:inline-flex; align-items:center; min-height:1.9rem; padding:0 var(--space-3);
+  border-radius:var(--radius-full); border:1px solid transparent; font-size:var(--text-xs); font-weight:800;
+  line-height:1; letter-spacing:var(--tracking-label); text-transform:uppercase; white-space:nowrap}
+.badge--approved{background:var(--badge-approved-bg); color:var(--badge-approved-text); border-color:var(--badge-approved-border)}
+.badge--review{background:var(--badge-review-bg); color:var(--badge-review-text); border-color:var(--badge-review-border)}
+.badge--info{background:var(--badge-info-bg); color:var(--badge-info-text); border-color:var(--badge-info-border)}
+
+/* ---- Cards ---- */
+.card-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(var(--space-4),2vw,var(--space-6))}
+.card{display:grid; background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-xl);
+  overflow:hidden; box-shadow:var(--shadow-xs);
+  transition:transform var(--dur-ui) var(--ease-standard),box-shadow var(--dur-ui) var(--ease-standard),border-color var(--dur-ui) var(--ease-standard)}
+.card:hover{transform:translateY(-4px); box-shadow:var(--shadow-md); border-color:var(--color-border-strong)}
+.card__media{position:relative; aspect-ratio:4/3;
+  background:radial-gradient(circle at top left,rgba(255,255,255,0.65),rgba(255,255,255,0) 45%),
+    linear-gradient(135deg,var(--color-surface-2),var(--color-surface-3)); overflow:hidden}
+.card__media img{width:100%; height:100%; object-fit:cover}
+.card__body{display:grid; gap:var(--space-3); padding:var(--space-5)}
+.card__eyebrow{font-size:var(--text-xs); font-weight:800; letter-spacing:var(--tracking-label);
+  text-transform:uppercase; color:var(--color-primary)}
+.card__title{font-size:clamp(1.05rem,0.96rem + 0.28vw,1.25rem); line-height:1.25; color:var(--color-text)}
+.card__meta,.meta-row{display:flex; flex-wrap:wrap; gap:var(--space-2); align-items:center;
+  color:var(--color-text-faint); font-size:var(--text-xs)}
+.card__footer{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+  gap:var(--space-3); padding-top:var(--space-2)}
+.price{font-size:var(--text-lg); line-height:1; font-weight:800; color:var(--color-text)}
+
+/* ---- Timeline / age cards ---- */
+.timeline-list{display:grid; gap:var(--space-4)}
+.timeline-card{display:grid; grid-template-columns:auto 1fr auto; gap:var(--space-4); align-items:center;
+  padding:clamp(var(--space-4),2vw,var(--space-6)); border-radius:var(--radius-xl); border:1px solid var(--color-border);
+  background:var(--color-surface-2); box-shadow:var(--shadow-xs)}
+.timeline-card__number{inline-size:clamp(4rem,8vw,5.75rem); block-size:clamp(4rem,8vw,5.75rem); border-radius:50%;
+  display:grid; place-items:center; padding:var(--space-2);
+  background:linear-gradient(135deg,var(--color-primary-soft),var(--color-surface-3));
+  border:1px solid color-mix(in srgb,var(--color-primary) 22%,var(--color-border));
+  color:var(--color-primary-hover); font-size:clamp(1rem,0.85rem + 0.7vw,1.45rem); font-weight:800;
+  line-height:1; text-align:center}
+.timeline-card__content{display:grid; gap:var(--space-2)}
+.timeline-card__label{font-size:var(--text-xs); text-transform:uppercase; letter-spacing:var(--tracking-label);
+  font-weight:800; color:var(--color-primary)}
+.timeline-card__title{font-size:var(--text-lg); color:var(--color-text)}
+.timeline-card__cta{justify-self:end}
+
+/* ---- Tables ---- */
+.table-wrap{overflow-x:auto; border:1px solid var(--color-border); border-radius:var(--radius-xl); background:var(--color-surface-2)}
+table{width:100%; border-collapse:collapse}
+th,td{padding:var(--space-4); text-align:left; vertical-align:top; border-bottom:1px solid var(--color-divider)}
+th{color:var(--color-text); font-size:var(--text-sm)}
+td{color:var(--color-text-muted); font-size:var(--text-sm)}
+
+/* ---- Forms ---- */
+.form-grid{display:grid; gap:var(--space-5)}
+.field{display:grid; gap:var(--space-2)}
+.label{font-size:var(--text-sm); font-weight:700; color:var(--color-text)}
+.input,.select,.textarea{width:100%; min-height:3rem; padding:0 var(--space-4); border-radius:var(--radius-lg);
+  border:1px solid var(--color-border); background:var(--color-surface-2); color:var(--color-text);
+  transition:border-color var(--dur-fast) var(--ease-standard),box-shadow var(--dur-fast) var(--ease-standard),background-color var(--dur-fast) var(--ease-standard)}
+.textarea{min-height:9rem; padding-block:var(--space-3); resize:vertical}
+.input::placeholder,.textarea::placeholder{color:var(--color-text-faint)}
+.input:focus,.select:focus,.textarea:focus{outline:none; border-color:color-mix(in srgb,var(--color-primary) 40%,var(--color-border));
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary) 14%,transparent)}
+.help-text{font-size:var(--text-sm); color:var(--color-text-muted)}
+
+/* ---- CTA band ---- */
+.cta-band{display:grid; grid-template-columns:1.2fr auto; gap:var(--space-6); align-items:center;
+  padding:clamp(var(--space-6),3vw,var(--space-10)); border-radius:var(--radius-2xl);
+  background:linear-gradient(135deg,var(--color-surface-3),var(--color-surface-2));
+  border:1px solid var(--color-border); box-shadow:var(--shadow-sm)}
+
+/* ---- Footer (global; no legal entity here) ---- */
+.site-footer{padding-block:clamp(var(--space-10),6vw,var(--space-16)); border-top:1px solid var(--color-divider);
+  background:color-mix(in srgb,var(--color-surface) 92%,transparent)}
+.site-footer__grid{display:grid; grid-template-columns:1.2fr repeat(3,minmax(0,1fr)); gap:clamp(var(--space-6),4vw,var(--space-10))}
+.footer-brand{display:grid; gap:var(--space-3)}
+.footer-heading{font-size:var(--text-sm); font-weight:800; letter-spacing:var(--tracking-label);
+  text-transform:uppercase; color:var(--color-text)}
+.footer-links{display:grid; gap:var(--space-2); padding:0; margin:0; list-style:none}
+.footer-links a{color:var(--color-text-muted); font-size:var(--text-sm)}
+.footer-links a:hover{color:var(--color-text)}
+.footer-note{margin-top:var(--space-8); padding-top:var(--space-5); border-top:1px solid var(--color-divider);
+  color:var(--color-text-faint); font-size:var(--text-xs)}
+
+/* ---- Utilities ---- */
+.stack-sm{display:grid; gap:var(--space-3)}
+.stack-md{display:grid; gap:var(--space-5)}
+.stack-lg{display:grid; gap:var(--space-8)}
+.cluster{display:flex; flex-wrap:wrap; gap:var(--space-3); align-items:center}
+.centered{text-align:center; margin-inline:auto}
+.surface-panel{padding:clamp(var(--space-5),2vw,var(--space-8)); border:1px solid var(--color-border);
+  border-radius:var(--radius-xl); background:var(--color-surface-2); box-shadow:var(--shadow-xs)}
+
+/* ---- Responsive ---- */
+@media (max-width:1100px){
+  .site-header__inner{grid-template-columns:1fr; justify-items:start; padding-block:var(--space-4)}
+  .site-nav{justify-self:start}
+  .header-actions{width:100%; justify-content:flex-start}
+  .hero__grid,.cta-band,.site-footer__grid{grid-template-columns:1fr}
+  .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .trust-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  :root{--header-height:auto}
+  .page-shell{padding-inline:var(--space-4)}
+  .hero-title,.section-heading h1{max-width:11ch}
+  .site-nav__list,.hero__actions,.hero__badges,.meta-row,.card__footer,.cluster{align-items:stretch}
+  .site-nav__link,.btn,.tab,.filter-chip{min-height:44px}
+  .card-grid,.trust-strip{grid-template-columns:1fr}
+  .timeline-card{grid-template-columns:1fr; justify-items:start}
+  .timeline-card__cta{justify-self:start}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important; animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important; scroll-behavior:auto !important}
+  html.js .reveal,html.js .stagger > *{opacity:1; transform:none; transition:none; transition-delay:0s}
+  .card:hover{transform:none}
+}
 /* ---------- Faces ---------- */
 @font-face{font-family:'Satoshi';src:url(data:font/woff2;base64,__SAT4__) format('woff2');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'Satoshi';src:url(data:font/woff2;base64,__SAT5__) format('woff2');font-weight:500;font-style:normal;font-display:swap}
@@ -337,20 +661,26 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
 <div class="page">
 
 <!-- ============ HEADER ============ -->
-<header class="site-head" id="top">
-  <div class="wrap head-in">
-    <a class="brand" href="#top">Preparation Station<small>Nationwide Acquisitions, LLC</small></a>
-    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" id="navToggle">Menu</button>
-    <nav class="nav" id="mainNav">
-      <a href="store/shop.html">Shop</a>
-      <a href="shop-by-age.html">Shop by Age</a>
-      <a href="store/shop.html">Catalog</a>
-      <a href="#guide">Mission Guide</a>
-      <a href="esa.html">Funding Help</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a class="btn btn-solid" href="contact.html">Start a request</a>
+<header class="site-header" id="top">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="#top">
+      <span class="brand__wordmark">Preparation Station</span>
+      <span class="brand__tagline">Practical curriculum for life ahead.</span>
+    </a>
+    <nav class="site-nav" id="mainNav" aria-label="Main">
+      <ul class="site-nav__list">
+        <li><a class="site-nav__link" href="#top">Home</a></li>
+        <li><a class="site-nav__link" href="store/shop.html">Catalog</a></li>
+        <li><a class="site-nav__link" href="shop-by-age.html">By Age</a></li>
+        <li><a class="site-nav__link" href="#guide">Mission Guide</a></li>
+        <li><a class="site-nav__link" href="esa.html">Funding Help</a></li>
+        <li><a class="site-nav__link" href="about.html">About</a></li>
+        <li><a class="site-nav__link" href="contact.html">Contact</a></li>
+      </ul>
     </nav>
+    <div class="header-actions">
+      <a class="btn btn--primary" href="contact.html">Start a Request</a>
+    </div>
   </div>
 </header>
 
@@ -377,12 +707,50 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
         <a class="btn btn-line" href="#guide">Try the Mission Guide <span class="arr">&rarr;</span></a>
       </div>
       <div class="hero-chips reveal d4">
-        <span class="chip ok">TEFA vendor approved</span>
-        <span class="chip">Catalog under offering review</span>
-        <span class="chip warn">No payment collected here</span>
+        <span class="chip ok">Approved TEFA Marketplace Vendor</span>
+        <span class="chip">Catalog Offerings Under Review</span>
+        <span class="chip warn">No Payment Collected Here</span>
       </div>
     </div>
     <div class="stack g-20 reveal d2">
+      <figure class="hero__panel" aria-label="Illustrative flat scene of a guided learning workspace">
+        <svg viewBox="0 0 480 360" role="img" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#dcebe8"/>
+              <stop offset="1" stop-color="#f6f3ea"/>
+            </linearGradient>
+            <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#edd8b4"/>
+              <stop offset="1" stop-color="#d8b261"/>
+            </linearGradient>
+          </defs>
+          <rect width="480" height="360" fill="url(#bg)"/>
+          <rect x="20" y="240" width="440" height="100" rx="10" fill="url(#desk)"/>
+          <rect x="60" y="180" width="180" height="120" rx="8" fill="#fcfaf5" stroke="#c8bda9"/>
+          <rect x="80" y="200" width="140" height="10" rx="2" fill="#2f7a78"/>
+          <rect x="80" y="220" width="120" height="6" rx="2" fill="#d8d0c0"/>
+          <rect x="80" y="232" width="135" height="6" rx="2" fill="#d8d0c0"/>
+          <rect x="80" y="244" width="100" height="6" rx="2" fill="#d8d0c0"/>
+          <rect x="80" y="256" width="125" height="6" rx="2" fill="#d8d0c0"/>
+          <rect x="80" y="268" width="80" height="6" rx="2" fill="#d8d0c0"/>
+          <rect x="265" y="155" width="160" height="105" rx="6" fill="#3d352b"/>
+          <rect x="275" y="165" width="140" height="85" rx="3" fill="#f6f3ea"/>
+          <rect x="285" y="180" width="60" height="6" rx="2" fill="#2f7a78"/>
+          <rect x="285" y="194" width="120" height="4" rx="1" fill="#c8bda9"/>
+          <rect x="285" y="204" width="100" height="4" rx="1" fill="#c8bda9"/>
+          <rect x="285" y="214" width="115" height="4" rx="1" fill="#c8bda9"/>
+          <rect x="285" y="224" width="70" height="4" rx="1" fill="#c8bda9"/>
+          <rect x="370" y="220" width="30" height="20" rx="3" fill="#2f7a78"/>
+          <rect x="200" y="250" width="50" height="12" rx="2" fill="#fcfaf5" stroke="#c8bda9"/>
+          <rect x="208" y="254" width="34" height="4" rx="1" fill="#2f7a78"/>
+          <circle cx="395" cy="275" r="22" fill="#2f7a78"/>
+          <circle cx="395" cy="275" r="14" fill="#dcebe8"/>
+          <text x="395" y="280" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2f7a78">3</text>
+          <text x="240" y="135" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="700" fill="#2f5a58">Plan &amp; practice</text>
+        </svg>
+        <figcaption style="font-size:.78rem;color:var(--ink-soft);letter-spacing:.04em">Original illustration &middot; approved photography to follow</figcaption>
+      </figure>
       <div class="t-card" style="margin:0">
         <span class="mono">How we handle your request</span>
         <h2>From request to Odyssey in four steps</h2>
@@ -395,6 +763,45 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
         <p class="g-note" style="margin-top:.8rem">No payment is collected on this site. TEFA
           purchases and official order history stay in Odyssey.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING FRAMEWORK ============ -->
+<section class="band" id="pricing" style="padding-block:clamp(2rem,4vw,3.5rem)">
+  <div class="wrap">
+    <div class="surface-panel stack-md reveal">
+      <div class="cluster" style="justify-content:space-between;gap:1rem">
+        <span class="eyebrow">Owner-approved pricing framework (2026-08-19)</span>
+        <span class="badge badge--planning">Tier-to-offering mapping requires Odyssey review</span>
+      </div>
+      <h2 class="h-md" style="margin-top:.2rem">Curriculum pathway pricing ladder</h2>
+      <p style="margin-top:.4rem">Each listed family price reflects a one-time digital curriculum
+        license for the named pathway: guided lessons, facilitator guidance, and the listed
+        project or portfolio components unless otherwise noted. Tier-to-offering mapping and
+        per-offering availability are confirmed during each offering's separate Odyssey offering
+        review before it is purchasable.</p>
+      <div class="table-wrap" style="margin-top:.8rem">
+        <table>
+          <thead><tr><th>Tier</th><th class="num">Price</th><th>What it is</th></tr></thead>
+          <tbody>
+            <tr><td>Starter pathway</td><td class="num">$299</td><td>Entry-level single-domain pathway.</td></tr>
+            <tr><td>Focused pathway</td><td class="num">$1,695</td><td>Focused multi-lesson pathway.</td></tr>
+            <tr><td>Complete pathway</td><td class="num">$1,995</td><td>Full-lifecycle pathway across the domain.</td></tr>
+            <tr><td>Signature curriculum</td><td class="num">$2,495</td><td>Signature full-curriculum offering.</td></tr>
+            <tr><td>Structured reading pathway</td><td class="num">$2,295</td><td>Structured reading intervention pathway.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul style="margin-top:1rem;padding-left:1.2rem;font-size:.92rem;color:var(--ink-soft)">
+        <li>Direct-purchase family pricing is shown for planning and eligible retail purchases.
+          TEFA-funded purchases require the exact approved offering to appear in the official
+          marketplace and must be completed there.</li>
+        <li>Standard-retail discounts (including any welcome offer) do not apply to TEFA-funded
+          transactions.</li>
+        <li>Physical and supplier-review items, and any offering without a verified marketplace
+          record, remain unpublished with no public price.</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -518,6 +925,333 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
         <p>Core subjects workbook set, assessment and portfolio kit, daily supply restock box, art and craft foundations.</p>
         <span class="dept-count">4 items · under review</span>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUIDED CURRICULUM PATHWAYS ============ -->
+<section class="band" id="curricula">
+  <div class="wrap">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Catalog lanes</span>
+      <h2 class="h-lg">Guided curriculum pathways</h2>
+      <p class="lede">Four teaching-and-practice lanes, each organised around one kind of
+        readiness. Every lane is being prepared for separate offering review in the
+        official marketplace.</p>
+    </div>
+    <div class="lane-grid" style="margin-top:2.2rem">
+      <article class="lane-card reveal">
+        <div class="cover-art cover--career">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <circle cx="60" cy="60" r="30" fill="#dcebe8" opacity=".35"/>
+            <circle cx="260" cy="180" r="50" fill="#d8b261" opacity=".25"/>
+            <path d="M40 180 L100 120 L160 150 L220 90 L280 130" stroke="#dcebe8" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="cover-art__label"><span>Lane 01</span><b>Career &amp; Entrepreneurship</b></div>
+        </div>
+        <div class="lane-card__body">
+          <span class="card__eyebrow">Career readiness &amp; business fundamentals</span>
+          <h3>Career Launch &amp; Entrepreneurship Lab</h3>
+<p>Career self-direction, interview prep, first job, money mechanics, and a
+            small-business introduction built for the age when decisions start mattering.</p>
+          <dl class="lane-card__meta">
+            <div><dt>Format</dt><dd>Digital-first guided curriculum</dd></div>
+            <div><dt>Status</dt><dd><span class="badge badge--offering-review">Offering review</span></dd></div>
+            <div><dt>Includes</dt><dd>Lessons, facilitator guidance, project & portfolio components</dd></div>
+            <div><dt>License</dt><dd>One-time family license</dd></div>
+          </dl>
+          <div class="lane-card__detail-toggle">
+            <details class="lane-card__detail">
+              <summary>Details</summary>
+              <p><strong>Format:</strong> Digital-first guided curriculum</p>
+              <p><strong>Weekly pace:</strong> Estimated pace published at offering review</p>
+              <p><strong>Best for:</strong> Learner profile and goals</p>
+              <p><strong>Delivery:</strong> Digital access after approved purchase route</p>
+              <p><strong>License:</strong> One-time family license</p>
+              <p><strong>Includes:</strong> Lessons, facilitator guidance, project and portfolio components</p>
+            </details>
+          </div>
+          <div class="cluster" style="margin-top:.6rem">
+            <a class="btn btn--secondary" href="#guide">Plan this lane</a>
+            <a class="btn btn--ghost" href="contact.html">Get in touch</a>
+          </div>
+        </div>
+      </article>
+      <article class="lane-card reveal d1">
+        <div class="cover-art cover--living">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <rect x="40" y="160" width="240" height="14" rx="2" fill="#fcfaf5" opacity=".35"/>
+            <rect x="60" y="120" width="60" height="40" rx="3" fill="#fcfaf5" opacity=".5"/>
+            <rect x="140" y="100" width="40" height="60" rx="3" fill="#fcfaf5" opacity=".5"/>
+            <rect x="200" y="80" width="60" height="80" rx="3" fill="#fcfaf5" opacity=".5"/>
+          </svg>
+          <div class="cover-art__label"><span>Lane 02</span><b>Independent Living</b></div>
+        </div>
+        <div class="lane-card__body">
+          <span class="card__eyebrow">Household &amp; financial foundations</span>
+          <h3>Independent Living &amp; Financial Foundations</h3>
+          <p>Money mechanics, household routines, schedules, meal planning, laundry,
+            room upkeep, and the personal-responsibility systems that make a household work.</p>
+          <dl class="lane-card__meta">
+            <div><dt>Format</dt><dd>Digital-first guided curriculum</dd></div>
+            <div><dt>Status</dt><dd><span class="badge badge--offering-review">Offering review</span></dd></div>
+            <div><dt>Includes</dt><dd>Lessons, facilitator guidance, project &amp; portfolio components</dd></div>
+            <div><dt>License</dt><dd>One-time family license</dd></div>
+          </dl>
+          <div class="cluster" style="margin-top:.6rem">
+            <a class="btn btn--secondary" href="#guide">Plan this lane</a>
+            <a class="btn btn--ghost" href="contact.html">Get in touch</a>
+          </div>
+        </div>
+      </article>
+      <article class="lane-card reveal">
+        <div class="cover-art cover--ai">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <circle cx="160" cy="120" r="60" fill="none" stroke="#dcebe8" stroke-width="2" opacity=".5"/>
+            <circle cx="160" cy="120" r="40" fill="none" stroke="#dcebe8" stroke-width="2" opacity=".5"/>
+            <circle cx="160" cy="120" r="20" fill="#dcebe8" opacity=".5"/>
+            <line x1="160" y1="60" x2="160" y2="180" stroke="#dcebe8" stroke-width="1" opacity=".4"/>
+            <line x1="100" y1="120" x2="220" y2="120" stroke="#dcebe8" stroke-width="1" opacity=".4"/>
+          </svg>
+          <div class="cover-art__label"><span>Lane 03</span><b>AI &amp; Digital</b></div>
+        </div>
+        <div class="lane-card__body">
+          <span class="card__eyebrow">Digital judgment &amp; emerging tech</span>
+          <h3>AI Literacy &amp; Digital Leadership</h3>
+<p>How modern tools actually work, how to question their output, how to use
+            them without being used by them, and how to lead with them in front of others.</p>
+          <dl class="lane-card__meta">
+            <div><dt>Format</dt><dd>Digital-first guided curriculum</dd></div>
+            <div><dt>Status</dt><dd><span class="badge badge--offering-review">Offering review</span></dd></div>
+            <div><dt>Includes</dt><dd>Lessons, facilitator guidance, project & portfolio components</dd></div>
+            <div><dt>License</dt><dd>One-time family license</dd></div>
+          </dl>
+          <div class="lane-card__detail-toggle">
+            <details class="lane-card__detail">
+              <summary>Details</summary>
+              <p><strong>Format:</strong> Digital-first guided curriculum</p>
+              <p><strong>Weekly pace:</strong> Estimated pace published at offering review</p>
+              <p><strong>Best for:</strong> Learner profile and goals</p>
+              <p><strong>Delivery:</strong> Digital access after approved purchase route</p>
+              <p><strong>License:</strong> One-time family license</p>
+              <p><strong>Includes:</strong> Lessons, facilitator guidance, project and portfolio components</p>
+            </details>
+          </div>
+          <div class="cluster" style="margin-top:.6rem">
+            <a class="btn btn--secondary" href="#guide">Plan this lane</a>
+            <a class="btn btn--ghost" href="contact.html">Get in touch</a>
+          </div>
+        </div>
+      </article>
+      <article class="lane-card reveal d1">
+        <div class="cover-art cover--reading">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <rect x="50" y="80" width="220" height="120" rx="6" fill="#fcfaf5" opacity=".15"/>
+            <line x1="160" y1="80" x2="160" y2="200" stroke="#fcfaf5" stroke-width="2" opacity=".4"/>
+            <line x1="60" y1="110" x2="150" y2="110" stroke="#fcfaf5" stroke-width="2" opacity=".5"/>
+            <line x1="60" y1="130" x2="150" y2="130" stroke="#fcfaf5" stroke-width="2" opacity=".5"/>
+            <line x1="60" y1="150" x2="150" y2="150" stroke="#fcfaf5" stroke-width="2" opacity=".5"/>
+            <line x1="170" y1="110" x2="260" y2="110" stroke="#fcfaf5" stroke-width="2" opacity=".5"/>
+            <line x1="170" y1="130" x2="260" y2="130" stroke="#fcfaf5" stroke-width="2" opacity=".5"/>
+            <line x1="170" y1="150" x2="260" y2="150" stroke="#fcfaf5" stroke-width="2" opacity=".5"/>
+          </svg>
+          <div class="cover-art__label"><span>Lane 04</span><b>Structured Reading</b></div>
+        </div>
+        <div class="lane-card__body">
+          <span class="card__eyebrow">Structured reading intervention</span>
+          <h3>Structured Reading Support Pathway</h3>
+          <p>A structured reading intervention aligned with the curriculum pathway
+            tier on the pricing ladder. Tier-to-offering confirmation happens in
+            offering review.</p>
+          <dl class="lane-card__meta">
+            <div><dt>Format</dt><dd>Digital-first guided curriculum</dd></div>
+            <div><dt>Status</dt><dd><span class="badge badge--offering-review">Offering review</span></dd></div>
+            <div><dt>Includes</dt><dd>Lessons, facilitator guidance, project &amp; portfolio components</dd></div>
+            <div><dt>License</dt><dd>One-time family license</dd></div>
+          </dl>
+          <div class="cluster" style="margin-top:.6rem">
+            <a class="btn btn--secondary" href="#guide">Plan this lane</a>
+            <a class="btn btn--ghost" href="contact.html">Get in touch</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATALOG EXPANSION (PLANNING CONCEPTS) ============ -->
+<section class="band band-tint" id="expansion">
+  <div class="wrap">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Catalog expansion</span>
+      <h2 class="h-lg">Planning concepts — future offerings</h2>
+      <p class="lede">These are planned entries for the next catalog round. None are for sale
+        today. Status updates here as each one completes supplier review, offering review,
+        and verification for public publication.</p>
+    </div>
+    <div class="card-grid" style="margin-top:2.2rem">
+      <article class="card reveal">
+        <div class="cover-art cover--vulturian">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <path d="M40 200 L160 70 L280 200 Z" fill="#fcfaf5" opacity=".2"/>
+            <circle cx="160" cy="150" r="20" fill="#fcfaf5" opacity=".35"/>
+          </svg>
+          <div class="cover-art__label"><span>Confirmed title</span><b>The Vulturian</b></div>
+        </div>
+        <div class="card__body">
+          <span class="card__eyebrow">Book</span>
+          <h3 class="card__title">The Vulturian</h3>
+          <p>Confirmed title. Author credit, ISBN, price, format, description, cover, and
+            printing/fulfillment source remain pending.</p>
+          <div class="meta-row"><span class="badge badge--planning">Planning concept</span></div>
+          <div class="card__footer"><a class="btn btn--secondary" href="contact.html">Get in touch</a></div>
+        </div>
+      </article>
+      <article class="card reveal d1">
+        <div class="cover-art cover--math">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <rect x="60" y="60" width="200" height="120" rx="6" fill="#fcfaf5" opacity=".2"/>
+            <text x="160" y="140" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#fcfaf5" opacity=".6" font-weight="700">=</text>
+          </svg>
+          <div class="cover-art__label"><span>Planning concept</span><b>Hands-On Math</b></div>
+        </div>
+        <div class="card__body">
+          <span class="card__eyebrow">Hands-on kit</span>
+          <h3 class="card__title">Hands-On Math Foundations Kit</h3>
+          <p>Physical manipulatives for early numeracy and fractions, paired with the
+            structured reading pathway.</p>
+          <div class="meta-row"><span class="badge badge--planning">Planning concept</span></div>
+          <div class="card__footer"><a class="btn btn--secondary" href="contact.html">Get in touch</a></div>
+        </div>
+      </article>
+      <article class="card reveal d2">
+        <div class="cover-art cover--sci">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <circle cx="160" cy="120" r="50" fill="none" stroke="#fcfaf5" stroke-width="3" opacity=".4"/>
+            <ellipse cx="160" cy="120" rx="80" ry="30" fill="none" stroke="#fcfaf5" stroke-width="2" opacity=".4" transform="rotate(30 160 120)"/>
+            <ellipse cx="160" cy="120" rx="80" ry="30" fill="none" stroke="#fcfaf5" stroke-width="2" opacity=".4" transform="rotate(-30 160 120)"/>
+          </svg>
+          <div class="cover-art__label"><span>Planning concept</span><b>Young Scientist</b></div>
+        </div>
+        <div class="card__body">
+          <span class="card__eyebrow">Hands-on kit</span>
+          <h3 class="card__title">Young Scientist Starter Lab</h3>
+          <p>Beginner experiments and observation journals for the early-mission age band.</p>
+          <div class="meta-row"><span class="badge badge--planning">Planning concept</span></div>
+          <div class="card__footer"><a class="btn btn--secondary" href="contact.html">Get in touch</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="cover-art cover--studio">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <rect x="60" y="80" width="200" height="120" rx="6" fill="#fcfaf5" opacity=".2"/>
+            <circle cx="120" cy="140" r="14" fill="#fcfaf5" opacity=".4"/>
+            <rect x="150" y="120" width="80" height="8" fill="#fcfaf5" opacity=".4"/>
+            <rect x="150" y="140" width="60" height="6" fill="#fcfaf5" opacity=".4"/>
+          </svg>
+          <div class="cover-art__label"><span>Planning concept</span><b>Creative Portfolio</b></div>
+        </div>
+        <div class="card__body">
+          <span class="card__eyebrow">Portfolio kit</span>
+          <h3 class="card__title">Creative Portfolio Studio</h3>
+          <p>A guided portfolio-of-work programme for the career-readiness lane.</p>
+          <div class="meta-row"><span class="badge badge--planning">Planning concept</span></div>
+          <div class="card__footer"><a class="btn btn--secondary" href="contact.html">Get in touch</a></div>
+        </div>
+      </article>
+      <article class="card reveal d1">
+        <div class="cover-art cover--career">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <rect x="80" y="60" width="160" height="120" rx="6" fill="#fcfaf5" opacity=".2"/>
+            <line x1="100" y1="90" x2="220" y2="90" stroke="#fcfaf5" stroke-width="2" opacity=".5"/>
+            <line x1="100" y1="110" x2="220" y2="110" stroke="#fcfaf5" stroke-width="2" opacity=".5"/>
+            <line x1="100" y1="130" x2="220" y2="130" stroke="#fcfaf5" stroke-width="2" opacity=".5"/>
+          </svg>
+          <div class="cover-art__label"><span>Planning concept</span><b>Financial Literacy</b></div>
+        </div>
+        <div class="card__body">
+          <span class="card__eyebrow">Grades 6&ndash;12</span>
+          <h3 class="card__title">Financial Literacy Starter Pack</h3>
+          <p>Digital-first bundle: budgeting practice, profit and loss, savings habits,
+            and decision-making worksheets.</p>
+          <div class="meta-row"><span class="badge badge--planning">Planning concept</span><span class="meta-row">Grades 6&ndash;12</span></div>
+          <div class="card__footer"><a class="btn btn--secondary" href="contact.html">Get in touch</a></div>
+        </div>
+      </article>
+      <article class="card reveal d2">
+        <div class="cover-art cover--studio">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <rect x="60" y="70" width="200" height="130" rx="6" fill="#fcfaf5" opacity=".2"/>
+            <circle cx="130" cy="135" r="22" fill="#fcfaf5" opacity=".4"/>
+            <circle cx="200" cy="135" r="22" fill="#fcfaf5" opacity=".4"/>
+            <line x1="160" y1="135" x2="170" y2="135" stroke="#fcfaf5" stroke-width="3" opacity=".5"/>
+          </svg>
+          <div class="cover-art__label"><span>Planning concept</span><b>Business Builder</b></div>
+        </div>
+        <div class="card__body">
+          <span class="card__eyebrow">Grades 8&ndash;12</span>
+          <h3 class="card__title">Student Business Builder Toolkit</h3>
+          <p>Pitch templates, customer interview scripts, simple pricing exercises, and
+            business-planning worksheets.</p>
+          <div class="meta-row"><span class="badge badge--planning">Planning concept</span><span class="meta-row">Grades 8&ndash;12</span></div>
+          <div class="card__footer"><a class="btn btn--secondary" href="contact.html">Get in touch</a></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="cover-art cover--living">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <rect x="80" y="80" width="160" height="120" rx="6" fill="#fcfaf5" opacity=".2"/>
+            <rect x="100" y="100" width="40" height="80" fill="#fcfaf5" opacity=".25"/>
+            <rect x="150" y="100" width="40" height="80" fill="#fcfaf5" opacity=".25"/>
+            <rect x="200" y="100" width="20" height="80" fill="#fcfaf5" opacity=".25"/>
+          </svg>
+          <div class="cover-art__label"><span>Planning concept</span><b>Home Systems</b></div>
+        </div>
+        <div class="card__body">
+          <span class="card__eyebrow">Grades 6&ndash;12</span>
+          <h3 class="card__title">Home Systems &amp; Organization Guide</h3>
+          <p>Schedules, routines, meal planning, laundry, room upkeep, and the
+            personal-responsibility systems that make a household work.</p>
+          <div class="meta-row"><span class="badge badge--planning">Planning concept</span><span class="meta-row">Grades 6&ndash;12</span></div>
+          <div class="card__footer"><a class="btn btn--secondary" href="contact.html">Get in touch</a></div>
+        </div>
+      </article>
+      <article class="card reveal d1">
+        <div class="cover-art cover--tools">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <rect x="70" y="80" width="180" height="120" rx="6" fill="#fcfaf5" opacity=".2"/>
+            <circle cx="120" cy="140" r="18" fill="#fcfaf5" opacity=".4"/>
+            <circle cx="200" cy="140" r="18" fill="#fcfaf5" opacity=".4"/>
+          </svg>
+          <div class="cover-art__label"><span>Planning concept</span><b>Career Journal</span></div>
+        </div>
+        <div class="card__body">
+          <span class="card__eyebrow">Grades 6&ndash;10</span>
+          <h3 class="card__title">Starter Career Exploration Journal</h3>
+          <p>A lighter, lower-cost bridge for students not yet ready for the full
+            Career Launch curriculum.</p>
+          <div class="meta-row"><span class="badge badge--planning">Planning concept</span><span class="meta-row">Grades 6&ndash;10</span></div>
+          <div class="card__footer"><a class="btn btn--secondary" href="contact.html">Get in touch</a></div>
+        </div>
+      </article>
+      <article class="card reveal d2">
+        <div class="cover-art cover--family">
+          <svg viewBox="0 0 320 240" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <circle cx="120" cy="120" r="30" fill="#fcfaf5" opacity=".35"/>
+            <circle cx="160" cy="140" r="20" fill="#fcfaf5" opacity=".35"/>
+            <circle cx="200" cy="120" r="30" fill="#fcfaf5" opacity=".35"/>
+          </svg>
+          <div class="cover-art__label"><span>Planning concept</span><b>Family Pacing</b></div>
+        </div>
+        <div class="card__body">
+          <span class="card__eyebrow">All grades</span>
+          <h3 class="card__title">Family Planning &amp; Pacing Pack</h3>
+          <p>Pacing calendars, weekly check-ins, progress trackers, and planning
+            templates for multi-child households.</p>
+          <div class="meta-row"><span class="badge badge--planning">Planning concept</span><span class="meta-row">All grades</span></div>
+          <div class="card__footer"><a class="btn btn--secondary" href="contact.html">Get in touch</a></div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -674,7 +1408,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
           best-fit items, program status, and the correct purchase pathway — in writing,
           before any purchase.</p>
         <div class="hero-ctas" style="margin-top:1.2rem">
-          <a class="btn btn-solid" href="mailto:mmminvestment25@gmail.com?subject=Product%20request">Email a request <span class="arr">&rarr;</span></a>
+          <a class="btn btn-solid" href="contact.html">Get in touch <span class="arr">&rarr;</span></a>
           <a class="btn btn-ghost" style="border-color:#EAF2ED4d; color:var(--on-pine)" href="#guide">Use the Mission Guide</a>
         </div>
       </div>
@@ -683,6 +1417,127 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
         <li class="g-item" style="border-color:#EAF2ED26; background:transparent"><span class="gi-dept">2</span><span>We confirm the correct pathway in writing</span></li>
         <li class="g-item" style="border-color:#EAF2ED26; background:transparent"><span class="gi-dept">3</span><span>No payment or program account details are ever collected here</span></li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FREE RESOURCES ============ -->
+<section class="band" id="resources">
+  <div class="wrap">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Free resources</span>
+      <h2 class="h-lg">Practical tools you can use today</h2>
+      <p class="lede">Original worksheets, direct links to free books, and a guided
+        learning-plan builder. Free resources are educational convenience, not offerings
+        for sale.</p>
+    </div>
+    <div class="resource-grid" style="margin-top:2.2rem">
+      <article class="resource-tile reveal">
+        <span class="resource-tile__icon">$</span>
+        <h3>Monthly Budget Planner</h3>
+        <p>One-page planner: money in, money out, the saving goal you protect first.</p>
+        <div class="meta-row"><span class="badge badge--info">Printable</span></div>
+        <a class="btn btn--secondary" href="resources/budget-planner.html" target="_blank" rel="noopener">Open printable</a>
+      </article>
+      <article class="resource-tile reveal d1">
+        <span class="resource-tile__icon">P</span>
+        <h3>First Paycheck Worksheet</h3>
+        <p>Read the stub, find the deductions, decide what to do with the money before it disappears.</p>
+        <div class="meta-row"><span class="badge badge--info">Printable</span></div>
+        <a class="btn btn--secondary" href="resources/first-paycheck.html" target="_blank" rel="noopener">Open printable</a>
+      </article>
+      <article class="resource-tile reveal d2">
+        <span class="resource-tile__icon">S</span>
+        <h3>Savings Challenge</h3>
+        <p>Name the goal, name the amount, name the weekly plan, and track it on a 12-week grid.</p>
+        <div class="meta-row"><span class="badge badge--info">Printable</span></div>
+        <a class="btn btn--secondary" href="resources/savings-challenge.html" target="_blank" rel="noopener">Open printable</a>
+      </article>
+      <article class="resource-tile reveal">
+        <span class="resource-tile__icon">B</span>
+        <h3>Student Business Idea Worksheet</h3>
+        <p>One-page test for an idea: who pays, the three riskiest assumptions, the price math, the next step.</p>
+        <div class="meta-row"><span class="badge badge--info">Printable</span></div>
+        <a class="btn btn--secondary" href="resources/business-idea.html" target="_blank" rel="noopener">Open printable</a>
+      </article>
+      <article class="resource-tile reveal d1">
+        <span class="resource-tile__icon">L</span>
+        <h3>Build a Learning Plan</h3>
+        <p>Use the Mission Guide to shortlist by age, goal, and pacing, then email the starter list.</p>
+        <div class="meta-row"><span class="badge badge--info">Guided</span></div>
+        <a class="btn btn--secondary" href="#guide">Open the guide</a>
+      </article>
+      <article class="resource-tile reveal d2">
+        <span class="resource-tile__icon">F</span>
+        <h3>Free reading &amp; financial books</h3>
+        <p><em>Rich Dad Poor Dad</em> and CASHFLOW Classic, listed on the ESA launch page as
+          free resources only, not offerings for sale.</p>
+        <div class="meta-row"><span class="badge badge--info">External free</span></div>
+        <a class="btn btn--secondary" href="https://esa-launch-command.richie-rich007.chatgpt.site/" target="_blank" rel="noopener">See on ESA launch page</a>
+      </article>
+    </div>
+    <p style="margin-top:1.4rem;font-size:.85rem;color:var(--ink-soft)">Third-party books, games, and tools are included for educational convenience. Preparation Station is not affiliated with or endorsed by those providers unless explicitly stated.</p>
+  </div>
+</section>
+
+<!-- ============ VENDOR CONTACT / TEFA REVIEW ============ -->
+<section class="band band-tint" id="vendor">
+  <div class="wrap">
+    <div class="section-heading reveal">
+      <span class="eyebrow">For TEFA review &amp; family planning</span>
+      <h2 class="h-lg">Vendor contact</h2>
+    </div>
+    <div class="vendor-grid" style="margin-top:1.8rem">
+      <div class="vendor-panel reveal">
+        <h3>Preparation Station</h3>
+        <p style="color:var(--ink-soft)">Operated by Nationwide Acquisitions, LLC<br>
+          Practical digital curriculum for career readiness, financial foundations,
+          independent living, digital judgment, and structured learning support.</p>
+        <div class="divider"></div>
+        <dl class="vendor-row">
+          <dt>Website</dt>
+          <dd><a href="https://preparation-station.pages.dev" target="_blank" rel="noopener">preparation-station.pages.dev</a></dd>
+        </dl>
+        <dl class="vendor-row">
+          <dt>Families &amp; planning</dt>
+          <dd>Use the Mission Guide to shortlist by age and goal, then <a href="contact.html">get in touch</a> for a written pathway confirmation.</dd>
+        </dl>
+        <dl class="vendor-row">
+          <dt>TEFA &amp; Odyssey</dt>
+          <dd>Approved TEFA Marketplace vendor. Each offering is reviewed separately in
+            the official marketplace before it appears.</dd>
+        </dl>
+        <dl class="vendor-row">
+          <dt>Schools &amp; districts</dt>
+          <dd>Institutional or bulk inquiries: <a href="contact.html">get in touch</a> with
+            the programme name and grade band, and we will respond in writing.</dd>
+        </dl>
+        <p class="inquiry-note">Inquiry-note: do not submit student records, health information,
+          payment information, or programme-account credentials through the website or
+          inquiry form.</p>
+      </div>
+      <div class="vendor-panel reveal d1">
+        <h3>For TEFA review and family planning</h3>
+        <p style="color:var(--ink-soft)">Preparation Station provides practical, digital-first
+          learning pathways for families, TEFA participants, and schools. Offerings are
+          organised by grade band, duration, and intended outcome, with separate routes for
+          direct family purchase, TEFA-funded transactions, and institutional requests.
+          Marketplace participation applies at the vendor level first and at the
+          individual-offering level only after review and publication.</p>
+        <div class="divider"></div>
+        <dl class="vendor-row">
+          <dt>Compliance</dt>
+          <dd><span class="badge badge--approved">Approved TEFA Marketplace Vendor</span>
+              <span class="badge badge--planning" style="margin-left:.4rem">Catalog under review</span>
+              <span class="badge badge--info" style="margin-left:.4rem">No payment collected here</span></dd>
+        </dl>
+        <dl class="vendor-row">
+          <dt>PDSES / ClassWallet</dt>
+          <dd>Status is not yet confirmed and is not advertised as approved. We will
+            publish it here in writing when it is.</dd>
+        </dl>
+        <a class="btn btn--primary" href="contact.html">Get in touch</a>
+      </div>
     </div>
   </div>
 </section>
@@ -740,17 +1595,16 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="foot">
-  <div class="wrap foot-in">
-    <div>
-      <h2 class="foot-title">Preparation Station</h2>
-      <p class="foot-blurb">Skill-building project kits and curriculum guides for
-        families, educators, and homeschool planners. Operated by Nationwide
-        Acquisitions, LLC.</p>
+<footer class="site-footer">
+  <div class="wrap site-footer__grid">
+    <div class="footer-brand">
+      <span class="brand__wordmark">Preparation Station</span>
+      <span class="brand__tagline">Practical curriculum for life ahead.</span>
+      <p>Skill-building project kits and curriculum guides for families, educators, and homeschool planners.</p>
     </div>
     <div>
-      <h2 class="foot-title">Shop</h2>
-      <ul>
+      <h2 class="footer-heading">Shop</h2>
+      <ul class="footer-links">
         <li><a href="store/shop.html">Catalog</a></li>
         <li><a href="shop-by-age.html">Shop by Age</a></li>
         <li><a href="store/shop.html">Departments</a></li>
@@ -758,8 +1612,8 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
       </ul>
     </div>
     <div>
-      <h2 class="foot-title">Support</h2>
-      <ul>
+      <h2 class="footer-heading">Support</h2>
+      <ul class="footer-links">
         <li><a href="esa.html">Funding Help / Eligibility</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="store/track.html">Track Order</a></li>
@@ -767,18 +1621,18 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
       </ul>
     </div>
     <div>
-      <h2 class="foot-title">Company</h2>
-      <ul>
+      <h2 class="footer-heading">Company</h2>
+      <ul class="footer-links">
         <li><a href="about.html">About Us</a></li>
+        <li><a href="tefa.html">TEFA &amp; Funding Info</a></li>
         <li><a href="privacy.html">Privacy Policy</a></li>
         <li><a href="terms.html">Terms &amp; Conditions</a></li>
         <li><a href="shipping.html">Shipping &amp; Returns</a></li>
       </ul>
     </div>
   </div>
-  <div class="wrap foot-base">
-    <span>Preparation Station is operated by Nationwide Acquisitions, LLC.</span>
-    <span>Updated August 16, 2026</span>
+  <div class="wrap footer-note">
+    <span>Updated August 16, 2026 &middot; <a href="contact.html">Get in touch</a> &middot; Responses within one business day</span>
   </div>
 </footer>
 
@@ -793,16 +1647,9 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
   "use strict";
   document.documentElement.classList.add('js');
   /* header scroll state */
-  var head=document.querySelector('.site-head');
+  var head=document.querySelector('.site-header');
   var onScroll=function(){head.classList.toggle('scrolled',window.scrollY>8)};
   window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
-
-  /* mobile nav */
-  var navToggle=document.getElementById('navToggle'), mainNav=document.getElementById('mainNav');
-  navToggle.addEventListener('click',function(){
-    var open=mainNav.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded',open?'true':'false');
-  });
 
   /* reveal on scroll */
   var rTargets=document.querySelectorAll('.reveal,.reveal-fade,.stagger');
