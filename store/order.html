@@ -250,7 +250,7 @@ a.product{text-decoration:none; color:inherit}
   letter-spacing:.08em; text-transform:uppercase; color:var(--good); background:color-mix(in oklab, var(--good) 14%, transparent);
   border:1px solid color-mix(in oklab, var(--good) 45%, transparent); border-radius:2px; padding:.35rem .55rem}
 .progress{display:flex; gap:.4rem}
-.progress li{flex:1; display:flex; flex-direction:column; gap:.4rem; font-family:var(--mono); font-size:.62rem;
+.progress li{flex:1; display:flex; flex-direction:column; gap:.4rem; min-height:2.5rem; font-family:var(--mono); font-size:.62rem;
   letter-spacing:.08em; text-transform:uppercase; color:var(--muted); text-align:center}
 .progress li::before{content:""; display:block; height:3px; border-radius:2px; background:var(--rule)}
 .progress li[data-state="done"]::before,.progress li[data-state="active"]::before{background:var(--accent)}
@@ -327,8 +327,8 @@ a.product{text-decoration:none; color:inherit}
   border-radius:3px; padding:.7rem .9rem; margin-bottom:1.5rem; background:color-mix(in oklab,var(--gold) 8%,var(--paper));
   font-size:.9rem; color:var(--ink-soft); line-height:1.5}
 .preview-ribbon strong{color:var(--ink)}
-.order-empty{padding:3rem 0; text-align:center; color:var(--muted)}
-.order-empty a{color:var(--accent)}
+.order-empty-row .order-empty-cell{padding:2.4rem 0; text-align:center; color:var(--muted)}
+.order-empty-cell a{color:var(--accent)}
 .request-form{display:flex; flex-direction:column; gap:1rem; margin-top:1rem}
 .request-form .field textarea{font-family:var(--body); font-size:.98rem; color:var(--ink); background:var(--card);
   border:1px solid var(--rule); border-radius:2px; padding:.7rem .8rem; width:100%; resize:vertical}
@@ -405,11 +405,12 @@ a.product{text-decoration:none; color:inherit}
                 <th></th>
               </tr>
             </thead>
-            <tbody id="order-list"></tbody>
+            <tbody id="order-list">
+              <tr class="order-empty-row" id="order-placeholder">
+                <td colspan="5" class="order-empty-cell">Your order is empty. <a href="shop.html">Browse the shop</a> to add a kit.</td>
+              </tr>
+            </tbody>
           </table>
-        </div>
-        <div id="order-empty" class="order-empty" hidden>
-          <p>Your order is empty. <a href="shop.html">Browse the shop</a> to add a kit.</p>
         </div>
       </div>
 
