@@ -447,8 +447,10 @@ def validate_order_portal(config: dict, known_skus: set[str]) -> None:
     require("customer_id" in schema.get("required", []), "Order records require customer authorization")
 
     source = (ROOT / "store" / "src" / "track.html").read_text(encoding="utf-8")
-    require('id="order-access-submit"' in source and " disabled" in source, "Order access must be disabled by default")
     require("Odyssey Marketplace" in source, "Order page must preserve the TEFA purchase boundary")
+    require("not live yet" in source, "Track page must state that secure tracking is not live yet")
+    require("Ask about an order by email" in source, "Track page must offer the email fallback")
+    require("order-access-submit" not in source, "Removed disabled submit must stay removed (no fake buttons)")
 
 
 def main() -> None:

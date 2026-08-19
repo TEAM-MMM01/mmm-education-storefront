@@ -6,6 +6,7 @@
 <title>The Vulturian Preview — Preparation Station General Store</title>
 <meta name="description" content="General Store preview: family titles and activity books sold at retail, kept separate from the ESA/TEFA-funded storefront.">
 <meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2301696f'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23fffdf9' text-anchor='middle'%3EPS%3C/text%3E%3C/svg%3E">
 <meta property="og:title" content="The Vulturian Preview — Preparation Station General Store">
 <meta property="og:description" content="General Store preview: family titles and activity books sold at retail, kept separate from the ESA/TEFA-funded storefront.">
 <meta property="og:type" content="website">
@@ -44,7 +45,7 @@
 /* ---------- Tokens ---------- */
 :root{
   --paper:#efe8d8; --paper-2:#e8dfcb; --card:#f6f0e2;
-  --ink:#4a3f35; --ink-soft:#685f55; --muted:#8a7f72;
+  --ink:#4a3f35; --ink-soft:#5f564b; --muted:#6f6458;
   --pine:#1C4B3C; --pine-deep:#123227; --on-pine:#EAF2ED; --pine-muted:#9DBFB0;
   --accent:#01696f; --accent-lit:#dce9e7; --on-accent:#fffdf9; --accent-hover:#0c4e54;
   --btn:#2f6f68; --btn-hover:#265450;
@@ -85,7 +86,7 @@
 .page p{margin:0; text-wrap:pretty}
 .page h1,.page h2,.page h3,.page h4{margin:0; font-family:var(--display); font-weight:750; letter-spacing:-.02em; line-height:1.06; text-wrap:balance}
 .page ul,.page ol{margin:0; padding:0; list-style:none}
-.page a{color:inherit}
+.page a:not(.btn){color:inherit}
 .page :focus-visible{outline:2.5px solid var(--focus); outline-offset:3px; border-radius:2px}
 
 .wrap{width:100%; max-width:var(--measure); margin-inline:auto; padding-inline:clamp(1.15rem,4vw,2.5rem)}
@@ -120,7 +121,15 @@
 .nav a{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
   text-decoration:none; color:var(--muted); transition:color .18s ease; white-space:nowrap}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--ink)}
-@media (max-width:980px){.nav{display:none}}
+.nav-toggle{display:none; font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500;
+  background:none; border:1.5px solid var(--rule); border-radius:6px; padding:.5rem .75rem; cursor:pointer; color:var(--ink)}
+@media (max-width:980px){
+  .nav-toggle{display:inline-block}
+  .topbar-in{flex-wrap:wrap}
+  .nav{display:none; flex-basis:100%; flex-direction:column; align-items:flex-start; gap:.9rem; padding:.6rem 0 1rem;
+    background:var(--paper); border-bottom:1px solid var(--rule); position:static}
+  .nav.open{display:flex}
+}
 
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
   font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500;
@@ -137,15 +146,23 @@
 /* ---------- Breadcrumb ---------- */
 .crumb{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; font-family:var(--mono);
   font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding-block:1.25rem}
-.crumb a{color:var(--muted); text-decoration:none}
+.crumb a{color:var(--muted); text-decoration:none; padding:.5rem .15rem; display:inline-block; min-height:44px; line-height:44px}
 .crumb a:hover{color:var(--ink)}
 .crumb span[aria-hidden]{color:var(--rule)}
 .crumb b{color:var(--ink); font-weight:500}
 
 /* ---------- Department filter tabs ---------- */
 .deptbar{position:sticky; top:60px; z-index:30; background:var(--paper); border-bottom:1px solid var(--rule)}
-.deptbar-in{display:flex; gap:.5rem; overflow-x:auto; padding-block:.75rem; scrollbar-width:none}
-.deptbar-in::-webkit-scrollbar{display:none}
+.deptbar-in{display:flex; gap:.5rem; overflow-x:auto; padding-block:.75rem; scrollbar-width:thin;
+  scrollbar-color:var(--rule) transparent;
+  mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 14px),transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 14px),transparent 100%)}
+.deptbar-in::-webkit-scrollbar{height:5px}
+.deptbar-in::-webkit-scrollbar-thumb{background:var(--rule); border-radius:3px}
+@media (max-width:640px){
+  .deptbar-in{flex-wrap:wrap; overflow:visible; mask-image:none; -webkit-mask-image:none; padding-block:.6rem}
+  .deptbar{position:static}
+}
 .dtab{font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; font-weight:500;
   white-space:nowrap; padding:.5rem .85rem; border-radius:2px; border:1px solid var(--rule); color:var(--ink-soft);
   text-decoration:none; transition:border-color .15s ease, color .15s ease, background .15s ease}
@@ -155,7 +172,7 @@
 /* ---------- Shop grid ---------- */
 .dept{display:flex; align-items:baseline; gap:1rem; padding:2.25rem 0 1.1rem; border-bottom:1px solid var(--rule); flex-wrap:wrap}
 .dept-code{font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:500; white-space:nowrap}
-.dept h3{font-size:clamp(1.3rem,2.2vw,1.6rem); font-weight:750; letter-spacing:-.024em}
+.dept h3,.dept-title{font-size:clamp(1.3rem,2.2vw,1.6rem); font-weight:750; letter-spacing:-.024em}
 .dept p{color:var(--muted); font-size:.94rem; margin-left:auto; max-width:38ch; line-height:1.5}
 @media (max-width:760px){.dept p{margin-left:0; flex-basis:100%}}
 
@@ -172,7 +189,7 @@
    distinct actions — matches how real ESA marketplaces do product cards. */
 a.product{text-decoration:none; color:inherit}
 .product-link{display:block; text-decoration:none; color:inherit}
-.product-link:hover h4{color:var(--accent)}
+.product-link:hover h3{color:var(--accent)}
 .price-line{display:flex; align-items:baseline; justify-content:space-between; gap:.75rem}
 .price-line .price{font-size:1.3rem}
 .thumb{aspect-ratio:4/3; background:
@@ -183,9 +200,9 @@ a.product{text-decoration:none; color:inherit}
   color:var(--muted); font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; text-align:center; padding:1rem}
 .pbody{font-family:'Newsreader',Georgia,'Times New Roman',serif; color:#4a3f35; background:
     radial-gradient(circle at top left, rgba(47, 111, 104, 0.035), transparent 26%),
-    linear-gradient(to bottom, #f8f4ed 0%, #f3eee6 100%); min-height:100vh; min-height:100dvh; -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden
+    linear-gradient(to bottom, #f8f4ed 0%, #f3eee6 100%); min-height:100vh; min-height:100dvh; -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden}
 .sku{font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:500}
-.product h4{font-family:var(--display); font-size:1.06rem; font-weight:750; letter-spacing:-.02em; line-height:1.22}
+.product h3{font-family:var(--display); font-size:1.06rem; font-weight:750; letter-spacing:-.02em; line-height:1.22}
 .product .desc{color:var(--ink-soft); font-size:.92rem; line-height:1.5}
 .price-row{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-top:auto; padding-top:.4rem}
 .price{font-family:var(--display); font-weight:750; font-size:1.35rem; letter-spacing:-.026em; font-variant-numeric:tabular-nums}
@@ -260,7 +277,7 @@ a.product{text-decoration:none; color:inherit}
   padding-bottom:1.25rem; border-bottom:1px solid #EAF2ED1f}
 .foot-brand{font-family:var(--display); font-weight:800; font-size:1.05rem; letter-spacing:-.045em}
 .foot-nav{display:flex; flex-wrap:wrap; gap:1.1rem}
-.foot-nav a{font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pine-muted); text-decoration:none}
+.foot-nav a{font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pine-muted); text-decoration:none; padding:0 .2rem; display:inline-block; line-height:44px}
 .foot-nav a:hover{color:var(--on-pine)}
 .disclaim{color:var(--pine-muted); font-size:.82rem; line-height:1.6; max-width:78ch; padding-top:1.25rem}
 
@@ -389,6 +406,9 @@ a.product{text-decoration:none; color:inherit}
         <a href="../store/shop.html">ESA / TEFA store</a>
         <a href="../store/track.html">Track order</a>
         <a href="mailto:Mmminvestment25@gmail.com">Email</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../shipping.html">Shipping &amp; returns</a>
       </nav>
     </div>
     <p class="disclaim">General Store is a development preview only. Price, author credit, page count, ISBN, description, and cover remain unfinished; no order or payment is available.</p>

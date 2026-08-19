@@ -27,13 +27,14 @@ __STORE_SHARED_CSS__
       <span class="brand-mark">Preparation Station</span>
       <span class="brand-sub mono">Nationwide Acquisitions, LLC</span>
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav" id="storeNav" aria-label="Primary">
       <a href="shop.html">Catalog</a>
       <a href="../esa.html">TEFA</a>
       <a href="track.html" aria-current="page">Track order</a>
       <a href="../index.html#faq">FAQ</a>
     </nav>
-    <a class="btn btn-ghost btn-sm" href="order.html">Request <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
+<button class="nav-toggle" aria-label="Menu" aria-expanded="false" id="navToggle">Menu</button>
+        <a class="btn btn-ghost btn-sm" href="order.html">Request <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
   </div>
 </header>
 
@@ -60,15 +61,18 @@ __STORE_SHARED_CSS__
 
     <form id="order-access-form" class="track-form">
       <span class="mono">Preparation Station tracking</span>
-      <h2 class="h-md" style="padding-top:.45rem">Get a secure order link</h2>
+      <h2 class="h-md" style="padding-top:.45rem">Secure order tracking is not live yet</h2>
+      <p class="prose" style="padding-bottom:1rem">TEFA purchases and official order history stay in the Odyssey
+        Marketplace. Secure tracking links arrive by email once the verified order-tracking service is
+        enabled — until then, email us and we'll confirm status within one business day.</p>
       <div class="field">
         <label for="order-access-email">Adult email used for the order</label>
-        <input id="order-access-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+        <input id="order-access-email" name="email" type="email" autocomplete="email" maxlength="254" disabled aria-disabled="true" style="opacity:.6" placeholder="Tracking not live yet">
       </div>
-      <button id="order-access-submit" type="submit" class="btn btn-solid" disabled aria-disabled="true">Secure tracking is being configured</button>
-      <p id="order-access-status" class="track-status" role="status" aria-live="polite">Checking secure order access.</p>
+      <a class="btn btn-solid btn-block" href="mailto:mmminvestment25@gmail.com?subject=Order%20status%20request">Ask about an order by email</a>
+      <p id="order-access-status" class="track-status" role="status" aria-live="polite" hidden></p>
       <p id="order-access-error" class="track-error" role="alert" hidden></p>
-      <p class="track-private">For privacy, this page never displays orders from an email and order number alone. Do not send a child name, school record, TEFA login, bank information, or card number.</p>
+      <p class="track-private">For privacy, never send a child name, school record, TEFA login, bank information, or card number by email.</p>
     </form>
   </section>
 </main>
@@ -82,6 +86,9 @@ __STORE_SHARED_CSS__
         <a href="order.html">Request</a>
         <a href="track.html">Track order</a>
         <a href="mailto:mmminvestment25@gmail.com">Email</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../shipping.html">Shipping &amp; returns</a>
       </nav>
     </div>
     <p class="disclaim">Preparation Station is operated by Nationwide Acquisitions, LLC. TEFA purchases and official TEFA order history remain in the Odyssey Marketplace.</p>
@@ -90,3 +97,4 @@ __STORE_SHARED_CSS__
 </div>
 
 <script src="track.js" defer></script>
+<script src="nav.js" defer></script>

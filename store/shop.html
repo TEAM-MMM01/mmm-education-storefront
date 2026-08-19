@@ -6,6 +6,7 @@
 <title>Shop — Preparation Station</title>
 <meta name="description" content="Preparation Station educational products; approved TEFA offerings are purchased through the official Odyssey Marketplace.">
 <meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2301696f'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23fffdf9' text-anchor='middle'%3EPS%3C/text%3E%3C/svg%3E">
 <meta property="og:title" content="Shop — Preparation Station">
 <meta property="og:description" content="Preparation Station educational products; approved TEFA offerings are purchased through the official Odyssey Marketplace.">
 <meta property="og:type" content="website">
@@ -38,7 +39,7 @@
 /* ---------- Tokens ---------- */
 :root{
   --paper:#efe8d8; --paper-2:#e8dfcb; --card:#f6f0e2;
-  --ink:#4a3f35; --ink-soft:#685f55; --muted:#8a7f72;
+  --ink:#4a3f35; --ink-soft:#5f564b; --muted:#6f6458;
   --pine:#1C4B3C; --pine-deep:#123227; --on-pine:#EAF2ED; --pine-muted:#9DBFB0;
   --accent:#01696f; --accent-lit:#dce9e7; --on-accent:#fffdf9; --accent-hover:#0c4e54;
   --btn:#2f6f68; --btn-hover:#265450;
@@ -79,7 +80,7 @@
 .page p{margin:0; text-wrap:pretty}
 .page h1,.page h2,.page h3,.page h4{margin:0; font-family:var(--display); font-weight:750; letter-spacing:-.02em; line-height:1.06; text-wrap:balance}
 .page ul,.page ol{margin:0; padding:0; list-style:none}
-.page a{color:inherit}
+.page a:not(.btn){color:inherit}
 .page :focus-visible{outline:2.5px solid var(--focus); outline-offset:3px; border-radius:2px}
 
 .wrap{width:100%; max-width:var(--measure); margin-inline:auto; padding-inline:clamp(1.15rem,4vw,2.5rem)}
@@ -114,7 +115,15 @@
 .nav a{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
   text-decoration:none; color:var(--muted); transition:color .18s ease; white-space:nowrap}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--ink)}
-@media (max-width:980px){.nav{display:none}}
+.nav-toggle{display:none; font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500;
+  background:none; border:1.5px solid var(--rule); border-radius:6px; padding:.5rem .75rem; cursor:pointer; color:var(--ink)}
+@media (max-width:980px){
+  .nav-toggle{display:inline-block}
+  .topbar-in{flex-wrap:wrap}
+  .nav{display:none; flex-basis:100%; flex-direction:column; align-items:flex-start; gap:.9rem; padding:.6rem 0 1rem;
+    background:var(--paper); border-bottom:1px solid var(--rule); position:static}
+  .nav.open{display:flex}
+}
 
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
   font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500;
@@ -131,15 +140,23 @@
 /* ---------- Breadcrumb ---------- */
 .crumb{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; font-family:var(--mono);
   font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding-block:1.25rem}
-.crumb a{color:var(--muted); text-decoration:none}
+.crumb a{color:var(--muted); text-decoration:none; padding:.5rem .15rem; display:inline-block; min-height:44px; line-height:44px}
 .crumb a:hover{color:var(--ink)}
 .crumb span[aria-hidden]{color:var(--rule)}
 .crumb b{color:var(--ink); font-weight:500}
 
 /* ---------- Department filter tabs ---------- */
 .deptbar{position:sticky; top:60px; z-index:30; background:var(--paper); border-bottom:1px solid var(--rule)}
-.deptbar-in{display:flex; gap:.5rem; overflow-x:auto; padding-block:.75rem; scrollbar-width:none}
-.deptbar-in::-webkit-scrollbar{display:none}
+.deptbar-in{display:flex; gap:.5rem; overflow-x:auto; padding-block:.75rem; scrollbar-width:thin;
+  scrollbar-color:var(--rule) transparent;
+  mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 14px),transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14px,#000 calc(100% - 14px),transparent 100%)}
+.deptbar-in::-webkit-scrollbar{height:5px}
+.deptbar-in::-webkit-scrollbar-thumb{background:var(--rule); border-radius:3px}
+@media (max-width:640px){
+  .deptbar-in{flex-wrap:wrap; overflow:visible; mask-image:none; -webkit-mask-image:none; padding-block:.6rem}
+  .deptbar{position:static}
+}
 .dtab{font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; font-weight:500;
   white-space:nowrap; padding:.5rem .85rem; border-radius:2px; border:1px solid var(--rule); color:var(--ink-soft);
   text-decoration:none; transition:border-color .15s ease, color .15s ease, background .15s ease}
@@ -149,7 +166,7 @@
 /* ---------- Shop grid ---------- */
 .dept{display:flex; align-items:baseline; gap:1rem; padding:2.25rem 0 1.1rem; border-bottom:1px solid var(--rule); flex-wrap:wrap}
 .dept-code{font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:500; white-space:nowrap}
-.dept h3{font-size:clamp(1.3rem,2.2vw,1.6rem); font-weight:750; letter-spacing:-.024em}
+.dept h3,.dept-title{font-size:clamp(1.3rem,2.2vw,1.6rem); font-weight:750; letter-spacing:-.024em}
 .dept p{color:var(--muted); font-size:.94rem; margin-left:auto; max-width:38ch; line-height:1.5}
 @media (max-width:760px){.dept p{margin-left:0; flex-basis:100%}}
 
@@ -166,7 +183,7 @@
    distinct actions — matches how real ESA marketplaces do product cards. */
 a.product{text-decoration:none; color:inherit}
 .product-link{display:block; text-decoration:none; color:inherit}
-.product-link:hover h4{color:var(--accent)}
+.product-link:hover h3{color:var(--accent)}
 .price-line{display:flex; align-items:baseline; justify-content:space-between; gap:.75rem}
 .price-line .price{font-size:1.3rem}
 .thumb{aspect-ratio:4/3; background:
@@ -177,9 +194,9 @@ a.product{text-decoration:none; color:inherit}
   color:var(--muted); font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; text-align:center; padding:1rem}
 .pbody{font-family:'Newsreader',Georgia,'Times New Roman',serif; color:#4a3f35; background:
     radial-gradient(circle at top left, rgba(47, 111, 104, 0.035), transparent 26%),
-    linear-gradient(to bottom, #f8f4ed 0%, #f3eee6 100%); min-height:100vh; min-height:100dvh; -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden
+    linear-gradient(to bottom, #f8f4ed 0%, #f3eee6 100%); min-height:100vh; min-height:100dvh; -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden}
 .sku{font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:500}
-.product h4{font-family:var(--display); font-size:1.06rem; font-weight:750; letter-spacing:-.02em; line-height:1.22}
+.product h3{font-family:var(--display); font-size:1.06rem; font-weight:750; letter-spacing:-.02em; line-height:1.22}
 .product .desc{color:var(--ink-soft); font-size:.92rem; line-height:1.5}
 .price-row{display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-top:auto; padding-top:.4rem}
 .price{font-family:var(--display); font-weight:750; font-size:1.35rem; letter-spacing:-.026em; font-variant-numeric:tabular-nums}
@@ -254,7 +271,7 @@ a.product{text-decoration:none; color:inherit}
   padding-bottom:1.25rem; border-bottom:1px solid #EAF2ED1f}
 .foot-brand{font-family:var(--display); font-weight:800; font-size:1.05rem; letter-spacing:-.045em}
 .foot-nav{display:flex; flex-wrap:wrap; gap:1.1rem}
-.foot-nav a{font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pine-muted); text-decoration:none}
+.foot-nav a{font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pine-muted); text-decoration:none; padding:0 .2rem; display:inline-block; line-height:44px}
 .foot-nav a:hover{color:var(--on-pine)}
 .disclaim{color:var(--pine-muted); font-size:.82rem; line-height:1.6; max-width:78ch; padding-top:1.25rem}
 
@@ -321,12 +338,13 @@ a.product{text-decoration:none; color:inherit}
       <span class="brand-mark">Preparation Station</span>
       <span class="brand-sub mono">Nationwide Acquisitions, LLC</span>
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav" id="storeNav" aria-label="Primary">
       <a href="shop.html" aria-current="page">Shop</a>
       <a href="../esa.html">Funding help</a>
       <a href="track.html">Track order</a>
       <a href="../index.html#faq">FAQ</a>
       </nav>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" id="navToggle">Menu</button>
     <a class="btn btn-ghost btn-sm" href="order.html">Order <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
   </div>
 </header>
@@ -343,6 +361,7 @@ a.product{text-decoration:none; color:inherit}
 
 <main id="main">
   <section class="wrap hero-shop">
+    <p class="badge-good" style="margin-bottom:1rem">&#10003; Approved TEFA Marketplace Vendor</p>
     <h1>The catalog.</h1>
     <p>Real items, honest status. Every listing is information only and is not an offer
       for sale: each item must complete offering review in the official Odyssey
@@ -354,7 +373,7 @@ a.product{text-decoration:none; color:inherit}
     <!-- DEPT 01 -->
     <div class="dept" id="d01">
       <span class="dept-code">Dept. 01</span>
-      <h3>Practical &amp; Trade</h3>
+      <h2 class="dept-title">Practical &amp; Trade</h2>
       <p>Real tools, real repairs, real money. The competence that makes a household run.</p>
     </div>
     <div class="shelf">
@@ -364,7 +383,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-PR-101"><h4>Home &amp; Repair Tool Roll</h4></a>
+          <a class="product-link" href="product.html?sku=PS-PR-101"><h3>Home &amp; Repair Tool Roll</h3></a>
           <p class="desc">18-piece tool roll plus the eight repairs that cover most of what breaks in a house.</p>
           <span class="sku">PS-PR-101</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-PR-101" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -376,7 +395,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-PR-102"><h4>Money &amp; First Job Kit</h4></a>
+          <a class="product-link" href="product.html?sku=PS-PR-102"><h3>Money &amp; First Job Kit</h3></a>
           <p class="desc">A first-paycheck simulation, budget ledger, and how to negotiate a rate without flinching.</p>
           <span class="sku">PS-PR-102</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-PR-102" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -388,7 +407,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-PR-103"><h4>Kitchen &amp; Provision Kit</h4></a>
+          <a class="product-link" href="product.html?sku=PS-PR-103"><h3>Kitchen &amp; Provision Kit</h3></a>
           <p class="desc">Feeding yourself well and cheaply — a life skill and a maths lesson at once.</p>
           <span class="sku">PS-PR-103</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-PR-103" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -399,7 +418,7 @@ a.product{text-decoration:none; color:inherit}
     <!-- DEPT 02 -->
     <div class="dept" id="d02">
       <span class="dept-code">Dept. 02</span>
-      <h3>Situation Handling &amp; Self-Command</h3>
+      <h2 class="dept-title">Situation Handling &amp; Self-Command</h2>
       <p>The department nobody else stocks. Rehearsal for the moments that actually decide things.</p>
     </div>
     <div class="shelf">
@@ -409,7 +428,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-SC-201"><h4>Situation Handling Deck</h4></a>
+          <a class="product-link" href="product.html?sku=PS-SC-201"><h3>Situation Handling Deck</h3></a>
           <p class="desc">Sixty scenarios worked through before they happen, so the response is practised, not improvised.</p>
           <span class="sku">PS-SC-201</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-SC-201" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -421,7 +440,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-SC-202"><h4>Focus &amp; Energy System</h4></a>
+          <a class="product-link" href="product.html?sku=PS-SC-202"><h3>Focus &amp; Energy System</h3></a>
           <p class="desc">A physical planning system for students who bounce off apps — paper holds people accountable.</p>
           <span class="sku">PS-SC-202</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-SC-202" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -433,7 +452,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-SC-203"><h4>Self-Advocacy Workbook</h4></a>
+          <a class="product-link" href="product.html?sku=PS-SC-203"><h3>Self-Advocacy Workbook</h3></a>
           <p class="desc">Asking for what you need, holding a boundary, and putting it in writing when it matters.</p>
           <span class="sku">PS-SC-203</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-SC-203" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -445,7 +464,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-SC-204"><h4>Interview &amp; First Job Prep Kit</h4></a>
+          <a class="product-link" href="product.html?sku=PS-SC-204"><h3>Interview &amp; First Job Prep Kit</h3></a>
           <p class="desc">Sixty mock-interview questions, a resume worksheet, and the scripts for the calls and follow-ups that actually land the job.</p>
           <span class="sku">PS-SC-204</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-SC-204" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -457,7 +476,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-SC-205"><h4>Adulting Launch Kit</h4></a>
+          <a class="product-link" href="product.html?sku=PS-SC-205"><h3>Adulting Launch Kit</h3></a>
           <p class="desc">Renting a first place, reading a pay stub, basic taxes and insurance &mdash; the head start for the year school hands them a diploma instead.</p>
           <span class="sku">PS-SC-205</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-SC-205" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -468,7 +487,7 @@ a.product{text-decoration:none; color:inherit}
     <!-- DEPT 03 -->
     <div class="dept" id="d03">
       <span class="dept-code">Dept. 03</span>
-      <h3>Design &amp; Motion Studio</h3>
+      <h2 class="dept-title">Design &amp; Motion Studio</h2>
       <p>Professional creative tools, taught to a finished portfolio and a first paid job.</p>
     </div>
     <div class="shelf">
@@ -478,7 +497,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-CS-301"><h4>Graphic Design Bench</h4></a>
+          <a class="product-link" href="product.html?sku=PS-CS-301"><h3>Graphic Design Bench</h3></a>
           <p class="desc">A real drawing tablet and the fundamentals that separate design from decoration.</p>
           <span class="sku">PS-CS-301</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-CS-301" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -490,19 +509,19 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-CS-302"><h4>Motion &amp; Video Kit</h4></a>
+          <a class="product-link" href="product.html?sku=PS-CS-302"><h3>Motion &amp; Video Kit</h3></a>
           <p class="desc">Lighting, sound, and an edit that holds attention. Six finished pieces by the end.</p>
           <span class="sku">PS-CS-302</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-CS-302" disabled aria-disabled="true">Under review — not for sale yet</button>
         </div>
       </article>
       <article class="product">
-        <a class="product-link" href="product.html?sku=PS-CS-303" aria-label="View Skill-to-Income Pack">
+        <a class="product-link" href="product.html?sku=PS-CS-303" aria-label="Skill-to- Income Pack">
           <div class="thumb">Skill-to-<br>Income Pack</div>
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-CS-303"><h4>Skill-to-Income Pack</h4></a>
+          <a class="product-link" href="product.html?sku=PS-CS-303"><h3>Skill-to-Income Pack</h3></a>
           <p class="desc">What creative courses skip: what the work is worth and how to get paid for it.</p>
           <span class="sku">PS-CS-303</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-CS-303" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -513,7 +532,7 @@ a.product{text-decoration:none; color:inherit}
     <!-- DEPT 04 -->
     <div class="dept" id="d04">
       <span class="dept-code">Dept. 04</span>
-      <h3>AI &amp; Emerging Tech Bench</h3>
+      <h2 class="dept-title">AI &amp; Emerging Tech Bench</h2>
       <p>How the machines actually work, built and tested by hand — not narrated on a screen.</p>
     </div>
     <div class="shelf">
@@ -523,7 +542,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-AT-401"><h4>AI Literacy Bench Kit</h4></a>
+          <a class="product-link" href="product.html?sku=PS-AT-401"><h3>AI Literacy Bench Kit</h3></a>
           <p class="desc">Starts offline. What a model is, where it fails, and how not to be fooled by one.</p>
           <span class="sku">PS-AT-401</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-AT-401" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -535,7 +554,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-AT-402"><h4>Electronics &amp; Robotics Starter</h4></a>
+          <a class="product-link" href="product.html?sku=PS-AT-402"><h3>Electronics &amp; Robotics Starter</h3></a>
           <p class="desc">A microcontroller, a pile of sensors, and eight builds that end in something that moves.</p>
           <span class="sku">PS-AT-402</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-AT-402" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -547,7 +566,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-AT-403"><h4>3D Design &amp; Fabrication Intro</h4></a>
+          <a class="product-link" href="product.html?sku=PS-AT-403"><h3>3D Design &amp; Fabrication Intro</h3></a>
           <p class="desc">Model it to spec, hold it in your hand, find out where the tolerance was wrong.</p>
           <span class="sku">PS-AT-403</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-AT-403" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -558,7 +577,7 @@ a.product{text-decoration:none; color:inherit}
     <!-- DEPT 05 -->
     <div class="dept" id="d05">
       <span class="dept-code">Dept. 05</span>
-      <h3>Homeschool Essentials</h3>
+      <h2 class="dept-title">Homeschool Essentials</h2>
       <p>The ordinary supplies and curriculum every homeschool needs, with TEFA purchase handled in Odyssey after offering approval.</p>
     </div>
     <div class="shelf">
@@ -568,7 +587,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-HS-501"><h4>Core Subjects Workbook Set</h4></a>
+          <a class="product-link" href="product.html?sku=PS-HS-501"><h3>Core Subjects Workbook Set</h3></a>
           <p class="desc">Math, reading, and science workbooks with answer keys and a scope-and-sequence chart.</p>
           <span class="sku">PS-HS-501</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-HS-501" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -580,7 +599,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-HS-502"><h4>Homeschool Assessment &amp; Portfolio Kit</h4></a>
+          <a class="product-link" href="product.html?sku=PS-HS-502"><h3>Homeschool Assessment &amp; Portfolio Kit</h3></a>
           <p class="desc">Practice assessments, a work-sample log, and the portfolio binder some programs require on file.</p>
           <span class="sku">PS-HS-502</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-HS-502" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -592,7 +611,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-HS-503"><h4>Daily Supply Restock Box</h4></a>
+          <a class="product-link" href="product.html?sku=PS-HS-503"><h3>Daily Supply Restock Box</h3></a>
           <p class="desc">Paper, pencils, folders, and glue — the ordinary consumables every homeschool burns through.</p>
           <span class="sku">PS-HS-503</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-HS-503" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -604,7 +623,7 @@ a.product{text-decoration:none; color:inherit}
         </a>
         <div class="pbody">
           <div class="price-line"><span class="price">No price published</span><span class="eligible">Under offering review</span></div>
-          <a class="product-link" href="product.html?sku=PS-HS-504"><h4>Art &amp; Craft Foundations Kit</h4></a>
+          <a class="product-link" href="product.html?sku=PS-HS-504"><h3>Art &amp; Craft Foundations Kit</h3></a>
           <p class="desc">Supplies for an elective or creative-credit block, sized for a semester.</p>
           <span class="sku">PS-HS-504</span>
           <button type="button" class="btn btn-solid btn-sm btn-block" data-request-sku="PS-HS-504" disabled aria-disabled="true">Under review — not for sale yet</button>
@@ -628,6 +647,9 @@ a.product{text-decoration:none; color:inherit}
         <a href="track.html">Track order</a>
         <a href="../esa.html">Funding help</a>
             <a href="mailto:Mmminvestment25@gmail.com">Email</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../shipping.html">Shipping &amp; returns</a>
       </nav>
     </div>
     <p class="disclaim">Prices, availability, and product eligibility are pending verification.
@@ -637,6 +659,7 @@ a.product{text-decoration:none; color:inherit}
 </div>
 
 <script src="cart.js" defer></script>
+<script src="nav.js" defer></script>
 
 </body>
 </html>

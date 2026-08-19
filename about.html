@@ -6,6 +6,7 @@
 <title>About Us — Preparation Station</title>
 <meta name="description" content="Preparation Station — information, policies, and support.">
 <meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2301696f'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23fffdf9' text-anchor='middle'%3EPS%3C/text%3E%3C/svg%3E">
 <meta property="og:title" content="About Us — Preparation Station">
 <meta property="og:description" content="Preparation Station — information, policies, and support.">
 <meta property="og:type" content="website">
@@ -97,7 +98,7 @@ html,body{margin:0; padding:0}
 .grid3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.25rem}
 @media (max-width:860px){.grid2,.grid3{grid-template-columns:1fr}}
 .card{background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:1.4rem 1.35rem; box-shadow:var(--shadow)}
-.card h3{font-size:1.15rem; font-weight:700; margin-bottom:.5rem}
+.card h3,.card-title{font-size:1.15rem; font-weight:700; margin-bottom:.5rem}
 .card p{color:var(--ink-soft); font-size:.95rem; line-height:1.6}
 .card .mono{display:block; margin-bottom:.55rem; color:var(--accent)}
 
@@ -115,7 +116,7 @@ html,body{margin:0; padding:0}
 .foot-in{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:2rem; padding-block:3rem 2rem}
 @media (max-width:860px){.foot-in{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:540px){.foot-in{grid-template-columns:1fr}}
-.foot h4{font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:var(--pine-muted); margin-bottom:.85rem}
+.foot h4,.foot-title{font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:var(--pine-muted); margin-bottom:.85rem}
 .foot ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.5rem}
 .foot a{color:var(--on-pine); text-decoration:none; font-size:.92rem; transition:color .16s ease}
 .foot a:hover{color:var(--pine-accent)}
@@ -160,20 +161,20 @@ html,body{margin:0; padding:0}
   <section class="grid3 stack-gap reveal" style="display:grid; gap:1.25rem; margin-top:2.5rem">
     <div class="card">
       <span class="mono">What we make</span>
-      <h3>Hands-on learning</h3>
+      <h2 class="card-title">Hands-on learning</h2>
       <p>Eighteen catalog items across five departments: Practical &amp; Trade, Situation
         Handling &amp; Self-Command, Design &amp; Motion Studio, AI &amp; Emerging Tech Bench,
         and Homeschool Essentials.</p>
     </div>
     <div class="card">
       <span class="mono">How we sell</span>
-      <h3>Through approved programs</h3>
+      <h2 class="card-title">Through approved programs</h2>
       <p>TEFA purchases happen in Odyssey. Each offering is reviewed separately before any
         family can buy it with program funds. No payment is collected on this site.</p>
     </div>
     <div class="card">
       <span class="mono">How we help</span>
-      <h3>Guided selection</h3>
+      <h2 class="card-title">Guided selection</h2>
       <p>The Mission Guide matches age band and goals to catalog items, builds a starter
         list, and hands off to funding help when a purchase pathway needs confirming.</p>
     </div>
@@ -192,24 +193,24 @@ html,body{margin:0; padding:0}
 
 <footer class="foot">
   <div class="wrap foot-in">
-    <div><h4>Shop</h4><ul>
+    <div><h2 class="foot-title">Shop</h2><ul>
       <li><a href="store/shop.html">Catalog</a></li>
       <li><a href="shop-by-age.html">Shop by Age</a></li>
       <li><a href="index.html#guide">Mission Guide</a></li>
     </ul></div>
-    <div><h4>Support</h4><ul>
+    <div><h2 class="foot-title">Support</h2><ul>
       <li><a href="esa.html">Funding Help / Eligibility</a></li>
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="store/track.html">Track Order</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul></div>
-    <div><h4>Company</h4><ul>
+    <div><h2 class="foot-title">Company</h2><ul>
       <li><a href="about.html">About Us</a></li>
       <li><a href="privacy.html">Privacy Policy</a></li>
       <li><a href="terms.html">Terms &amp; Conditions</a></li>
       <li><a href="shipping.html">Shipping &amp; Returns</a></li>
     </ul></div>
-    <div><h4>Contact</h4><ul>
+    <div><h2 class="foot-title">Contact</h2><ul>
       <li><a href="mailto:mmminvestment25@gmail.com">mmminvestment25@gmail.com</a></li>
       <li>Responses within one business day</li>
     </ul></div>

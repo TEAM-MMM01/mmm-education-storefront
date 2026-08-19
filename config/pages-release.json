@@ -18,6 +18,7 @@
    "store/order.html",
    "store/track.html",
    "store/cart.js",
+   "store/nav.js",
    "store/track.js",
    "about.html",
    "contact.html",

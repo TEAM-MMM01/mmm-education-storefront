@@ -14,13 +14,14 @@ __STORE_SHARED_CSS__
       <span class="brand-mark">Preparation Station</span>
       <span class="brand-sub mono">Nationwide Acquisitions, LLC</span>
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav" id="storeNav" aria-label="Primary">
       <a href="shop.html">Shop</a>
       <a href="../esa.html">Funding help</a>
       <a href="track.html">Track order</a>
       <a href="../index.html#faq">FAQ</a>
     </nav>
-    <a class="btn btn-ghost btn-sm" href="order.html">Order <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
+<button class="nav-toggle" aria-label="Menu" aria-expanded="false" id="navToggle">Menu</button>
+        <a class="btn btn-ghost btn-sm" href="order.html">Order <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
   </div>
 </header>
 
@@ -79,7 +80,7 @@ __STORE_SHARED_CSS__
     </section>
 
     <section class="band" style="padding-top:0">
-      <div class="opener"><span class="mono">Why this one</span></div>
+      <div class="opener"><h2 class="mono">Why this one</h2></div>
       <div class="split" style="display:grid; grid-template-columns:1fr 1fr; gap:2.5rem">
         <p class="prose">Handing a young person an open chatbot and hoping for the best isn't education,
           and it isn't safe. This kit is built to make the student the one asking the hard questions —
@@ -92,13 +93,13 @@ __STORE_SHARED_CSS__
     </section>
 
     <section class="band" style="padding-top:0">
-      <div class="opener"><span class="mono">Also in AI &amp; Emerging Tech</span></div>
+      <div class="opener"><h2 class="mono">Also in AI &amp; Emerging Tech</h2></div>
       <div class="related">
         <a class="product" href="shop.html#d04">
           <div class="thumb">Electronics &amp;<br>Robotics Starter</div>
           <div class="pbody">
             <span class="sku">PS-AT-402</span>
-            <h4>Electronics &amp; Robotics Starter</h4>
+            <h3>Electronics &amp; Robotics Starter</h3>
             <div class="price-row"><span class="price">Price pending</span></div>
           </div>
         </a>
@@ -106,7 +107,7 @@ __STORE_SHARED_CSS__
           <div class="thumb">3D Design &amp;<br>Fabrication Intro</div>
           <div class="pbody">
             <span class="sku">PS-AT-403</span>
-            <h4>3D Design &amp; Fabrication Intro</h4>
+            <h3>3D Design &amp; Fabrication Intro</h3>
             <div class="price-row"><span class="price">Price pending</span></div>
           </div>
         </a>
@@ -114,7 +115,7 @@ __STORE_SHARED_CSS__
           <div class="thumb">Graphic<br>Design Bench</div>
           <div class="pbody">
             <span class="sku">PS-CS-301</span>
-            <h4>Graphic Design Bench</h4>
+            <h3>Graphic Design Bench</h3>
             <div class="price-row"><span class="price">Price pending</span></div>
           </div>
         </a>
@@ -122,7 +123,7 @@ __STORE_SHARED_CSS__
           <div class="thumb">Focus &amp;<br>Energy System</div>
           <div class="pbody">
             <span class="sku">PS-SC-202</span>
-            <h4>Focus &amp; Energy System</h4>
+            <h3>Focus &amp; Energy System</h3>
             <div class="price-row"><span class="price">Price pending</span></div>
           </div>
         </a>
@@ -141,6 +142,9 @@ __STORE_SHARED_CSS__
         <a href="track.html">Track order</a>
         <a href="../esa.html">Funding help</a>
           <a href="mailto:Mmminvestment25@gmail.com">Email</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../shipping.html">Shipping &amp; returns</a>
       </nav>
     </div>
     <p class="disclaim">Price and product eligibility are pending verification. Preparation Station is
@@ -150,3 +154,4 @@ __STORE_SHARED_CSS__
 </div>
 
 <script src="cart.js" defer></script>
+<script src="nav.js" defer></script>
