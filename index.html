@@ -773,7 +773,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
         <span class="mono">How we handle your request</span>
         <h2>From request to Odyssey in four steps</h2>
         <ol class="stack g-12" style="margin-top:.8rem">
-          <li class="g-item" style="padding:.7rem .9rem"><span class="gi-dept">01</span><span class="gi-info" style="font-size:.92rem; color:var(--ink-soft)">Review the approved offering in the catalog</span></li>
+          <li class="g-item" style="padding:.7rem .9rem"><span class="gi-dept">01</span><span class="gi-info" style="font-size:.92rem; color:var(--ink-soft)">Browse the catalog — items shown are under offering review</span></li>
           <li class="g-item" style="padding:.7rem .9rem"><span class="gi-dept">02</span><span class="gi-info" style="font-size:.92rem; color:var(--ink-soft)">Submit a request — we confirm the pathway in writing</span></li>
           <li class="g-item" style="padding:.7rem .9rem"><span class="gi-dept">03</span><span class="gi-info" style="font-size:.92rem; color:var(--ink-soft)">Confirm eligibility before any purchase</span></li>
           <li class="g-item" style="padding:.7rem .9rem"><span class="gi-dept">04</span><span class="gi-info" style="font-size:.92rem; color:var(--ink-soft)">Purchase through the official Odyssey Marketplace</span></li>
@@ -1277,115 +1277,77 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
 <!-- ============ MISSION GUIDE ============ -->
 <section class="band" id="guide">
   <div class="wrap">
-    <div class="stack g-24 reveal">
+    <div class="section-heading reveal">
       <span class="eyebrow">Mission Guide</span>
       <h2 class="h-lg">Tell us the learner. We'll shortlist the catalog.</h2>
-      <p class="lede">Two quick questions, best-fit picks, and a starter list you can send
-        us. Rule-based and honest: nothing here is for sale until offering review
-        completes in Odyssey.</p>
+      <p class="lede">A quick 5-step flow to build your starter list. Rule-based and honest: nothing is for sale until offering review completes in Odyssey.</p>
     </div>
     <div class="guide-wrap" style="margin-top:2.2rem">
       <div class="guide-box reveal">
         <div class="g-step active" data-step="1">
-          <span class="mono">Step 1 of 2</span>
-          <h3 class="h-md">Who are we shopping for?</h3>
-          <div class="g-options" id="gWho">
-            <button class="g-opt" data-val="3-5">Ages 3–5<small>Launchpad</small></button>
-            <button class="g-opt" data-val="6-8">Ages 6–8<small>Explorer</small></button>
-            <button class="g-opt" data-val="9-12">Ages 9–12<small>Mission Control</small></button>
-            <button class="g-opt" data-val="13-17">Ages 13–17<small>Advanced Command</small></button>
-            <button class="g-opt" data-val="13-17">Myself (adult learner)<small>Learning new skills</small></button>
-            <button class="g-opt" data-val="planner">Parent / Educator<small>Planner Mode</small></button>
+          <span class="mono">Step 1 of 5</span>
+          <h3>Learner type</h3>
+          <div class="g-options">
+            <button class="g-opt" data-val="child">Child (3–12)<small>Guided learning with adult</small></button>
+            <button class="g-opt" data-val="teen">Teen (13–17)<small>Independent learning</small></button>
+            <button class="g-opt" data-val="adult">Adult learner<small>New skills & career</small></button>
+            <button class="g-opt" data-val="educator">Educator / planner<small>Planner Mode</small></button>
           </div>
         </div>
         <div class="g-step" data-step="2">
-          <span class="mono">Step 2 of 2</span>
-          <h3 class="h-md">What's the main goal?</h3>
-          <div class="g-options" id="gGoal">
-            <button class="g-opt" data-val="PR">Practical skills<small>Trades, money, home</small></button>
-            <button class="g-opt" data-val="SC">Focus &amp; self-command<small>Deck, workbook, prep</small></button>
-            <button class="g-opt" data-val="CS">Design &amp; motion<small>Graphics, video, income</small></button>
-            <button class="g-opt" data-val="AT">AI &amp; tech<small>AI literacy, robotics, 3D</small></button>
-            <button class="g-opt" data-val="HS">Homeschool essentials<small>Core workbooks, portfolio</small></button>
+          <span class="mono">Step 2 of 5</span>
+          <h3>Primary goal</h3>
+          <div class="g-options">
+            <button class="g-opt" data-val="skills">Practical skills<small>Daily living & household</small></button>
+            <button class="g-opt" data-val="career">Career readiness<small>Job skills, interview prep</small></button>
+            <button class="g-opt" data-val="finance">Finance & money<small>Budgeting, savings</small></button>
+            <button class="g-opt" data-val="tech">Tech & digital<small>AI literacy, robotics</small></button>
             <button class="g-opt" data-val="any">Not sure yet<small>Show me the best fits</small></button>
           </div>
         </div>
-        <div class="g-step" data-step="3">
-          <span class="mono">Best-fit picks</span>
-          <h3 class="h-md" id="gTitle">Your shortlist</h3>
-          <div class="g-results" id="gResults"></div>
-          <div class="g-actions" id="gActions" style="display:none">
-            <a class="btn btn-solid" id="gMail" href="#">Email my starter list <span class="arr">&rarr;</span></a>
-            <a class="btn btn-ghost" href="store/shop.html">Open the catalog</a>
-          </div>
-          <p class="g-note">Budget matching arrives when verified prices do. Status: every
-            item is under offering review — not for sale yet. Your starter list stays in
-            your own browser.</p>
-          <div class="g-bar" style="margin-top:1rem"><button class="g-back" id="gBack">&larr; Start over</button></div>
-        </div>
-      </div>
-      <div class="guide-aside reveal d2">
-        <div class="card" style="border-radius:14px">
-          <span class="mono">Quick prompts</span>
-          <p class="g-quickp">Tap one to jump straight in</p>
-          <div>
-            <button class="quick-pill" data-who="3-5">Launchpad (3–5)</button>
-            <button class="quick-pill" data-who="6-8">Explorer (6–8)</button>
-            <button class="quick-pill" data-who="9-12">Mission Control (9–12)</button>
-            <button class="quick-pill" data-who="13-17">Advanced Command (13–17)</button>
-            <button class="quick-pill" data-who="planner">Planner Mode</button>
-            <button class="quick-pill" data-who="13-17" data-goal="AT">AI &amp; tech kits</button>
-            <button class="quick-pill" data-who="13-17" data-goal="CS">Design &amp; motion kits</button>
-            <button class="quick-pill" data-who="planner" data-goal="HS">Homeschool planning</button>
+        <div class="guide-step" data-step="3">
+          <span class="mono">Step 3 of 5</span>
+          <h3>Readiness and constraints</h3>
+          <p>Check all that apply:</p>
+          <div class="g-options">
+            <button class="g-opt" data-val="supervise">Adult supervision available</button>
+            <button class="g-opt" data-val="budget">Budget constraints</button>
+            <button class="g-opt" data-val="time">Limited time weekly</button>
+            <button class="g-opt" data-val="access">Accessibility needs</button>
           </div>
         </div>
-        <div class="card" style="border-radius:14px">
-          <span class="mono">The honest part</span>
-          <h3 class="h-md" style="margin-bottom:.5rem">Why nothing has a price yet</h3>
-          <p style="color:var(--ink-soft); font-size:.93rem; line-height:1.6">Every catalog
-            item must complete offering review in the official Odyssey Marketplace before
-            it can be purchased with program funds. We don't publish a price until it's
-            verified. <a href="faq.html" style="font-weight:700">See the FAQ &rarr;</a></p>
+        <div class="guide-step" data-step="4">
+          <span class="mono">Step 4 of 5</span>
+          <h3>Best-fit recommendations</h3>
+          <p>Based on your selections, here are the best-fit catalog items:</p>
+          <div class="g-results">
+            <!-- Results will be populated by JavaScript -->
+          </div>
+          <p class="g-note">Every item is under offering review. No item is for sale yet. Status updates appear as verification completes.</p>
+        </div>
+        <div class="guide-step" data-step="5">
+          <span class="mono">Step 5 of 5</span>
+          <h3>Request starter list</h3>
+          <p>Submit your selections to receive a written confirmation and starter list.</p>
+          <form class="g-request-form">
+            <div class="g-form-group">
+              <label>Name (optional)</label>
+              <input type="text" placeholder="Your name">
+            </div>
+            <div class="g-form-group">
+              <label>Email (optional)</label>
+              <input type="email" placeholder="your@email.com">
+            </div>
+            <button type="submit" class="btn btn--primary">Submit starter list</button>
+          </form>
+          <p class="g-note">We will acknowledge complete requests within one business day. Our written reply will identify the best-fit offerings, their current status, and the verified pathway where applicable.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ STATUS BOARD ============ -->
-<section class="band band-tint" id="eligibility">
-  <div class="wrap">
-    <div class="stack g-24 reveal">
-      <span class="eyebrow">Program &amp; approval status</span>
-      <h2 class="h-lg">Status is published, not promised</h2>
-      <p class="lede">Approval for one program does not establish approval for another,
-        and company approval does not by itself prove that a specific product is
-        eligible.</p>
-    </div>
-    <div class="status-grid" style="margin-top:2.2rem">
-      <div class="status-card ok reveal">
-        <span class="st-ic">&#10003;</span>
-        <h3>TEFA — vendor approved</h3>
-        <p>Nationwide Acquisitions, LLC is approved as a TEFA Marketplace vendor and
-          operates Preparation Station. Each offering is reviewed separately in Odyssey.</p>
-      </div>
-      <div class="status-card wait reveal d1">
-        <span class="st-ic">&#9679;</span>
-        <h3>Catalog offerings — under review</h3>
-        <p>All 18 items are under offering review. None is for sale yet. Listings are
-          information only and are not an offer for sale.</p>
-      </div>
-      <div class="status-card wait reveal d2">
-        <span class="st-ic">&#9679;</span>
-        <h3>PDSES / ClassWallet — not yet confirmed</h3>
-        <p>Status is not yet confirmed and must not be advertised as approved. We will
-          publish it here in writing when it is.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ HOW IT WORKS ============ -->
+<!-- ============ MISSION GUIDE ============ -->
 <section class="band" id="how">
   <div class="wrap">
     <div class="stack g-24 reveal">
@@ -1491,7 +1453,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
         <p><em>Rich Dad Poor Dad</em> and CASHFLOW Classic, listed on the ESA launch page as
           free resources only, not offerings for sale.</p>
         <div class="meta-row"><span class="badge badge--info">External free</span></div>
-        <a class="btn btn--secondary" href="https://esa-launch-command.richie-rich007.chatgpt.site/" target="_blank" rel="noopener">See on ESA launch page</a>
+        <a class="btn btn--secondary" href="#" target="_blank" rel="noopener">See funding help</a>
       </article>
     </div>
     <p style="margin-top:1.4rem;font-size:.85rem;color:var(--ink-soft)">Third-party books, games, and tools are included for educational convenience. Preparation Station is not affiliated with or endorsed by those providers unless explicitly stated.</p>
@@ -1650,7 +1612,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
     </div>
   </div>
   <div class="wrap footer-note">
-    <span>Updated August 16, 2026 &middot; <a href="contact.html">Get in touch</a> &middot; Responses within one business day</span>
+    <span>Updated August 19, 2026 &middot; <a href="contact.html">Get in touch</a> &middot; Responses within one business day</span>
   </div>
 </footer>
 
@@ -1814,7 +1776,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
     var sub=encodeURIComponent("Starter list request ("+n+" item"+(n===1?"":"s")+")");
     var body=encodeURIComponent("Best-fit picks from the Preparation Station Mission Guide:\n\n"+items+
       "\n\n(No prices published yet — please confirm offering status and the correct purchase pathway.)");
-    link.href="mailto:mmminvestment25@gmail.com?subject="+sub+"&body="+body;
+    link.href="contact.html?subject="+sub+"&body="+body;
     link.textContent="Email my starter list ("+n+")";
   }
 })();
