@@ -109,6 +109,12 @@ html,body{margin:0; padding:0}
 .card h3,.card-title{font-size:1.15rem; font-weight:700; margin-bottom:.5rem}
 .card p{color:var(--ink-soft); font-size:.95rem; line-height:1.6}
 .card .mono{display:block; margin-bottom:.55rem; color:var(--accent)}
+.tefa-table{width:100%; border-collapse:collapse; margin-top:1.1rem; font-size:.93rem}
+.tefa-table th,.tefa-table td{text-align:left; padding:.6rem .7rem; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+.tefa-table thead th{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}
+.tefa-table td{color:var(--ink-soft); line-height:1.55}
+.tefa-table td:last-child{white-space:nowrap}
+@media (max-width:640px){.tefa-table thead{display:none}.tefa-table,.tefa-table tbody,.tefa-table tr,.tefa-table td{display:block; width:100%}.tefa-table tr{padding:.8rem 0; border-bottom:1px solid var(--rule-soft)}.tefa-table td{border:none; padding:.15rem 0}.tefa-table td:first-child{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); padding-bottom:.3rem}};
 
 /* ---------- Lists ---------- */
 .list{display:flex; flex-direction:column; gap:.6rem}

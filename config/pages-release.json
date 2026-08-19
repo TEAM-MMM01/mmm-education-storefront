@@ -27,7 +27,8 @@
    "terms.html",
    "shipping.html",
    "shop-by-age.html",
-   "faq.html"
+   "faq.html",
+   "tefa.html"
   ],
   "optional": [
    "config/request-intake.json",
