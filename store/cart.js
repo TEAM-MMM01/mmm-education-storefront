@@ -382,17 +382,15 @@
   function renderOrder() {
     const cart = readCart();
     const list = document.getElementById('order-list');
-    const empty = document.getElementById('order-empty');
     const skus = Object.keys(cart);
 
     if (skus.length === 0) {
-      list.innerHTML = '';
-      if (empty) empty.hidden = false;
+      list.innerHTML =
+        '<tr class="order-empty-row"><td colspan="5" class="order-empty-cell">Your order is empty. <a href="shop.html">Browse the shop</a> to add a kit.</td></tr>';
       updateSummary(0);
       syncRequestAvailability();
       return;
     }
-    if (empty) empty.hidden = true;
 
     list.innerHTML = skus.map(function (sku) {
       const p = PRODUCTS[sku] || { name: sku, price: null, dept: '' };

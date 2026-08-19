@@ -30,20 +30,20 @@
   <section class="grid2 reveal" style="margin-top:2.5rem">
     <div class="card">
       <span class="mono">Request form</span>
-      <h3>Send a message</h3>
+      <h2 class="card-title">Send a message</h2>
       <form id="contact-form" class="stack g-16" style="margin-top:1rem" action="https://formspree.io/f/xoeappwz" method="post">
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label style="display:flex; flex-direction:column; gap:.35rem; font-size:.9rem; font-weight:600">
           Your name
-          <input type="text" name="name" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper)">
+          <input type="text" name="name" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); color-scheme:light">
         </label>
         <label style="display:flex; flex-direction:column; gap:.35rem; font-size:.9rem; font-weight:600">
           Your email
-          <input type="email" name="email" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper)">
+          <input type="email" name="email" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); color-scheme:light">
         </label>
         <label style="display:flex; flex-direction:column; gap:.35rem; font-size:.9rem; font-weight:600">
           Topic
-          <select name="topic" style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper)">
+          <select name="topic" style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); color-scheme:light">
             <option>Product request or question</option>
             <option>Funding / TEFA eligibility</option>
             <option>Order or tracking question</option>
@@ -52,10 +52,10 @@
         </label>
         <label style="display:flex; flex-direction:column; gap:.35rem; font-size:.9rem; font-weight:600">
           Message
-          <textarea name="message" rows="5" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper)"></textarea>
+          <textarea name="message" rows="5" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); color-scheme:light"></textarea>
         </label>
         <button type="submit" class="btn btn-solid">Send message <span class="arr">&rarr;</span></button>
-        <p style="font-size:.85rem; color:var(--muted)">Submitted securely to the Preparation Station
+        <p style="font-size:.85rem; color:var(--ink-soft)">Submitted securely to the Preparation Station
           request inbox; acknowledged within one business day.</p>
         <p id="form-ok" style="display:none; font-size:.9rem; font-weight:600; color:var(--accent)">✓ Message sent — we will reply within one business day.</p>
       </form>
@@ -63,19 +63,19 @@
     <div class="stack g-20">
       <div class="card">
         <span class="mono">Direct email</span>
-        <h3>Prefer email?</h3>
+        <h2 class="card-title">Prefer email?</h2>
         <p><a href="mailto:mmminvestment25@gmail.com">mmminvestment25@gmail.com</a></p>
         <p style="margin-top:.5rem">Acknowledged within one business day.</p>
       </div>
       <div class="card">
         <span class="mono">Before you buy</span>
-        <h3>Check the pathway first</h3>
+        <h2 class="card-title">Check the pathway first</h2>
         <p>For TEFA, purchase only offerings shown as available in the official Odyssey
           Marketplace. <a href="esa.html">See funding help &amp; eligibility</a>.</p>
       </div>
       <div class="card">
         <span class="mono">Requests we receive</span>
-        <h3>How we handle them</h3>
+        <h2 class="card-title">How we handle them</h2>
         <ul class="list" style="margin-top:.75rem">
           <li>We read and acknowledge every complete request.</li>
           <li>We confirm the correct program pathway in writing.</li>
@@ -88,24 +88,24 @@
 
 <footer class="foot">
   <div class="wrap foot-in">
-    <div><h4>Shop</h4><ul>
+    <div><h2 class="foot-title">Shop</h2><ul>
       <li><a href="store/shop.html">Catalog</a></li>
       <li><a href="shop-by-age.html">Shop by Age</a></li>
       <li><a href="MAIN_SITE_URL#guide">Mission Guide</a></li>
     </ul></div>
-    <div><h4>Support</h4><ul>
+    <div><h2 class="foot-title">Support</h2><ul>
       <li><a href="esa.html">Funding Help / Eligibility</a></li>
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="store/track.html">Track Order</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul></div>
-    <div><h4>Company</h4><ul>
+    <div><h2 class="foot-title">Company</h2><ul>
       <li><a href="about.html">About Us</a></li>
       <li><a href="privacy.html">Privacy Policy</a></li>
       <li><a href="terms.html">Terms &amp; Conditions</a></li>
       <li><a href="shipping.html">Shipping &amp; Returns</a></li>
     </ul></div>
-    <div><h4>Contact</h4><ul>
+    <div><h2 class="foot-title">Contact</h2><ul>
       <li><a href="mailto:mmminvestment25@gmail.com">mmminvestment25@gmail.com</a></li>
       <li>Responses within one business day</li>
     </ul></div>

@@ -7,8 +7,8 @@ __STORE_SHARED_CSS__
   border-radius:3px; padding:.7rem .9rem; margin-bottom:1.5rem; background:color-mix(in oklab,var(--gold) 8%,var(--paper));
   font-size:.9rem; color:var(--ink-soft); line-height:1.5}
 .preview-ribbon strong{color:var(--ink)}
-.order-empty{padding:3rem 0; text-align:center; color:var(--muted)}
-.order-empty a{color:var(--accent)}
+.order-empty-row .order-empty-cell{padding:2.4rem 0; text-align:center; color:var(--muted)}
+.order-empty-cell a{color:var(--accent)}
 .request-form{display:flex; flex-direction:column; gap:1rem; margin-top:1rem}
 .request-form .field textarea{font-family:var(--body); font-size:.98rem; color:var(--ink); background:var(--card);
   border:1px solid var(--rule); border-radius:2px; padding:.7rem .8rem; width:100%; resize:vertical}
@@ -34,13 +34,14 @@ __STORE_SHARED_CSS__
       <span class="brand-mark">Preparation Station</span>
       <span class="brand-sub mono">Nationwide Acquisitions, LLC</span>
     </a>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav" id="storeNav" aria-label="Primary">
       <a href="shop.html">Shop</a>
       <a href="../esa.html">Funding help</a>
       <a href="track.html">Track order</a>
       <a href="../index.html#faq">FAQ</a>
     </nav>
-    <a class="btn btn-ghost btn-sm" href="order.html" aria-current="page">Order <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
+<button class="nav-toggle" aria-label="Menu" aria-expanded="false" id="navToggle">Menu</button>
+        <a class="btn btn-ghost btn-sm" href="order.html" aria-current="page">Order <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
   </div>
 </header>
 
@@ -84,11 +85,12 @@ __STORE_SHARED_CSS__
                 <th></th>
               </tr>
             </thead>
-            <tbody id="order-list"></tbody>
+            <tbody id="order-list">
+              <tr class="order-empty-row" id="order-placeholder">
+                <td colspan="5" class="order-empty-cell">Your order is empty. <a href="shop.html">Browse the shop</a> to add a kit.</td>
+              </tr>
+            </tbody>
           </table>
-        </div>
-        <div id="order-empty" class="order-empty" hidden>
-          <p>Your order is empty. <a href="shop.html">Browse the shop</a> to add a kit.</p>
         </div>
       </div>
 
@@ -155,6 +157,9 @@ __STORE_SHARED_CSS__
         <a href="track.html">Track order</a>
         <a href="../esa.html">Funding help</a>
           <a href="mailto:Mmminvestment25@gmail.com">Email</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+        <a href="../shipping.html">Shipping &amp; returns</a>
       </nav>
     </div>
     <p class="disclaim">Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor operating
@@ -165,3 +170,4 @@ __STORE_SHARED_CSS__
 </div>
 
 <script src="cart.js" defer></script>
+<script src="nav.js" defer></script>
