@@ -36,6 +36,14 @@
   --mono:'DMMono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   --measure:1180px;
   --grid-line:#15201B0a;
+  /* Motion tokens — see docs/workflow/MOTION_SYSTEM.md */
+  --ease-standard:cubic-bezier(0.16,1,0.3,1);
+  --ease-soft:cubic-bezier(0.22,1,0.36,1);
+  --ease-exit:cubic-bezier(0.4,0,1,1);
+  --dur-fast:160ms; --dur-ui:220ms; --dur-panel:320ms;
+  --dur-section:520ms; --dur-hero:700ms;
+  --motion-y-sm:6px; --motion-y-md:12px; --motion-y-lg:20px;
+  --motion-scale-hover:1.015;
 }
 
 /* ---------- Base ---------- */
@@ -300,4 +308,47 @@ a.product{text-decoration:none; color:inherit}
 @media (prefers-reduced-motion:reduce){
   .product:hover,.btn:hover{transform:none}
   *{animation:none !important}
+}
+
+/* ---------- Motion modules ----------
+   Standardized with docs/workflow/MOTION_SYSTEM.md. All reveals are
+   gated behind <html class="js"> so content stays visible with no JS.
+   Animate transform/opacity only; never layout properties. */
+html.js .reveal{opacity:0; transform:translateY(var(--motion-y-lg)); transition:opacity var(--dur-section) var(--ease-standard), transform var(--dur-section) var(--ease-standard)}
+html.js .reveal.in{opacity:1; transform:none}
+html.js .reveal-fade{opacity:0; transition:opacity var(--dur-ui) var(--ease-standard)}
+html.js .reveal-fade.in{opacity:1}
+.reveal.d1{transition-delay:.08s} .reveal.d2{transition-delay:.16s}
+.reveal.d3{transition-delay:.24s} .reveal.d4{transition-delay:.32s}
+.reveal.d5{transition-delay:.4s}
+/* stagger-children: parent gets .stagger; direct children cascade on reveal */
+html.js .stagger > *{opacity:0; transform:translateY(var(--motion-y-md)); transition:opacity var(--dur-panel) var(--ease-standard), transform var(--dur-panel) var(--ease-standard)}
+html.js .stagger.in > *{opacity:1; transform:none}
+html.js .stagger > *:nth-child(2){transition-delay:.06s} .stagger > *:nth-child(3){transition-delay:.12s}
+html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(5){transition-delay:.24s}
+html.js .stagger > *:nth-child(6){transition-delay:.3s} .stagger > *:nth-child(7){transition-delay:.36s}
+html.js .stagger > *:nth-child(8){transition-delay:.42s} .stagger > *:nth-child(9){transition-delay:.48s}
+/* card-lift-hover: hover/focus raise for cards and products */
+.card-lift{transition:transform var(--dur-ui) var(--ease-standard), box-shadow var(--dur-ui) var(--ease-standard), border-color var(--dur-ui) var(--ease-standard)}
+.card-lift:hover,.card-lift:focus-visible{transform:translateY(var(--motion-y-sm)) scale(var(--motion-scale-hover,1)); box-shadow:var(--shadow)}
+/* cta-arrow-nudge: arrow nudges on control hover/focus */
+.cta-arrow .arr{display:inline-block; transition:transform var(--dur-ui) var(--ease-standard)}
+.cta-arrow:hover .arr,.cta-arrow:focus-visible .arr{transform:translateX(3px)}
+/* accordion-expand: smooth height+opacity for native <details> answers */
+details.motion-acc{border-bottom:1px solid var(--rule)}
+details.motion-acc summary{list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem}
+details.motion-acc summary::-webkit-details-marker{display:none}
+details.motion-acc summary::after{content:"+"; font-family:var(--mono); color:var(--accent); transition:transform var(--dur-ui) var(--ease-standard)}
+details.motion-acc[open] summary::after{transform:rotate(45deg)}
+details.motion-acc .acc-body{display:grid; grid-template-rows:0fr; opacity:0; transition:grid-template-rows var(--dur-panel) var(--ease-standard), opacity var(--dur-ui) var(--ease-standard)}
+details.motion-acc[open] .acc-body{grid-template-rows:1fr; opacity:1}
+details.motion-acc .acc-body > div{overflow:hidden; min-height:0}
+/* sticky-header-compress: slimmer bar after scroll (applied by motion.js) */
+.topbar.scrolled{box-shadow:0 10px 30px -18px #15201B55; transition:box-shadow var(--dur-ui) var(--ease-standard)}
+@media (min-width:981px){.topbar.scrolled .topbar-in{height:52px}}
+.topbar-in{transition:height var(--dur-ui) var(--ease-standard)}
+@media (prefers-reduced-motion:reduce){
+  html.js .reveal,html.js .reveal-fade,html.js .stagger > *{opacity:1; transform:none; transition:none; transition-delay:0s}
+  details.motion-acc .acc-body{transition:none}
+  .topbar-in{transition:none}
 }

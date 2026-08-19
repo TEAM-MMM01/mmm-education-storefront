@@ -69,6 +69,20 @@ Workflow truth states (use only these exact seven):
 `Locally Complete`, `Queued for Remote Execution`, `Remote Attempted`,
 `Remotely Verified`, `Blocked`, `Awaiting Approval`, `Needs Richie's Lock`.
 
+## Motion rules (permanent)
+
+Follow `docs/workflow/MOTION_SYSTEM.md` for every animation on this and any
+future customer site:
+
+- Motion explains a change or supports discover/compare/choose/request/buy.
+- Use the shared motion tokens (`--ease-*`, `--dur-*`, `--motion-*`) and the
+  standard modules (`.reveal`, `.stagger`, `.card-lift`, `.acc-body`, etc.).
+- Animate `transform`/`opacity` only — never layout properties.
+- Faster for controls (160–220ms), slower for section reveals (320–520ms).
+- Always respect `prefers-reduced-motion`; reveals are gated behind
+  `<html class="js">` so content stays visible without JS.
+- Never animate or delay pricing, approval status, or purchase instructions.
+
 A successful UI, a local commit, a sent message, or a green CI run is
 never by itself proof of completion. Verifiers must be a different
 model from the writer for L4-2 and above. Unresolved questions are

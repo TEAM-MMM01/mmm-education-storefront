@@ -122,6 +122,5 @@
 </div>
 <script>
 (function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-var r=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');r.unobserve(e.target)}})},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(function(el){r.observe(el)});})();
+document.documentElement.classList.add('js');var rt=document.querySelectorAll('.reveal,.stagger');if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){rt.forEach(function(el){el.classList.add('in')});}else{var r=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');r.unobserve(e.target)}})},{threshold:.1});rt.forEach(function(el){r.observe(el)});}})();
 </script>

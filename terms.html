@@ -43,6 +43,14 @@
   --display:'Cabinet Grotesk',ui-sans-serif,system-ui,sans-serif;
   --body:'Satoshi',ui-sans-serif,system-ui,sans-serif;
   --mono:'DMMono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  /* Motion tokens — see docs/workflow/MOTION_SYSTEM.md */
+  --ease-standard:cubic-bezier(0.16,1,0.3,1);
+  --ease-soft:cubic-bezier(0.22,1,0.36,1);
+  --ease-exit:cubic-bezier(0.4,0,1,1);
+  --dur-fast:160ms; --dur-ui:220ms; --dur-panel:320ms;
+  --dur-section:520ms; --dur-hero:700ms;
+  --motion-y-sm:6px; --motion-y-md:12px; --motion-y-lg:20px;
+  --motion-scale-hover:1.015;
   --measure:1120px;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -124,11 +132,30 @@ html,body{margin:0; padding:0}
 .foot-base a{color:var(--pine-muted)}
 .foot-base a:hover{color:var(--pine-accent)}
 
-/* ---------- Motion ---------- */
-.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
-.reveal.in{opacity:1; transform:none}
+/* ---------- Motion ----------
+   Standardized with docs/workflow/MOTION_SYSTEM.md. Reveals are gated
+   behind <html class="js"> so content stays visible with no JS. */
+html.js .reveal{opacity:0; transform:translateY(var(--motion-y-lg)); transition:opacity var(--dur-section) var(--ease-standard), transform var(--dur-section) var(--ease-standard)}
+html.js .reveal.in{opacity:1; transform:none}
+html.js .stagger > *{opacity:0; transform:translateY(var(--motion-y-md)); transition:opacity var(--dur-panel) var(--ease-standard), transform var(--dur-panel) var(--ease-standard)}
+html.js .stagger.in > *{opacity:1; transform:none}
+html.js .stagger > *:nth-child(2){transition-delay:.06s} .stagger > *:nth-child(3){transition-delay:.12s}
+html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(5){transition-delay:.24s}
+.d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s} .d4{transition-delay:.32s}
+/* card-lift-hover */
+.card{transition:transform var(--dur-ui) var(--ease-standard), box-shadow var(--dur-ui) var(--ease-standard), border-color var(--dur-ui) var(--ease-standard)}
+.card:hover{transform:translateY(var(--motion-y-sm))}
+/* cta-arrow-nudge */
+.btn .arr{transition:transform var(--dur-ui) var(--ease-standard)}
+.btn:hover .arr{transform:translateX(3px)}
+/* nav underline glide */
+.nav a:not(.btn){position:relative}
+.nav a:not(.btn)::after{content:""; position:absolute; left:0; right:100%; bottom:.1rem; height:2px; border-radius:2px;
+  background:var(--accent); transition:right var(--dur-ui) var(--ease-standard)}
+.nav a:not(.btn):hover::after,.nav a:not(.btn)[aria-current="page"]::after{right:0}
 @media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1; transform:none; transition:none}
+  html.js .reveal,html.js .stagger > *{opacity:1; transform:none; transition:none; transition-delay:0s}
+  .card:hover{transform:none}
   *{animation:none!important}
 }</style>
 <div class="page">
@@ -234,8 +261,7 @@ html,body{margin:0; padding:0}
 </div>
 <script>
 (function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-var r=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');r.unobserve(e.target)}})},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(function(el){r.observe(el)});})();
+document.documentElement.classList.add('js');var rt=document.querySelectorAll('.reveal,.stagger');if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){rt.forEach(function(el){el.classList.add('in')});}else{var r=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');r.unobserve(e.target)}})},{threshold:.1});rt.forEach(function(el){r.observe(el)});}})();
 </script>
 
 </body>
