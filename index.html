@@ -6,7 +6,7 @@
 <title>Preparation Station — Tools & Resources for Skill-Building Families</title>
 <meta name="description" content="Hands-on life skills, AI literacy, and focus coaching for students aged 8-18, funded through your family's TEFA account.">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2301696f'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23fffdf9' text-anchor='middle'%3EPS%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23123f35'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23fffdf9' text-anchor='middle'%3EPS%3C/text%3E%3C/svg%3E">
 <meta property="og:title" content="Preparation Station — Tools & Resources for Skill-Building Families">
 <meta property="og:description" content="Hands-on life skills, AI literacy, and focus coaching for students aged 8-18, funded through your family's TEFA account.">
 <meta property="og:type" content="website">
@@ -36,17 +36,17 @@
 
 /* ---------- Tokens ---------- */
 :root{
-  --paper:#efe8d8; --paper-2:#e8dfcb; --card:#f6f0e2;
-  --ink:#4a3f35; --ink-soft:#685f55; --muted:#8a7f72;
-  --accent:#01696f; --accent-lit:#dce9e7; --on-accent:#fffdf9; --accent-hover:#0c4e54;
-  --btn:#2f6f68; --btn-hover:#265450;
-  --pine:#1C4B3C; --pine-deep:#123227; --on-pine:#EAF2ED; --pine-muted:#9DBFB0;
-  --pine-accent:#EDB25E; --on-pine-accent:#12261E;
-  --clay:#A44E36; --clay-lit:#f4e3dc;
+  --paper:#f5efe3; --paper-2:#eee5d4; --card:#fffdf8;
+  --ink:#293b36; --ink-soft:#50645e; --muted:#6f7f79;
+  --accent:#a94428; --accent-lit:#fbe1d7; --on-accent:#fffdf8; --accent-hover:#7f2f1c;
+  --btn:#123f35; --btn-hover:#0d3028;
+  --pine:#123f35; --pine-deep:#0d3028; --on-pine:#fffdf8; --pine-muted:#b7d2c6;
+  --pine-accent:#f0c369; --on-pine-accent:#123f35;
+  --clay:#d96844; --clay-lit:#f4e3dc;
   --gold:#8A5F18; --gold-lit:#f5e9d3;
   --plum:#5B3B6E; --plum-lit:#ece3f1;
   --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
-  --rule:#15201B26; --rule-soft:#15201B14;
+  --rule:#ded4c2; --rule-soft:#ebe3d5;
   --focus:var(--accent);
   --shadow:0 1px 2px #15201B0d, 0 12px 28px -18px #15201B40;
   --shadow-lg:0 2px 4px #15201B0d, 0 24px 48px -24px #15201B55;
@@ -69,8 +69,8 @@
 .page{
   font-family:var(--body); font-size:1rem; line-height:1.7;
   color:var(--ink); background:
-    radial-gradient(circle at top left, rgba(47, 111, 104, 0.06), transparent 32%),
-    linear-gradient(to bottom, #f8f4ed 0%, #f3eee6 100%);
+    radial-gradient(circle at top left, rgba(18, 63, 53, 0.06), transparent 32%),
+    linear-gradient(to bottom, #fffdf8 0%, #f5efe3 100%);
   min-height:100vh; min-height:100dvh;
   -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden;
 }
@@ -104,7 +104,7 @@
 .h-md{font-size:clamp(1.15rem,1.8vw,1.35rem); font-weight:700; letter-spacing:-.02em; line-height:1.2}
 
 /* ---------- Header ---------- */
-.site-head{position:sticky; top:0; z-index:60; background:rgba(239,232,216,.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--rule-soft); transition:box-shadow .2s ease}
+.site-head{position:sticky; top:0; z-index:60; background:rgba(255,253,248,.88); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--rule-soft); transition:box-shadow .2s ease}
 .site-head.scrolled{box-shadow:0 10px 30px -18px #15201B66}
 .head-in{display:flex; align-items:center; justify-content:space-between; gap:1.5rem; padding-block:.9rem; flex-wrap:wrap}
 .brand{font-family:var(--display); font-weight:800; font-size:clamp(1.4rem,2.6vw,2rem); letter-spacing:-.02em; color:var(--ink); text-decoration:none; line-height:1.08}
@@ -149,14 +149,14 @@
 .chip.warn{color:var(--gold); border-color:var(--gold)}
 /* orbital animation field */
 .orbit{position:absolute; inset:auto; top:-30%; right:-12%; width:min(64vw,760px); aspect-ratio:1; pointer-events:none; opacity:.5}
-.orbit::before,.orbit::after{content:""; position:absolute; inset:0; border-radius:50%; border:1.5px dashed rgba(1,105,111,.22)}
+.orbit::before,.orbit::after{content:""; position:absolute; inset:0; border-radius:50%; border:1.5px dashed rgba(217,104,68,.22)}
 .orbit::before{animation:spin 60s linear infinite}
 .orbit::after{inset:12%; border-color:rgba(237,178,94,.35); animation:spin 40s linear infinite reverse}
-.orbit .dot{position:absolute; width:9px; height:9px; border-radius:50%; background:var(--accent); top:50%; left:50%; box-shadow:0 0 18px rgba(1,105,111,.8)}
+.orbit .dot{position:absolute; width:9px; height:9px; border-radius:50%; background:var(--accent); top:50%; left:50%; box-shadow:0 0 18px rgba(217,104,68,.8)}
 .orbit .dot.b{background:var(--gold); box-shadow:0 0 18px rgba(237,178,94,.8)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero-glow{position:absolute; top:-8rem; left:-6rem; width:34rem; height:34rem; border-radius:50%;
-  background:radial-gradient(circle, rgba(1,105,111,.12), transparent 62%); filter:blur(10px); pointer-events:none; animation:float 9s ease-in-out infinite}
+  background:radial-gradient(circle, rgba(217,104,68,.12), transparent 62%); filter:blur(10px); pointer-events:none; animation:float 9s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
 @media (max-width:860px){.orbit{display:none}}
 
@@ -295,7 +295,7 @@
 .foot a{color:var(--on-pine); text-decoration:none; font-size:.92rem; transition:color .16s ease}
 .foot a:hover{color:var(--pine-accent)}
 .foot .foot-blurb{color:var(--pine-muted); font-size:.9rem; line-height:1.6; max-width:30ch}
-.foot-base{border-top:1px solid #EAF2ED26; padding-block:1.4rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.85rem; color:var(--pine-muted)}
+.foot-base{border-top:1px solid #fffdf826; padding-block:1.4rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-size:.85rem; color:var(--pine-muted)}
 .foot-base a{color:var(--pine-muted)}
 .foot-base a:hover{color:var(--pine-accent)}
 
@@ -309,7 +309,7 @@
   font-family:var(--mono); font-size:1rem; box-shadow:var(--shadow-lg); display:grid; place-items:center;
   transition:transform .2s ease, background .2s ease}
 .launch-btn:hover{background:var(--btn-hover); transform:translateY(-3px) scale(1.05)}
-.launch-btn .pulse{position:absolute; inset:0; border-radius:50%; border:2px solid rgba(47,111,104,.5); animation:ring 2.4s ease-out infinite}
+.launch-btn .pulse{position:absolute; inset:0; border-radius:50%; border:2px solid rgba(18,63,53,.5); animation:ring 2.4s ease-out infinite}
 @keyframes ring{0%{transform:scale(1); opacity:1}100%{transform:scale(1.7); opacity:0}}
 
 /* ---------- Motion ---------- */
@@ -693,13 +693,13 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
           before any purchase.</p>
         <div class="hero-ctas" style="margin-top:1.2rem">
           <a class="btn btn-solid" href="mailto:mmminvestment25@gmail.com?subject=Product%20request">Email a request <span class="arr">&rarr;</span></a>
-          <a class="btn btn-ghost" style="border-color:#EAF2ED4d; color:var(--on-pine)" href="#guide">Use the Mission Guide</a>
+          <a class="btn btn-ghost" style="border-color:#fffdf84d; color:var(--on-pine)" href="#guide">Use the Mission Guide</a>
         </div>
       </div>
       <ul class="stack g-12" style="color:var(--pine-muted); font-size:.92rem">
-        <li class="g-item" style="border-color:#EAF2ED26; background:transparent"><span class="gi-dept">1</span><span>We acknowledge every complete request within one business day</span></li>
-        <li class="g-item" style="border-color:#EAF2ED26; background:transparent"><span class="gi-dept">2</span><span>We confirm the correct pathway in writing</span></li>
-        <li class="g-item" style="border-color:#EAF2ED26; background:transparent"><span class="gi-dept">3</span><span>No payment or program account details are ever collected here</span></li>
+        <li class="g-item" style="border-color:#fffdf826; background:transparent"><span class="gi-dept">1</span><span>We acknowledge every complete request within one business day</span></li>
+        <li class="g-item" style="border-color:#fffdf826; background:transparent"><span class="gi-dept">2</span><span>We confirm the correct pathway in writing</span></li>
+        <li class="g-item" style="border-color:#fffdf826; background:transparent"><span class="gi-dept">3</span><span>No payment or program account details are ever collected here</span></li>
       </ul>
     </div>
   </div>
