@@ -2,6 +2,41 @@
 
 This file contains reusable prompts and loop structures for agent performance optimization.
 
+## 0. Primary Objective — Compliance-Gated Profitability
+
+Every skill, prompt, and loop in this file optimizes for revenue **subject to** the
+launch gates. Profit is the goal; the gates are what keep this vendor eligible to
+earn at all. A change that raises revenue by breaking a gate (publishing an
+unverified price, marking an SKU available before offering review, claiming
+launch-readiness) causes marketplace removal — that is negative ROI, not a win.
+
+```
+PROFITABILITY_OBJECTIVE:
+- Rank candidate actions by revenue-per-effort, BUT only among actions that also:
+  [ ] pass python3 tools/validate_project_state.py
+  [ ] pass the release-artifact build/boundary checks (build_pages_release.py)
+  [ ] keep config/pages-release.json truthful (no price/SKU claim without a
+      verified catalog record; deployment_enabled reflects reality)
+- NEVER publish a price without a verified catalog record.
+- NEVER mark an SKU/offering "available" before its Odyssey offering review completes.
+- NEVER claim launch-readiness while deployment_enabled:false or release_skus is empty.
+- Prefer high-margin, low-overhead revenue first (see REVENUE_PRIORITIES).
+```
+
+```
+REVENUE_PRIORITIES (highest expected value first):
+1. Verify + allowlist at least ONE SKU — flips the storefront from $0 to
+   transactable (config/pages-release.json release_skus + deployment_enabled).
+2. Ship the digital curriculum lanes (one-time family license, ~zero marginal
+   cost) ahead of physical kits that carry shipping/fulfillment overhead.
+3. Convert the free-worksheet + Mission Guide starter-list funnel into written
+   pathway confirmations that end in a verified Odyssey purchase.
+4. Pursue institutional / bulk (school & district) site-license inquiries —
+   typically the largest curriculum contracts.
+5. Grow the separate non-TEFA General Store retail path, where direct checkout
+   and margin can run without ESA compliance gates.
+```
+
 ## 1. Pre-Flight Prompt (run at session start)
 
 ```
@@ -93,7 +128,7 @@ To install a new skill:
 8. Run pre-flight checklist before production use
 ```
 
-## 6. Performance Metrics Tracker
+## 7. Performance Metrics Tracker
 
 ```
 MONTHLY_PERFORMANCE_METRICS:
@@ -104,4 +139,21 @@ MONTHLY_PERFORMANCE_METRICS:
 - Bug escape rate: _____ per quarter (target: 0)
 - Skills added: _____ (target: periodic additions)
 - Skills retired: _____ (target: periodic cleanup)
+```
+
+## 8. Revenue Metrics Tracker
+
+Ties the profitability objective (Section 0) to numbers. Compliance is a hard
+gate: any month with a gate breach counts as $0 progress regardless of revenue.
+
+```
+MONTHLY_REVENUE_METRICS:
+- Verified + allowlisted SKUs: _____ (target: >= 1; unblocks all storefront revenue)
+- deployment_enabled: true / false (target: true only when >= 1 verified SKU exists)
+- Curriculum lanes past offering review: _____ / 4 (target: increasing)
+- Starter-list requests received: _____ (funnel top; from Mission Guide handoff)
+- Written pathway confirmations sent: _____ (funnel mid)
+- Verified Odyssey purchases: _____ (funnel bottom = realized revenue)
+- Institutional / bulk inquiries: _____ (target: pursue every one)
+- Compliance gate breaches: _____ (target: 0 — any breach voids the month)
 ```
