@@ -1,26 +1,28 @@
 #!/usr/bin/env bash
-# dashboard-status.sh — Quick Preparation Station system status
-# Reads config/project-state.json and Git refs; outputs a one-line status.
-
 set -euo pipefail
 
-REPO="/Users/queent./Projects/TEAM-MMM01/mmm-education-storefront"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO="$(cd "$SCRIPT_DIR/.." && pwd)"
 STATE="$REPO/config/project-state.json"
+RELEASE="$REPO/config/pages-release.json"
 
 if [[ ! -f "$STATE" ]]; then
   echo "❌ config/project-state.json not found"
   exit 1
 fi
 
-BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
-COMMIT=$(git log -1 --oneline 2>/dev/null || echo "unknown")
+BRANCH=$(git -C "$REPO" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
+COMMIT=$(git -C "$REPO" log -1 --oneline 2>/dev/null || echo "unknown")
 BUILD=$(python3 "$REPO/build.py" 2>&1 | tail -1 || echo "build error")
 
-# Derive launch status
-if grep -q "ESA Launch Command" "$REPO/src/page.html" 2>/dev/null; then
-  LAUNCH_STATUS="ESA-integrated"
+if [[ -f "$RELEASE" ]]; then
+  LAUNCH_STATUS=$(python3 -c "
+import json
+d = json.load(open('$RELEASE'))
+print('deploy-enabled' if d.get('deployment_enabled') else 'blocked')
+" 2>/dev/null || echo "unknown")
 else
-  LAUNCH_STATUS="pre-ESA"
+  LAUNCH_STATUS="unknown"
 fi
 
 # Derive key facts from state
