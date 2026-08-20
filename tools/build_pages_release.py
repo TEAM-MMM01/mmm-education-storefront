@@ -199,7 +199,6 @@ def build_artifact(manifest: dict, output: Path) -> None:
         else:
             shutil.copy2(source, destination)
 
-    copy_printable_resources(output)
 
     (output / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
     (output / ".nojekyll").write_bytes(b"")
