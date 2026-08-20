@@ -324,7 +324,7 @@ def validate_tefa_offerings(catalog: dict, product_skus: set[str]) -> set[str]:
         sku = item.get("sku")
         require(isinstance(sku, str) and re.fullmatch(r"PS-[A-Z]{2}-\d{3}", sku) is not None, "Invalid TEFA offering SKU")
         require(sku not in verified, f"Duplicate TEFA offering SKU: {sku}")
-        require(sku not in product_skus, f"Verified offering SKU must be distinct from the 18 illustrative SKUs: {sku}")
+        require(sku in product_skus, f"Verified offering SKU must exist in the canonical product catalog: {sku}")
         verified.add(sku)
         require(isinstance(item.get("name"), str) and item["name"], f"Missing TEFA offering name: {sku}")
         # A record only belongs here once it is genuinely verified for release.
