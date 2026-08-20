@@ -289,6 +289,33 @@ of A–E are satisfied with attached evidence.
 
 ---
 
+## G. Tier 3 pricing checklist (governance)
+
+Recording or changing a price is a **Tier 3 action** under `AGENTS.md:62-65`
+("pricing or strategy changes"). Follow this order — do not flip a price live
+without Richie's explicit approval:
+
+1. **Product verified first.** The authoritative price is set and shown during
+   Odyssey offering review, not on this site (`src/page.html:781-786`). Do not
+   record a price until the offering has a real `odyssey_offering_id` and
+   `funding_eligibility.tefa: verified_product_evidence`.
+2. **Record the verified amount** in `catalog/tefa-offerings.json`
+   `retail_price_usd` — allowed only on verified records
+   (`tools/validate_project_state.py:339-342`). Never in `catalog/products.json`
+   or in `src/page.html` / `store/*` source (`tools/validate_project_state.py:266-267`,
+   `tools/validate_project_state.py:287`).
+3. **Separate verifier.** A different agent/person from the one who wrote the
+   change must verify it — a green CI run or local commit is not proof of
+   completion (`AGENTS.md:86-88`).
+4. **Request Richie's explicit approval** before it goes live (`AGENTS.md:62-63`).
+5. **Status must read `Awaiting Approval` or `Needs Richie's Lock`** until Richie
+   signs off — those are the only honest truth states for an unapproved pricing
+   change (`AGENTS.md:67-70`).
+6. **Never animate or delay price display** (`AGENTS.md:84`); the pricing panel
+   must not be reveal-gated (`src/page.html:772-774`).
+
+---
+
 ## What this runbook does NOT authorize
 
 - It does not deploy. Tier 3 production deployment requires the owner's explicit
