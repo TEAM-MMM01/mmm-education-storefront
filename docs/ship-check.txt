@@ -1,0 +1,11 @@
+Ship check summary
+
+Technical checks:
+- Generated storefront pages build successfully.
+- Pages release artifact boundary checks pass.
+- Pages release link smoke checks pass.
+- Track page contact link uses Pages-safe relative navigation.
+
+Important:
+- Public deployment is still intentionally blocked by release-governance settings in config/pages-release.json and related state.
+- Do not treat this as public-launch approval until those policy gates are verified.
