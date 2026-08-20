@@ -4,13 +4,13 @@
 Architecture: Hub-and-spoke. The main bot (@Hermes_OS1bot) receives all
 events and routes to business-specific bots + Slack channels.
 
-Telegram Bot Mapping:
-@Hermes_OS1bot – HermesOS_Main (CFO/COO router, all events)
-@HermesOS2_Bot – Preparation Station (education/TEFA)
-@RichieRichPF_Bot – PumpFun (crypto/trading)
-(TBD) – Royal Collexions (commerce)
-(TBD) – Oracle (trading signals)
-(TBD) – HermesOS_Voice (voice input)
+Standardized Bot Names:
+    Hermes COO (@Hermes_OS1bot)            – CFO/COO router (all events)
+    Prep Station (@HermesPrepStation_Bot)  – Education/TEFA
+    Hermes PF (@RichieRichPF_bot)          – PumpFun trading
+    Royal Collexions (@RoyalCXL_Bot)       – Commerce
+    The Oracle (@OracleSignalsProphet_Bot) – Trading signals
+    Hermes Voice (@HermesOS2_Bot)          – Voice input
 
 Slack Channel Mapping:
 #hermesos-ops – agent orchestration, system health
