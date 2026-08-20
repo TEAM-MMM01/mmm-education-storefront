@@ -4,24 +4,35 @@
 
 set -euo pipefail
 
-REPO="/Users/queent./Projects/TEAM-MMM01/mmm-education-storefront"
+# Resolve the repository root from this script's own location so the tool is
+# portable across clones, CI workspaces, and directory layouts.
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+REPO="$(cd -- "$SCRIPT_DIR/.." >/dev/null 2>&1 && pwd)"
 STATE="$REPO/config/project-state.json"
+RELEASE="$REPO/config/pages-release.json"
 
 if [[ ! -f "$STATE" ]]; then
   echo "❌ config/project-state.json not found"
   exit 1
 fi
 
-BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
-COMMIT=$(git log -1 --oneline 2>/dev/null || echo "unknown")
+BRANCH=$(git -C "$REPO" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
+COMMIT=$(git -C "$REPO" log -1 --oneline 2>/dev/null || echo "unknown")
 BUILD=$(python3 "$REPO/build.py" 2>&1 | tail -1 || echo "build error")
 
-# Derive launch status
-if grep -q "ESA Launch Command" "$REPO/src/page.html" 2>/dev/null; then
-  LAUNCH_STATUS="ESA-integrated"
-else
-  LAUNCH_STATUS="pre-ESA"
-fi
+# Derive launch status from canonical release configuration rather than
+# grepping page copy: deployment_enabled plus at least one verified release SKU.
+LAUNCH_STATUS=$(python3 -c "
+import json
+try:
+    d = json.load(open('$RELEASE'))
+    if d.get('deployment_enabled') and d.get('release_skus'):
+        print('launch-ready')
+    else:
+        print('blocked')
+except Exception:
+    print('unknown')
+" 2>/dev/null || echo "unknown")
 
 # Derive key facts from state
 TEFA_APPROVAL=$(python3 -c "
