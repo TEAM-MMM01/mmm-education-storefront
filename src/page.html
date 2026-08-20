@@ -1262,67 +1262,45 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
     <div class="section-heading reveal">
       <span class="eyebrow">Mission Guide</span>
       <h2 class="h-lg">Tell us the learner. We'll shortlist the catalog.</h2>
-      <p class="lede">A quick 5-step flow to build your starter list. Rule-based and honest: nothing is for sale until offering review completes in Odyssey.</p>
+      <p class="lede">A quick guided flow to build your starter list. Rule-based and honest: nothing is for sale until offering review completes in Odyssey.</p>
     </div>
     <div class="guide-wrap" style="margin-top:2.2rem">
       <div class="guide-box reveal">
         <div class="g-step active" data-step="1">
-          <span class="mono">Step 1 of 5</span>
+          <span class="mono">Step 1 of 3</span>
           <h3>Learner type</h3>
-          <div class="g-options">
-            <button class="g-opt" data-val="child">Child (3–12)<small>Guided learning with adult</small></button>
-            <button class="g-opt" data-val="teen">Teen (13–17)<small>Independent learning</small></button>
-            <button class="g-opt" data-val="adult">Adult learner<small>New skills & career</small></button>
-            <button class="g-opt" data-val="educator">Educator / planner<small>Planner Mode</small></button>
+          <div class="g-options" id="gWho">
+            <button class="g-opt" data-val="3-5">Ages 3–5<small>Launchpad</small></button>
+            <button class="g-opt" data-val="6-8">Ages 6–8<small>Explorer</small></button>
+            <button class="g-opt" data-val="9-12">Ages 9–12<small>Mission Control</small></button>
+            <button class="g-opt" data-val="13-17">Ages 13–17<small>Advanced Command</small></button>
+            <button class="g-opt" data-val="planner">Parent / Educator<small>Planner Mode</small></button>
           </div>
         </div>
         <div class="g-step" data-step="2">
-          <span class="mono">Step 2 of 5</span>
+          <span class="mono">Step 2 of 3</span>
           <h3>Primary goal</h3>
-          <div class="g-options">
-            <button class="g-opt" data-val="skills">Practical skills<small>Daily living & household</small></button>
-            <button class="g-opt" data-val="career">Career readiness<small>Job skills, interview prep</small></button>
-            <button class="g-opt" data-val="finance">Finance & money<small>Budgeting, savings</small></button>
-            <button class="g-opt" data-val="tech">Tech & digital<small>AI literacy, robotics</small></button>
+          <div class="g-options" id="gGoal">
+            <button class="g-opt" data-val="PR">Practical skills<small>Trades, money, home</small></button>
+            <button class="g-opt" data-val="SC">Focus &amp; self-command<small>Deck, workbook, prep</small></button>
+            <button class="g-opt" data-val="CS">Design &amp; motion<small>Graphics, video, portfolio</small></button>
+            <button class="g-opt" data-val="AT">AI &amp; tech<small>AI literacy, robotics</small></button>
+            <button class="g-opt" data-val="HS">Homeschool essentials<small>Workbooks, supplies</small></button>
             <button class="g-opt" data-val="any">Not sure yet<small>Show me the best fits</small></button>
           </div>
         </div>
-        <div class="guide-step" data-step="3">
-          <span class="mono">Step 3 of 5</span>
-          <h3>Readiness and constraints</h3>
-          <p>Check all that apply:</p>
-          <div class="g-options">
-            <button class="g-opt" data-val="supervise">Adult supervision available</button>
-            <button class="g-opt" data-val="budget">Budget constraints</button>
-            <button class="g-opt" data-val="time">Limited time weekly</button>
-            <button class="g-opt" data-val="access">Accessibility needs</button>
-          </div>
-        </div>
-        <div class="guide-step" data-step="4">
-          <span class="mono">Step 4 of 5</span>
-          <h3>Best-fit recommendations</h3>
+        <div class="g-step" data-step="3">
+          <span class="mono">Step 3 of 3</span>
+          <h3 id="gTitle">Best-fit recommendations</h3>
           <p>Based on your selections, here are the best-fit catalog items:</p>
-          <div class="g-results">
+          <div class="g-results" id="gResults">
             <!-- Results will be populated by JavaScript -->
           </div>
           <p class="g-note">Every item is under offering review. No item is for sale yet. Status updates appear as verification completes.</p>
-        </div>
-        <div class="guide-step" data-step="5">
-          <span class="mono">Step 5 of 5</span>
-          <h3>Request starter list</h3>
-          <p>Submit your selections to receive a written confirmation and starter list.</p>
-          <form class="g-request-form">
-            <div class="g-form-group">
-              <label>Name (optional)</label>
-              <input type="text" placeholder="Your name">
-            </div>
-            <div class="g-form-group">
-              <label>Email (optional)</label>
-              <input type="email" placeholder="your@email.com">
-            </div>
-            <button type="submit" class="btn btn--primary">Submit starter list</button>
-          </form>
-          <p class="g-note">We will acknowledge complete requests within one business day. Our written reply will identify the best-fit offerings, their current status, and the verified pathway where applicable.</p>
+          <div class="g-actions" id="gActions" style="display:none">
+            <button type="button" class="btn btn--secondary" id="gBack">Start over</button>
+            <a class="btn btn--primary" id="gMail" href="contact.html">Email my starter list (0)</a>
+          </div>
         </div>
       </div>
     </div>
