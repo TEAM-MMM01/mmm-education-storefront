@@ -84,6 +84,38 @@ The SKU must resolve to **exactly one** catalog record across all
 `catalog/*.json` (`tools/build_pages_release.py:128-130`), which is why it must
 not be duplicated into `catalog/products.json`.
 
+**Fill-in template.** Copy the object below into the `items` array of
+`catalog/tefa-offerings.json` and replace every `REPLACE_*` value with real,
+verified data. Do **not** commit it with the placeholder values — the file must
+keep `"items": []` until a genuine verified record exists, or you falsely
+satisfy the launch gate. Required fields first, optional growth fields after:
+
+```json
+{
+  "sku": "PS-XX-###",
+  "name": "REPLACE_verified_offering_name",
+  "public_listing_allowed": true,
+  "tefa_offering_status": "approved",
+  "odyssey_offering_id": "REPLACE_real_odyssey_offering_id",
+  "funding_eligibility": { "tefa": "verified_product_evidence" },
+  "retail_price_usd": null,
+  "target_margin_pct": null,
+  "fulfillment_mode": "digital_zero_marginal"
+}
+```
+
+- `sku` — a new `PS-XX-###` (e.g. a verified digital lane), **not** one of the
+  18 illustrative SKUs.
+- `public_listing_allowed`, `tefa_offering_status`, `odyssey_offering_id`,
+  `funding_eligibility.tefa` — all required and checked by
+  `validate_tefa_offerings()` in `tools/validate_project_state.py`.
+- `retail_price_usd` — reference only; leave `null` unless you have a verified
+  amount. It is never published on this site (the customer-facing price is the
+  Odyssey offering record).
+- `target_margin_pct` / `fulfillment_mode` — optional; set them to feed the
+  `REVENUE_PRIORITIES` ranking in `.system/skills/skills_loops_prompts.md`
+  (`digital_zero_marginal` is the highest time-buyback mode).
+
 ### B. Release manifest — `config/pages-release.json`
 
 | Field | Set to | Enforced by |
