@@ -23,19 +23,23 @@ __STORE_SHARED_CSS__
 <a class="skip" href="#main">Skip to content</a>
 <div class="gs-flag">General Store Preview &mdash; browsing only &mdash; no orders or payments</div>
 
-<header class="topbar">
-  <div class="wrap topbar-in">
+<header class="site-header">
+  <div class="wrap site-header__inner">
     <a class="brand" href="MAIN_SITE_URL">
-      <span class="brand-mark">Preparation Station</span>
-      <span class="brand-sub mono">General Store Preview</span>
+      <span class="brand__wordmark">Preparation Station</span>
+      <span class="brand__tagline">Practical curriculum for life ahead.</span>
     </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="shop.html" aria-current="page">Shop</a>
-      <a href="ESA_SHOP_URL">ESA / TEFA store</a>
-      <a href="../store/track.html">Track order</a>
-      <a href="MAIN_SITE_URL">Main site</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul class="site-nav__list">
+        <li><a class="site-nav__link" href="MAIN_SITE_URL">Main site</a></li>
+        <li><a class="site-nav__link" href="shop.html" aria-current="page">Catalog</a></li>
+        <li><a class="site-nav__link" href="ESA_SHOP_URL">ESA / TEFA store</a></li>
+        <li><a class="site-nav__link" href="../store/track.html">Track order</a></li>
+      </ul>
     </nav>
-    <a class="btn btn-ghost btn-sm" href="checkout.html">Preview cart <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
+    <div class="header-actions">
+      <a class="btn btn--secondary" href="checkout.html">Preview cart <span data-cart-badge hidden style="margin-left:.35rem">0</span></a>
+    </div>
   </div>
 </header>
 
@@ -113,22 +117,40 @@ __STORE_SHARED_CSS__
   </div>
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot-top">
-      <span class="foot-brand">Preparation Station</span>
-      <nav class="foot-nav" aria-label="Footer">
-        <a href="shop.html">Shop</a>
-        <a href="checkout.html">Preview cart</a>
-        <a href="ESA_SHOP_URL">ESA / TEFA store</a>
-        <a href="../store/track.html">Track order</a>
-        <a href="mailto:Mmminvestment25@gmail.com">Email</a>
-        <a href="../privacy.html">Privacy</a>
-        <a href="../terms.html">Terms</a>
-        <a href="../shipping.html">Shipping &amp; returns</a>
-      </nav>
+<footer class="site-footer">
+  <div class="wrap site-footer__grid">
+    <div class="footer-brand">
+      <span class="brand__wordmark">Preparation Station</span>
+      <span class="brand__tagline">Practical curriculum for life ahead.</span>
     </div>
-    <p class="disclaim">General Store is a development preview only. No payment is collected and no order is created. Products, prices, tax, shipping, and policies require verification before a public retail launch.</p>
+    <div>
+      <h2 class="footer-heading">Shop</h2>
+      <ul class="footer-links">
+        <li><a href="shop.html">Catalog</a></li>
+        <li><a href="checkout.html">Preview cart</a></li>
+        <li><a href="ESA_SHOP_URL">ESA / TEFA store</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-heading">Support</h2>
+      <ul class="footer-links">
+        <li><a href="../store/track.html">Track order</a></li>
+        <li><a href="MAIN_SITE_URL#faq">FAQ</a></li>
+        <li><a href="MAIN_SITE_URL#guide">Mission Guide</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-heading">Company</h2>
+      <ul class="footer-links">
+        <li><a href="MAIN_SITE_URL">Main site</a></li>
+        <li><a href="../privacy.html">Privacy</a></li>
+        <li><a href="../terms.html">Terms</a></li>
+        <li><a href="../shipping.html">Shipping &amp; returns</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-note">
+    <span>General Store is a development preview only. No payment is collected and no order is created. Products, prices, tax, shipping, and policies require verification before a public retail launch. &middot; <a href="../contact.html">Get in touch</a></span>
   </div>
 </footer>
 </div>

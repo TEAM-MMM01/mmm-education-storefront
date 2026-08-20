@@ -2,20 +2,30 @@ name: Build storefront
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
   push:
     branches:
       - main
 
 permissions:
   contents: read
+  pull-requests: write
+  issues: write
 
 jobs:
   build:
     name: Rebuild generated storefront pages
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Need full history for oz-agent diff analysis
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -63,7 +73,26 @@ jobs:
           python3 tools/build_pages_release.py
           --output "${{ runner.temp }}/pages-release"
 
-      - name: Smoke-test release artifact boundaries
+      - name: Smoke-test artifact boundaries
         run: >-
           python3 tools/test_pages_release.py
           "${{ runner.temp }}/pages-release"
+
+      - name: Oz Agent Code Review
+        if: github.event_name == 'pull_request'
+        uses: warpdotdev/oz-agent-action@v1
+        with:
+          prompt: |
+            You are reviewing code changes for the Preparation Station website.
+            The site is a TEFA-ready curriculum catalog for families.
+            1. Analyze the diff from base..HEAD for any issues: style, correctness, potential bugs, broken links, performance concerns
+            2. Check that all new badge classes (.badge--available, .badge--offering-review, .badge--supplier-review, .badge--planning, .badge--retail-only) are properly used per the 5-status taxonomy
+            3. Verify no raw email addresses are displayed (per directive: "Get in touch" CTAs only)
+            4. Check that PDSES/ClassWallet status is kept separate from TEFA (per AGENTS.md)
+            5. Verify the Vulturian is marked "Confirmed title; details pending" per AGENTS.md
+            6. Check that no speculative pricing or unverified product claims are present
+            7. Verify responsive behavior: all new grids collapse to 1-column at 760px per design-system responsive rules
+            8. Check that motion follows MOTION_SYSTEM.md (transform/opacity only, 160/220/320/520ms tokens, reveals gated behind html.js)
+            9. Look for any placeholder imagery that should be replaced with original/licensed assets
+            10. Summarize overall health and list any issues found
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
