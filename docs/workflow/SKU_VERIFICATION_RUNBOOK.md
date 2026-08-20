@@ -109,12 +109,47 @@ satisfy the launch gate. Required fields first, optional growth fields after:
 - `public_listing_allowed`, `tefa_offering_status`, `odyssey_offering_id`,
   `funding_eligibility.tefa` — all required and checked by
   `validate_tefa_offerings()` in `tools/validate_project_state.py`.
-- `retail_price_usd` — reference only; leave `null` unless you have a verified
-  amount. It is never published on this site (the customer-facing price is the
-  Odyssey offering record).
+- `retail_price_usd` — the verified amount, or `null` if not yet set. It is
+  accepted here (as a non-negative number) by `validate_tefa_offerings()` in
+  `tools/validate_project_state.py:339-342` **with no gate change needed**. Note
+  it is still not printed into `src/page.html` / `store/*` source — the
+  customer-facing price is the Odyssey offering record; this field is the
+  repository's record of the verified amount.
 - `target_margin_pct` / `fulfillment_mode` — optional; set them to feed the
   `REVENUE_PRIORITIES` ranking in `.system/skills/skills_loops_prompts.md`
   (`digital_zero_marginal` is the highest time-buyback mode).
+
+**Priced example (path: attaching a real price to a verified offering).** Once
+an offering is verified, record its price here — this is the correct place for
+pricing and needs no change to any validator or gate:
+
+```json
+{
+  "sku": "PS-DL-601",
+  "name": "REPLACE_verified_digital_lane_name",
+  "public_listing_allowed": true,
+  "tefa_offering_status": "approved",
+  "odyssey_offering_id": "REPLACE_real_odyssey_offering_id",
+  "funding_eligibility": { "tefa": "verified_product_evidence" },
+  "retail_price_usd": 395,
+  "target_margin_pct": 85,
+  "fulfillment_mode": "digital_zero_marginal"
+}
+```
+
+Why this does not contradict the other gates:
+
+- `catalog/products.json` (the fixed 18) stays `retail_price_usd: null` /
+  `price_status: illustrative_unverified` (`tools/validate_project_state.py:266-267`).
+  Those are illustrative, unverified items — a price there would be a false
+  claim, which is why it is forbidden.
+- The public-source price scanner (`tools/validate_project_state.py:287`) only
+  guards `src/page.html`, `store/src/shop.html`, and `store/src/product.html`.
+  `catalog/tefa-offerings.json` is a data file under the forbidden `catalog/`
+  top level, is never shipped, and is not scanned — so a verified price here is
+  allowed and invisible to that scanner.
+- Result: verified offerings carry real prices; unverified illustrative items
+  never do. The two rules are complementary, not contradictory.
 
 ### B. Release manifest — `config/pages-release.json`
 
