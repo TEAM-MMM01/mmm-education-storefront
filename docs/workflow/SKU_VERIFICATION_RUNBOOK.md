@@ -17,9 +17,10 @@ to the reviewed release PR (`docs/workflow/PAGES_RELEASE.md`).
 
 ---
 
-## ⚠️ Blocker you must resolve first: the two validators contradict
+## Where a verified SKU lives (implemented)
 
-The release gate and the state validator disagree about `public_listing_allowed`:
+**Background — why a separate file exists.** The release gate and the state
+validator have opposite requirements for `public_listing_allowed`:
 
 - `tools/build_pages_release.py:133-137` **requires** the release SKU's catalog
   record to have `public_listing_allowed: true` and
@@ -29,48 +30,59 @@ The release gate and the state validator disagree about `public_listing_allowed`
   `price_status == "illustrative_unverified"` (`tools/validate_project_state.py:266`)
   and `retail_price_usd` null (`tools/validate_project_state.py:267`).
 
-So you **cannot** satisfy both by flipping an existing `catalog/products.json`
-item in place — `validate_project_state.py` will fail the moment you set
-`public_listing_allowed: true` there. Also note `products.json` items do not
-carry a `funding_eligibility` block today (only `catalog/books.json` items do,
-per `tools/validate_project_state.py:234-236`).
+You therefore **cannot** verify one of the fixed 18 SKUs by flipping it in place
+inside `catalog/products.json`.
 
-**Decision required from the owner/maintainer before verification:** decide where
-the verified release record lives. Options, in order of least disruption:
+**Resolution (already implemented in this PR):** verified, launch-eligible
+offerings live in a **separate catalog file, `catalog/tefa-offerings.json`**,
+distinct from the 18-item illustrative set. This works because
+`tools/build_pages_release.py:76-86` globs **every** `catalog/*.json`, so a SKU
+recorded there satisfies the release gate, while `tools/validate_project_state.py`
+keeps validating `catalog/products.json` unchanged. A new validator,
+`validate_tefa_offerings()` in `tools/validate_project_state.py`, enforces the
+verified shape of the new file and is wired into `main()`
+(`tools/validate_project_state.py:460-463`); the file ships empty today and
+scales to many verified SKUs over time.
 
-1. **Add a separate verified-offerings catalog file** (e.g.
-   `catalog/tefa-offerings.json`) that holds only verified SKUs with
-   `public_listing_allowed: true` + `funding_eligibility.tefa:
-   verified_product_evidence`. `tools/build_pages_release.py:76-86` scans **all**
-   `catalog/*.json`, so it will find the SKU there, while
-   `tools/validate_project_state.py` keeps validating `products.json` as the
-   fixed 18-item illustrative set. **This requires a small validator change** to
-   recognize the new file (and to stop requiring the release SKU to be one of the
-   18 illustrative records).
-2. **Relax `validate_products()`** to allow a verified state per-item. Higher
-   blast radius; touches the 18-item invariant (`tools/validate_project_state.py:256`).
-
-Do not proceed to the field checklist below until this is decided, because the
-SKU's home determines every path in it.
+**Key rule:** the verified SKU is a **new** `PS-XX-###` SKU placed **only** in
+`catalog/tefa-offerings.json`. Do **not** add it to `catalog/products.json`,
+`store/cart.js`, or the shop `data-request-sku` controls — those three must stay
+exactly equal to the fixed-18 set (`tools/validate_project_state.py:280`,
+`tools/validate_project_state.py:301`), and `validate_tefa_offerings()` also
+requires the verified SKU to be distinct from the 18.
 
 ---
 
 ## Field checklist (per gate)
 
-Once the "SKU home" decision above is made, verification sets the following.
-Each row lists the file, the field, and the enforcing check.
+Verification adds one item to `catalog/tefa-offerings.json` and sets the fields
+below. Each row lists the field and the enforcing check.
 
-### A. Catalog record for the chosen SKU
+### A. Verified catalog record — new item in `catalog/tefa-offerings.json`
+
+Append one object to the `items` array (the file ships with `items: []`):
 
 | Field | Set to | Enforced by |
 |---|---|---|
-| `public_listing_allowed` | `true` | `tools/build_pages_release.py:133-134` |
-| `funding_eligibility.tefa` | `"verified_product_evidence"` | `tools/build_pages_release.py:135-137` |
-| `tefa_offering_status` | `"approved"` | `tools/validate_project_state.py:269-273` (only if kept in `products.json`) |
-| `odyssey_offering_id` | the real Odyssey ID | required when approved: `tools/validate_project_state.py:274-275` |
+| `sku` | a new `PS-XX-###`, distinct from the 18 | `tools/validate_project_state.py` `validate_tefa_offerings()` |
+| `name` | the verified offering name | `validate_tefa_offerings()` |
+| `public_listing_allowed` | `true` | `tools/build_pages_release.py:133-134`; `validate_tefa_offerings()` |
+| `tefa_offering_status` | `"approved"` | `validate_tefa_offerings()` |
+| `odyssey_offering_id` | the real Odyssey ID | `validate_tefa_offerings()` |
+| `funding_eligibility.tefa` | `"verified_product_evidence"` | `tools/build_pages_release.py:135-137`; `validate_tefa_offerings()` |
+
+Optional growth/profitability fields (validated only when present, so you can
+add them as data matures):
+
+| Field | Set to | Purpose |
+|---|---|---|
+| `retail_price_usd` | non-negative number or `null` | reference only; the customer-facing price is the Odyssey offering record, not this site |
+| `target_margin_pct` | `0`–`100` | margin signal for `REVENUE_PRIORITIES` ranking |
+| `fulfillment_mode` | `digital_zero_marginal` \| `physical_kit` \| `made_to_order` \| `dropship` | time-buyback signal — prefer `digital_zero_marginal` first |
 
 The SKU must resolve to **exactly one** catalog record across all
-`catalog/*.json` (`tools/build_pages_release.py:128-130`).
+`catalog/*.json` (`tools/build_pages_release.py:128-130`), which is why it must
+not be duplicated into `catalog/products.json`.
 
 ### B. Release manifest — `config/pages-release.json`
 
@@ -100,7 +112,7 @@ must also be allowlisted, or `tools/test_pages_release.py:100-110` fails with
 |---|---|---|
 | `enabled` | `true` | `tools/build_pages_release.py:150-151`; `tools/validate_project_state.py:362-364` |
 | `endpoint` | valid `https://formspree.io/f/<id>` | `tools/build_pages_release.py:152-154`; `tools/validate_project_state.py:357-361` |
-| `allowed_skus` | include the release SKU (must exist in the catalog SKU set) | `tools/validate_project_state.py:347-353` |
+| `allowed_skus` | include the release SKU (now accepted because `main()` unions verified offering SKUs into `known_skus` at `tools/validate_project_state.py:460-463`) | `tools/validate_project_state.py:347-353` |
 | `support_email` | must match `config/project-state.json` `business.support_email` | `tools/validate_project_state.py:320-323` |
 
 Note: `config/project-state.json:15-16` records the support email as
