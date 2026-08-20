@@ -157,7 +157,76 @@ The allowlisted public HTML/JS/JSON must contain that one SKU and **no other**
 SKU-shaped identifiers (`tools/build_pages_release.py:139-144`). Since the
 storefront currently shows all 18 SKUs (e.g. `store/src/shop.html`), the public
 release artifact's allowlist must be scoped so only the release SKU appears in
-shipped sources.
+shipped sources. See Section F for the worked mechanics — this is the single
+most error-prone step in the whole release.
+
+---
+
+## F. Allowlist scoping — worked example (the fiddly step)
+
+**How the check works.** `public_source_skus()` (`tools/build_pages_release.py:89-96`)
+reads every allowlisted `.html` / `.js` / `.json` file returned by
+`manifest_source_files()` (`tools/test_pages_release.py:59-70`) and collects
+every match of the SKU pattern `(?:[A-Z]{2,}-){2}\d{3}`
+(`tools/build_pages_release.py:22`). `readiness_blockers()` then requires that
+collected set to equal **exactly** `{release_sku}`
+(`tools/build_pages_release.py:139-144`). One stray SKU string anywhere in a
+shipped file fails the gate.
+
+**Why this bites.** The generated storefront pages embed many `PS-XX-###`
+strings today:
+
+- `index.html` — the Mission Guide `CATALOG` array lists all 18 SKUs.
+- `store/shop.html` — every product card carries a `<span class="sku">` and a
+  `data-request-sku`.
+- `store/product.html` — the featured SKU plus related-item SKUs.
+- `store/cart.js` — the canonical SKU map (all 18).
+
+If any of these stay in the release `required` allowlist as-is,
+`public_source_skus()` returns all 18 and the gate fails with
+`public artifact sources must contain only the selected release SKU; found [...]`.
+
+**Two ways to scope it (pick one, per the owner's launch intent):**
+
+1. **Minimal single-SKU landing (recommended for the first release).** Ship a
+   small, purpose-built public page set that references only the one verified
+   SKU, and **remove** the multi-SKU pages (`index.html`, `store/shop.html`,
+   `store/product.html`, `store/cart.js`) from `source_allowlist.required` in
+   `config/pages-release.json`. The verified-offering page becomes the entry
+   point. Lowest risk: the released artifact literally cannot leak an
+   unverified SKU.
+
+2. **Full storefront, SKUs stripped from shipped copy.** Keep the storefront
+   pages but ensure the *shipped* generated output contains only the release
+   SKU — i.e. the "Coming soon" 17 must not emit `PS-XX-###` strings in the
+   released HTML/JS. This is a larger change to `build.py` / the source
+   templates and is **not recommended** for the first release; it is easy to
+   miss one string and it widens the review surface.
+
+**Constraints to respect while scoping (all enforced):**
+
+- You cannot release repo-internal directories. `safe_relative_path()`
+  (`tools/test_pages_release.py:73-85`) forbids `catalog/`, `src/`, `tools/`,
+  `general-store/`, etc., and from `config/` allows **only**
+  `config/request-intake.json` and `config/order-portal.json`.
+- Every link target in an allowlisted page must itself be allowlisted, or
+  `tools/test_pages_release.py:100-110` fails with
+  `Release link target is missing: <page> -> <target>`. When you drop pages
+  from the allowlist, also drop or update links that pointed at them.
+- The catalog files (`catalog/products.json`, `catalog/tefa-offerings.json`)
+  are **never** shipped (they live under the forbidden `catalog/` top level), so
+  the verified SKU in `catalog/tefa-offerings.json` does not itself count toward
+  `public_source_skus()` — only shipped `.html`/`.js`/`.json` do.
+
+**Verify the scoping worked:**
+
+```bash
+artifact="$(mktemp -d)/pages-release"
+python3 tools/build_pages_release.py --output "$artifact" --require-ready
+# Must NOT print: "public artifact sources must contain only the selected release SKU"
+python3 tools/test_pages_release.py "$artifact"
+# Must NOT print any "Release link target is missing" line
+```
 
 ---
 
