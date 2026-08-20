@@ -5,7 +5,7 @@ Obsidian-selected docs, and storefront launch status.
 
 ## Preparation Station launch status
 
-**ESA-launch candidate**. The home page has been transformed into a TEFA-ready catalog presentation per the ESA Launch Command framework. All ESA directive items are integrated (hero, curriculum lanes, catalog expansion, free resources, vendor contact, pricing framework). Build + validate + diff-check all pass. Two items require owner input: approved licensed hero photography, and curriculum lane grade-band × time matrix. Design-system base (PR #38) is merged; PR #39 is open awaiting owner review.
+**Blocked — not a launch candidate**. `config/pages-release.json` keeps `deployment_enabled: false` with an empty `release_skus` list, so no offering is verified for release and the site must not be deployed. The home page presents a TEFA-ready catalog, but every catalog item remains "Coming soon" behind the single-SKU gate and no verified pricing is published. Launch remains blocked until the canonical catalog records a verified, allowlisted release SKU. Owner inputs still outstanding: approved licensed hero photography, and curriculum lane grade-band × time matrix.
 
 ## Open PRs
 
@@ -24,7 +24,7 @@ Obsidian-selected docs, and storefront launch status.
 
 ## ESA product readiness
 
-- **Pricing ladder** (owner-approved 2026-08-19): Starter $299 / Focused $1,695 / Complete $1,995 / Signature $2,495 / Structured reading $2,295
+- **Pricing**: No verified prices published. Every catalog record remains `price_status: illustrative_unverified` with `retail_price_usd: null`; prices are set only at each offering's Odyssey review.
 - **5-status badge taxonomy**: `.badge--available / .badge--offering-review / .badge--supplier-review / .badge--planning / .badge--retail-only`
 - **Curriculum lanes**: 4 lanes with cover-art, format/status/includes/license fields, all under offering review
 - **Catalog expansion**: 9 planning-concept cards (Vulturian + Math + Scientist + Studio + 5 new with grade bands)
@@ -45,7 +45,7 @@ General Store remains a physical-kit catalog ("Five departments, one mission") w
 
 ## Next operator actions
 
-1. **Approve PR #39** (ESA framework integration) — code is complete, all checks pass.
-2. **Deploy production** — after PR #39 merges, trigger `static.yml` workflow_dispatch (GitHub Pages at `preparation-station.pages.dev`) or `npx wrangler pages deploy . --project-name preparation-station --branch main`.
+1. **Do not deploy** — `config/pages-release.json` keeps `deployment_enabled: false` with no verified release SKU. Deployment stays blocked until a verified, allowlisted offering is recorded.
+2. **Verify a release offering** — record a verified Odyssey offering in the canonical catalog and add its SKU to `release_skus` before any launch is considered.
 3. **Provide hero photography** — original licensed asset to replace the inline SVG placeholder.
 4. **Confirm lane grade-band matrix** — owner provides grade band × weekly pace mapping for the 4 curriculum lanes.
