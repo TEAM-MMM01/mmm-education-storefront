@@ -67,7 +67,13 @@ jobs:
       # ---- Oz Agent Code Review Step ----
       - name: Oz Agent Code Review
         if: github.event_name == 'pull_request'
-        uses: warpdotdev/oz-agent-action@v1
+        # Pin to a reviewed commit SHA so a retargeted/compromised @v1 tag cannot
+        # exfiltrate WARP_API_KEY or write through the repo token. Replace the
+        # placeholder below with the SHA that warpdotdev/oz-agent-action@v1 points
+        # to (see the action's Releases page), keeping the tag in the trailing
+        # comment for readability.
+        # TODO: replace <PINNED_SHA> with the resolved commit SHA for v1.
+        uses: warpdotdev/oz-agent-action@<PINNED_SHA> # v1
         with:
           prompt: |
             You are reviewing code changes for the Preparation Station website.
