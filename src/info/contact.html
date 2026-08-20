@@ -142,6 +142,14 @@ document.documentElement.classList.add('js');var rt=document.querySelectorAll('.
 var f=document.getElementById('contact-form');
 if(!f)return;
 var ok=document.getElementById('form-ok');
+// Prefill from a handoff link (e.g. the Mission Guide "Email my starter list").
+try{
+  var params=new URLSearchParams(window.location.search);
+  var subject=params.get('subject');
+  var body=params.get('body');
+  if(body&&f.message&&!f.message.value){f.message.value=body;}
+  if(subject&&f.topic){f.topic.value='Product request or question';}
+}catch(err){}
 f.addEventListener('submit',function(ev){
   ev.preventDefault();
   var b=document.createElement('button');
