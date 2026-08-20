@@ -12,7 +12,6 @@ from pathlib import Path
 
 from test_pages_release import manifest_source_files, safe_relative_path, validate_artifact
 
-
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "config" / "pages-release.json"
 STATE_PATH = ROOT / "config" / "project-state.json"
@@ -21,7 +20,6 @@ CATALOG_DIR = ROOT / "catalog"
 NOINDEX_META = '<meta name="robots" content="noindex, nofollow, noarchive">'
 SKU_PATTERN = re.compile(r"(?<![A-Z0-9])(?:[A-Z]{2,}-){2}\d{3}(?![A-Z0-9])")
 FORMSPREE_PATTERN = re.compile(r"https://formspree\.io/f/[A-Za-z0-9_-]+/?")
-
 
 def load_json(path: Path) -> dict:
     try:
@@ -32,12 +30,10 @@ def load_json(path: Path) -> dict:
         raise SystemExit(f"Expected an object in {path.relative_to(ROOT)}")
     return data
 
-
 def maybe_load_json(path: Path) -> dict | None:
     if not path.is_file():
         return None
     return load_json(path)
-
 
 def validate_manifest(manifest: dict) -> None:
     expected = {
@@ -72,7 +68,6 @@ def validate_manifest(manifest: dict) -> None:
             raise SystemExit(f"request_backend.{key} must be boolean")
     manifest_source_files(manifest)
 
-
 def catalog_items() -> dict[str, list[dict]]:
     by_sku: dict[str, list[dict]] = {}
     for path in sorted(CATALOG_DIR.glob("*.json")):
@@ -85,7 +80,6 @@ def catalog_items() -> dict[str, list[dict]]:
                 by_sku.setdefault(item["sku"], []).append(item)
     return by_sku
 
-
 def public_source_skus(manifest: dict) -> set[str]:
     found: set[str] = set()
     for relative in manifest_source_files(manifest):
@@ -95,7 +89,6 @@ def public_source_skus(manifest: dict) -> set[str]:
         found.update(SKU_PATTERN.findall(text))
     return found
 
-
 def valid_verified_at(value: object) -> bool:
     if not isinstance(value, str) or not value:
         return False
@@ -104,7 +97,6 @@ def valid_verified_at(value: object) -> bool:
     except ValueError:
         return False
     return parsed.tzinfo is not None
-
 
 def readiness_blockers(manifest: dict) -> list[str]:
     blockers: list[str] = []
@@ -164,7 +156,6 @@ def readiness_blockers(manifest: dict) -> list[str]:
         blockers.append("request backend verified_at must be a timezone-aware ISO timestamp")
     return blockers
 
-
 def inject_noindex(text: str, relative: str) -> str:
     if re.search(r'<meta\s+name=["\']robots["\']', text, re.IGNORECASE):
         raise SystemExit(f"Source already contains robots metadata; review it explicitly: {relative}")
@@ -172,7 +163,6 @@ def inject_noindex(text: str, relative: str) -> str:
     if text.count(marker) != 1:
         raise SystemExit(f"Expected one literal <head> in {relative}")
     return text.replace(marker, f"{marker}\n{NOINDEX_META}", 1)
-
 
 def prepare_empty_output(output: Path) -> None:
     resolved = output.resolve()
@@ -186,6 +176,11 @@ def prepare_empty_output(output: Path) -> None:
     else:
         resolved.mkdir(parents=True)
 
+def copy_printable_resources(output: Path) -> None:
+    resources_src = ROOT / "resources"
+    resources_dst = output / "resources"
+    if resources_src.is_dir():
+        shutil.copytree(resources_src, resources_dst, dirs_exist_ok=True)
 
 def build_artifact(manifest: dict, output: Path) -> None:
     prepare_empty_output(output)
@@ -204,10 +199,11 @@ def build_artifact(manifest: dict, output: Path) -> None:
         else:
             shutil.copy2(source, destination)
 
+    copy_printable_resources(output)
+
     (output / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")
     (output / ".nojekyll").write_bytes(b"")
     validate_artifact(output)
-
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -232,7 +228,6 @@ def main() -> None:
             print(f"- {blocker}")
     else:
         print("All release-readiness gates passed.")
-
 
 if __name__ == "__main__":
     main()
