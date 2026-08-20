@@ -3,18 +3,26 @@
 <style>__INFO_SHARED_CSS__</style>
 <div class="page">
 
-<header class="site-head">
-  <div class="wrap head-in">
-    <a class="brand" href="MAIN_SITE_URL">Preparation Station<small>Nationwide Acquisitions, LLC</small></a>
-    <nav class="nav">
-      <a href="store/shop.html">Shop</a>
-      <a href="shop-by-age.html">Shop by Age</a>
-      <a href="store/shop.html">Catalog</a>
-      <a href="MAIN_SITE_URL#guide">Mission Guide</a>
-      <a href="esa.html">Funding Help</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="MAIN_SITE_URL">
+      <span class="brand__wordmark">Preparation Station</span>
+      <span class="brand__tagline">Practical curriculum for life ahead.</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <ul class="site-nav__list">
+        <li><a class="site-nav__link" href="MAIN_SITE_URL">Home</a></li>
+        <li><a class="site-nav__link" href="store/shop.html">Catalog</a></li>
+        <li><a class="site-nav__link" href="shop-by-age.html">By Age</a></li>
+        <li><a class="site-nav__link" href="MAIN_SITE_URL#guide">Mission Guide</a></li>
+        <li><a class="site-nav__link" href="esa.html">Funding Help</a></li>
+        <li><a class="site-nav__link" href="about.html">About</a></li>
+        <li><a class="site-nav__link" href="contact.html">Contact</a></li>
+      </ul>
     </nav>
+    <div class="header-actions">
+      <a class="btn btn--primary" href="contact.html">Start a Request</a>
+    </div>
   </div>
 </header>
 
@@ -64,7 +72,7 @@
       <div class="card">
         <span class="mono">Direct email</span>
         <h2 class="card-title">Prefer email?</h2>
-        <p><a href="mailto:mmminvestment25@gmail.com">mmminvestment25@gmail.com</a></p>
+        <p><a href="contact.html">Get in touch</a></p>
         <p style="margin-top:.5rem">Acknowledged within one business day.</p>
       </div>
       <div class="card">
@@ -86,33 +94,43 @@
   </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap foot-in">
-    <div><h2 class="foot-title">Shop</h2><ul>
-      <li><a href="store/shop.html">Catalog</a></li>
-      <li><a href="shop-by-age.html">Shop by Age</a></li>
-      <li><a href="MAIN_SITE_URL#guide">Mission Guide</a></li>
-    </ul></div>
-    <div><h2 class="foot-title">Support</h2><ul>
-      <li><a href="esa.html">Funding Help / Eligibility</a></li>
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a href="store/track.html">Track Order</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul></div>
-    <div><h2 class="foot-title">Company</h2><ul>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="privacy.html">Privacy Policy</a></li>
-      <li><a href="terms.html">Terms &amp; Conditions</a></li>
-      <li><a href="shipping.html">Shipping &amp; Returns</a></li>
-    </ul></div>
-    <div><h2 class="foot-title">Contact</h2><ul>
-      <li><a href="mailto:mmminvestment25@gmail.com">mmminvestment25@gmail.com</a></li>
-      <li>Responses within one business day</li>
-    </ul></div>
+<footer class="site-footer">
+  <div class="wrap site-footer__grid">
+    <div class="footer-brand">
+      <span class="brand__wordmark">Preparation Station</span>
+      <span class="brand__tagline">Practical curriculum for life ahead.</span>
+    </div>
+    <div>
+      <h2 class="footer-heading">Shop</h2>
+      <ul class="footer-links">
+        <li><a href="store/shop.html">Catalog</a></li>
+        <li><a href="shop-by-age.html">Shop by Age</a></li>
+        <li><a href="store/shop.html">Departments</a></li>
+        <li><a href="MAIN_SITE_URL#guide">Mission Guide</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-heading">Support</h2>
+      <ul class="footer-links">
+        <li><a href="esa.html">Funding Help / Eligibility</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="store/track.html">Track Order</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-heading">Company</h2>
+      <ul class="footer-links">
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="tefa.html">TEFA &amp; Funding Info</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        <li><a href="shipping.html">Shipping &amp; Returns</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="wrap foot-base">
-    <span>Preparation Station is operated by Nationwide Acquisitions, LLC.</span>
-    <span>Updated August 16, 2026</span>
+  <div class="wrap footer-note">
+    <span>Updated BUILD_DATE &middot; <a href="contact.html">Get in touch</a> &middot; Responses within one business day</span>
   </div>
 </footer>
 
@@ -124,6 +142,14 @@ document.documentElement.classList.add('js');var rt=document.querySelectorAll('.
 var f=document.getElementById('contact-form');
 if(!f)return;
 var ok=document.getElementById('form-ok');
+// Prefill from a handoff link (e.g. the Mission Guide "Email my starter list").
+try{
+  var params=new URLSearchParams(window.location.search);
+  var subject=params.get('subject');
+  var body=params.get('body');
+  if(body&&f.message&&!f.message.value){f.message.value=body;}
+  if(subject&&f.topic){f.topic.value='Product request or question';}
+}catch(err){}
 f.addEventListener('submit',function(ev){
   ev.preventDefault();
   var b=document.createElement('button');
