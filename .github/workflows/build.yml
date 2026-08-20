@@ -64,28 +64,3 @@ jobs:
         run: >-
           python3 tools/test_pages_release.py
           "${{ runner.temp }}/pages-release"
-      # ---- Oz Agent Code Review Step ----
-      - name: Oz Agent Code Review
-        if: github.event_name == 'pull_request'
-        # SECURITY TODO: pin to a reviewed commit SHA. A mutable @v1 tag receives
-        # WARP_API_KEY plus pull-request write permissions on every PR, so a
-        # retargeted/compromised release tag could exfiltrate the credential or
-        # write through the repo token. Replace @v1 below with the commit SHA it
-        # points to (see the action's Releases page), keeping "# v1" as a comment.
-        uses: warpdotdev/oz-agent-action@v1
-        with:
-          prompt: |
-            You are reviewing code changes for the Preparation Station website.
-            The site is a TEFA-ready curriculum catalog for families.
-            1. Analyze the diff from base..HEAD for any issues: style, correctness, potential bugs, broken links, performance concerns
-            2. Check that all new badge classes (.badge--available, .badge--offering-review, .badge--supplier-review, .badge--planning, .badge--retail-only) are properly used per the 5-status taxonomy
-            3. Verify no raw email addresses are displayed (per directive: "Get in touch" CTAs only)
-            4. Check that PDSES/ClassWallet status is kept separate from TEFA (per AGENTS.md)
-            5. Verify the Vulturian is marked "Confirmed title; details pending" per AGENTS.md
-            6. Check that no speculative pricing or unverified product claims are present
-            7. Verify responsive behavior: all new grids collapse to 1-column at 760px per design-system responsive rules
-            8. Check that motion follows MOTION_SYSTEM.md (transform/opacity only, 160/220/320/520ms tokens, reveals gated behind html.js)
-            8. Look for any placeholder imagery that should be replaced with original/licensed assets
-            10. Summarize overall health and list any issues found
-          warp_api_key: ${{ secrets.WARP_API_KEY }}
-      # ---- End Oz Agent Step ----
