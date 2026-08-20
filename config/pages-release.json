@@ -28,7 +28,11 @@
    "shipping.html",
    "shop-by-age.html",
    "faq.html",
-   "tefa.html"
+   "tefa.html",
+   "resources/budget-planner.html",
+   "resources/first-paycheck.html",
+   "resources/savings-challenge.html",
+   "resources/business-idea.html"
   ],
   "optional": [
    "config/request-intake.json",

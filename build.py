@@ -1,4 +1,3 @@
-import datetime
 #!/usr/bin/env python3
 """Build the Preparation Station landing page and storefront mockups.
 
@@ -37,6 +36,11 @@ import pathlib
 import re
 
 HERE = pathlib.Path(__file__).parent
+# Source-controlled build stamp. Bump this manually when a dated rebuild is
+# intentional; deriving it from wall-clock time would rewrite the committed
+# generated pages on every future build and fail the "generated pages are
+# committed" CI check.
+BUILD_DATE = "August 19, 2026"
 FONTS = {
     "__MONO4__": "dmmono400.woff2",
     "__MONO5__": "dmmono500.woff2",
@@ -88,8 +92,7 @@ def standalone_document(body_html: str, description: str) -> str:
 
 def build_main_page():
     page = inline_fonts((HERE / "src" / "page.html").read_text(), "src/page.html")
-    build_date = datetime.datetime.utcnow().strftime("%B %d, %Y")
-    page = page.replace("BUILD_DATE", build_date)
+    page = page.replace("BUILD_DATE", BUILD_DATE)
     desc = (
         "Hands-on life skills, AI literacy, and focus coaching for students aged 8-18, "
         "funded through your family's TEFA account."
@@ -100,7 +103,6 @@ def build_main_page():
 
 
 def build_store_pages(shared_css: str):
-    build_date = datetime.datetime.utcnow().strftime("%B %d, %Y")
     store = HERE / "store"
     desc = (
         "Preparation Station educational products; approved TEFA offerings are "
@@ -111,7 +113,7 @@ def build_store_pages(shared_css: str):
         if "__STORE_SHARED_CSS__" not in src:
             raise SystemExit(f"__STORE_SHARED_CSS__ missing from store/src/{name}.html")
         page = src.replace("__STORE_SHARED_CSS__", shared_css)
-        page = page.replace("BUILD_DATE", build_date)
+        page = page.replace("BUILD_DATE", BUILD_DATE)
         page = resolve_cross_links(
             page, main="../index.html", esa_shop="shop.html", general_store="../general-store/shop.html"
         )
@@ -121,7 +123,6 @@ def build_store_pages(shared_css: str):
 
 
 def build_general_store_pages(shared_css: str):
-    build_date = datetime.datetime.utcnow().strftime("%B %d, %Y")
     gs = HERE / "general-store"
     desc = (
         "General Store preview: family titles and activity books sold at retail, "
@@ -132,7 +133,7 @@ def build_general_store_pages(shared_css: str):
         if "__STORE_SHARED_CSS__" not in src:
             raise SystemExit(f"__STORE_SHARED_CSS__ missing from general-store/src/{name}.html")
         page = src.replace("__STORE_SHARED_CSS__", shared_css)
-        page = page.replace("BUILD_DATE", build_date)
+        page = page.replace("BUILD_DATE", BUILD_DATE)
         page = resolve_cross_links(
             page, main="../index.html", esa_shop="../store/shop.html", general_store="shop.html"
         )
@@ -142,7 +143,6 @@ def build_general_store_pages(shared_css: str):
 
 
 def build_info_pages(shared_css: str):
-    build_date = datetime.datetime.utcnow().strftime("%B %d, %Y")
     info = HERE / "src" / "info"
     desc = "Preparation Station — information, policies, and support."
     for name in ("about", "contact", "privacy", "terms", "shipping", "shop-by-age", "faq", "tefa"):
@@ -150,7 +150,7 @@ def build_info_pages(shared_css: str):
         if "__INFO_SHARED_CSS__" not in src:
             raise SystemExit(f"__INFO_SHARED_CSS__ missing from src/info/{name}.html")
         page = src.replace("__INFO_SHARED_CSS__", shared_css)
-        page = page.replace("BUILD_DATE", build_date)
+        page = page.replace("BUILD_DATE", BUILD_DATE)
         page = resolve_cross_links(page, main="index.html", esa_shop="store/shop.html", general_store="")
         out = HERE / f"{name}.html"
         out.write_text(standalone_document(page, desc))
