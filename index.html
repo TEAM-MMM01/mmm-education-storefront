@@ -685,6 +685,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
       <span class="brand__wordmark">Preparation Station</span>
       <span class="brand__tagline">Practical curriculum for life ahead.</span>
     </a>
+    <button class="site-nav__toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mainNav" id="navToggle">Menu</button>
     <nav class="site-nav" id="mainNav" aria-label="Main">
       <ul class="site-nav__list">
         <li><a class="site-nav__link" href="#top">Home</a></li>
@@ -788,7 +789,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
 <!-- ============ PRICING FRAMEWORK ============ -->
 <section class="band" id="pricing" style="padding-block:clamp(2rem,4vw,3.5rem)">
   <div class="wrap">
-    <div class="surface-panel stack-md reveal">
+    <div class="surface-panel stack-md">
       <div class="cluster" style="justify-content:space-between;gap:1rem">
         <span class="eyebrow">Pricing framework</span>
         <span class="badge badge--planning">Prices pending Odyssey offering review</span>
@@ -1592,8 +1593,23 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
   document.documentElement.classList.add('js');
   /* header scroll state */
   var head=document.querySelector('.site-header');
-  var onScroll=function(){head.classList.toggle('scrolled',window.scrollY>8)};
+  var onScroll=function(){head.classList.toggle('is-scrolled',window.scrollY>8)};
   window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  /* mobile navigation toggle */
+  var navToggle=document.getElementById('navToggle'), mainNav=document.getElementById('mainNav');
+  if(navToggle&&mainNav){
+    navToggle.addEventListener('click',function(){
+      var open=mainNav.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded',open?'true':'false');
+    });
+    mainNav.addEventListener('click',function(e){
+      if(e.target.closest('.site-nav__link')){
+        mainNav.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded','false');
+      }
+    });
+  }
 
   /* reveal on scroll */
   var rTargets=document.querySelectorAll('.reveal,.reveal-fade,.stagger');
