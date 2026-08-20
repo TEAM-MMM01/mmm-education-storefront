@@ -47,6 +47,7 @@ jobs:
             store/shop.html
             store/product.html
             store/order.html
+            store/track.html
             general-store/shop.html
             general-store/product.html
             general-store/checkout.html
