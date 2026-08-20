@@ -20,8 +20,8 @@ Slack Channel Mapping:
 #oracle – trading signals
 
 Usage:
-from tools.notifications import notify_routed
-notify_routed("PR #16 opened", business="preparation-station", event_type="pr")
+    from tools.notifications import notify_routed
+    notify_routed("PR #16 opened", business="preparation-station", event_type="pr")
 """
 
 from __future__ import annotations
