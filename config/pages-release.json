@@ -1,42 +1,42 @@
 {
- "schema_version": 1,
- "deployment_enabled": false,
- "release_skus": [],
- "request_backend": {
-  "e2e_verified": false,
-  "verified_at": null,
-  "owner_notification_verified": false,
-  "customer_confirmation_verified": false
- },
- "source_allowlist": {
-  "required": [
-   "index.html",
-   "esa.html",
-   "esa-style.css",
-   "store/shop.html",
-   "store/product.html",
-   "store/order.html",
-   "store/track.html",
-"store/cart.js",
-    "store/nav.js",
-    "store/motion.js",
-    "store/track.js",
-   "about.html",
-   "contact.html",
-   "privacy.html",
-   "terms.html",
-   "shipping.html",
-   "shop-by-age.html",
-   "faq.html",
-   "tefa.html",
-   "resources/budget-planner.html",
-   "resources/first-paycheck.html",
-   "resources/savings-challenge.html",
-   "resources/business-idea.html"
-  ],
-  "optional": [
-   "config/request-intake.json",
-   "config/order-portal.json"
-  ]
- }
+  "schema_version": 1,
+  "deployment_enabled": false,
+  "release_skus": [],
+  "request_backend": {
+    "e2e_verified": false,
+    "verified_at": null,
+    "owner_notification_verified": false,
+    "customer_confirmation_verified": false
+  },
+  "source_allowlist": {
+    "required": [
+      "index.html",
+      "esa.html",
+      "esa-style.css",
+      "store/shop.html",
+      "store/product.html",
+      "store/order.html",
+      "store/track.html",
+      "store/cart.js",
+      "store/nav.js",
+      "store/motion.js",
+      "store/track.js",
+      "about.html",
+      "contact.html",
+      "privacy.html",
+      "terms.html",
+      "shipping.html",
+      "shop-by-age.html",
+      "faq.html",
+      "tefa.html",
+      "resources/budget-planner.html",
+      "resources/first-paycheck.html",
+      "resources/savings-challenge.html",
+      "resources/business-idea.html"
+    ],
+    "optional": [
+      "config/request-intake.json",
+      "config/order-portal.json"
+    ]
+  }
 }
