@@ -2,7 +2,7 @@
   "schema_version": 1,
   "provider": "formspree",
   "enabled": false,
-  "endpoint": "",
+  "endpoint": "https://formspree.io/f/xoeappwz",
   "support_email": "mmminvestment25@gmail.com",
   "retention_days": 30,
   "allowed_skus": [],
