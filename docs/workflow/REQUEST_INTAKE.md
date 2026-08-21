@@ -4,9 +4,7 @@ The product-information request path uses Formspree to create an internal reques
 record. It does not collect payment, approve a product for TEFA or
 PDSES/ClassWallet, accept an order, or replace Odyssey. TEFA purchases and
 official order history remain in the Odyssey Marketplace.
-`config/request-intake.json` is intentionally disabled and has
-no endpoint and an empty SKU allowlist, so the online submit button remains
-unavailable until setup and an end-to-end test are complete.
+`config/request-intake.json` is intentionally disabled. Its endpoint may be pre-configured ahead of launch, but `enabled` stays `false` and `allowed_skus` stays empty until setup and an end-to-end test are complete, so the online submit button remains unavailable regardless of whether an endpoint value is present.
 
 ## Data boundary
 
