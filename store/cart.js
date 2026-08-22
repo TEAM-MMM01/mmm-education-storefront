@@ -1,12 +1,12 @@
 /* Client-side quote cart and disabled-by-default request intake. The funded
    path creates a request record only; it never collects payment. A validated
-   Formspree endpoint in config/request-intake.json is required before the
+   request intake endpoint in config/request-intake.json is required before the
    online request button can be enabled. */
 (function () {
   const KEY = 'preparation_station_cart_v1';
   const LEGACY_KEY = 'mmm_cart_v1';
   const REQUEST_CONFIG_URL = '../config/request-intake.json';
-  const FORMSPREE_ENDPOINT = /^https:\/\/formspree\.io\/f\/[A-Za-z0-9_-]+\/?$/;
+  const WORKER_ENDPOINT = /^https:\/\/worker\.example\/intake$/;
   const REQUEST_FIELDS = [
     '_gotcha',
     'adult_name',
@@ -64,7 +64,7 @@
   }
 
   function validateRequestConfig(config) {
-    if (!config || config.schema_version !== 1 || config.provider !== 'formspree') {
+    if (!config || config.schema_version !== 1 || config.provider !== 'cloudflare-worker') {
       return { valid: false, reason: 'invalid_schema' };
     }
     if (config.support_email !== 'mmminvestment25@gmail.com') {
@@ -88,7 +88,7 @@
     if (configuredFields.join('|') !== REQUEST_FIELDS.slice().sort().join('|')) {
       return { valid: false, reason: 'invalid_fields' };
     }
-    if (config.endpoint && !FORMSPREE_ENDPOINT.test(config.endpoint)) {
+    if (config.endpoint && !WORKER_ENDPOINT.test(config.endpoint)) {
       return { valid: false, reason: 'invalid_endpoint' };
     }
     if (config.enabled !== true) {
@@ -97,7 +97,7 @@
     if (allowedSkus.length === 0) {
       return { valid: false, reason: 'missing_allowed_skus' };
     }
-    if (!FORMSPREE_ENDPOINT.test(config.endpoint)) {
+    if (!WORKER_ENDPOINT.test(config.endpoint)) {
       return { valid: false, reason: 'missing_endpoint' };
     }
     return { valid: true, enabled: true, reason: 'ready' };

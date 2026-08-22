@@ -20,7 +20,7 @@ REQUEST_PATH = ROOT / "config" / "request-intake.json"
 CATALOG_DIR = ROOT / "catalog"
 NOINDEX_META = '<meta name="robots" content="noindex, nofollow, noarchive">'
 SKU_PATTERN = re.compile(r"(?<![A-Z0-9])(?:[A-Z]{2,}-){2}\d{3}(?![A-Z0-9])")
-FORMSPREE_PATTERN = re.compile(r"https://formspree\.io/f/[A-Za-z0-9_-]+/?")
+WORKER_ENDPOINT_PATTERN = re.compile(r"https://[A-Za-z0-9.-]+(?:/.*)?")
 
 
 def load_json(path: Path) -> dict:
@@ -150,8 +150,8 @@ def readiness_blockers(manifest: dict) -> list[str]:
         if request.get("enabled") is not True:
             blockers.append("request intake is not enabled")
         endpoint = request.get("endpoint")
-        if not isinstance(endpoint, str) or FORMSPREE_PATTERN.fullmatch(endpoint) is None:
-            blockers.append("request intake lacks a valid HTTPS Formspree endpoint")
+        if not isinstance(endpoint, str) or WORKER_ENDPOINT_PATTERN.fullmatch(endpoint) is None:
+            blockers.append("request intake lacks a valid HTTPS Worker endpoint")
 
     backend = manifest.get("request_backend", {})
     if backend.get("e2e_verified") is not True:

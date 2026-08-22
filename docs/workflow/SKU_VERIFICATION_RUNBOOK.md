@@ -178,7 +178,7 @@ must also be allowlisted, or `tools/test_pages_release.py:100-110` fails with
 | Field | Set to | Enforced by |
 |---|---|---|
 | `enabled` | `true` | `tools/build_pages_release.py:150-151`; `tools/validate_project_state.py:362-364` |
-| `endpoint` | valid `https://formspree.io/f/<id>` | `tools/build_pages_release.py:152-154`; `tools/validate_project_state.py:357-361` |
+| `endpoint` | valid HTTPS Worker endpoint | `tools/build_pages_release.py:152-154`; `tools/validate_project_state.py:357-361` |
 | `allowed_skus` | include the release SKU (now accepted because `main()` unions verified offering SKUs into `known_skus` at `tools/validate_project_state.py:460-463`) | `tools/validate_project_state.py:347-353` |
 | `support_email` | must match `config/project-state.json` `business.support_email` | `tools/validate_project_state.py:320-323` |
 
