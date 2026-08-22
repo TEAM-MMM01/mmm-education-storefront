@@ -42,7 +42,7 @@ commit on `main`:
 5. The allowlisted public HTML/JavaScript/JSON contains that SKU and no other
    SKU-shaped product identifiers.
 6. `config/request-intake.json` exists, is enabled, and contains a valid HTTPS
-   Formspree endpoint.
+   Worker endpoint.
 7. A privacy-safe end-to-end rehearsal has verified the stored request, owner
    notification, customer on-page confirmation, and timezone-aware verification
    timestamp in `config/pages-release.json`.

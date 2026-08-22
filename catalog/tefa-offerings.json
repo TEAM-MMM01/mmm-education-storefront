@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "operator": "Nationwide Acquisitions, LLC",
+  "storefront_brand": "Preparation Station",
+  "purpose": "Verified, launch-eligible TEFA offerings only. This file is separate from catalog/products.json (the fixed 18-item illustrative set) so that a verified record can carry public_listing_allowed:true and verified TEFA product evidence without breaking the illustrative-catalog invariants. tools/build_pages_release.py scans every catalog/*.json, so any SKU recorded here becomes eligible for the release gate. Add a record ONLY after Odyssey offering review and a privacy-safe end-to-end request rehearsal; see docs/workflow/SKU_VERIFICATION_RUNBOOK.md.",
+  "items": []
+}

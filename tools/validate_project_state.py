@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 STATE_PATH = ROOT / "config" / "project-state.json"
 BOOKS_PATH = ROOT / "catalog" / "books.json"
 PRODUCTS_PATH = ROOT / "catalog" / "products.json"
+TEFA_OFFERINGS_PATH = ROOT / "catalog" / "tefa-offerings.json"
 REQUEST_CONFIG_PATH = ROOT / "config" / "request-intake.json"
 ORDER_PORTAL_CONFIG_PATH = ROOT / "config" / "order-portal.json"
 ORDER_SCHEMA_PATH = ROOT / "schemas" / "order-record.schema.json"
@@ -302,6 +303,55 @@ def validate_products(catalog: dict) -> set[str]:
     return seen
 
 
+def validate_tefa_offerings(catalog: dict, product_skus: set[str]) -> set[str]:
+    """Validate the separate verified-offerings catalog.
+
+    catalog/products.json is the fixed 18-item illustrative set and can never be
+    public or verified in place. Verified, launch-eligible offerings live here so
+    a record can carry public_listing_allowed:true and verified TEFA product
+    evidence (what tools/build_pages_release.py requires) without breaking the
+    illustrative-catalog invariants. Starts empty and scales to many verified
+    SKUs over time. See docs/workflow/SKU_VERIFICATION_RUNBOOK.md.
+    """
+    require(catalog.get("schema_version") == 1, "Unsupported TEFA offerings schema")
+    require(catalog.get("operator") == "Nationwide Acquisitions, LLC", "Unexpected TEFA offerings operator")
+    require(catalog.get("storefront_brand") == "Preparation Station", "Unexpected TEFA offerings storefront")
+    items = catalog.get("items")
+    require(isinstance(items, list), "TEFA offerings items must be a list")
+
+    verified: set[str] = set()
+    for item in items:
+        sku = item.get("sku")
+        require(isinstance(sku, str) and re.fullmatch(r"PS-[A-Z]{2}-\d{3}", sku) is not None, "Invalid TEFA offering SKU")
+        require(sku not in verified, f"Duplicate TEFA offering SKU: {sku}")
+        require(sku in product_skus, f"Verified offering SKU must exist in the canonical product catalog: {sku}")
+        verified.add(sku)
+        require(isinstance(item.get("name"), str) and item["name"], f"Missing TEFA offering name: {sku}")
+        # A record only belongs here once it is genuinely verified for release.
+        require(item.get("public_listing_allowed") is True, f"TEFA offering must be public-listing verified: {sku}")
+        require(item.get("tefa_offering_status") == "approved", f"TEFA offering must be Odyssey-approved: {sku}")
+        require(bool(item.get("odyssey_offering_id")), f"Approved TEFA offering requires an Odyssey ID: {sku}")
+        eligibility = item.get("funding_eligibility", {})
+        require(
+            eligibility.get("tefa") == "verified_product_evidence",
+            f"TEFA offering must record verified product evidence: {sku}",
+        )
+        # Prices are set at the Odyssey offering record, not published on this
+        # site; keep any recorded price non-negative when present.
+        price = item.get("retail_price_usd")
+        require(price is None or (isinstance(price, (int, float)) and price >= 0), f"Invalid TEFA offering price: {sku}")
+        # Optional growth/profitability fields, validated only when present so the
+        # schema can carry margin and time-buyback signals as the catalog grows.
+        margin = item.get("target_margin_pct")
+        require(margin is None or (isinstance(margin, (int, float)) and 0 <= margin <= 100), f"Invalid target margin: {sku}")
+        fulfillment = item.get("fulfillment_mode")
+        require(
+            fulfillment in {None, "digital_zero_marginal", "physical_kit", "made_to_order", "dropship"},
+            f"Invalid fulfillment mode: {sku}",
+        )
+    return verified
+
+
 def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> None:
     allowed_keys = {
         "schema_version",
@@ -315,7 +365,7 @@ def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> 
     }
     require(set(config) == allowed_keys, "Unexpected request-intake configuration keys")
     require(config.get("schema_version") == 1, "Unsupported request-intake schema")
-    require(config.get("provider") == "formspree", "Unexpected request-intake provider")
+    require(config.get("provider") == "cloudflare-worker", "Unexpected request-intake provider")
     require(isinstance(config.get("enabled"), bool), "Request-intake enabled flag must be boolean")
     require(
         config.get("support_email") == state.get("business", {}).get("support_email"),
@@ -356,11 +406,11 @@ def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> 
     require(isinstance(endpoint, str), "Request-intake endpoint must be a string")
     if endpoint:
         require(
-            re.fullmatch(r"https://formspree\.io/f/[A-Za-z0-9_-]+/?", endpoint) is not None,
-            "Request-intake endpoint must be a current HTTPS Formspree form endpoint",
+            re.fullmatch(r"https://[A-Za-z0-9.-]+(?:/.*)?", endpoint) is not None,
+            "Request-intake endpoint must be a current HTTPS Worker endpoint",
         )
     if config.get("enabled"):
-        require(bool(endpoint), "Enabled request intake requires a Formspree endpoint")
+        require(bool(endpoint), "Enabled request intake requires a Worker endpoint")
         require(bool(allowed_skus), "Enabled request intake requires at least one allowed SKU")
 
 
@@ -457,7 +507,9 @@ def main() -> None:
     state = load_json(STATE_PATH)
     validate_state(state)
     validate_books(load_json(BOOKS_PATH))
-    known_skus = validate_products(load_json(PRODUCTS_PATH))
+    product_skus = validate_products(load_json(PRODUCTS_PATH))
+    verified_skus = validate_tefa_offerings(load_json(TEFA_OFFERINGS_PATH), product_skus)
+    known_skus = product_skus | verified_skus
     validate_request_config(load_json(REQUEST_CONFIG_PATH), state, known_skus)
     validate_request_form()
     validate_order_portal(load_json(ORDER_PORTAL_CONFIG_PATH), known_skus)

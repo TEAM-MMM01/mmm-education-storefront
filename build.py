@@ -36,6 +36,11 @@ import pathlib
 import re
 
 HERE = pathlib.Path(__file__).parent
+# Source-controlled build stamp. Bump this manually when a dated rebuild is
+# intentional; deriving it from wall-clock time would rewrite the committed
+# generated pages on every future build and fail the "generated pages are
+# committed" CI check.
+BUILD_DATE = "August 19, 2026"
 FONTS = {
     "__MONO4__": "dmmono400.woff2",
     "__MONO5__": "dmmono500.woff2",
@@ -87,6 +92,7 @@ def standalone_document(body_html: str, description: str) -> str:
 
 def build_main_page():
     page = inline_fonts((HERE / "src" / "page.html").read_text(), "src/page.html")
+    page = page.replace("BUILD_DATE", BUILD_DATE)
     desc = (
         "Hands-on life skills, AI literacy, and focus coaching for students aged 8-18, "
         "funded through your family's TEFA account."
@@ -107,6 +113,7 @@ def build_store_pages(shared_css: str):
         if "__STORE_SHARED_CSS__" not in src:
             raise SystemExit(f"__STORE_SHARED_CSS__ missing from store/src/{name}.html")
         page = src.replace("__STORE_SHARED_CSS__", shared_css)
+        page = page.replace("BUILD_DATE", BUILD_DATE)
         page = resolve_cross_links(
             page, main="../index.html", esa_shop="shop.html", general_store="../general-store/shop.html"
         )
@@ -126,6 +133,7 @@ def build_general_store_pages(shared_css: str):
         if "__STORE_SHARED_CSS__" not in src:
             raise SystemExit(f"__STORE_SHARED_CSS__ missing from general-store/src/{name}.html")
         page = src.replace("__STORE_SHARED_CSS__", shared_css)
+        page = page.replace("BUILD_DATE", BUILD_DATE)
         page = resolve_cross_links(
             page, main="../index.html", esa_shop="../store/shop.html", general_store="shop.html"
         )
@@ -142,6 +150,7 @@ def build_info_pages(shared_css: str):
         if "__INFO_SHARED_CSS__" not in src:
             raise SystemExit(f"__INFO_SHARED_CSS__ missing from src/info/{name}.html")
         page = src.replace("__INFO_SHARED_CSS__", shared_css)
+        page = page.replace("BUILD_DATE", BUILD_DATE)
         page = resolve_cross_links(page, main="index.html", esa_shop="store/shop.html", general_store="")
         out = HERE / f"{name}.html"
         out.write_text(standalone_document(page, desc))
@@ -158,12 +167,13 @@ def resolve_cross_links(page: str, main: str, esa_shop: str, general_store: str)
 
 if __name__ == "__main__":
     build_main_page()
-    _shared_css = inline_fonts(
+    _base_css = (HERE / "src" / "base" / "design-system.css").read_text()
+    _shared_css = _base_css + inline_fonts(
         (HERE / "store" / "shared_style.css").read_text(), "store/shared_style.css"
     )
     build_store_pages(_shared_css)
     build_general_store_pages(_shared_css)
-    _info_css = inline_fonts(
+    _info_css = _base_css + inline_fonts(
         (HERE / "src" / "info" / "shared.css").read_text(), "src/info/shared.css"
     )
     build_info_pages(_info_css)

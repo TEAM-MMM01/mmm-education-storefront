@@ -1,43 +1,42 @@
 name: Build storefront
-
 on:
   pull_request:
+    types: [opened, synchronize, reopened]
   push:
     branches:
       - main
-
 permissions:
   contents: read
-
+  pull-requests: write
 jobs:
   build:
     name: Rebuild generated storefront pages
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0  # Need full history for oz-agent diff analysis
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-
       - name: Reject forbidden untracked paths
         run: python3 tools/check_untracked.py
-
       - name: Validate canonical project and catalog state
         run: python3 tools/validate_project_state.py
-
       - name: Validate storefront JavaScript and order boundaries
         run: |
           node --check store/cart.js
           node --check store/track.js
           node tools/test_request_intake.js
           node tools/test_order_tracking.js
-
       - name: Run static-site build
         run: python3 build.py
-
       - name: Confirm generated pages are committed
         shell: bash
         run: |
@@ -57,13 +56,11 @@ jobs:
             echo "$changes"
             exit 1
           fi
-
       - name: Build non-deployable release artifact for boundary checks
         run: >-
           python3 tools/build_pages_release.py
           --output "${{ runner.temp }}/pages-release"
-
-      - name: Smoke-test release artifact boundaries
+      - name: Smoke-test artifact boundaries
         run: >-
           python3 tools/test_pages_release.py
           "${{ runner.temp }}/pages-release"

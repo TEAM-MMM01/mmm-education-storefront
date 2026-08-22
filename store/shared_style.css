@@ -18,24 +18,24 @@
 
 /* ---------- Tokens ---------- */
 :root{
-  --paper:#f5efe3; --paper-2:#eee5d4; --card:#fffdf8;
-  --ink:#293b36; --ink-soft:#50645e; --muted:#6f7f79;
-  --pine:#123f35; --pine-deep:#0d3028; --on-pine:#fffdf8; --pine-muted:#b7d2c6;
-  --accent:#a94428; --accent-lit:#fbe1d7; --on-accent:#fffdf8; --accent-hover:#7f2f1c;
-  --btn:#123f35; --btn-hover:#0d3028;
-  --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
-  --section-even:rgba(251, 247, 241, 0.96);
-  --pine-accent:#f0c369; --on-pine-accent:#123f35;
-  --clay:#d96844;
-  --good:#21734f; --on-good:#f2fbf6;
-  --rule:#ded4c2; --rule-soft:#ebe3d5;
+  --paper:#f6f3ea; --paper-2:#f1ece1; --card:#fcfaf5;
+  --ink:#3d352b; --ink-soft:#6d6458; --muted:#9e9486;
+  --pine:#2a3d38; --pine-deep:#1c2a26; --on-pine:#f3efe4; --pine-muted:#a8bfb4;
+  --accent:#2f7a78; --accent-lit:#dcebe8; --on-accent:#f7f4ec; --accent-hover:#276967;
+  --btn:#2f7a78; --btn-hover:#276967;
+  --eyebrow-bg:#deecea; --eyebrow-text:#2f5a58;
+  --section-even:rgba(249, 246, 239, 0.96);
+  --pine-accent:#d8b261; --on-pine-accent:#1c2a26;
+  --clay:#a44e36;
+  --good:#5d7e52; --on-good:#f2fbf6;
+  --rule:#3d352b26; --rule-soft:#3d352b14;
   --focus:var(--accent);
-  --shadow:0 1px 2px #15201B0d, 0 12px 28px -18px #15201B40;
---display:'Cabinet Grotesk',ui-sans-serif,system-ui,sans-serif;
+  --shadow:0 1px 2px #3d352b0d, 0 12px 28px -18px #3d352b40;
+  --display:'Cabinet Grotesk',ui-sans-serif,system-ui,sans-serif;
   --body:'Satoshi',ui-sans-serif,system-ui,sans-serif;
   --mono:'DMMono',ui-monospace,'SFMono-Regular',Menlo,monospace;
-  --measure:1180px;
-  --grid-line:#15201B0a;
+  --measure:var(--content-2xl);
+  --grid-line:#3d352b0a;
   /* Motion tokens — see docs/workflow/MOTION_SYSTEM.md */
   --ease-standard:cubic-bezier(0.16,1,0.3,1);
   --ease-soft:cubic-bezier(0.22,1,0.36,1);
