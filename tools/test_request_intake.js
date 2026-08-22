@@ -25,7 +25,7 @@ async function main() {
   const readyConfig = {
     ...config,
     enabled: true,
-    endpoint: 'https://formspree.io/f/TEST_form_123',
+    endpoint: 'https://worker.example/intake',
     allowed_skus: ['PS-PR-101', 'PS-SC-201'],
   };
   assert.deepEqual(intake.validateRequestConfig(readyConfig), {
@@ -49,10 +49,10 @@ async function main() {
   assert.equal(intake.requestSkuEnabled(readyConfig, 'PS-HS-504'), false);
   assert.equal(intake.requestSkuEnabled({ ...readyConfig, enabled: false }, 'PS-PR-101'), false);
   for (const endpoint of [
-    'http://formspree.io/f/test',
+    'http://worker.example/intake',
     'https://evil.example/f/test',
-    'https://formspree.io/mmminvestment25@gmail.com',
-    'https://formspree.io/f/test?redirect=evil',
+    'https://worker.example',
+    'https://worker.example/intake?redirect=evil',
   ]) {
     assert.equal(
       intake.validateRequestConfig({ ...readyConfig, endpoint }).valid,

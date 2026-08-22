@@ -365,7 +365,7 @@ def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> 
     }
     require(set(config) == allowed_keys, "Unexpected request-intake configuration keys")
     require(config.get("schema_version") == 1, "Unsupported request-intake schema")
-    require(config.get("provider") == "formspree", "Unexpected request-intake provider")
+    require(config.get("provider") == "cloudflare-worker", "Unexpected request-intake provider")
     require(isinstance(config.get("enabled"), bool), "Request-intake enabled flag must be boolean")
     require(
         config.get("support_email") == state.get("business", {}).get("support_email"),
@@ -406,11 +406,11 @@ def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> 
     require(isinstance(endpoint, str), "Request-intake endpoint must be a string")
     if endpoint:
         require(
-            re.fullmatch(r"https://formspree\.io/f/[A-Za-z0-9_-]+/?", endpoint) is not None,
-            "Request-intake endpoint must be a current HTTPS Formspree form endpoint",
+            re.fullmatch(r"https://[A-Za-z0-9.-]+(?:/.*)?", endpoint) is not None,
+            "Request-intake endpoint must be a current HTTPS Worker endpoint",
         )
     if config.get("enabled"):
-        require(bool(endpoint), "Enabled request intake requires a Formspree endpoint")
+        require(bool(endpoint), "Enabled request intake requires a Worker endpoint")
         require(bool(allowed_skus), "Enabled request intake requires at least one allowed SKU")
 
 
