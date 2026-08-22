@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "provider": "formspree",
+  "provider": "cloudflare-worker",
   "enabled": false,
-  "endpoint": "https://formspree.io/f/xoeappwz",
+  "endpoint": "",
   "support_email": "mmminvestment25@gmail.com",
   "retention_days": 30,
   "allowed_skus": [],
