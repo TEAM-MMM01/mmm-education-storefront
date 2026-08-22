@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "provider": "formspree",
+  "provider": "cloudflare-worker",
   "enabled": false,
   "endpoint": "",
   "support_email": "mmminvestment25@gmail.com",

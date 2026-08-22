@@ -150,8 +150,12 @@ p,li{margin:0; color:var(--color-text-muted); text-wrap:pretty}
 /* ---- Header (global lockup; no legal entity here) ---- */
 .site-header{position:sticky; top:0; z-index:100; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
   background:color-mix(in srgb,var(--color-surface) 88%,transparent);
+<<<<<<< HEAD
   border-bottom:1px solid color-mix(in srgb,var(--color-border) 82%,transparent);
   transition:background-color var(--dur-base) var(--ease-standard),box-shadow var(--dur-base) var(--ease-standard),border-color var(--dur-base) var(--ease-standard),min-height var(--dur-base) var(--ease-standard)}
+=======
+  border-bottom:1px solid color-mix(in srgb,var(--color-border) 82%,transparent)}
+>>>>>>> origin/main
 .site-header.is-scrolled{box-shadow:var(--shadow-sm)}
 .site-header__inner{min-height:var(--header-height); display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:var(--space-6)}
 .brand{display:inline-grid; gap:0.18rem; align-content:center; max-width:var(--header-logo-max); text-decoration:none}
@@ -164,6 +168,13 @@ p,li{margin:0; color:var(--color-text-muted); text-wrap:pretty}
 .site-nav__link{position:relative; display:inline-flex; align-items:center; min-height:44px; padding:0 var(--space-3);
   border-radius:var(--radius-full); font-size:var(--text-sm); color:var(--color-text-muted); font-weight:600}
 .site-nav__link:hover,.site-nav__link[aria-current="page"]{color:var(--color-text); background:var(--color-primary-soft)}
+<<<<<<< HEAD
+=======
+.site-nav__toggle{display:none; align-items:center; min-height:44px; padding:0 var(--space-4); justify-self:end;
+  border:1px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface-2);
+  color:var(--color-text); font-size:var(--text-sm); font-weight:700; letter-spacing:var(--tracking-label);
+  text-transform:uppercase; cursor:pointer}
+>>>>>>> origin/main
 .header-actions{display:flex; align-items:center; gap:var(--space-3)}
 
 /* ---- Buttons ---- */
@@ -309,9 +320,19 @@ td{color:var(--color-text-muted); font-size:var(--text-sm)}
 
 /* ---- Responsive ---- */
 @media (max-width:1100px){
+<<<<<<< HEAD
   .site-header__inner{grid-template-columns:1fr; justify-items:start; padding-block:var(--space-4)}
   .site-nav{justify-self:start}
   .header-actions{width:100%; justify-content:flex-start}
+=======
+  .site-header__inner{grid-template-columns:1fr auto; justify-items:start; align-items:center; padding-block:var(--space-4)}
+  .site-nav__toggle{display:inline-flex}
+  .site-nav{grid-column:1 / -1; justify-self:stretch; display:none}
+  .site-nav.is-open{display:block}
+  .site-nav__list{flex-direction:column; align-items:stretch; justify-content:flex-start; gap:var(--space-1); margin-top:var(--space-3)}
+  .site-nav__link{justify-content:flex-start}
+  .header-actions{grid-column:1 / -1; width:100%; justify-content:flex-start}
+>>>>>>> origin/main
   .hero__grid,.cta-band,.site-footer__grid{grid-template-columns:1fr}
   .card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .trust-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -343,6 +364,10 @@ td{color:var(--color-text-muted); font-size:var(--text-sm)}
         <span class="brand__wordmark">Preparation Station</span>
         <span class="brand__tagline">Practical curriculum for life ahead.</span>
       </a>
+<<<<<<< HEAD
+=======
+      <button class="site-nav__toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="storeNav" id="navToggle">Menu</button>
+>>>>>>> origin/main
       <nav class="site-nav" id="storeNav" aria-label="Main">
         <ul class="site-nav__list">
           <li><a class="site-nav__link" href="index.html">Home</a></li>
@@ -405,7 +430,7 @@ td{color:var(--color-text-muted); font-size:var(--text-sm)}
         </div>
         <div class="step-card">
           <div class="step-number">2</div>
-          <h3>Find Preparation Station</h3>
+          <h3>Check Marketplace Availability</h3>
           <p>Check the Odyssey marketplace for currently available Preparation Station offerings. Vendor approval does not guarantee search placement, category placement, or offering availability.</p>
         </div>
         <div class="step-card">
@@ -535,7 +560,7 @@ td{color:var(--color-text-muted); font-size:var(--text-sm)}
         </details>
         <details class="faq-item motion-acc">
           <summary>Who do I contact with questions?</summary>
-          <div class="acc-body"><div><p>Email <a href="mailto:mmminvestment25@gmail.com">mmminvestment25@gmail.com</a>. Complete requests are acknowledged within one business day.</p></div></div>
+          <div class="acc-body"><div><p>Email <a href="contact.html">the contact page</a>. Complete requests are acknowledged within one business day.</p></div></div>
         </details>
       </div>
     </div>
@@ -545,7 +570,7 @@ td{color:var(--color-text-muted); font-size:var(--text-sm)}
   <section class="section cta-section reveal">
     <div class="container">
       <h2>Ready to Use Your TEFA Funds?</h2>
-      <p>Find Preparation Station in the Odyssey marketplace and start shopping for your learner today.</p>
+      <p>Check the Odyssey marketplace for currently available Preparation Station offerings.</p>
 <a href="https://withodyssey.com" class="btn btn-primary btn-large" target="_blank" rel="noopener">Open Odyssey Marketplace</a>
     </div>
   </section>
@@ -567,10 +592,32 @@ td{color:var(--color-text-muted); font-size:var(--text-sm)}
 
     /* sticky-header-compress */
     var head = document.querySelector(".site-header");
+<<<<<<< HEAD
     var onScroll = function () { head.classList.toggle("scrolled", window.scrollY > 8); };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
+=======
+    var onScroll = function () { head.classList.toggle("is-scrolled", window.scrollY > 8); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    /* mobile navigation toggle */
+    var navToggle = document.getElementById("navToggle"), mainNav = document.getElementById("storeNav");
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", function () {
+        var open = mainNav.classList.toggle("is-open");
+        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      mainNav.addEventListener("click", function (e) {
+        if (e.target.closest(".site-nav__link")) {
+          mainNav.classList.remove("is-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
+>>>>>>> origin/main
     /* scroll-triggered reveals */
     var targets = document.querySelectorAll(".reveal, .stagger");
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {

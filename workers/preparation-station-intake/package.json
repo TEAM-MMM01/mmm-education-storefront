@@ -1,0 +1,12 @@
+{
+  "name": "@preparation-station/intake-worker",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260812.0"
+  }
+}
