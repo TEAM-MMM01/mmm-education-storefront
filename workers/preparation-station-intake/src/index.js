@@ -46,6 +46,7 @@ function validOrigin(request, expectedOrigin) {
   return request.headers.get('origin') === expectedOrigin;
 }
 
+<<<<<<< HEAD
 function validEmail(email) {
   if (typeof email !== 'string') return false;
   if (email.length < 3 || email.length > 254) return false;
@@ -67,6 +68,8 @@ function validEmail(email) {
   return true;
 }
 
+=======
+>>>>>>> b3aa8ad (feat(intake): add private Cloudflare Worker inquiry webhook)
 function validPayload(payload) {
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     return 'invalid_payload';
@@ -79,7 +82,11 @@ function validPayload(payload) {
 
   if (payload._gotcha) return 'spam_detected';
   if (!payload.adult_name || !payload.email || !payload.client_reference) return 'missing_required_fields';
+<<<<<<< HEAD
   if (!validEmail(payload.email)) return 'invalid_email';
+=======
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return 'invalid_email';
+>>>>>>> b3aa8ad (feat(intake): add private Cloudflare Worker inquiry webhook)
   if (!/^PSQ-\d{8}-[A-Za-z0-9_-]+$/.test(payload.client_reference)) return 'invalid_reference';
 
   const submittedAt = Date.parse(payload.submitted_at || '');
