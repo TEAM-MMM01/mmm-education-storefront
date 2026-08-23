@@ -99,7 +99,7 @@
 .brand{display:flex; align-items:baseline; gap:.55rem; text-decoration:none; margin-right:.5rem}
 .brand-mark{font-family:var(--display); font-weight:800; font-size:1.02rem; letter-spacing:-.045em}
 .brand-sub{color:var(--muted); font-size:.62rem}
-.nav{position:sticky; top:0; z-index:40; background:rgba(243, 238, 230, 0.88); border-bottom:1px solid rgba(43, 36, 28, 0.08);}
+.nav{position:sticky; top:0; z-index:40; background:rgba(255, 253, 248, 0.88); border-bottom:1px solid rgba(43, 36, 28, 0.08);}
 .nav a{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
   text-decoration:none; color:var(--muted); transition:color .18s ease; white-space:nowrap}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--ink)}
@@ -117,7 +117,7 @@
   font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:500;
   padding:.72rem 1.15rem; border-radius:2px; text-decoration:none; border:1.5px solid transparent;
   transition:transform .16s ease, background .16s ease, border-color .16s ease, color .16s ease; cursor:pointer}
-.btn-solid{background:var(--btn); color:#fffdf9; border-color:var(--btn)}
+.btn-solid{background:var(--btn); color:#fffdf8; border-color:var(--btn)}
 .btn-solid:hover{background:var(--btn-hover); border-color:var(--btn-hover); transform:translateY(-2px)}
 .btn-ghost{border-color:var(--rule); color:var(--ink)}
 .btn-ghost:hover{border-color:var(--ink); transform:translateY(-2px)}
@@ -180,9 +180,9 @@ a.product{text-decoration:none; color:inherit}
     var(--card);
   border-bottom:1px solid var(--rule); display:flex; align-items:center; justify-content:center;
   color:var(--muted); font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; text-align:center; padding:1rem}
-.pbody{font-family:'Newsreader',Georgia,'Times New Roman',serif; color:#4a3f35; background:
-    radial-gradient(circle at top left, rgba(47, 111, 104, 0.035), transparent 26%),
-    linear-gradient(to bottom, #f8f4ed 0%, #f3eee6 100%); min-height:100vh; min-height:100dvh; -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden}
+.pbody{font-family:'Newsreader',Georgia,'Times New Roman',serif; color:#293b36; background:
+    radial-gradient(circle at top left, rgba(18, 63, 53, 0.035), transparent 26%),
+    linear-gradient(to bottom, #fffdf8 0%, #f5efe3 100%); min-height:100vh; min-height:100dvh; -webkit-font-smoothing:antialiased; position:relative; overflow-x:hidden}
 .sku{font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:500}
 .product h3{font-family:var(--display); font-size:1.06rem; font-weight:750; letter-spacing:-.02em; line-height:1.22}
 .product .desc{color:var(--ink-soft); font-size:.92rem; line-height:1.5}
@@ -256,7 +256,7 @@ a.product{text-decoration:none; color:inherit}
 /* ---------- Footer ---------- */
 .foot{background:var(--pine-deep); color:var(--on-pine); padding-block:2.5rem 2rem}
 .foot-top{display:flex; flex-wrap:wrap; gap:1.5rem 2.5rem; align-items:baseline; justify-content:space-between;
-  padding-bottom:1.25rem; border-bottom:1px solid #EAF2ED1f}
+  padding-bottom:1.25rem; border-bottom:1px solid #fffdf81f}
 .foot-brand{font-family:var(--display); font-weight:800; font-size:1.05rem; letter-spacing:-.045em}
 .foot-nav{display:flex; flex-wrap:wrap; gap:1.1rem}
 .foot-nav a{font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--pine-muted); text-decoration:none; padding:0 .2rem; display:inline-block; line-height:44px}
