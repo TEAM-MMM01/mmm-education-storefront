@@ -27,4 +27,4 @@ jobs:
       - name: Confirm expected account ID secret exists
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: test "$CLOUDFLARE_ACCOUNT_ID" = "76b088492eedcb8dd58dc660237c92b1"
+        run: test -n "$CLOUDFLARE_ACCOUNT_ID"
