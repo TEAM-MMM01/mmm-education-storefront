@@ -61,7 +61,7 @@
   - Hermes Voice (@HermesOS2_Bot) ✅ — correct token found
   - Hermes PF (@RichieRichPF_bot) ✅
   - Royal Collexions (@RoyalCXL_Bot) ✅
-  - The Oracle (@OracleSignalsProphet_Bot) — needs BotFather creation
+  - The Oracle (@OracleSignalsProphet_Bot) ✅
 - [x] Telegram notifications working
 - [x] iMessage notifications working
 
@@ -99,7 +99,7 @@
 | Hermes Voice | @HermesOS2_Bot | Hermes Voice | Voice input | ✅ Live (token: AAH2tp...) |
 | Hermes PF | @RichieRichPF_bot | Hermes PF | PumpFun trading | ✅ Live |
 | Royal Collexions | @RoyalCXL_Bot | Royal Collexions | Shopify commerce | ✅ Live |
-| The Oracle | @OracleSignalsProphet_Bot | The Oracle | Trading signals | ⏳ Needs BotFather |
+| The Oracle | @OracleSignalsProphet_Bot | The Oracle | Trading signals | ✅ Live |
 
 All bots route to chat ID `7584154252`.
 
@@ -145,7 +145,7 @@ All bots route to chat ID `7584154252`.
 2. ~~Link deploy to main branch~~ ✅ (Vercel)
 3. ~~Test deploy~~ ✅
 4. ~~Submit site~~ ✅
-5. Create The Oracle bot via BotFather
+5. ~~Create The Oracle bot via BotFather~~ ✅ DONE
 6. Get proper Slack bot token (xoxb- format)
 
 ### This week

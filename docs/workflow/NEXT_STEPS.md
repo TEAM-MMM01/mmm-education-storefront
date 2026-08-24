@@ -153,7 +153,7 @@ After the workflow is stable, return to the storefront launch path:
 
 Choose the next implementation target:
 
-1. **Create The Oracle bot** via BotFather — enables trading signals lane.
+1. ~~**Create The Oracle bot** via BotFather~~ ✅ DONE — enables trading signals lane.
 2. **Get Slack bot token** (xoxb- format) — enables Slack notifications.
 3. **Send TEFA submission email** — draft at `docs/tefa-email-draft.md`.
 4. **Resolve LOCK-4 through LOCK-7** — all need Richie decision.

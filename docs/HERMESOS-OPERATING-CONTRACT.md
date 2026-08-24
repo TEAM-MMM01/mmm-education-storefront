@@ -83,7 +83,7 @@ Every task must resolve to:
 | Prep Station | TEFA, education, curriculum, storefront | @HermesPrepStation_Bot | ✅ Live |
 | Hermes Voice | Voice intake and transcription workflows | @HermesOS2_Bot | ✅ Live |
 | Hermes PF | PumpFun research and guarded execution | @RichieRichPF_bot | ✅ Live |
-| The Oracle | Market intelligence, watchlists, alerts | @OracleSignalsProphet_Bot | ⏳ Needs BotFather |
+| The Oracle | Market intelligence, watchlists, alerts | @OracleSignalsProphet_Bot | ✅ Live |
 | Royal Collexions | Commerce, collectibles, order/fulfillment | @RoyalCXL_Bot | ✅ Live |
 
 No specialist lane becomes an independent command center. They report status and evidence back to COO.
