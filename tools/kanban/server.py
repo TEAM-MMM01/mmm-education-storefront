@@ -7,7 +7,7 @@ import time
 import threading
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from socketserver import ThreadingMixIn
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 import logging
@@ -18,9 +18,28 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s',
 logger = logging.getLogger(__name__)
 
 BOARD_PATH = Path.home() / ".hermes-mac" / "kanban" / "board.json"
+HISTORY_PATH = Path.home() / ".hermes-mac" / "kanban" / "history.json"
 TEMPLATES_PATH = Path(__file__).parent / "templates.json"
 AGENTS_PATH = Path.home() / ".hermes-mac" / "kanban" / "agents.json"
 DASHBOARD_DIR = Path(__file__).parent
+
+# ── CST Timezone ──
+CST = timezone(timedelta(hours=-6))  # CST = UTC-6
+
+def now_cst():
+    return datetime.now(CST)
+
+def fmt_cst_12(dt=None):
+    """Format datetime as CST 12-hour. e.g. '4:15 PM'"""
+    if dt is None:
+        dt = now_cst()
+    return dt.strftime("%-I:%M %p")
+
+def fmt_cst_full(dt=None):
+    """Format as 'Aug 24, 4:15 PM CST'"""
+    if dt is None:
+        dt = now_cst()
+    return dt.strftime("%b %-d, %-I:%M %p")
 
 # ── SSE ──
 sse_clients: list[queue.Queue] = []
@@ -29,6 +48,79 @@ sse_lock = threading.Lock()
 # ── Activity Log ──
 activity_log: list[dict] = []
 ACTIVITY_MAX = 100
+
+# ── Task History ──
+task_history: list[dict] = []
+HISTORY_MAX = 500
+
+def load_history():
+    global task_history
+    try:
+        if HISTORY_PATH.exists():
+            task_history = json.loads(HISTORY_PATH.read_text())
+    except Exception as e:
+        logger.error(f"History load error: {e}")
+        task_history = []
+
+def save_history():
+    try:
+        HISTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
+        HISTORY_PATH.write_text(json.dumps(task_history[-HISTORY_MAX:], indent=2, default=str))
+    except Exception as e:
+        logger.error(f"History save error: {e}")
+
+def record_history(task_id: str, title: str, from_col: str, to_col: str, agent: str, priority: str = "", tier: int = 1):
+    """Record a task movement in history."""
+    entry = {
+        "task_id": task_id,
+        "title": title,
+        "from_column": from_col,
+        "to_column": to_col,
+        "agent": agent,
+        "priority": priority,
+        "tier": tier,
+        "timestamp": now_cst().isoformat(),
+        "display_time": fmt_cst_12(),
+    }
+    task_history.append(entry)
+    if len(task_history) > HISTORY_MAX:
+        task_history = task_history[-HISTORY_MAX:]
+    save_history()
+
+def get_history_metrics():
+    """Calculate completion metrics from history."""
+    completed = [h for h in task_history if h["to_column"] == "done"]
+    total_moves = len(task_history)
+
+    # Average time to complete
+    avg_time = "—"
+    if completed:
+        times = []
+        for h in completed:
+            # Find when task started (first move to in_progress)
+            task_id = h["task_id"]
+            start = next((x for x in task_history if x["task_id"] == task_id and x["to_column"] == "in_progress"), None)
+            if start:
+                try:
+                    t1 = datetime.fromisoformat(start["timestamp"])
+                    t2 = datetime.fromisoformat(h["timestamp"])
+                    diff = (t2 - t1).total_seconds() / 60
+                    if diff > 0:
+                        times.append(diff)
+                except:
+                    pass
+        if times:
+            avg = sum(times) / len(times)
+            if avg < 60:
+                avg_time = f"{avg:.0f}m"
+            else:
+                avg_time = f"{avg/60:.1f}h"
+
+    return {
+        "total_completed": len(completed),
+        "total_moves": total_moves,
+        "avg_time": avg_time,
+    }
 
 AGENTS = [
     {"id": "hermes-coo", "name": "Hermes COO", "icon": "🦁", "role": "Operations", "status": "active", "color": "#f778ba"},
@@ -195,6 +287,8 @@ def auto_advance_tick():
                 add_activity("task",
                     f"#{task['id'][:8]} {task['title'][:40]} → {next_col} ({agent_name})",
                     task["id"])
+                record_history(task["id"], task["title"], old_col, next_col, agent_name,
+                    task.get("priority", ""), task.get("tier", 1))
                 logger.info(f"Auto-advance: {task['id'][:8]} {old_col} → {next_col}")
                 changed = True
                 advances += 1
@@ -249,6 +343,9 @@ class KanbanHandler(SimpleHTTPRequestHandler):
 
         if path == "/api/activity":
             return self.send_json({"activity": list(reversed(activity_log[-50:]))})
+
+        if path == "/api/history":
+            return self.send_json({"history": task_history[-100:], "metrics": get_history_metrics()})
 
         if path == "/api/events":
             return self.handle_sse()
@@ -354,6 +451,8 @@ class KanbanHandler(SimpleHTTPRequestHandler):
                     task["completed_at"] = datetime.now().isoformat()
                 save_board(board)
                 add_activity("task", f"#{task['id'][:8]} moved {old_col} → {new_column}", task["id"])
+                record_history(task["id"], task["title"], old_col, new_column,
+                    task.get("assignee", "unassigned"), task.get("priority", ""), task.get("tier", 1))
                 broadcast_sse({"type": "board", "tasks": board["tasks"]})
                 return self.send_json(task)
         self.send_json({"error": "Task not found"}, 404)
@@ -550,6 +649,10 @@ if __name__ == "__main__":
     logger.info("Auto-advance engine started (30s tick)")
 
     add_activity("system", "Kanban server started — auto-advance engine active")
+
+    # Load task history
+    load_history()
+    logger.info(f"Loaded {len(task_history)} history entries")
 
     server = ThreadedHTTPServer(("0.0.0.0", port), KanbanHandler)
     logger.info(f"Kanban server running on port {port}")
