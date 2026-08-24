@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 __pycache__/
 *.py[cod]
 .DS_Store
@@ -29,3 +30,6 @@ tools/agent_loop/report.json
 
 # Orchestration runtime output (regenerated on every invocation)
 .hermes-mac/
+=======
+.vercel/
+>>>>>>> 58693cd (chore: ignore local Vercel project metadata)
