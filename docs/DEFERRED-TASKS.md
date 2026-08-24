@@ -1,6 +1,6 @@
 # Deferred Tasks — Preparation Station
 
-**Last updated:** 2026-08-11
+**Last updated:** 2026-08-24
 **Source:** Session state, project-state.json, AGENTS.md, architecture review
 
 ---
@@ -99,6 +99,18 @@
 - [x] Branch protection enforcement enabled
 - [x] netlify.toml created + pushed
 - [x] Codex/Devin access policy reviewed
+
+---
+
+## DEFERRED — Kanban Dashboard Improvements
+
+| Task | What | Priority |
+|---|---|---|
+| Cache-busting headers | Add no-cache headers to server so animated design always loads fresh | High |
+| Evolving dashboard | Make design evolve with new skills, prompts, loops auto-discovered from GitHub | Medium |
+| GitHub skills sync | Pull latest skills from OpenHands/software-agent-sdk, anthropics/claude-agent-sdk-python, TEAM-MMM01/hermes-agent | Medium |
+| Skills auto-update | Dashboard pulls live skill list from server, server syncs with .system/skills/ | Medium |
+| Templates.json file | Create standalone templates.json (currently hardcoded in server.py) | Low |
 
 ---
 

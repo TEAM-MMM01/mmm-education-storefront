@@ -3,7 +3,7 @@
   "provider": "cloudflare-worker",
   "enabled": false,
   "endpoint": "",
-  "support_email": "mmminvestment25@gmail.com",
+  "support_email": "Hello@preparationstation.org",
   "retention_days": 30,
   "allowed_skus": [],
   "allowed_submission_fields": [

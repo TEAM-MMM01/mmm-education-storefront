@@ -7,8 +7,8 @@ This inventory catalogs all available agent skills, their status, and when they 
 | Skill | File | Tier | When to Use |
 |---|---|---|---|
 | Agent Execution Skill | `.system/skills/agent_execution_skill.md` | 1-3 | Every session — mandatory pre-flight |
-| Design System Unifier | `PR #38` branch (`agent/design-system-unification`) | 2 | When unifying global header/footer/tokens across pages |
-| ESA Framework Integrator | `PR #39` branch (`agent/esa-catalog-presentation`) | 2 | When transforming home page into TEFA-ready catalog |
+| Design System Unifier | PR #38 (merged) | 2 | When unifying global header/footer/tokens across pages |
+| ESA Framework Integrator | PR #41 (merged, work from PR #39 completed) | 2 | When transforming home page into TEFA-ready catalog |
 | Storefront Validator | `tools/validate_project_state.py` | 1-3 | Before any PR; validates 16 pages |
 | Build Pipeline | `build.py` | 1-3 | Every source change; inlines CSS + validates |
 
@@ -55,10 +55,11 @@ This inventory catalogs all available agent skills, their status, and when they 
 
 | Date | Skill | Change | Impact |
 |---|---|---|---|
+| 2026-08-24 | Kanban Dashboard | Full server rebuild with all endpoints | All tools functional |
+| 2026-08-24 | Skills Audit | All skills/prompts/loops reviewed and verified | No conflicts found |
 | 2026-08-19 | Agent Execution Skill | Full rewrite with tiered enforcement | Reduced review round-trips |
-| 2026-08-19 | ESA Integration PR #39 | Added 5 new sections to home page | Catalog presentation capability |
+| 2026-08-19 | ESA Integration PR #41 | Completed work from PR #39 | Catalog presentation live |
 | 2026-08-19 | Dashboard Widgets | Updated with real-time state | Operational visibility |
-| 2026-08-19 | MMM5L REVIEW.md | Documented merge-gate blockers | Clear blockers for CI provisioning |
 
 ## Skills to Pull from GitHub (priority order)
 

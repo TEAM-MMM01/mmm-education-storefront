@@ -144,10 +144,17 @@ After the workflow is stable, return to the storefront launch path:
 
 ## Owner decision needed now
 
+**Current state (2026-08-24):**
+- Site is LIVE on Vercel (not Netlify)
+- All sub-pages deployed and returning 200
+- Kanban dashboard running with all tools functional
+- 6 Telegram bots verified (5 live, 1 needs BotFather)
+- GitHub Actions restricted to TEAM-MMM01-owned actions
+
 Choose the next implementation target:
 
-1. **Obsidian-first:** set up the synced vault and notes.
-2. **OmniRoute-first:** give the OmniRoute/dashboard repo or API details so events can be wired.
-3. **Storefront-first:** continue with ESA Phase 1 product/storefront launch changes.
-
-If unsure, choose **Obsidian-first**, then **OmniRoute-first**, then **Storefront-first**.
+1. **Create The Oracle bot** via BotFather — enables trading signals lane.
+2. **Get Slack bot token** (xoxb- format) — enables Slack notifications.
+3. **Send TEFA submission email** — draft at `docs/tefa-email-draft.md`.
+4. **Resolve LOCK-4 through LOCK-7** — all need Richie decision.
+5. **OmniRoute wiring** — give the OmniRoute/dashboard repo or API details.

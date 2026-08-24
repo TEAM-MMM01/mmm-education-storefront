@@ -50,7 +50,10 @@ For every PR, the body must include:
 - Public brand: Preparation Station.
 - Legal operator: Nationwide Acquisitions, LLC.
 - Approved public disclosure: "Preparation Station is operated by Nationwide Acquisitions, LLC."
-- Temporary support email: `mmminvestment25@gmail.com`.
+- Domain: preparationstation.org (owned)
+- Support email: Hello@preparationstation.org
+- Sales email: Sales@preparationstation.org
+- Help email: Support@preparationstation.org
 - Complete requests are acknowledged within one business day.
 - Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor based on the owner-provided approval email. Public claims must name the approved legal entity and state that each offering is reviewed separately in Odyssey.
 - PDSES/ClassWallet status is unknown and must not be advertised as approved.

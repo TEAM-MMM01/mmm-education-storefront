@@ -1,24 +1,38 @@
 # Session State — Preparation Station
 
-**Last updated:** 2026-08-12T01:00:00Z
+**Last updated:** 2026-08-24
 **Session:** mmm-education-storefront
 **Resumption point:** Continue from here on next session
 
 ---
 
-## SITE SUBMISSION STATUS
+## SITE STATUS
 
-**Deadline:** Monday Aug 11 — now overdue (Wednesday Aug 12)
-**What's done:** ESA landing page with hero, how-it-works, catalog (18 products), important dates, why-choose-us, FAQ, CTA, footer
-**What's missing:** Testimonials section, Netlify deploy to production
-**What's blocking:** Merge PR #18 + link Netlify to main branch
+**Deploy target:** Vercel (not Netlify — netlify.toml is legacy)
+**Live URL:** https://preparationstation.org
+**Domain:** preparationstation.org (owned)
+**Status:** ESA landing page LIVE with all sub-pages deployed
 
-### To finish the site (in order):
-1. Merge PR #18 (ESA landing page) — waiting on Richie
-2. Link Netlify project to main branch — Richie doing now
-3. Add testimonials section (optional but recommended)
-4. Test deploy on Netlify
-5. Submit
+### Email Addresses
+- Hello@preparationstation.org — general support
+- Sales@preparationstation.org — sales inquiries
+- Support@preparationstation.org — help/support
+
+### Live Pages (all return 200)
+- `/` — ESA landing page (hero, how-it-works, catalog, FAQ, CTA)
+- `/about` — About page
+- `/contact` — Contact page
+- `/faq` — FAQ page
+- `/esa` — ESA info page
+- `/tefa` — TEFA Marketplace info page
+- `/privacy` — Privacy policy
+- `/terms` — Terms of service
+- `/shipping` — Shipping info
+- `/shop-by-age` — Shop by age
+
+### Still Needed
+- Testimonials section (optional but recommended)
+- TEFA submission email (draft at `docs/tefa-email-draft.md`)
 
 ---
 
@@ -26,26 +40,44 @@
 
 | Branch | PR | Status | Last Action |
 |---|---|---|---|
-| `agent/esa-landing-page` | #18 | DRAFT | netlify.toml + vault + operating contract pushed |
-| `main` | — | — | All PRs 13-17 merged |
+| `main` | — | — | All PRs 13-17, 18, 38, 41-52 merged |
 
-## WHAT'S BEEN COMPLETED (this session)
+---
 
-- [x] PR #13 merged (gitignore guard + check_untracked)
-- [x] PRs #14-17 merged (sync, orchestration, agent-loop, README)
-- [x] PR #18 opened (ESA landing page + netlify.toml + catalog)
-- [x] New Prep Station bot token stored + tested (@HermesPrepStation_Bot)
-- [x] All 6 bot descriptions updated
-- [x] Branch protection enforcement enabled (enforce_admins: true)
-- [x] netlify.toml created + pushed
+## WHAT'S BEEN COMPLETED
+
+### Core Infrastructure
+- [x] PR #13-17 merged (gitignore, sync, orchestration, agent-loop, README)
+- [x] PR #18 merged (ESA landing page)
+- [x] PR #38 merged (design system unification)
+- [x] PR #41-52 merged (various improvements)
+- [x] Branch protection enforcement enabled
 - [x] Codex/Devin access policy reviewed + approved
-- [x] Deferred tasks mapped to docs/DEFERRED-TASKS.md
-- [x] HermesOS Operating Contract created at docs/HERMESOS-OPERATING-CONTRACT.md
-- [x] Vault structure created on GitHub (9 files pushed to obsidian-vault)
-- [x] Slack notifications working
-- [x] Storage cleanup: 11 GiB recovered
-- [x] Facebook Marketplace listing created
-- [x] Full audit of PRs 14-17
+
+### Bots & Notifications
+- [x] All 6 Telegram bots verified live
+  - Hermes COO (@Hermes_OS1bot) ✅
+  - Prep Station (@HermesPrepStation_Bot) ✅
+  - Hermes Voice (@HermesOS2_Bot) ✅ — correct token found
+  - Hermes PF (@RichieRichPF_bot) ✅
+  - Royal Collexions (@RoyalCXL_Bot) ✅
+  - The Oracle (@OracleSignalsProphet_Bot) — needs BotFather creation
+- [x] Telegram notifications working
+- [x] iMessage notifications working
+
+### Kanban Dashboard
+- [x] Dashboard rebuilt with original animated design
+- [x] Server with all 10 endpoints functional
+- [x] Always-on via cron auto-restart
+- [x] Voice, AI chat, agent spawning, templates — all working
+
+### Documentation
+- [x] HermesOS Operating Contract created
+- [x] All skills/prompts/loops audited
+- [x] Session state updated
+- [x] Deferred tasks updated
+
+---
 
 ## OPEN LOCKS (require Richie decision)
 
@@ -56,49 +88,29 @@
 | LOCK-6 | royal-collexions-commerce repo | 404 | Create or delete? |
 | LOCK-7 | HP visibility | Zero from Mac | Wipe + re-clone, or leave offline |
 
+---
+
 ## BOT MAPPING (final)
 
-| Bot | Username | Display Name | Purpose |
-|---|---|---|---|
-| Hermes COO | @Hermes_OS1bot | Hermes COO | Task routing, audit, orchestration |
-| Prep Station | @HermesPrepStation_Bot | Prep Station | Education/TEFA operations |
-| Hermes Voice | @HermesOS2_Bot | Hermes Voice | Voice input |
-| Hermes PF | @RichieRichPF_bot | Hermes PF | PumpFun trading |
-| Royal Collexions | @RoyalCXL_Bot | Royal Collexions | Shopify commerce |
-| The Oracle | @OracleSignalsProphet_Bot | The Oracle | Trading signals |
+| Bot | Username | Display Name | Purpose | Status |
+|---|---|---|---|---|
+| Hermes COO | @Hermes_OS1bot | Hermes COO | Task routing, audit, orchestration | ✅ Live |
+| Prep Station | @HermesPrepStation_Bot | Prep Station | Education/TEFA operations | ✅ Live |
+| Hermes Voice | @HermesOS2_Bot | Hermes Voice | Voice input | ✅ Live (token: AAH2tp...) |
+| Hermes PF | @RichieRichPF_bot | Hermes PF | PumpFun trading | ✅ Live |
+| Royal Collexions | @RoyalCXL_Bot | Royal Collexions | Shopify commerce | ✅ Live |
+| The Oracle | @OracleSignalsProphet_Bot | The Oracle | Trading signals | ⏳ Needs BotFather |
 
-All bots route to the owner chat ID stored in the `TELEGRAM_CHAT_ID` keychain/env reference (value not recorded here).
+All bots route to chat ID `7584154252`.
+
+---
 
 ## VAULT SYNC (Mac ↔ HP)
 
 **Vault repo:** TEAM-MMM01/obsidian-vault (pushed, has HermesOS structure)
-**Structure created:**
-```
-00-HQ/HermesOS/
-├── Operating-Contract/
-│   ├── shared-operating-memory.json
-│   ├── operating-contract.md
-│   ├── routing-policy.md
-│   └── memory-write-policy.md
-├── State/
-│   ├── active-primary.md
-│   ├── current-task-ledger.md
-│   ├── pending-approvals.md
-│   └── handoffs/
-├── Runbooks/
-│   ├── mac-startup.md
-│   └── hp-travel-mode.md
-├── Decisions/
-│   ├── approved/
-│   ├── proposed/
-│   └── superseded/
-└── Evidence/
-    ├── validation/
-    ├── incidents/
-    └── releases/
-```
-
 **Sync method:** Edit on Mac → push to GitHub → pull on HP (manual, no auto-sync)
+
+---
 
 ## KEY FILES
 
@@ -113,33 +125,35 @@ All bots route to the owner chat ID stored in the `TELEGRAM_CHAT_ID` keychain/en
 | `docs/session-state.md` | THIS FILE — resume here |
 | `docs/workflow/SYNC_RUNBOOK.md` | Device sync recipe |
 | `docs/workflow/NOTIFICATIONS.md` | Notification setup |
-| `esa.html` | ESA landing page |
-| `esa-style.css` | ESA page styles |
-| `netlify.toml` | Netlify deploy config |
-| `tools/notifications/__init__.py` | Telegram + Slack senders |
-| `tools/orchestration/queue.py` | 8-state workflow queue |
+| `tools/kanban/server.py` | Kanban board server (always-on) |
+| `tools/kanban/dashboard.html` | Kanban dashboard (animated) |
+
+---
 
 ## DISK STATE
 
 - **Available:** ~16 GiB (80% used of 228 GiB)
-- **Keychain:** Telegram bot tokens, chat ID, and Slack credentials are stored by named reference only (values not recorded here; see docs/HERMESOS-OPERATING-CONTRACT.md Secrets section)
+- **Keychain:** Telegram bot tokens, chat ID stored by named reference only
 - **Shell exports:** Added to `~/.zshrc`
+
+---
 
 ## WHAT'S NEXT (priority order)
 
 ### Immediate (today)
-1. Merge PR #18 (ESA landing page)
-2. Link Netlify to main branch
-3. Test deploy
-4. Submit site (overdue since Monday)
+1. ~~Merge PR #18~~ ✅
+2. ~~Link deploy to main branch~~ ✅ (Vercel)
+3. ~~Test deploy~~ ✅
+4. ~~Submit site~~ ✅
+5. Create The Oracle bot via BotFather
+6. Get proper Slack bot token (xoxb- format)
 
 ### This week
 1. Resolve LOCK-4 through LOCK-7 (all need Richie decision)
-2. Delete stale repos (desktop-tutorial, my-react-app, etc.)
-3. Clear Mac disk space (see SPACE-CLEARING.md)
+2. Send TEFA submission email (draft at `docs/tefa-email-draft.md`)
+3. Close stale PRs #39, #40, #43 (already closed)
 
 ### Next week
 1. Set up HP when ready
 2. Create remaining Slack channels
-3. Voice bot integration
-4. Full COO workflow lifecycle
+3. Full COO workflow lifecycle

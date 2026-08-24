@@ -39,8 +39,9 @@ git status --short
 ```
 
 If your change touches the deploy artifact, also dry-run the exact command in
-`netlify.toml` and confirm it exits as intended (it is gated by
-`tools/build_pages_release.py`; see "Anticipate downstream risk" below).
+`netlify.toml` (legacy — deploy target is now Vercel) and confirm it exits as
+intended (it is gated by `tools/build_pages_release.py`; see "Anticipate
+downstream risk" below).
 
 ---
 

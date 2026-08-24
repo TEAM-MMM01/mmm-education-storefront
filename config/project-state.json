@@ -12,8 +12,11 @@
     "legal_operator": "Nationwide Acquisitions, LLC",
     "public_operator_disclosure": "Preparation Station is operated by Nationwide Acquisitions, LLC.",
     "assumed_name_status": "unverified",
-    "support_email": "mmminvestment25@gmail.com",
-    "support_email_status": "temporary",
+    "domain": "preparationstation.org",
+    "support_email": "Hello@preparationstation.org",
+    "sales_email": "Sales@preparationstation.org",
+    "help_email": "Support@preparationstation.org",
+    "support_email_status": "verified",
     "complete_request_acknowledgement": "within_one_business_day"
   },
   "programs": {

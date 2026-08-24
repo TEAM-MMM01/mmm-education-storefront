@@ -38,7 +38,7 @@ Cloudflare Worker intake is the selected backend because it keeps request
 handling private, enforces origin and shared-secret validation, and sends owner
 notifications without exposing a public endpoint in source.
 
-The temporary owner notification address is `mmminvestment25@gmail.com`.
+The owner notification address is `Hello@preparationstation.org`.
 Nationwide Acquisitions, LLC owns follow-up. Review the operations inbox each
 business day, acknowledge complete requests within one business day, and use
 the client reference in follow-up.

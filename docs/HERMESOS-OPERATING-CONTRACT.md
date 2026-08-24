@@ -1,7 +1,7 @@
 # HermesOS Operating Contract
 
-**Version:** 1.0
-**Last updated:** 2026-08-11
+**Version:** 1.1
+**Last updated:** 2026-08-24
 **Authority:** Richie Rich (CEO/CFO)
 **Operator:** HermesOS-COO
 
@@ -77,14 +77,14 @@ Every task must resolve to:
 
 ### Specialist Lanes
 
-| Lane | Purpose | Telegram Bot |
-|---|---|---|
-| HermesOS-COO | Coordination, approvals, priorities, reporting | @Hermes_OS1bot |
-| Prep Station | TEFA, education, curriculum, storefront | @HermesPrepStation_Bot |
-| Hermes Voice | Voice intake and transcription workflows | @HermesOS2_Bot |
-| Hermes PF | PumpFun research and guarded execution | @RichieRichPF_bot |
-| The Oracle | Market intelligence, watchlists, alerts | @OracleSignalsProphet_Bot |
-| Royal Collexions | Commerce, collectibles, order/fulfillment | @RoyalCXL_Bot |
+| Lane | Purpose | Telegram Bot | Status |
+|---|---|---|---|
+| HermesOS-COO | Coordination, approvals, priorities, reporting | @Hermes_OS1bot | ✅ Live |
+| Prep Station | TEFA, education, curriculum, storefront | @HermesPrepStation_Bot | ✅ Live |
+| Hermes Voice | Voice intake and transcription workflows | @HermesOS2_Bot | ✅ Live |
+| Hermes PF | PumpFun research and guarded execution | @RichieRichPF_bot | ✅ Live |
+| The Oracle | Market intelligence, watchlists, alerts | @OracleSignalsProphet_Bot | ⏳ Needs BotFather |
+| Royal Collexions | Commerce, collectibles, order/fulfillment | @RoyalCXL_Bot | ✅ Live |
 
 No specialist lane becomes an independent command center. They report status and evidence back to COO.
 
@@ -220,7 +220,10 @@ Next approval: <exact founder decision required>
 - Public brand: Preparation Station
 - Legal operator: Nationwide Acquisitions, LLC
 - Public disclosure: "Preparation Station is operated by Nationwide Acquisitions, LLC."
-- Support email: mmminvestment25@gmail.com (temporary)
+- Domain: preparationstation.org (owned)
+- Support email: Hello@preparationstation.org
+- Sales email: Sales@preparationstation.org
+- Help email: Support@preparationstation.org
 - Complete requests acknowledged within one business day
 - TEFA vendor approval: Nationwide Acquisitions, LLC (owner-provided evidence)
 - PDSES/ClassWallet status: Unknown — do not advertise as approved
