@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HermesOS Kanban — Command Center</title>
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.8);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #484f58;
+            --accent-blue: #58a6ff;
+            --accent-purple: #a371f7;
+            --accent-green: #3fb950;
+            --accent-yellow: #d29922;
+            --accent-red: #f85149;
+            --accent-orange: #f0883e;
+            --accent-pink: #f778ba;
+            --glow-blue: rgba(88, 166, 255, 0.15);
+            --glow-green: rgba(63, 185, 80, 0.15);
+            --glow-purple: rgba(163, 113, 247, 0.15);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(88, 166, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(163, 113, 247, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(63, 185, 80, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+            animation: bgPulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            z-index: 10;
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 0 20px var(--glow-blue);
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .header h1 span {
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .kpi-row {
+            display: flex;
+            gap: 24px;
+        }
+
+        .kpi {
+            text-align: center;
+            position: relative;
+        }
+
+        .kpi-value {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .kpi-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .kpi-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 2px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .kpi-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+
+        .refresh-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .refresh-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-primary);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px var(--glow-blue);
+        }
+
+        .last-updated {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Board */
+        .board {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            padding: 24px 32px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .column {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .column:hover {
+            border-color: rgba(255,255,255,0.1);
+            box-shadow: var(--shadow);
+        }
+
+        .column.drag-over {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 30px var(--glow-blue);
+        }
+
+        .column-header {
+            padding: 16px 16px 12px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .column-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .column-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .column[data-col="backlog"] .column-dot { background: var(--text-muted); }
+        .column[data-col="ready"] .column-dot { background: var(--accent-blue); box-shadow: 0 0 10px var(--glow-blue); }
+        .column[data-col="in_progress"] .column-dot { background: var(--accent-yellow); box-shadow: 0 0 10px rgba(210, 153, 34, 0.3); }
+        .column[data-col="review"] .column-dot { background: var(--accent-purple); box-shadow: 0 0 10px var(--glow-purple); }
+        .column[data-col="done"] .column-dot { background: var(--accent-green); box-shadow: 0 0 10px var(--glow-green); }
+
+        .column[data-col="backlog"] .column-title { color: var(--text-muted); }
+        .column[data-col="ready"] .column-title { color: var(--accent-blue); }
+        .column[data-col="in_progress"] .column-title { color: var(--accent-yellow); }
+        .column[data-col="review"] .column-title { color: var(--accent-purple); }
+        .column[data-col="done"] .column-title { color: var(--accent-green); }
+
+        .column-count {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .cards {
+            padding: 12px;
+            flex: 1;
+            overflow-y: auto;
+            min-height: 100px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            margin-bottom: 10px;
+            cursor: grab;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            border-radius: 3px 0 0 3px;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(255,255,255,0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:active {
+            cursor: grabbing;
+            transform: scale(0.98);
+        }
+
+        .card.dragging {
+            opacity: 0.4;
+            transform: rotate(2deg);
+        }
+
+        .card[data-priority="critical"]::before { background: var(--accent-red); }
+        .card[data-priority="high"]::before { background: var(--accent-orange); }
+        .card[data-priority="medium"]::before { background: var(--accent-yellow); }
+        .card[data-priority="low"]::before { background: var(--accent-green); }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .card-id {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: 'SF Mono', monospace;
+            background: rgba(255,255,255,0.03);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-critical { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); border: 1px solid rgba(248, 81, 73, 0.3); }
+        .badge-high { background: rgba(240, 136, 62, 0.15); color: var(--accent-orange); border: 1px solid rgba(240, 136, 62, 0.3); }
+        .badge-medium { background: rgba(210, 153, 34, 0.15); color: var(--accent-yellow); border: 1px solid rgba(210, 153, 34, 0.3); }
+        .badge-low { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); border: 1px solid rgba(63, 185, 80, 0.3); }
+        .badge-tier {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+        }
+
+        .card-skills {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .skill {
+            font-size: 10px;
+            background: rgba(255,255,255,0.04);
+            color: var(--text-secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.2s ease;
+        }
+
+        .skill:hover {
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-blue);
+            border-color: rgba(88, 166, 255, 0.3);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .card-agent {
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .agent-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .agent-hermes-coo { color: var(--accent-orange); background: var(--accent-orange); }
+        .agent-prep-station { color: var(--accent-blue); background: var(--accent-blue); }
+        .agent-hermes-voice { color: var(--accent-purple); background: var(--accent-purple); }
+        .agent-hermes-pf { color: var(--accent-green); background: var(--accent-green); }
+        .agent-royal-collexions { color: var(--accent-pink); background: var(--accent-pink); }
+        .agent-the-oracle { color: var(--accent-yellow); background: var(--accent-yellow); }
+
+        .card-time {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        /* Templates */
+        .templates-section {
+            position: relative;
+            z-index: 1;
+            background: rgba(17, 24, 39, 0.4);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            padding: 24px 32px;
+        }
+
+        .templates-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .templates-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .template-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .template-card:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 20px var(--glow-purple);
+            transform: translateY(-1px);
+        }
+
+        .template-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .template-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .template-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .template-stats {
+            font-size: 11px;
+            color: var(--accent-blue);
+        }
+
+        .template-spawn {
+            font-size: 11px;
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .template-spawn:hover {
+            background: rgba(88, 166, 255, 0.2);
+        }
+
+        /* AI Assistant */
+        .ai-panel {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 400px;
+            max-height: 600px;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(120%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-panel.open {
+            transform: translateY(0);
+        }
+
+        .ai-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 101;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(88, 166, 255, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(88, 166, 255, 0.6);
+        }
+
+        .ai-toggle.hidden { display: none; }
+
+        .ai-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-title {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px;
+        }
+
+        .ai-close:hover { color: var(--text-primary); }
+
+        .ai-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .ai-tab {
+            flex: 1;
+            padding: 10px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .ai-tab.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+            background: rgba(88, 166, 255, 0.05);
+        }
+
+        .ai-tab:hover { color: var(--text-primary); }
+
+        .ai-messages {
+            flex: 1;
+            min-height: 250px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .ai-msg {
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ai-msg.user {
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            margin-left: 40px;
+        }
+
+        .ai-msg.bot {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            margin-right: 40px;
+        }
+
+        .ai-msg.bot strong { color: var(--accent-blue); }
+
+        .ai-msg.thinking {
+            background: rgba(163, 113, 247, 0.1);
+            border: 1px solid rgba(163, 113, 247, 0.2);
+            color: var(--accent-purple);
+            font-style: italic;
+        }
+
+        .ai-input-area {
+            padding: 12px 16px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .ai-input-area input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .ai-input-area input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px var(--glow-blue);
+        }
+
+        .ai-btn {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ai-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
+        }
+
+        .ai-btn.voice-btn {
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-orange));
+            width: 42px;
+        }
+
+        .ai-btn.voice-btn.listening {
+            animation: voicePulse 1s ease-in-out infinite;
+        }
+
+        @keyframes voicePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(248, 81, 73, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(248, 81, 73, 0); }
+        }
+
+        .ai-btn.spawn-btn {
+            background: linear-gradient(135deg, var(--accent-green), #2ea043);
+            width: 42px;
+        }
+
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            padding: 12px;
+        }
+
+        .agent-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .agent-card:hover {
+            border-color: var(--accent-blue);
+            background: rgba(88, 166, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .agent-card .agent-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .agent-card .agent-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .agent-card .agent-role {
+            font-size: 9px;
+            color: var(--text-secondary);
+        }
+            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+        /* Mobile */
+        @media (max-width: 1200px) {
+            .board { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .board { grid-template-columns: 1fr; padding: 16px; }
+            .header { flex-direction: column; gap: 16px; padding: 16px; }
+            .kpi-row { gap: 16px; }
+            .ai-panel { width: calc(100% - 32px); left: 16px; right: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">⚡</div>
+            <h1>HermesOS <span>Command Center</span></h1>
+        </div>
+        <div class="header-right">
+            <div class="kpi-row">
+                <div class="kpi">
+                    <div class="kpi-value" id="total-tasks">0</div>
+                    <div class="kpi-label">Total</div>
+                    <div class="kpi-bar"><div class="kpi-bar-fill" style="width:100%;background:var(--accent-blue)"></div></div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi-value" id="active-tasks">0</div>
+                    <div class="kpi-label">Active</div>
+                    <div class="kpi-bar"><div class="kpi-bar-fill" id="active-bar" style="width:0%;background:var(--accent-yellow)"></div></div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi-value" id="done-tasks">0</div>
+                    <div class="kpi-label">Done</div>
+                    <div class="kpi-bar"><div class="kpi-bar-fill" id="done-bar" style="width:0%;background:var(--accent-green)"></div></div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi-value" id="agents-active">0</div>
+                    <div class="kpi-label">Agents</div>
+                    <div class="kpi-bar"><div class="kpi-bar-fill" style="width:60%;background:var(--accent-purple)"></div></div>
+                </div>
+            </div>
+            <div>
+                <button class="refresh-btn" onclick="loadBoard()">↻ Refresh</button>
+                <div class="last-updated" id="last-updated"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="board" id="board">
+        <div class="column" data-col="backlog" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="column-header">
+                <span class="column-title"><span class="column-dot"></span> Backlog</span>
+                <span class="column-count" id="count-backlog">0</span>
+            </div>
+            <div class="cards" id="cards-backlog"></div>
+        </div>
+        <div class="column" data-col="ready" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="column-header">
+                <span class="column-title"><span class="column-dot"></span> Ready</span>
+                <span class="column-count" id="count-ready">0</span>
+            </div>
+            <div class="cards" id="cards-ready"></div>
+        </div>
+        <div class="column" data-col="in_progress" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="column-header">
+                <span class="column-title"><span class="column-dot"></span> In Progress</span>
+                <span class="column-count" id="count-in_progress">0</span>
+            </div>
+            <div class="cards" id="cards-in_progress"></div>
+        </div>
+        <div class="column" data-col="review" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="column-header">
+                <span class="column-title"><span class="column-dot"></span> Review</span>
+                <span class="column-count" id="count-review">0</span>
+            </div>
+            <div class="cards" id="cards-review"></div>
+        </div>
+        <div class="column" data-col="done" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+            <div class="column-header">
+                <span class="column-title"><span class="column-dot"></span> Done</span>
+                <span class="column-count" id="count-done">0</span>
+            </div>
+            <div class="cards" id="cards-done"></div>
+        </div>
+    </div>
+
+    <div class="templates-section">
+        <div class="templates-header">
+            <div class="templates-title">📝 Task Templates <span style="color:var(--text-muted);font-weight:400;font-size:12px">— Click to spawn</span></div>
+        </div>
+        <div class="templates-grid" id="templates"></div>
+    </div>
+
+    <!-- AI Assistant -->
+    <button class="ai-toggle" id="ai-toggle" onclick="toggleAI()">🤖</button>
+    <div class="ai-panel" id="ai-panel">
+        <div class="ai-header">
+            <span class="ai-title">🤖 Hermes AI</span>
+            <button class="ai-close" onclick="toggleAI()">✕</button>
+        </div>
+        <div class="ai-tabs">
+            <button class="ai-tab active" onclick="switchTab('chat')">💬 Chat</button>
+            <button class="ai-tab" onclick="switchTab('agents')">👥 Agents</button>
+            <button class="ai-tab" onclick="switchTab('reasoning')">🧠 Reason</button>
+        </div>
+        
+        <!-- Chat Tab -->
+        <div id="tab-chat" class="ai-tab-content">
+            <div class="ai-messages" id="ai-messages">
+                <div class="ai-msg bot">
+                    <strong>Hermes:</strong> I can help you manage tasks. Try:<br>
+                    • "What should I do next?"<br>
+                    • "Assign PR review to Prep Station"<br>
+                    • "Spawn an agent for code review"<br>
+                    • "Why is this task blocked?"
+                </div>
+            </div>
+            <div class="ai-input-area">
+                <input type="text" id="ai-input" placeholder="Ask Hermes anything..." onkeypress="if(event.key==='Enter')sendAI()">
+                <button class="ai-btn voice-btn" id="voice-btn" onclick="toggleVoice()" title="Voice input">🎤</button>
+                <button class="ai-btn spawn-btn" onclick="showSpawnDialog()" title="Spawn agent">+</button>
+                <button class="ai-btn" onclick="sendAI()">→</button>
+            </div>
+        </div>
+
+        <!-- Agents Tab -->
+        <div id="tab-agents" class="ai-tab-content" style="display:none">
+            <div class="agent-grid" id="agent-grid"></div>
+            <div class="ai-input-area">
+                <input type="text" id="agent-task-input" placeholder="Describe task for agent...">
+                <button class="ai-btn spawn-btn" onclick="spawnAgentForTask()">🚀</button>
+            </div>
+        </div>
+
+        <!-- Reasoning Tab -->
+        <div id="tab-reasoning" class="ai-tab-content" style="display:none">
+            <div class="ai-messages" id="reasoning-messages">
+                <div class="ai-msg bot">
+                    <strong>Hermes Reasoning:</strong> Ask me complex questions about your workflow. I'll analyze and provide reasoned answers.<br><br>
+                    Try: "Should I focus on PR reviews or Netlify deploy first?"
+                </div>
+            </div>
+            <div class="ai-input-area">
+                <input type="text" id="reasoning-input" placeholder="Ask a complex question..." onkeypress="if(event.key==='Enter')sendReasoning()">
+                <button class="ai-btn" onclick="sendReasoning()">🧠</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spawn Dialog -->
+    <div id="spawn-dialog" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center;">
+        <div style="background:var(--bg-secondary);border:1px solid var(--glass-border);border-radius:var(--radius);padding:24px;width:400px;">
+            <h3 style="margin-bottom:16px;color:var(--text-primary);">Spawn Agent</h3>
+            <input type="text" id="spawn-title" placeholder="Task title" style="width:100%;margin-bottom:12px;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
+            <input type="text" id="spawn-desc" placeholder="Task description" style="width:100%;margin-bottom:12px;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
+            <select id="spawn-agent" style="width:100%;margin-bottom:12px;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
+                <option value="">Auto-assign (best match)</option>
+            </select>
+            <div style="display:flex;gap:8px;">
+                <button onclick="confirmSpawn()" style="flex:1;padding:10px;background:var(--accent-green);border:none;border-radius:var(--radius-sm);color:white;cursor:pointer;">Spawn</button>
+                <button onclick="closeSpawnDialog()" style="flex:1;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-secondary);cursor:pointer;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const AGENT_NAMES = {
+            'hermes-coo': 'Hermes COO',
+            'prep-station': 'Prep Station',
+            'hermes-voice': 'Hermes Voice',
+            'hermes-pf': 'Hermes PF',
+            'royal-collexions': 'Royal Collexions',
+            'the-oracle': 'The Oracle'
+        };
+
+        let boardData = { tasks: [] };
+        let templatesData = { templates: [] };
+
+        async function loadBoard() {
+            try {
+                const resp = await fetch('/api/board?t=' + Date.now());
+                boardData = await resp.json();
+                renderBoard();
+                updateStats();
+                document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+            } catch (e) { console.error('Board load failed:', e); }
+
+            try {
+                const resp = await fetch('/api/templates?t=' + Date.now());
+                templatesData = await resp.json();
+                renderTemplates();
+            } catch (e) { console.error('Templates load failed:', e); }
+        }
+
+        function renderBoard() {
+            const columns = ['backlog', 'ready', 'in_progress', 'review', 'done'];
+            columns.forEach(col => {
+                const container = document.getElementById('cards-' + col);
+                const tasks = boardData.tasks.filter(t => t.column === col);
+                document.getElementById('count-' + col).textContent = tasks.length;
+                container.innerHTML = tasks.map(t => renderCard(t)).join('');
+            });
+        }
+
+        function renderCard(task) {
+            const agentClass = 'agent-' + task.assignee;
+            const agentName = AGENT_NAMES[task.assignee] || task.assignee;
+            const skills = task.skills.map(s => `<span class="skill">${s}</span>`).join('');
+            const elapsed = task.started_at ? formatElapsed(task.started_at) : '';
+            return `
+                <div class="card" draggable="true" ondragstart="drag(event)" 
+                     id="task-${task.id}" data-id="${task.id}" data-priority="${task.priority}"
+                     ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd(event)">
+                    <div class="card-header">
+                        <span class="card-title">${task.title}</span>
+                        <span class="card-id">#${task.id}</span>
+                    </div>
+                    <div class="card-meta">
+                        <span class="badge badge-${task.priority}">${task.priority}</span>
+                        <span class="badge badge-tier">T${task.tier}</span>
+                    </div>
+                    <div class="card-skills">${skills}</div>
+                    <div class="card-footer">
+                        <div class="card-agent">
+                            <span class="agent-dot ${agentClass}"></span>
+                            ${agentName}
+                        </div>
+                        ${elapsed ? `<span class="card-time">⏱ ${elapsed}</span>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatElapsed(started) {
+            const diff = (Date.now() - new Date(started).getTime()) / 1000;
+            if (diff < 60) return Math.round(diff) + 's';
+            if (diff < 3600) return Math.round(diff/60) + 'm';
+            return Math.round(diff/3600) + 'h';
+        }
+
+        function renderTemplates() {
+            document.getElementById('templates').innerHTML = templatesData.templates.map(t => `
+                <div class="template-card" onclick="spawnTemplate('${t.id}')">
+                    <div class="template-name">${t.name}</div>
+                    <div class="template-desc">${t.description}</div>
+                    <div class="template-footer">
+                        <span class="template-stats">Used ${t.usage_count}x · ${t.skills.join(', ')}</span>
+                        <span class="template-spawn">+ Spawn</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            const total = boardData.tasks.length;
+            const active = boardData.tasks.filter(t => t.column === 'in_progress').length;
+            const done = boardData.tasks.filter(t => t.column === 'done').length;
+            const agents = new Set(boardData.tasks.map(t => t.assignee)).size;
+
+            document.getElementById('total-tasks').textContent = total;
+            document.getElementById('active-tasks').textContent = active;
+            document.getElementById('done-tasks').textContent = done;
+            document.getElementById('agents-active').textContent = agents;
+
+            document.getElementById('active-bar').style.width = total ? (active/total*100)+'%' : '0%';
+            document.getElementById('done-bar').style.width = total ? (done/total*100)+'%' : '0%';
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+            ev.currentTarget.classList.add('drag-over');
+        }
+
+        function dragLeave(ev) {
+            ev.currentTarget.classList.remove('drag-over');
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData('text/plain', ev.target.dataset.id);
+            ev.target.classList.add('dragging');
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('drag-over');
+            const taskId = ev.dataTransfer.getData('text/plain');
+            const newColumn = ev.currentTarget.dataset.col;
+            document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+            
+            if (taskId && newColumn) {
+                fetch(`/api/move/${taskId}/${newColumn}`, { method: 'POST' })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Move failed:', data.error);
+                        } else {
+                            loadBoard();
+                        }
+                    })
+                    .catch(e => console.error('Move error:', e));
+            }
+        }
+
+        // Touch support for iPad
+        let touchDragId = null;
+        let touchClone = null;
+
+        function touchStart(ev) {
+            const card = ev.target.closest('.card');
+            if (!card) return;
+            
+            touchDragId = card.dataset.id;
+            card.classList.add('dragging');
+            
+            // Create visual clone
+            touchClone = card.cloneNode(true);
+            touchClone.style.position = 'fixed';
+            touchClone.style.pointerEvents = 'none';
+            touchClone.style.opacity = '0.8';
+            touchClone.style.zIndex = '1000';
+            touchClone.style.width = card.offsetWidth + 'px';
+            document.body.appendChild(touchClone);
+            
+            const touch = ev.touches[0];
+            touchClone.style.left = (touch.clientX - card.offsetWidth/2) + 'px';
+            touchClone.style.top = (touch.clientY - 30) + 'px';
+        }
+
+        function touchMove(ev) {
+            if (!touchClone) return;
+            ev.preventDefault();
+            
+            const touch = ev.touches[0];
+            touchClone.style.left = (touch.clientX - touchClone.offsetWidth/2) + 'px';
+            touchClone.style.top = (touch.clientY - 30) + 'px';
+            
+            // Highlight column under finger
+            document.querySelectorAll('.column').forEach(col => {
+                const rect = col.getBoundingClientRect();
+                if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                    touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                    col.classList.add('drag-over');
+                } else {
+                    col.classList.remove('drag-over');
+                }
+            });
+        }
+
+        function touchEnd(ev) {
+            if (!touchDragId) return;
+            
+            const touch = ev.changedTouches[0];
+            let targetCol = null;
+            
+            document.querySelectorAll('.column').forEach(col => {
+                const rect = col.getBoundingClientRect();
+                if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                    touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                    targetCol = col.dataset.col;
+                }
+                col.classList.remove('drag-over');
+            });
+            
+            if (targetCol) {
+                fetch(`/api/move/${touchDragId}/${targetCol}`, { method: 'POST' })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (!data.error) loadBoard();
+                    });
+            }
+            
+            document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+            if (touchClone) {
+                touchClone.remove();
+                touchClone = null;
+            }
+            touchDragId = null;
+        }
+
+        function spawnTemplate(id) {
+            fetch(`/api/template-spawn/${id}`, { method: 'POST' })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.id) {
+                        addAIMsg('bot', `Task spawned: <strong>${data.title}</strong> → ${AGENT_NAMES[data.assignee] || data.assignee}`);
+                        loadBoard();
+                    }
+                });
+        }
+
+        // AI Assistant
+        let voiceActive = false;
+        let recognition = null;
+
+        function toggleAI() {
+            const panel = document.getElementById('ai-panel');
+            const btn = document.getElementById('ai-toggle');
+            panel.classList.toggle('open');
+            btn.classList.toggle('hidden');
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.ai-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.ai-tab-content').forEach(c => c.style.display = 'none');
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tab).style.display = 'block';
+            
+            if (tab === 'agents') loadAgents();
+        }
+
+        function addAIMsg(type, text) {
+            const container = document.getElementById('ai-messages');
+            const div = document.createElement('div');
+            div.className = 'ai-msg ' + type;
+            div.innerHTML = text;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addReasoningMsg(type, text) {
+            const container = document.getElementById('reasoning-messages');
+            const div = document.createElement('div');
+            div.className = 'ai-msg ' + type;
+            div.innerHTML = text;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function sendAI() {
+            const input = document.getElementById('ai-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            addAIMsg('user', text);
+            input.value = '';
+            addAIMsg('thinking', '🤔 Thinking...');
+
+            fetch('/api/ai', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: text, voice: false })
+            })
+            .then(r => r.json())
+            .then(data => {
+                document.querySelector('.ai-msg.thinking')?.remove();
+                addAIMsg('bot', '<strong>Hermes:</strong> ' + data.response);
+                if (data.voice) speak(data.response);
+            })
+            .catch(() => {
+                document.querySelector('.ai-msg.thinking')?.remove();
+                addAIMsg('bot', '<strong>Hermes:</strong> I had trouble processing that. Try again.');
+            });
+        }
+
+        function sendReasoning() {
+            const input = document.getElementById('reasoning-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            addReasoningMsg('user', text);
+            input.value = '';
+            addReasoningMsg('thinking', '🧠 Analyzing...');
+
+            const context = {
+                tasks: boardData.tasks.length,
+                highPriority: boardData.tasks.filter(t => t.priority === 'high' || t.priority === 'critical').length,
+                inProgress: boardData.tasks.filter(t => t.column === 'in_progress').length,
+                done: boardData.tasks.filter(t => t.column === 'done').length
+            };
+
+            fetch('/api/ai', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    query: `Reasoning task. Board context: ${JSON.stringify(context)}. Question: ${text}`,
+                    voice: false 
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                document.querySelector('#reasoning-messages .ai-msg.thinking')?.remove();
+                addReasoningMsg('bot', '<strong>Hermes Reasoning:</strong> ' + data.response);
+            })
+            .catch(() => {
+                document.querySelector('#reasoning-messages .ai-msg.thinking')?.remove();
+                addReasoningMsg('bot', '<strong>Hermes:</strong> Reasoning unavailable. Try a simpler question.');
+            });
+        }
+
+        // Voice
+        function toggleVoice() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                addAIMsg('bot', '<strong>Hermes:</strong> Voice not supported in this browser. Try Chrome on Mac.');
+                return;
+            }
+
+            if (voiceActive) {
+                recognition?.stop();
+                voiceActive = false;
+                document.getElementById('voice-btn').classList.remove('listening');
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                voiceActive = true;
+                document.getElementById('voice-btn').classList.add('listening');
+                addAIMsg('bot', '<strong>Hermes:</strong> 🎤 Listening...');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('ai-input').value = transcript;
+                voiceActive = false;
+                document.getElementById('voice-btn').classList.remove('listening');
+                sendAI();
+            };
+
+            recognition.onerror = (event) => {
+                voiceActive = false;
+                document.getElementById('voice-btn').classList.remove('listening');
+                addAIMsg('bot', '<strong>Hermes:</strong> Voice error: ' + event.error);
+            };
+
+            recognition.onend = () => {
+                voiceActive = false;
+                document.getElementById('voice-btn').classList.remove('listening');
+            };
+
+            recognition.start();
+        }
+
+        function speak(text) {
+            if (!('speechSynthesis' in window)) return;
+            const utterance = new SpeechSynthesisUtterance(text.replace(/<[^>]*>/g, ''));
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            speechSynthesis.speak(utterance);
+        }
+
+        // Agent spawning
+        async function loadAgents() {
+            try {
+                const resp = await fetch('/api/agents');
+                const agents = await resp.json();
+                const grid = document.getElementById('agent-grid');
+                const icons = {
+                    'hermes-coo': '🏢', 'prep-station': '📚', 'hermes-voice': '🎤',
+                    'hermes-pf': '📈', 'royal-collexions': '🛍️', 'the-oracle': '🔮'
+                };
+                grid.innerHTML = agents.map(a => `
+                    <div class="agent-card" onclick="selectAgent('${a.id}')">
+                        <div class="agent-icon">${icons[a.id] || '🤖'}</div>
+                        <div class="agent-name">${a.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
+                        <div class="agent-role">${a.name}</div>
+                    </div>
+                `).join('');
+
+                // Populate spawn dropdown
+                const select = document.getElementById('spawn-agent');
+                select.innerHTML = '<option value="">Auto-assign</option>' + 
+                    agents.map(a => `<option value="${a.id}">${a.id}</option>`).join('');
+            } catch (e) { console.error('Failed to load agents:', e); }
+        }
+
+        function selectAgent(agentId) {
+            document.getElementById('agent-task-input').focus();
+            document.getElementById('agent-task-input').placeholder = `Task for ${agentId}...`;
+        }
+
+        function spawnAgentForTask() {
+            const input = document.getElementById('agent-task-input');
+            const task = input.value.trim();
+            if (!task) return;
+
+            addAIMsg('user', `Spawn agent for: ${task}`);
+            addAIMsg('thinking', '🚀 Spawning agent...');
+
+            fetch('/api/spawn-agent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    task: task,
+                    skills: task.match(/trading|education|commerce|code|debug|deploy|voice|tefa|shopify/g) || [],
+                    priority: 'medium',
+                    tier: 1
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                document.querySelector('.ai-msg.thinking')?.remove();
+                addAIMsg('bot', `<strong>Hermes:</strong> ✅ Agent <strong>${data.agent}</strong> spawned!<br>Task: ${data.task.title}<br>ID: ${data.task.id}`);
+                loadBoard();
+                input.value = '';
+            });
+        }
+
+        function showSpawnDialog() {
+            document.getElementById('spawn-dialog').style.display = 'flex';
+            loadAgents();
+        }
+
+        function closeSpawnDialog() {
+            document.getElementById('spawn-dialog').style.display = 'none';
+        }
+
+        function confirmSpawn() {
+            const title = document.getElementById('spawn-title').value.trim();
+            const desc = document.getElementById('spawn-desc').value.trim();
+            const agent = document.getElementById('spawn-agent').value;
+
+            if (!title) return;
+
+            fetch('/api/create-task', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: title,
+                    description: desc,
+                    skills: desc.match(/trading|education|commerce|code|debug|deploy|voice|tefa|shopify/g) || [],
+                    priority: 'medium',
+                    tier: 1,
+                    assignee: agent || undefined
+                })
+            })
+            .then(r => r.json())
+            .then(data => {
+                addAIMsg('bot', `<strong>Hermes:</strong> ✅ Task created: <strong>${data.title}</strong> → ${AGENT_NAMES[data.assignee] || data.assignee}`);
+                loadBoard();
+                closeSpawnDialog();
+            });
+        }
+
+        loadBoard();
+        setInterval(loadBoard, 30000);
+    </script>
+</body>
+</html>

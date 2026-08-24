@@ -1,0 +1,8 @@
+{
+  "hermes-coo": {"daily_budget": 10.00, "spent": 2.50, "tasks_completed": 5},
+  "prep-station": {"daily_budget": 10.00, "spent": 1.80, "tasks_completed": 3},
+  "hermes-pf": {"daily_budget": 15.00, "spent": 4.20, "tasks_completed": 2},
+  "royal-collexions": {"daily_budget": 10.00, "spent": 0.00, "tasks_completed": 0},
+  "the-oracle": {"daily_budget": 12.00, "spent": 3.10, "tasks_completed": 4},
+  "hermes-voice": {"daily_budget": 5.00, "spent": 0.50, "tasks_completed": 1}
+}

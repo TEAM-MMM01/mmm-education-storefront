@@ -1,0 +1,8 @@
+{
+  "hermes-coo": {"status": "active", "last_seen": "2026-08-24T00:45:00Z", "current_task": "3e0a0a28"},
+  "prep-station": {"status": "active", "last_seen": "2026-08-24T00:44:00Z", "current_task": "174ef265"},
+  "hermes-pf": {"status": "active", "last_seen": "2026-08-24T00:43:00Z", "current_task": "f9ffb7ec"},
+  "royal-collexions": {"status": "idle", "last_seen": "2026-08-23T23:00:00Z", "current_task": null},
+  "the-oracle": {"status": "active", "last_seen": "2026-08-24T00:42:00Z", "current_task": null},
+  "hermes-voice": {"status": "idle", "last_seen": "2026-08-23T22:00:00Z", "current_task": null}
+}
