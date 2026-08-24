@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-"""Kanban board server - fully functional with all endpoints."""
+"""Kanban board server — auto-advancing, SSE real-time, full endpoints."""
 import json
 import os
 import uuid
+import time
+import threading
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from socketserver import ThreadingMixIn
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 import logging
-import subprocess
-import re
+import queue
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s',
     handlers=[logging.FileHandler('/tmp/kanban.log'), logging.StreamHandler()])
@@ -20,6 +21,14 @@ BOARD_PATH = Path.home() / ".hermes-mac" / "kanban" / "board.json"
 TEMPLATES_PATH = Path(__file__).parent / "templates.json"
 AGENTS_PATH = Path.home() / ".hermes-mac" / "kanban" / "agents.json"
 DASHBOARD_DIR = Path(__file__).parent
+
+# ── SSE ──
+sse_clients: list[queue.Queue] = []
+sse_lock = threading.Lock()
+
+# ── Activity Log ──
+activity_log: list[dict] = []
+ACTIVITY_MAX = 100
 
 AGENTS = [
     {"id": "hermes-coo", "name": "Hermes COO", "icon": "🦁", "role": "Operations", "status": "active", "color": "#f778ba"},
@@ -54,9 +63,35 @@ SKILL_PROMPTS = {
     "debug": "Run debugging skill. Trace: reproduce, isolate, fix, verify.",
 }
 
-class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
-    daemon_threads = True
-    allow_reuse_address = True
+PRIORITY_ORDER = {"critical": 0, "high": 1, "medium": 2, "low": 3}
+
+# ── Activity helpers ──
+
+def add_activity(kind: str, text: str, task_id: str = ""):
+    entry = {
+        "time": datetime.now().strftime("%H:%M:%S"),
+        "kind": kind,
+        "text": text,
+        "task_id": task_id,
+    }
+    activity_log.append(entry)
+    if len(activity_log) > ACTIVITY_MAX:
+        activity_log.pop(0)
+    broadcast_sse({"type": "activity", "entry": entry})
+
+def broadcast_sse(data: dict):
+    msg = f"data: {json.dumps(data, default=str)}\n\n"
+    dead = []
+    with sse_lock:
+        for q in sse_clients:
+            try:
+                q.put_nowait(msg)
+            except queue.Full:
+                dead.append(q)
+        for q in dead:
+            sse_clients.remove(q)
+
+# ── Board I/O ──
 
 def load_board():
     try:
@@ -85,11 +120,106 @@ def load_agents():
     return AGENTS
 
 def get_skill_prompt(skills):
-    prompts = []
-    for s in skills:
-        if s in SKILL_PROMPTS:
-            prompts.append(SKILL_PROMPTS[s])
-    return prompts
+    return [SKILL_PROMPTS[s] for s in skills if s in SKILL_PROMPTS]
+
+# ── AUTO-ADVANCE ENGINE ──
+
+# Time thresholds per column (seconds) — tasks older than this auto-advance
+ADVANCE_THRESHOLDS = {
+    "ready":        45,   # 45s in ready → move to in_progress
+    "in_progress":  90,   # 90s working → move to review
+    "review":       60,   # 60s in review → move to done
+}
+
+# Max tasks to advance per cycle per column (prevents mass-jump)
+MAX_ADVANCE_PER_CYCLE = 2
+
+def auto_advance_tick():
+    """Run every 30s. Advance tasks that have been in their column long enough."""
+    try:
+        board = load_board()
+        now = datetime.now()
+        changed = False
+        advances = 0
+
+        # Sort tasks by priority within each column
+        for col, threshold in ADVANCE_THRESHOLDS.items():
+            candidates = []
+            for t in board["tasks"]:
+                if t["column"] != col:
+                    continue
+                # Skip blocked tasks
+                if t.get("blocked_by"):
+                    continue
+                # Skip tasks with tier >= 3 (need human approval)
+                if t.get("tier", 1) >= 3:
+                    continue
+
+                updated = t.get("updated_at") or t.get("created_at")
+                if not updated:
+                    continue
+                try:
+                    updated_dt = datetime.fromisoformat(updated)
+                except:
+                    continue
+
+                elapsed = (now - updated_dt).total_seconds()
+                if elapsed >= threshold:
+                    candidates.append((t, elapsed, PRIORITY_ORDER.get(t.get("priority", "medium"), 2)))
+
+            # Sort by priority (critical first), then by wait time (longest first)
+            candidates.sort(key=lambda x: (x[2], -x[1]))
+
+            for task, elapsed, _ in candidates[:MAX_ADVANCE_PER_CYCLE]:
+                next_col = {
+                    "ready": "in_progress",
+                    "in_progress": "review",
+                    "review": "done",
+                }.get(col)
+
+                if not next_col:
+                    continue
+
+                old_col = task["column"]
+                task["column"] = next_col
+                task["updated_at"] = now.isoformat()
+                task["attempts"] = task.get("attempts", 0) + 1
+
+                if next_col == "in_progress" and not task.get("started_at"):
+                    task["started_at"] = now.isoformat()
+                elif next_col == "done":
+                    task["completed_at"] = now.isoformat()
+                    task["time_spent_seconds"] = task.get("time_spent_seconds", 0) + elapsed
+
+                agent_name = task.get("assignee", "unassigned")
+                add_activity("task",
+                    f"#{task['id'][:8]} {task['title'][:40]} → {next_col} ({agent_name})",
+                    task["id"])
+                logger.info(f"Auto-advance: {task['id'][:8]} {old_col} → {next_col}")
+                changed = True
+                advances += 1
+
+        if changed:
+            save_board(board)
+            broadcast_sse({"type": "board", "tasks": board["tasks"]})
+
+        if advances > 0:
+            add_activity("system", f"Advanced {advances} task(s) this cycle")
+
+    except Exception as e:
+        logger.error(f"Auto-advance error: {e}")
+
+def auto_advance_loop():
+    """Background thread: tick every 30s."""
+    while True:
+        time.sleep(30)
+        auto_advance_tick()
+
+# ── HTTP Handler ──
+
+class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
+    daemon_threads = True
+    allow_reuse_address = True
 
 class KanbanHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -117,10 +247,52 @@ class KanbanHandler(SimpleHTTPRequestHandler):
         if path == "/api/skills":
             return self.send_json({"skills": list(SKILL_PROMPTS.keys()), "prompts": SKILL_PROMPTS})
 
+        if path == "/api/activity":
+            return self.send_json({"activity": list(reversed(activity_log[-50:]))})
+
+        if path == "/api/events":
+            return self.handle_sse()
+
         if self.path == "/":
             self.path = "/dashboard.html"
 
         super().do_GET()
+
+    def handle_sse(self):
+        """Server-Sent Events endpoint for real-time updates."""
+        self.send_response(200)
+        self.send_header("Content-Type", "text/event-stream")
+        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+        self.send_header("Connection", "keep-alive")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.end_headers()
+
+        q = queue.Queue(maxsize=50)
+        with sse_lock:
+            sse_clients.append(q)
+
+        try:
+            # Send initial board state
+            board = load_board()
+            init_msg = f"data: {json.dumps({'type': 'board', 'tasks': board['tasks']}, default=str)}\n\n"
+            self.wfile.write(init_msg.encode())
+            self.wfile.flush()
+
+            while True:
+                try:
+                    msg = q.get(timeout=30)
+                    self.wfile.write(msg.encode())
+                    self.wfile.flush()
+                except queue.Empty:
+                    # Send keepalive
+                    self.wfile.write(b": keepalive\n\n")
+                    self.wfile.flush()
+        except (BrokenPipeError, ConnectionResetError, OSError):
+            pass
+        finally:
+            with sse_lock:
+                if q in sse_clients:
+                    sse_clients.remove(q)
 
     def do_POST(self):
         parsed = urlparse(self.path)
@@ -173,6 +345,7 @@ class KanbanHandler(SimpleHTTPRequestHandler):
         new_column = parts[3] if len(parts) > 3 else ""
         for task in board["tasks"]:
             if task["id"] == task_id or task["id"].startswith(task_id):
+                old_col = task["column"]
                 task["column"] = new_column
                 task["updated_at"] = datetime.now().isoformat()
                 if new_column == "in_progress" and not task.get("started_at"):
@@ -180,6 +353,8 @@ class KanbanHandler(SimpleHTTPRequestHandler):
                 elif new_column == "done":
                     task["completed_at"] = datetime.now().isoformat()
                 save_board(board)
+                add_activity("task", f"#{task['id'][:8]} moved {old_col} → {new_column}", task["id"])
+                broadcast_sse({"type": "board", "tasks": board["tasks"]})
                 return self.send_json(task)
         self.send_json({"error": "Task not found"}, 404)
 
@@ -209,6 +384,8 @@ class KanbanHandler(SimpleHTTPRequestHandler):
         }
         board["tasks"].append(new_task)
         save_board(board)
+        add_activity("task", f"Created: {new_task['title'][:40]} → {new_task['column']}", new_task["id"])
+        broadcast_sse({"type": "board", "tasks": board["tasks"]})
         self.send_json(new_task)
 
     def handle_template_spawn(self, board, path, data):
@@ -243,6 +420,8 @@ class KanbanHandler(SimpleHTTPRequestHandler):
         }
         board["tasks"].append(new_task)
         save_board(board)
+        add_activity("task", f"Spawned from template: {new_task['title'][:30]}", new_task["id"])
+        broadcast_sse({"type": "board", "tasks": board["tasks"]})
         self.send_json(new_task)
 
     def handle_spawn_agent(self, board, data):
@@ -275,10 +454,12 @@ class KanbanHandler(SimpleHTTPRequestHandler):
         }
         board["tasks"].append(new_task)
         save_board(board)
+        add_activity("agent", f"Agent {agent_type} spawned for: {task_title[:30]}", new_task["id"])
+        broadcast_sse({"type": "board", "tasks": board["tasks"]})
         self.send_json(new_task)
 
     def handle_ai(self, board, data):
-        message = data.get("message", "")
+        message = data.get("message", data.get("query", ""))
         msg_lower = message.lower()
         response = ""
 
@@ -331,6 +512,8 @@ class KanbanHandler(SimpleHTTPRequestHandler):
                 }
                 board["tasks"].append(new_task)
                 save_board(board)
+                add_activity("task", f"Voice-created: {title[:40]}", new_task["id"])
+                broadcast_sse({"type": "board", "tasks": board["tasks"]})
                 return self.send_json({"action": "created", "task": new_task})
         return self.send_json({"action": "unknown", "message": "Try: 'create task [description]'"})
 
@@ -360,6 +543,14 @@ class KanbanHandler(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8088))
+
+    # Start auto-advance background thread
+    advancer = threading.Thread(target=auto_advance_loop, daemon=True)
+    advancer.start()
+    logger.info("Auto-advance engine started (30s tick)")
+
+    add_activity("system", "Kanban server started — auto-advance engine active")
+
     server = ThreadedHTTPServer(("0.0.0.0", port), KanbanHandler)
     logger.info(f"Kanban server running on port {port}")
     try:

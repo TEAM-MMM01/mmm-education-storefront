@@ -930,6 +930,404 @@
             .ai-panel { width: calc(100% - 28px); left: 14px; right: 14px; }
         }
 
+        /* ═══ BOOT SEQUENCE ═══ */
+        .boot-overlay {
+            position: fixed;
+            inset: 0;
+            background: #020206;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .boot-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .boot-logo {
+            font-size: 48px;
+            margin-bottom: 24px;
+            animation: bootPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bootPulse {
+            0%, 100% { opacity: 0.5; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .boot-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-cyan);
+            text-align: left;
+            width: 380px;
+            line-height: 1.8;
+        }
+
+        .boot-line {
+            opacity: 0;
+            animation: bootLineIn 0.3s ease forwards;
+        }
+
+        .boot-line.ok::after {
+            content: ' [OK]';
+            color: var(--accent-green);
+        }
+
+        .boot-line.warn::after {
+            content: ' [WARN]';
+            color: var(--accent-yellow);
+        }
+
+        @keyframes bootLineIn {
+            from { opacity: 0; transform: translateX(-8px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .boot-progress {
+            width: 380px;
+            height: 2px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .boot-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ═══ SYSTEM STATUS BAR ═══ */
+        .status-bar {
+            position: relative;
+            z-index: 20;
+            background: rgba(5, 5, 12, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding: 6px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .status-left, .status-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 4px;
+        }
+
+        .status-dot.online {
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: nodePulse 2s ease-in-out infinite;
+        }
+
+        .status-dot.offline {
+            background: var(--accent-red);
+            box-shadow: 0 0 8px var(--accent-red);
+        }
+
+        .status-clock {
+            color: var(--accent-cyan);
+            font-weight: 500;
+        }
+
+        .status-uptime {
+            color: var(--text-secondary);
+        }
+
+        .status-shortcuts-hint {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .status-shortcuts-hint kbd {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-size: 9px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ═══ SKELETON LOADING ═══ */
+        .skeleton {
+            background: linear-gradient(90deg,
+                rgba(255,255,255,0.03) 25%,
+                rgba(255,255,255,0.06) 50%,
+                rgba(255,255,255,0.03) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: var(--radius-xs);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-card {
+            height: 120px;
+            margin-bottom: 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        .skeleton-line {
+            height: 12px;
+            margin-bottom: 8px;
+            width: 80%;
+        }
+
+        .skeleton-line.short { width: 40%; }
+        .skeleton-line.medium { width: 60%; }
+
+        /* ═══ ACTIVITY FEED ═══ */
+        .activity-panel {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 320px;
+            max-height: 400px;
+            background: rgba(8, 8, 15, 0.92);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: 0 12px 60px rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(120%);
+        }
+
+        .activity-panel.open { transform: translateY(0); }
+
+        .activity-toggle {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 44px; height: 44px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 91;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.25s ease;
+        }
+
+        .activity-toggle:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px var(--glow-cyan);
+        }
+
+        .activity-toggle.hidden { display: none; }
+
+        .activity-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        .activity-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .activity-list {
+            max-height: 340px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .activity-item {
+            padding: 8px 10px;
+            border-radius: var(--radius-xs);
+            margin-bottom: 4px;
+            font-size: 11px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            border-left: 2px solid transparent;
+            animation: msgFadeIn 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .activity-item .time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-right: 6px;
+        }
+
+        .activity-item.agent { border-left-color: var(--accent-cyan); }
+        .activity-item.task { border-left-color: var(--accent-purple); }
+        .activity-item.system { border-left-color: var(--accent-green); }
+
+        /* ═══ KEYBOARD SHORTCUT MODAL ═══ */
+        .shortcuts-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            z-index:300;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shortcuts-modal.open { display: flex; }
+
+        .shortcuts-dialog {
+            background: rgba(12,12,22,0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            width: 440px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .shortcuts-dialog h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .shortcut-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .shortcut-row:last-child { border-bottom: none; }
+
+        .shortcut-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .shortcut-keys {
+            display: flex;
+            gap: 4px;
+        }
+
+        .shortcut-keys kbd {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+            min-width: 24px;
+            text-align: center;
+        }
+
+        /* ═══ MINI CHART ═══ */
+        .mini-chart-container {
+            position: relative;
+        }
+
+        .mini-chart-label {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 4px;
+        }
+
+        .mini-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 30px;
+        }
+
+        .mini-bar {
+            width: 6px;
+            border-radius: 2px 2px 0 0;
+            transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.8;
+        }
+
+        .mini-bar:hover { opacity: 1; }
+
+        /* ═══ ENHANCED CARD HOVER ═══ */
+        .card {
+            position: relative;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-sm);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card[data-priority="critical"]:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(239,68,68,0.08);
+        }
+        .card[data-priority="high"]:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(249,115,22,0.08);
+        }
+        .card[data-priority="medium"]:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(245,158,11,0.06);
+        }
+        .card[data-priority="low"]:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(16,185,129,0.06);
+        }
+
         /* ═══ REDUCED MOTION ═══ */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -944,6 +1342,25 @@
 <body>
     <canvas id="torus-canvas"></canvas>
     <div class="ambient-layer"></div>
+
+    <!-- Boot Sequence -->
+    <div class="boot-overlay" id="boot-overlay">
+        <div class="boot-logo">⚡</div>
+        <div class="boot-text" id="boot-text"></div>
+        <div class="boot-progress"><div class="boot-progress-fill" id="boot-progress"></div></div>
+    </div>
+
+    <!-- System Status Bar -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span><span class="status-dot online" id="status-dot"></span> <span id="status-label">SYSTEM ONLINE</span></span>
+            <span class="status-uptime" id="status-uptime">UP 0m</span>
+            <span class="status-clock" id="status-clock">00:00:00</span>
+        </div>
+        <div class="status-right">
+            <span class="status-shortcuts-hint">Press <kbd>?</kbd> for shortcuts</span>
+        </div>
+    </div>
 
     <div class="header">
         <div class="header-left">
@@ -1025,6 +1442,55 @@
         <div class="templates-grid" id="templates"></div>
     </div>
 
+    <!-- Activity Feed -->
+    <button class="activity-toggle" id="activity-toggle" onclick="toggleActivity()">📋</button>
+    <div class="activity-panel" id="activity-panel">
+        <div class="activity-header">
+            <span class="activity-title">📋 Activity Feed</span>
+            <button class="activity-close" onclick="toggleActivity()">✕</button>
+        </div>
+        <div class="activity-list" id="activity-list">
+            <div class="activity-item system">
+                <span class="time">now</span> System initialized. All agents standing by.
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div class="shortcuts-modal" id="shortcuts-modal">
+        <div class="shortcuts-dialog">
+            <h3>⌨️ Keyboard Shortcuts</h3>
+            <div class="shortcut-row">
+                <span class="shortcut-desc">Refresh board</span>
+                <div class="shortcut-keys"><kbd>R</kbd></div>
+            </div>
+            <div class="shortcut-row">
+                <span class="shortcut-desc">Toggle AI assistant</span>
+                <div class="shortcut-keys"><kbd>A</kbd></div>
+            </div>
+            <div class="shortcut-row">
+                <span class="shortcut-desc">Toggle activity feed</span>
+                <div class="shortcut-keys"><kbd>F</kbd></div>
+            </div>
+            <div class="shortcut-row">
+                <span class="shortcut-desc">Voice input</span>
+                <div class="shortcut-keys"><kbd>V</kbd></div>
+            </div>
+            <div class="shortcut-row">
+                <span class="shortcut-desc">Spawn new task</span>
+                <div class="shortcut-keys"><kbd>N</kbd></div>
+            </div>
+            <div class="shortcut-row">
+                <span class="shortcut-desc">Show shortcuts</span>
+                <div class="shortcut-keys"><kbd>?</kbd></div>
+            </div>
+            <div class="shortcut-row">
+                <span class="shortcut-desc">Close modal / panel</span>
+                <div class="shortcut-keys"><kbd>Esc</kbd></div>
+            </div>
+        </div>
+    </div>
+
     <!-- AI Assistant -->
     <button class="ai-toggle" id="ai-toggle" onclick="toggleAI()">🤖</button>
     <div class="ai-panel" id="ai-panel">
@@ -1098,6 +1564,128 @@
     </div>
 
     <script>
+        /* ═══════════════════════════════════════════
+           BOOT SEQUENCE
+           ═══════════════════════════════════════════ */
+        (function() {
+            const bootLines = [
+                { text: 'HermesOS v4.02 — Command Center', delay: 0, cls: 'ok' },
+                { text: 'Initializing torus field renderer...', delay: 200, cls: 'ok' },
+                { text: 'Loading agent network...', delay: 400, cls: 'ok' },
+                { text: 'Connecting to board engine...', delay: 600, cls: 'ok' },
+                { text: 'Auto-advance engine armed (30s)', delay: 800, cls: 'ok' },
+                { text: 'SSE real-time channel open', delay: 1000, cls: 'ok' },
+                { text: '6 agents online', delay: 1200, cls: 'ok' },
+                { text: 'System ready', delay: 1400, cls: 'ok' },
+            ];
+            const bootText = document.getElementById('boot-text');
+            const bootProgress = document.getElementById('boot-progress');
+            const overlay = document.getElementById('boot-overlay');
+            let i = 0;
+
+            function showLine() {
+                if (i >= bootLines.length) {
+                    bootProgress.style.width = '100%';
+                    setTimeout(() => overlay.classList.add('hidden'), 600);
+                    return;
+                }
+                const line = bootLines[i];
+                const div = document.createElement('div');
+                div.className = 'boot-line ' + (line.cls || '');
+                div.textContent = line.text;
+                div.style.animationDelay = '0s';
+                bootText.appendChild(div);
+                bootProgress.style.width = ((i + 1) / bootLines.length * 100) + '%';
+                i++;
+                setTimeout(showLine, 180);
+            }
+            showLine();
+        })();
+
+        /* ═══════════════════════════════════════════
+           SYSTEM STATUS BAR
+           ═══════════════════════════════════════════ */
+        const startTime = Date.now();
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('status-clock').textContent = now.toLocaleTimeString('en-US', { hour12: false });
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const m = Math.floor(elapsed / 60);
+            const h = Math.floor(m / 60);
+            document.getElementById('status-uptime').textContent = h > 0 ? `UP ${h}h ${m % 60}m` : `UP ${m}m`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        /* ═══════════════════════════════════════════
+           SSE REAL-TIME CONNECTION
+           ═══════════════════════════════════════════ */
+        let evtSource = null;
+        let reconnectTimer = null;
+
+        function connectSSE() {
+            if (evtSource) { try { evtSource.close(); } catch(e){} }
+            evtSource = new EventSource('/api/events');
+
+            evtSource.onmessage = function(e) {
+                try {
+                    const data = JSON.parse(e.data);
+                    if (data.type === 'board') {
+                        boardData = data;
+                        renderBoard();
+                        updateStats();
+                        document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+                    }
+                    if (data.type === 'activity') {
+                        addActivityItem(data.entry);
+                    }
+                } catch(err) { console.error('SSE parse error:', err); }
+            };
+
+            evtSource.onerror = function() {
+                document.getElementById('status-dot').className = 'status-dot offline';
+                document.getElementById('status-label').textContent = 'RECONNECTING...';
+                evtSource.close();
+                reconnectTimer = setTimeout(connectSSE, 5000);
+            };
+
+            evtSource.onopen = function() {
+                document.getElementById('status-dot').className = 'status-dot online';
+                document.getElementById('status-label').textContent = 'SYSTEM ONLINE';
+            };
+        }
+        connectSSE();
+
+        /* ═══════════════════════════════════════════
+           ACTIVITY FEED
+           ═══════════════════════════════════════════ */
+        function addActivityItem(entry) {
+            const list = document.getElementById('activity-list');
+            const div = document.createElement('div');
+            div.className = 'activity-item ' + (entry.kind || 'system');
+            div.innerHTML = `<span class="time">${entry.time}</span> ${entry.text}`;
+            list.insertBefore(div, list.firstChild);
+            // Keep max 50 items
+            while (list.children.length > 50) list.removeChild(list.lastChild);
+        }
+
+        async function loadActivity() {
+            try {
+                const resp = await fetch('/api/activity?t=' + Date.now());
+                const data = await resp.json();
+                const list = document.getElementById('activity-list');
+                list.innerHTML = '';
+                (data.activity || []).reverse().forEach(e => addActivityItem(e));
+            } catch(e) { console.error('Activity load failed:', e); }
+        }
+
+        function toggleActivity() {
+            const panel = document.getElementById('activity-panel');
+            const btn = document.getElementById('activity-toggle');
+            panel.classList.toggle('open');
+            btn.classList.toggle('hidden');
+        }
+
         /* ═══════════════════════════════════════════
            TORUS WIREFRAME BACKGROUND
            ═══════════════════════════════════════════ */
@@ -1779,9 +2367,55 @@
             });
         }
 
+        // ═══ KEYBOARD SHORTCUTS ═══
+        document.addEventListener('keydown', function(e) {
+            // Don't trigger if typing in an input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            switch(e.key) {
+                case '?':
+                    document.getElementById('shortcuts-modal').classList.toggle('open');
+                    break;
+                case 'Escape':
+                    document.getElementById('shortcuts-modal').classList.remove('open');
+                    document.getElementById('activity-panel').classList.remove('open');
+                    document.getElementById('activity-toggle').classList.remove('hidden');
+                    const aiPanel = document.getElementById('ai-panel');
+                    if (aiPanel.classList.contains('open')) {
+                        aiPanel.classList.remove('open');
+                        document.getElementById('ai-toggle').classList.remove('hidden');
+                    }
+                    break;
+                case 'r':
+                case 'R':
+                    loadBoard();
+                    loadActivity();
+                    break;
+                case 'a':
+                case 'A':
+                    toggleAI();
+                    break;
+                case 'f':
+                case 'F':
+                    toggleActivity();
+                    break;
+                case 'v':
+                case 'V':
+                    if (document.getElementById('ai-panel').classList.contains('open')) {
+                        toggleVoice();
+                    }
+                    break;
+                case 'n':
+                case 'N':
+                    showSpawnDialog();
+                    break;
+            }
+        });
+
         // ═══ INIT ═══
         loadBoard();
-        setInterval(loadBoard, 30000);
+        loadActivity();
+        // SSE handles real-time updates — no polling needed
     </script>
 </body>
 </html>
