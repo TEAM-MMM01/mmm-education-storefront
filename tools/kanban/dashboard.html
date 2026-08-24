@@ -5,68 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HermesOS Kanban — Command Center</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
         :root {
-            --bg-primary: #0a0e17;
-            --bg-secondary: #111827;
-            --bg-card: rgba(17, 24, 39, 0.8);
-            --glass: rgba(255, 255, 255, 0.03);
+            --bg-void: #030308;
+            --bg-deep: #08080f;
+            --bg-surface: rgba(12, 12, 22, 0.85);
+            --glass: rgba(255, 255, 255, 0.025);
+            --glass-hover: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.06);
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --text-muted: #484f58;
-            --accent-blue: #58a6ff;
-            --accent-purple: #a371f7;
-            --accent-green: #3fb950;
-            --accent-yellow: #d29922;
-            --accent-red: #f85149;
-            --accent-orange: #f0883e;
-            --accent-pink: #f778ba;
-            --glow-blue: rgba(88, 166, 255, 0.15);
-            --glow-green: rgba(63, 185, 80, 0.15);
-            --glow-purple: rgba(163, 113, 247, 0.15);
-            --radius: 12px;
-            --radius-sm: 8px;
-            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --glass-border-hover: rgba(255, 255, 255, 0.12);
+            --text-primary: #e8edf5;
+            --text-secondary: #7a8399;
+            --text-muted: #3d4455;
+            --accent-cyan: #00d4ff;
+            --accent-blue: #4d8eff;
+            --accent-purple: #8b5cf6;
+            --accent-violet: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-orange: #f97316;
+            --accent-red: #ef4444;
+            --glow-cyan: rgba(0, 212, 255, 0.12);
+            --glow-blue: rgba(77, 142, 255, 0.12);
+            --glow-purple: rgba(139, 92, 246, 0.12);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --radius-xs: 6px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-            background: var(--bg-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-void);
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Animated background */
-        body::before {
-            content: '';
+        /* ═══ CANVAS BACKGROUND ═══ */
+        #torus-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ═══ AMBIENT GLOW LAYERS ═══ */
+        .ambient-layer {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(88, 166, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(163, 113, 247, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(63, 185, 80, 0.04) 0%, transparent 60%);
             pointer-events: none;
-            z-index: 0;
-            animation: bgPulse 8s ease-in-out infinite alternate;
+            z-index: 1;
         }
 
-        @keyframes bgPulse {
-            0% { opacity: 0.7; }
-            100% { opacity: 1; }
+        .ambient-layer::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px; height: 800px;
+            background: radial-gradient(ellipse, rgba(0, 212, 255, 0.04) 0%, transparent 70%);
+            animation: ambientPulse 6s ease-in-out infinite alternate;
         }
 
-        /* Header */
+        .ambient-layer::after {
+            content: '';
+            position: absolute;
+            top: 30%; left: 50%;
+            transform: translateX(-50%);
+            width: 2px; height: 40%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 212, 255, 0.08), transparent);
+            animation: lightBeam 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes ambientPulse {
+            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+        }
+
+        @keyframes lightBeam {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+
+        /* ═══ HEADER ═══ */
         .header {
             position: relative;
-            z-index: 10;
-            background: rgba(17, 24, 39, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            z-index: 20;
+            background: rgba(8, 8, 15, 0.7);
+            backdrop-filter: blur(30px) saturate(1.2);
+            -webkit-backdrop-filter: blur(30px) saturate(1.2);
             border-bottom: 1px solid var(--glass-border);
-            padding: 16px 32px;
+            padding: 14px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -75,41 +110,55 @@
         .header-left {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
         .logo {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            border-radius: 10px;
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 18px;
-            box-shadow: 0 0 20px var(--glow-blue);
+            box-shadow: 0 0 25px var(--glow-cyan), 0 0 60px rgba(0, 212, 255, 0.06);
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            opacity: 0.3;
+            filter: blur(8px);
+            z-index: -1;
         }
 
         .header h1 {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.4px;
+            background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header h1 span {
-            color: var(--text-secondary);
             font-weight: 400;
+            -webkit-text-fill-color: var(--text-secondary);
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
         }
 
         .kpi-row {
             display: flex;
-            gap: 24px;
+            gap: 20px;
         }
 
         .kpi {
@@ -118,26 +167,26 @@
         }
 
         .kpi-value {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent-blue));
+            font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             line-height: 1;
         }
 
         .kpi-label {
-            font-size: 10px;
-            color: var(--text-secondary);
+            font-size: 9px;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             margin-top: 4px;
         }
 
         .kpi-bar {
-            width: 100%;
-            height: 3px;
-            background: rgba(255,255,255,0.05);
+            width: 100%; height: 2px;
+            background: rgba(255,255,255,0.04);
             border-radius: 2px;
             margin-top: 6px;
             overflow: hidden;
@@ -146,7 +195,8 @@
         .kpi-bar-fill {
             height: 100%;
             border-radius: 2px;
-            transition: width 1s ease;
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 8px currentColor;
         }
 
         .refresh-btn {
@@ -154,55 +204,68 @@
             border: 1px solid var(--glass-border);
             color: var(--text-secondary);
             padding: 8px 16px;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius-xs);
             cursor: pointer;
-            font-size: 13px;
-            transition: all 0.2s ease;
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.25s ease;
             backdrop-filter: blur(10px);
         }
 
         .refresh-btn:hover {
-            background: rgba(255,255,255,0.08);
+            background: var(--glass-hover);
             color: var(--text-primary);
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 15px var(--glow-blue);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px var(--glow-cyan);
         }
 
         .last-updated {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Board */
+        /* ═══ BOARD ═══ */
         .board {
             position: relative;
-            z-index: 1;
+            z-index: 10;
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 16px;
-            padding: 24px 32px;
-            min-height: calc(100vh - 160px);
+            gap: 14px;
+            padding: 20px 28px;
+            min-height: calc(100vh - 150px);
         }
 
         .column {
             background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px) saturate(1.1);
+            -webkit-backdrop-filter: blur(20px) saturate(1.1);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius);
             display: flex;
             flex-direction: column;
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .column::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
         }
 
         .column:hover {
-            border-color: rgba(255,255,255,0.1);
-            box-shadow: var(--shadow);
+            border-color: var(--glass-border-hover);
+            background: rgba(255, 255, 255, 0.035);
         }
 
         .column.drag-over {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 30px var(--glow-blue);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 40px var(--glow-cyan), inset 0 0 30px rgba(0, 212, 255, 0.03);
         }
 
         .column-header {
@@ -214,64 +277,65 @@
         }
 
         .column-title {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .column-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px; height: 7px;
             border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
+            animation: nodePulse 3s ease-in-out infinite;
+            box-shadow: 0 0 10px currentColor;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        @keyframes nodePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.85); }
         }
 
-        .column[data-col="backlog"] .column-dot { background: var(--text-muted); }
-        .column[data-col="ready"] .column-dot { background: var(--accent-blue); box-shadow: 0 0 10px var(--glow-blue); }
-        .column[data-col="in_progress"] .column-dot { background: var(--accent-yellow); box-shadow: 0 0 10px rgba(210, 153, 34, 0.3); }
-        .column[data-col="review"] .column-dot { background: var(--accent-purple); box-shadow: 0 0 10px var(--glow-purple); }
-        .column[data-col="done"] .column-dot { background: var(--accent-green); box-shadow: 0 0 10px var(--glow-green); }
+        .column[data-col="backlog"] .column-dot { background: var(--text-muted); box-shadow: none; }
+        .column[data-col="ready"] .column-dot { background: var(--accent-cyan); color: var(--accent-cyan); }
+        .column[data-col="in_progress"] .column-dot { background: var(--accent-yellow); color: var(--accent-yellow); }
+        .column[data-col="review"] .column-dot { background: var(--accent-purple); color: var(--accent-purple); }
+        .column[data-col="done"] .column-dot { background: var(--accent-green); color: var(--accent-green); }
 
         .column[data-col="backlog"] .column-title { color: var(--text-muted); }
-        .column[data-col="ready"] .column-title { color: var(--accent-blue); }
+        .column[data-col="ready"] .column-title { color: var(--accent-cyan); }
         .column[data-col="in_progress"] .column-title { color: var(--accent-yellow); }
         .column[data-col="review"] .column-title { color: var(--accent-purple); }
         .column[data-col="done"] .column-title { color: var(--accent-green); }
 
         .column-count {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.04);
             color: var(--text-secondary);
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 600;
-            padding: 2px 8px;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 3px 8px;
             border-radius: 10px;
         }
 
         .cards {
-            padding: 12px;
+            padding: 10px;
             flex: 1;
             overflow-y: auto;
-            min-height: 100px;
+            min-height: 80px;
         }
 
-        /* Cards */
+        /* ═══ CARDS ═══ */
         .card {
-            background: var(--bg-card);
+            background: rgba(12, 12, 22, 0.7);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-sm);
             padding: 14px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             cursor: grab;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -279,18 +343,24 @@
         .card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            border-radius: 3px 0 0 3px;
+            top: 0; left: 0;
+            width: 2px; height: 100%;
+            border-radius: 2px 0 0 2px;
             transition: all 0.2s ease;
         }
 
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+        }
+
         .card:hover {
-            border-color: rgba(255,255,255,0.12);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-color: var(--glass-border-hover);
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 212, 255, 0.04);
         }
 
         .card:active {
@@ -299,14 +369,14 @@
         }
 
         .card.dragging {
-            opacity: 0.4;
-            transform: rotate(2deg);
+            opacity: 0.3;
+            transform: rotate(1deg) scale(0.97);
         }
 
-        .card[data-priority="critical"]::before { background: var(--accent-red); }
-        .card[data-priority="high"]::before { background: var(--accent-orange); }
-        .card[data-priority="medium"]::before { background: var(--accent-yellow); }
-        .card[data-priority="low"]::before { background: var(--accent-green); }
+        .card[data-priority="critical"]::before { background: var(--accent-red); box-shadow: 0 0 12px var(--accent-red); }
+        .card[data-priority="high"]::before { background: var(--accent-orange); box-shadow: 0 0 12px var(--accent-orange); }
+        .card[data-priority="medium"]::before { background: var(--accent-yellow); box-shadow: 0 0 12px var(--accent-yellow); }
+        .card[data-priority="low"]::before { background: var(--accent-green); box-shadow: 0 0 12px var(--accent-green); }
 
         .card-header {
             display: flex;
@@ -317,44 +387,46 @@
 
         .card-title {
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text-primary);
-            line-height: 1.4;
+            line-height: 1.45;
             flex: 1;
         }
 
         .card-id {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--text-muted);
-            font-family: 'SF Mono', monospace;
+            font-family: 'JetBrains Mono', monospace;
             background: rgba(255,255,255,0.03);
             padding: 2px 6px;
             border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.04);
         }
 
         .card-meta {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             flex-wrap: wrap;
             margin-bottom: 10px;
         }
 
         .badge {
-            font-size: 10px;
+            font-size: 9px;
             padding: 3px 8px;
             border-radius: 6px;
             font-weight: 600;
             letter-spacing: 0.3px;
+            text-transform: uppercase;
         }
 
-        .badge-critical { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); border: 1px solid rgba(248, 81, 73, 0.3); }
-        .badge-high { background: rgba(240, 136, 62, 0.15); color: var(--accent-orange); border: 1px solid rgba(240, 136, 62, 0.3); }
-        .badge-medium { background: rgba(210, 153, 34, 0.15); color: var(--accent-yellow); border: 1px solid rgba(210, 153, 34, 0.3); }
-        .badge-low { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); border: 1px solid rgba(63, 185, 80, 0.3); }
+        .badge-critical { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .badge-high { background: rgba(249, 115, 22, 0.1); color: var(--accent-orange); border: 1px solid rgba(249, 115, 22, 0.2); }
+        .badge-medium { background: rgba(245, 158, 11, 0.1); color: var(--accent-yellow); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .badge-low { background: rgba(16, 185, 129, 0.1); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.2); }
         .badge-tier {
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--accent-blue);
-            border: 1px solid rgba(88, 166, 255, 0.2);
+            background: rgba(0, 212, 255, 0.08);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 212, 255, 0.15);
         }
 
         .card-skills {
@@ -365,19 +437,20 @@
         }
 
         .skill {
-            font-size: 10px;
-            background: rgba(255,255,255,0.04);
+            font-size: 9px;
+            background: rgba(255,255,255,0.03);
             color: var(--text-secondary);
             padding: 3px 8px;
             border-radius: 4px;
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.05);
             transition: all 0.2s ease;
+            font-weight: 500;
         }
 
         .skill:hover {
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--accent-blue);
-            border-color: rgba(88, 166, 255, 0.3);
+            background: rgba(0, 212, 255, 0.08);
+            color: var(--accent-cyan);
+            border-color: rgba(0, 212, 255, 0.2);
         }
 
         .card-footer {
@@ -385,11 +458,11 @@
             justify-content: space-between;
             align-items: center;
             padding-top: 10px;
-            border-top: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255,255,255,0.04);
         }
 
         .card-agent {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-secondary);
             display: flex;
             align-items: center;
@@ -397,43 +470,43 @@
         }
 
         .agent-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px; height: 7px;
             border-radius: 50%;
             box-shadow: 0 0 8px currentColor;
         }
 
         .agent-hermes-coo { color: var(--accent-orange); background: var(--accent-orange); }
-        .agent-prep-station { color: var(--accent-blue); background: var(--accent-blue); }
+        .agent-prep-station { color: var(--accent-cyan); background: var(--accent-cyan); }
         .agent-hermes-voice { color: var(--accent-purple); background: var(--accent-purple); }
         .agent-hermes-pf { color: var(--accent-green); background: var(--accent-green); }
         .agent-royal-collexions { color: var(--accent-pink); background: var(--accent-pink); }
         .agent-the-oracle { color: var(--accent-yellow); background: var(--accent-yellow); }
 
         .card-time {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Templates */
+        /* ═══ TEMPLATES ═══ */
         .templates-section {
             position: relative;
-            z-index: 1;
-            background: rgba(17, 24, 39, 0.4);
-            backdrop-filter: blur(10px);
+            z-index: 10;
+            background: rgba(8, 8, 15, 0.5);
+            backdrop-filter: blur(20px);
             border-top: 1px solid var(--glass-border);
-            padding: 24px 32px;
+            padding: 20px 28px;
         }
 
         .templates-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .templates-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             color: var(--text-primary);
             display: flex;
@@ -443,8 +516,8 @@
 
         .templates-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 10px;
         }
 
         .template-card {
@@ -452,25 +525,35 @@
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-sm);
             padding: 14px;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
         }
 
         .template-card:hover {
-            border-color: var(--accent-purple);
-            box-shadow: 0 0 20px var(--glow-purple);
-            transform: translateY(-1px);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.08);
+            transform: translateY(-2px);
         }
 
         .template-name {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 4px;
         }
 
         .template-desc {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-secondary);
             margin-bottom: 10px;
             line-height: 1.4;
@@ -483,56 +566,54 @@
         }
 
         .template-stats {
-            font-size: 11px;
-            color: var(--accent-blue);
+            font-size: 10px;
+            color: var(--accent-purple);
+            font-family: 'JetBrains Mono', monospace;
         }
 
         .template-spawn {
-            font-size: 11px;
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--accent-blue);
-            border: 1px solid rgba(88, 166, 255, 0.2);
+            font-size: 10px;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--accent-purple);
+            border: 1px solid rgba(139, 92, 246, 0.2);
             padding: 4px 10px;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s ease;
+            font-weight: 500;
         }
 
         .template-spawn:hover {
-            background: rgba(88, 166, 255, 0.2);
+            background: rgba(139, 92, 246, 0.2);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
         }
 
-        /* AI Assistant */
+        /* ═══ AI ASSISTANT ═══ */
         .ai-panel {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
+            bottom: 24px; right: 24px;
             width: 400px;
             max-height: 600px;
-            background: rgba(17, 24, 39, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(8, 8, 15, 0.95);
+            backdrop-filter: blur(40px) saturate(1.3);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 212, 255, 0.04);
             z-index: 100;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateY(120%);
             display: flex;
             flex-direction: column;
         }
 
-        .ai-panel.open {
-            transform: translateY(0);
-        }
+        .ai-panel.open { transform: translateY(0); }
 
         .ai-toggle {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            bottom: 24px; right: 24px;
+            width: 54px; height: 54px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -540,14 +621,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 20px rgba(88, 166, 255, 0.4);
-            transition: all 0.2s ease;
+            font-size: 22px;
+            box-shadow: 0 4px 25px rgba(0, 212, 255, 0.35);
+            transition: all 0.25s ease;
         }
 
         .ai-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(88, 166, 255, 0.6);
+            transform: scale(1.08);
+            box-shadow: 0 6px 35px rgba(0, 212, 255, 0.5);
         }
 
         .ai-toggle.hidden { display: none; }
@@ -561,11 +642,14 @@
         }
 
         .ai-title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .ai-close {
@@ -575,6 +659,7 @@
             cursor: pointer;
             font-size: 18px;
             padding: 4px;
+            transition: color 0.2s;
         }
 
         .ai-close:hover { color: var(--text-primary); }
@@ -590,16 +675,18 @@
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 12px;
+            font-size: 11px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
             border-bottom: 2px solid transparent;
         }
 
         .ai-tab.active {
-            color: var(--accent-blue);
-            border-bottom-color: var(--accent-blue);
-            background: rgba(88, 166, 255, 0.05);
+            color: var(--accent-cyan);
+            border-bottom-color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.04);
         }
 
         .ai-tab:hover { color: var(--text-primary); }
@@ -616,33 +703,33 @@
             margin-bottom: 12px;
             padding: 10px 14px;
             border-radius: var(--radius-sm);
-            font-size: 13px;
-            line-height: 1.5;
-            animation: fadeIn 0.3s ease;
+            font-size: 12px;
+            line-height: 1.55;
+            animation: msgFadeIn 0.35s ease;
         }
 
-        @keyframes fadeIn {
+        @keyframes msgFadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .ai-msg.user {
-            background: rgba(88, 166, 255, 0.1);
-            border: 1px solid rgba(88, 166, 255, 0.2);
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.15);
             margin-left: 40px;
         }
 
         .ai-msg.bot {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.025);
             border: 1px solid var(--glass-border);
             margin-right: 40px;
         }
 
-        .ai-msg.bot strong { color: var(--accent-blue); }
+        .ai-msg.bot strong { color: var(--accent-cyan); }
 
         .ai-msg.thinking {
-            background: rgba(163, 113, 247, 0.1);
-            border: 1px solid rgba(163, 113, 247, 0.2);
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.15);
             color: var(--accent-purple);
             font-style: italic;
         }
@@ -657,38 +744,39 @@
 
         .ai-input-area input {
             flex: 1;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.04);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-sm);
             padding: 10px 14px;
             color: var(--text-primary);
-            font-size: 13px;
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
             outline: none;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
 
         .ai-input-area input:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 10px var(--glow-blue);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px var(--glow-cyan);
         }
 
         .ai-btn {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
             border: none;
             border-radius: var(--radius-sm);
             padding: 10px 14px;
             color: white;
             font-size: 14px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .ai-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
+            transform: scale(1.06);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.35);
         }
 
         .ai-btn.voice-btn {
@@ -697,16 +785,16 @@
         }
 
         .ai-btn.voice-btn.listening {
-            animation: voicePulse 1s ease-in-out infinite;
+            animation: voiceGlow 1.2s ease-in-out infinite;
         }
 
-        @keyframes voicePulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(248, 81, 73, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(248, 81, 73, 0); }
+        @keyframes voiceGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
         }
 
         .ai-btn.spawn-btn {
-            background: linear-gradient(135deg, var(--accent-green), #2ea043);
+            background: linear-gradient(135deg, var(--accent-green), #059669);
             width: 42px;
         }
 
@@ -718,58 +806,145 @@
         }
 
         .agent-card {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.025);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-sm);
             padding: 10px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
             text-align: center;
         }
 
         .agent-card:hover {
-            border-color: var(--accent-blue);
-            background: rgba(88, 166, 255, 0.05);
+            border-color: var(--accent-cyan);
+            background: rgba(0, 212, 255, 0.04);
             transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
         }
 
-        .agent-card .agent-icon {
-            font-size: 24px;
-            margin-bottom: 4px;
+        .agent-card .agent-icon { font-size: 22px; margin-bottom: 4px; }
+        .agent-card .agent-name { font-size: 10px; font-weight: 600; color: var(--text-primary); }
+        .agent-card .agent-role { font-size: 8px; color: var(--text-secondary); }
+
+        /* ═══ SPAWN DIALOG ═══ */
+        .spawn-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
         }
 
-        .agent-card .agent-name {
-            font-size: 11px;
+        .spawn-overlay.open { display: flex; }
+
+        .spawn-dialog {
+            background: rgba(12, 12, 22, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 28px;
+            width: 400px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .spawn-dialog h3 {
+            margin-bottom: 18px;
+            color: var(--text-primary);
+            font-size: 15px;
             font-weight: 600;
+        }
+
+        .spawn-dialog input, .spawn-dialog select {
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .spawn-dialog input:focus, .spawn-dialog select:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        .spawn-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .spawn-actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .spawn-actions .confirm {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+        }
+
+        .spawn-actions .confirm:hover {
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .spawn-actions .cancel {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+        }
+
+        .spawn-actions .cancel:hover {
+            background: rgba(255,255,255,0.08);
             color: var(--text-primary);
         }
 
-        .agent-card .agent-role {
-            font-size: 9px;
-            color: var(--text-secondary);
-        }
-            box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
+        /* ═══ SCROLLBAR ═══ */
+        ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
 
-        /* Mobile */
+        /* ═══ MOBILE ═══ */
         @media (max-width: 1200px) {
             .board { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 768px) {
-            .board { grid-template-columns: 1fr; padding: 16px; }
-            .header { flex-direction: column; gap: 16px; padding: 16px; }
-            .kpi-row { gap: 16px; }
-            .ai-panel { width: calc(100% - 32px); left: 16px; right: 16px; }
+            .board { grid-template-columns: 1fr; padding: 14px; }
+            .header { flex-direction: column; gap: 14px; padding: 14px; }
+            .kpi-row { gap: 14px; }
+            .ai-panel { width: calc(100% - 28px); left: 14px; right: 14px; }
+        }
+
+        /* ═══ REDUCED MOTION ═══ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            #torus-canvas { display: none; }
         }
     </style>
 </head>
 <body>
+    <canvas id="torus-canvas"></canvas>
+    <div class="ambient-layer"></div>
+
     <div class="header">
         <div class="header-left">
             <div class="logo">⚡</div>
@@ -780,7 +955,7 @@
                 <div class="kpi">
                     <div class="kpi-value" id="total-tasks">0</div>
                     <div class="kpi-label">Total</div>
-                    <div class="kpi-bar"><div class="kpi-bar-fill" style="width:100%;background:var(--accent-blue)"></div></div>
+                    <div class="kpi-bar"><div class="kpi-bar-fill" style="width:100%;background:var(--accent-cyan)"></div></div>
                 </div>
                 <div class="kpi">
                     <div class="kpi-value" id="active-tasks">0</div>
@@ -845,7 +1020,7 @@
 
     <div class="templates-section">
         <div class="templates-header">
-            <div class="templates-title">📝 Task Templates <span style="color:var(--text-muted);font-weight:400;font-size:12px">— Click to spawn</span></div>
+            <div class="templates-title">⚡ Task Templates <span style="color:var(--text-muted);font-weight:400;font-size:11px">— Click to spawn</span></div>
         </div>
         <div class="templates-grid" id="templates"></div>
     </div>
@@ -854,7 +1029,7 @@
     <button class="ai-toggle" id="ai-toggle" onclick="toggleAI()">🤖</button>
     <div class="ai-panel" id="ai-panel">
         <div class="ai-header">
-            <span class="ai-title">🤖 Hermes AI</span>
+            <span class="ai-title">⚡ Hermes AI</span>
             <button class="ai-close" onclick="toggleAI()">✕</button>
         </div>
         <div class="ai-tabs">
@@ -862,7 +1037,7 @@
             <button class="ai-tab" onclick="switchTab('agents')">👥 Agents</button>
             <button class="ai-tab" onclick="switchTab('reasoning')">🧠 Reason</button>
         </div>
-        
+
         <!-- Chat Tab -->
         <div id="tab-chat" class="ai-tab-content">
             <div class="ai-messages" id="ai-messages">
@@ -896,7 +1071,7 @@
             <div class="ai-messages" id="reasoning-messages">
                 <div class="ai-msg bot">
                     <strong>Hermes Reasoning:</strong> Ask me complex questions about your workflow. I'll analyze and provide reasoned answers.<br><br>
-                    Try: "Should I focus on PR reviews or Netlify deploy first?"
+                    Try: "Should I focus on PR reviews or deploy first?"
                 </div>
             </div>
             <div class="ai-input-area">
@@ -907,22 +1082,268 @@
     </div>
 
     <!-- Spawn Dialog -->
-    <div id="spawn-dialog" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center;">
-        <div style="background:var(--bg-secondary);border:1px solid var(--glass-border);border-radius:var(--radius);padding:24px;width:400px;">
-            <h3 style="margin-bottom:16px;color:var(--text-primary);">Spawn Agent</h3>
-            <input type="text" id="spawn-title" placeholder="Task title" style="width:100%;margin-bottom:12px;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
-            <input type="text" id="spawn-desc" placeholder="Task description" style="width:100%;margin-bottom:12px;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
-            <select id="spawn-agent" style="width:100%;margin-bottom:12px;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;">
+    <div id="spawn-dialog" class="spawn-overlay">
+        <div class="spawn-dialog">
+            <h3>⚡ Spawn Agent</h3>
+            <input type="text" id="spawn-title" placeholder="Task title">
+            <input type="text" id="spawn-desc" placeholder="Task description">
+            <select id="spawn-agent">
                 <option value="">Auto-assign (best match)</option>
             </select>
-            <div style="display:flex;gap:8px;">
-                <button onclick="confirmSpawn()" style="flex:1;padding:10px;background:var(--accent-green);border:none;border-radius:var(--radius-sm);color:white;cursor:pointer;">Spawn</button>
-                <button onclick="closeSpawnDialog()" style="flex:1;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);border-radius:var(--radius-sm);color:var(--text-secondary);cursor:pointer;">Cancel</button>
+            <div class="spawn-actions">
+                <button class="confirm" onclick="confirmSpawn()">Spawn</button>
+                <button class="cancel" onclick="closeSpawnDialog()">Cancel</button>
             </div>
         </div>
     </div>
 
     <script>
+        /* ═══════════════════════════════════════════
+           TORUS WIREFRAME BACKGROUND
+           ═══════════════════════════════════════════ */
+        (function() {
+            const canvas = document.getElementById('torus-canvas');
+            const ctx = canvas.getContext('2d');
+            let w, h, cx, cy, time = 0;
+            const particles = [];
+            const PARTICLE_COUNT = 80;
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+                cx = w / 2;
+                cy = h / 2;
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+
+            // Initialize particles
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    r: Math.random() * 1.5 + 0.5,
+                    alpha: Math.random() * 0.4 + 0.1,
+                    pulse: Math.random() * Math.PI * 2
+                });
+            }
+
+            function drawTorusField(t) {
+                const R = Math.min(w, h) * 0.32; // major radius
+                const r = R * 0.45;                // minor radius
+                const segments = 48;
+                const tubes = 24;
+                const rotY = t * 0.15;
+                const rotX = t * 0.08;
+
+                const points = [];
+
+                for (let i = 0; i <= segments; i++) {
+                    const theta = (i / segments) * Math.PI * 2;
+                    for (let j = 0; j <= tubes; j++) {
+                        const phi = (j / tubes) * Math.PI * 2;
+
+                        // Torus parametric
+                        let x = (R + r * Math.cos(phi)) * Math.cos(theta);
+                        let y = (R + r * Math.cos(phi)) * Math.sin(theta);
+                        let z = r * Math.sin(phi);
+
+                        // Rotate Y
+                        const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+                        const x1 = x * cosY - z * sinY;
+                        const z1 = x * sinY + z * cosY;
+
+                        // Rotate X
+                        const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+                        const y1 = y * cosX - z1 * sinX;
+                        const z2 = y * sinX + z1 * cosX;
+
+                        // Perspective
+                        const fov = 600;
+                        const scale = fov / (fov + z2 + 200);
+
+                        points.push({
+                            x: cx + x1 * scale,
+                            y: cy + y1 * scale * 0.6, // flatten slightly
+                            z: z2,
+                            scale: scale
+                        });
+                    }
+                }
+
+                // Draw wireframe lines
+                ctx.lineWidth = 0.5;
+
+                // Longitudinal lines (theta lines)
+                for (let i = 0; i <= segments; i++) {
+                    ctx.beginPath();
+                    for (let j = 0; j <= tubes; j++) {
+                        const idx = i * (tubes + 1) + j;
+                        const p = points[idx];
+                        const alpha = Math.max(0.02, Math.min(0.15, (p.z + 200) / 500));
+                        if (j === 0) {
+                            ctx.moveTo(p.x, p.y);
+                        } else {
+                            ctx.lineTo(p.x, p.y);
+                        }
+                    }
+                    const mid = points[i * (tubes + 1) + Math.floor(tubes / 2)];
+                    const a = Math.max(0.03, Math.min(0.18, (mid.z + 200) / 400));
+                    ctx.strokeStyle = `rgba(180, 200, 255, ${a})`;
+                    ctx.stroke();
+                }
+
+                // Latitudinal lines (phi lines)
+                for (let j = 0; j <= tubes; j++) {
+                    ctx.beginPath();
+                    for (let i = 0; i <= segments; i++) {
+                        const idx = i * (tubes + 1) + j;
+                        const p = points[idx];
+                        if (i === 0) {
+                            ctx.moveTo(p.x, p.y);
+                        } else {
+                            ctx.lineTo(p.x, p.y);
+                        }
+                    }
+                    const mid = points[Math.floor(segments / 2) * (tubes + 1) + j];
+                    const a = Math.max(0.03, Math.min(0.15, (mid.z + 200) / 400));
+                    ctx.strokeStyle = `rgba(160, 180, 240, ${a})`;
+                    ctx.stroke();
+                }
+
+                // Glowing nodes at intersections (sparse)
+                for (let i = 0; i <= segments; i += 4) {
+                    for (let j = 0; j <= tubes; j += 4) {
+                        const idx = i * (tubes + 1) + j;
+                        const p = points[idx];
+                        const brightness = Math.max(0, (p.z + 200) / 400);
+                        if (brightness > 0.1) {
+                            const nodeAlpha = brightness * 0.4;
+                            const nodeR = 1.5 * p.scale;
+
+                            // Glow
+                            const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, nodeR * 6);
+                            grad.addColorStop(0, `rgba(200, 220, 255, ${nodeAlpha * 0.5})`);
+                            grad.addColorStop(1, 'rgba(200, 220, 255, 0)');
+                            ctx.fillStyle = grad;
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, nodeR * 6, 0, Math.PI * 2);
+                            ctx.fill();
+
+                            // Core
+                            ctx.fillStyle = `rgba(220, 235, 255, ${nodeAlpha})`;
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, nodeR, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    }
+                }
+
+                // Central bright glow
+                const pulseAlpha = 0.08 + Math.sin(t * 0.5) * 0.04;
+                const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.5);
+                grad.addColorStop(0, `rgba(200, 220, 255, ${pulseAlpha})`);
+                grad.addColorStop(0.5, `rgba(100, 140, 255, ${pulseAlpha * 0.3})`);
+                grad.addColorStop(1, 'rgba(100, 140, 255, 0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(cx, cy, R * 0.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Top/bottom bright nodes (vertical axis)
+                const topY = cy - R * 0.95;
+                const botY = cy + R * 0.95;
+                [topY, botY].forEach(ny => {
+                    const ng = ctx.createRadialGradient(cx, ny, 0, cx, ny, 30);
+                    ng.addColorStop(0, `rgba(220, 235, 255, ${0.15 + Math.sin(t * 0.7) * 0.05})`);
+                    ng.addColorStop(1, 'rgba(220, 235, 255, 0)');
+                    ctx.fillStyle = ng;
+                    ctx.beginPath();
+                    ctx.arc(cx, ny, 30, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                // Rings around top/bottom nodes
+                [topY, botY].forEach(ny => {
+                    for (let ring = 1; ring <= 4; ring++) {
+                        const ringR = ring * 18;
+                        const ringAlpha = 0.06 / ring;
+                        ctx.strokeStyle = `rgba(180, 200, 255, ${ringAlpha})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.beginPath();
+                        // Draw ellipse (perspective ring)
+                        ctx.ellipse(cx, ny, ringR, ringR * 0.3, 0, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+                });
+            }
+
+            function drawParticles(t) {
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.pulse += 0.02;
+
+                    // Wrap
+                    if (p.x < 0) p.x = w;
+                    if (p.x > w) p.x = 0;
+                    if (p.y < 0) p.y = h;
+                    if (p.y > h) p.y = 0;
+
+                    const a = p.alpha * (0.6 + Math.sin(p.pulse) * 0.4);
+
+                    // Glow
+                    const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
+                    g.addColorStop(0, `rgba(180, 210, 255, ${a * 0.3})`);
+                    g.addColorStop(1, 'rgba(180, 210, 255, 0)');
+                    ctx.fillStyle = g;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Core
+                    ctx.fillStyle = `rgba(200, 225, 255, ${a})`;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+
+                // Deep background gradient
+                const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.6);
+                bg.addColorStop(0, '#0a0a14');
+                bg.addColorStop(0.5, '#050510');
+                bg.addColorStop(1, '#020206');
+                ctx.fillStyle = bg;
+                ctx.fillRect(0, 0, w, h);
+
+                drawTorusField(time);
+                drawParticles(time);
+
+                time += 0.008;
+                requestAnimationFrame(animate);
+            }
+
+            // Only animate if not reduced motion
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                animate();
+            } else {
+                // Static fallback
+                ctx.fillStyle = '#050510';
+                ctx.fillRect(0, 0, w, h);
+                drawTorusField(0);
+            }
+        })();
+
+        /* ═══════════════════════════════════════════
+           KANBAN BOARD LOGIC
+           ═══════════════════════════════════════════ */
         const AGENT_NAMES = {
             'hermes-coo': 'Hermes COO',
             'prep-station': 'Prep Station',
@@ -967,7 +1388,7 @@
             const skills = task.skills.map(s => `<span class="skill">${s}</span>`).join('');
             const elapsed = task.started_at ? formatElapsed(task.started_at) : '';
             return `
-                <div class="card" draggable="true" ondragstart="drag(event)" 
+                <div class="card" draggable="true" ondragstart="drag(event)"
                      id="task-${task.id}" data-id="${task.id}" data-priority="${task.priority}"
                      ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd(event)">
                     <div class="card-header">
@@ -993,8 +1414,8 @@
         function formatElapsed(started) {
             const diff = (Date.now() - new Date(started).getTime()) / 1000;
             if (diff < 60) return Math.round(diff) + 's';
-            if (diff < 3600) return Math.round(diff/60) + 'm';
-            return Math.round(diff/3600) + 'h';
+            if (diff < 3600) return Math.round(diff / 60) + 'm';
+            return Math.round(diff / 3600) + 'h';
         }
 
         function renderTemplates() {
@@ -1021,10 +1442,11 @@
             document.getElementById('done-tasks').textContent = done;
             document.getElementById('agents-active').textContent = agents;
 
-            document.getElementById('active-bar').style.width = total ? (active/total*100)+'%' : '0%';
-            document.getElementById('done-bar').style.width = total ? (done/total*100)+'%' : '0%';
+            document.getElementById('active-bar').style.width = total ? (active / total * 100) + '%' : '0%';
+            document.getElementById('done-bar').style.width = total ? (done / total * 100) + '%' : '0%';
         }
 
+        // ═══ DRAG & DROP ═══
         function allowDrop(ev) {
             ev.preventDefault();
             ev.currentTarget.classList.add('drag-over');
@@ -1045,33 +1467,26 @@
             const taskId = ev.dataTransfer.getData('text/plain');
             const newColumn = ev.currentTarget.dataset.col;
             document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
-            
+
             if (taskId && newColumn) {
                 fetch(`/api/move/${taskId}/${newColumn}`, { method: 'POST' })
                     .then(r => r.json())
                     .then(data => {
-                        if (data.error) {
-                            console.error('Move failed:', data.error);
-                        } else {
-                            loadBoard();
-                        }
+                        if (!data.error) loadBoard();
                     })
                     .catch(e => console.error('Move error:', e));
             }
         }
 
-        // Touch support for iPad
+        // ═══ TOUCH SUPPORT (iPad) ═══
         let touchDragId = null;
         let touchClone = null;
 
         function touchStart(ev) {
             const card = ev.target.closest('.card');
             if (!card) return;
-            
             touchDragId = card.dataset.id;
             card.classList.add('dragging');
-            
-            // Create visual clone
             touchClone = card.cloneNode(true);
             touchClone.style.position = 'fixed';
             touchClone.style.pointerEvents = 'none';
@@ -1079,21 +1494,17 @@
             touchClone.style.zIndex = '1000';
             touchClone.style.width = card.offsetWidth + 'px';
             document.body.appendChild(touchClone);
-            
             const touch = ev.touches[0];
-            touchClone.style.left = (touch.clientX - card.offsetWidth/2) + 'px';
+            touchClone.style.left = (touch.clientX - card.offsetWidth / 2) + 'px';
             touchClone.style.top = (touch.clientY - 30) + 'px';
         }
 
         function touchMove(ev) {
             if (!touchClone) return;
             ev.preventDefault();
-            
             const touch = ev.touches[0];
-            touchClone.style.left = (touch.clientX - touchClone.offsetWidth/2) + 'px';
+            touchClone.style.left = (touch.clientX - touchClone.offsetWidth / 2) + 'px';
             touchClone.style.top = (touch.clientY - 30) + 'px';
-            
-            // Highlight column under finger
             document.querySelectorAll('.column').forEach(col => {
                 const rect = col.getBoundingClientRect();
                 if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
@@ -1107,10 +1518,8 @@
 
         function touchEnd(ev) {
             if (!touchDragId) return;
-            
             const touch = ev.changedTouches[0];
             let targetCol = null;
-            
             document.querySelectorAll('.column').forEach(col => {
                 const rect = col.getBoundingClientRect();
                 if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
@@ -1119,23 +1528,17 @@
                 }
                 col.classList.remove('drag-over');
             });
-            
             if (targetCol) {
                 fetch(`/api/move/${touchDragId}/${targetCol}`, { method: 'POST' })
                     .then(r => r.json())
-                    .then(data => {
-                        if (!data.error) loadBoard();
-                    });
+                    .then(data => { if (!data.error) loadBoard(); });
             }
-            
             document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
-            if (touchClone) {
-                touchClone.remove();
-                touchClone = null;
-            }
+            if (touchClone) { touchClone.remove(); touchClone = null; }
             touchDragId = null;
         }
 
+        // ═══ TEMPLATES ═══
         function spawnTemplate(id) {
             fetch(`/api/template-spawn/${id}`, { method: 'POST' })
                 .then(r => r.json())
@@ -1147,7 +1550,7 @@
                 });
         }
 
-        // AI Assistant
+        // ═══ AI ASSISTANT ═══
         let voiceActive = false;
         let recognition = null;
 
@@ -1163,7 +1566,6 @@
             document.querySelectorAll('.ai-tab-content').forEach(c => c.style.display = 'none');
             event.target.classList.add('active');
             document.getElementById('tab-' + tab).style.display = 'block';
-            
             if (tab === 'agents') loadAgents();
         }
 
@@ -1189,11 +1591,9 @@
             const input = document.getElementById('ai-input');
             const text = input.value.trim();
             if (!text) return;
-
             addAIMsg('user', text);
             input.value = '';
-            addAIMsg('thinking', '🤔 Thinking...');
-
+            addAIMsg('thinking', '⚡ Thinking...');
             fetch('/api/ai', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1215,24 +1615,21 @@
             const input = document.getElementById('reasoning-input');
             const text = input.value.trim();
             if (!text) return;
-
             addReasoningMsg('user', text);
             input.value = '';
             addReasoningMsg('thinking', '🧠 Analyzing...');
-
             const context = {
                 tasks: boardData.tasks.length,
                 highPriority: boardData.tasks.filter(t => t.priority === 'high' || t.priority === 'critical').length,
                 inProgress: boardData.tasks.filter(t => t.column === 'in_progress').length,
                 done: boardData.tasks.filter(t => t.column === 'done').length
             };
-
             fetch('/api/ai', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     query: `Reasoning task. Board context: ${JSON.stringify(context)}. Question: ${text}`,
-                    voice: false 
+                    voice: false
                 })
             })
             .then(r => r.json())
@@ -1246,32 +1643,28 @@
             });
         }
 
-        // Voice
+        // ═══ VOICE ═══
         function toggleVoice() {
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
                 addAIMsg('bot', '<strong>Hermes:</strong> Voice not supported in this browser. Try Chrome on Mac.');
                 return;
             }
-
             if (voiceActive) {
                 recognition?.stop();
                 voiceActive = false;
                 document.getElementById('voice-btn').classList.remove('listening');
                 return;
             }
-
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             recognition = new SpeechRecognition();
             recognition.continuous = false;
             recognition.interimResults = false;
             recognition.lang = 'en-US';
-
             recognition.onstart = () => {
                 voiceActive = true;
                 document.getElementById('voice-btn').classList.add('listening');
                 addAIMsg('bot', '<strong>Hermes:</strong> 🎤 Listening...');
             };
-
             recognition.onresult = (event) => {
                 const transcript = event.results[0][0].transcript;
                 document.getElementById('ai-input').value = transcript;
@@ -1279,18 +1672,15 @@
                 document.getElementById('voice-btn').classList.remove('listening');
                 sendAI();
             };
-
             recognition.onerror = (event) => {
                 voiceActive = false;
                 document.getElementById('voice-btn').classList.remove('listening');
                 addAIMsg('bot', '<strong>Hermes:</strong> Voice error: ' + event.error);
             };
-
             recognition.onend = () => {
                 voiceActive = false;
                 document.getElementById('voice-btn').classList.remove('listening');
             };
-
             recognition.start();
         }
 
@@ -1302,7 +1692,7 @@
             speechSynthesis.speak(utterance);
         }
 
-        // Agent spawning
+        // ═══ AGENT SPAWNING ═══
         async function loadAgents() {
             try {
                 const resp = await fetch('/api/agents');
@@ -1319,10 +1709,8 @@
                         <div class="agent-role">${a.name}</div>
                     </div>
                 `).join('');
-
-                // Populate spawn dropdown
                 const select = document.getElementById('spawn-agent');
-                select.innerHTML = '<option value="">Auto-assign</option>' + 
+                select.innerHTML = '<option value="">Auto-assign</option>' +
                     agents.map(a => `<option value="${a.id}">${a.id}</option>`).join('');
             } catch (e) { console.error('Failed to load agents:', e); }
         }
@@ -1336,10 +1724,8 @@
             const input = document.getElementById('agent-task-input');
             const task = input.value.trim();
             if (!task) return;
-
             addAIMsg('user', `Spawn agent for: ${task}`);
             addAIMsg('thinking', '🚀 Spawning agent...');
-
             fetch('/api/spawn-agent', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1360,21 +1746,19 @@
         }
 
         function showSpawnDialog() {
-            document.getElementById('spawn-dialog').style.display = 'flex';
+            document.getElementById('spawn-dialog').classList.add('open');
             loadAgents();
         }
 
         function closeSpawnDialog() {
-            document.getElementById('spawn-dialog').style.display = 'none';
+            document.getElementById('spawn-dialog').classList.remove('open');
         }
 
         function confirmSpawn() {
             const title = document.getElementById('spawn-title').value.trim();
             const desc = document.getElementById('spawn-desc').value.trim();
             const agent = document.getElementById('spawn-agent').value;
-
             if (!title) return;
-
             fetch('/api/create-task', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1395,6 +1779,7 @@
             });
         }
 
+        // ═══ INIT ═══
         loadBoard();
         setInterval(loadBoard, 30000);
     </script>
