@@ -19,9 +19,12 @@ logger = logging.getLogger(__name__)
 
 BOARD_PATH = Path.home() / ".hermes-mac" / "kanban" / "board.json"
 HISTORY_PATH = Path.home() / ".hermes-mac" / "kanban" / "history.json"
+ARCHIVE_PATH = Path.home() / ".hermes-mac" / "kanban" / "archive.json"
 TEMPLATES_PATH = Path(__file__).parent / "templates.json"
 AGENTS_PATH = Path.home() / ".hermes-mac" / "kanban" / "agents.json"
 DASHBOARD_DIR = Path(__file__).parent
+
+from screen_control import execute as screen_execute, ALLOWED_APPS as SC_ALLOWED_APPS
 
 # ── CST Timezone ──
 CST = timezone(timedelta(hours=-6))  # CST = UTC-6
@@ -61,6 +64,43 @@ def load_history():
     except Exception as e:
         logger.error(f"History load error: {e}")
         task_history = []
+
+# ── Archive (Vault) ──
+archive_data: dict = {"archived": []}
+
+def load_archive():
+    global archive_data
+    try:
+        if ARCHIVE_PATH.exists():
+            archive_data = json.loads(ARCHIVE_PATH.read_text())
+    except Exception as e:
+        logger.error(f"Archive load error: {e}")
+        archive_data = {"archived": []}
+
+def save_archive():
+    try:
+        ARCHIVE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        ARCHIVE_PATH.write_text(json.dumps(archive_data, indent=2, default=str))
+    except Exception as e:
+        logger.error(f"Archive save error: {e}")
+
+def archive_task(task: dict):
+    """Move a task to the archive."""
+    archived_task = {**task, "archived_at": datetime.now().isoformat()}
+    archive_data.setdefault("archived", []).append(archived_task)
+    save_archive()
+
+def restore_task(archive_id: str):
+    """Restore a task from the archive by its original id."""
+    for i, t in enumerate(archive_data.get("archived", [])):
+        if t["id"] == archive_id:
+            restored = archive_data["archived"].pop(i)
+            restored.pop("archived_at", None)
+            restored["column"] = "backlog"
+            restored["updated_at"] = datetime.now().isoformat()
+            save_archive()
+            return restored
+    return None
 
 def save_history():
     try:
@@ -347,6 +387,35 @@ class KanbanHandler(SimpleHTTPRequestHandler):
         if path == "/api/history":
             return self.send_json({"history": task_history[-100:], "metrics": get_history_metrics()})
 
+        if path == "/api/archive":
+            archived = archive_data.get("archived", [])
+            return self.send_json({
+                "archived": list(reversed(archived)),
+                "count": len(archived),
+            })
+
+        if path.startswith("/api/archive/restore/"):
+            archive_id = path.split("/")[-1]
+            restored = restore_task(archive_id)
+            if restored:
+                board = load_board()
+                board["tasks"].append(restored)
+                save_board(board)
+                broadcast_sse({"type": "board", "tasks": board["tasks"]})
+                return self.send_json({"restored": restored})
+            return self.send_json({"error": "Not found in archive"}, 404)
+
+        if path == "/api/screen/status":
+            frontmost = screen_execute("get_frontmost_app")
+            return self.send_json({
+                "frontmost": frontmost.get("app", "unknown"),
+                "ok": frontmost.get("ok", False),
+                "allowed_apps": sorted(SC_ALLOWED_APPS),
+            })
+
+        if path == "/api/screen/screenshot":
+            return self.send_json(screen_execute("screenshot"))
+
         if path == "/api/events":
             return self.handle_sse()
 
@@ -415,6 +484,27 @@ class KanbanHandler(SimpleHTTPRequestHandler):
 
         if path == "/api/voice":
             return self.handle_voice(board, data)
+
+        if path == "/api/screen/command":
+            command = data.get("command", "")
+            params = data.get("params", {})
+            result = screen_execute(command, params)
+            add_activity("system",
+                f"Screen: {command} → {'ok' if result.get('ok') else 'fail'}")
+            broadcast_sse({"type": "screen", "command": command, "result": result})
+            return self.send_json(result)
+
+        if path == "/api/archive":
+            task_id = data.get("task_id", "")
+            for t in board["tasks"]:
+                if t["id"] == task_id or t["id"].startswith(task_id):
+                    archive_task(t)
+                    board["tasks"] = [x for x in board["tasks"] if x["id"] != t["id"]]
+                    save_board(board)
+                    add_activity("system", f"Archived: {t['title'][:40]}")
+                    broadcast_sse({"type": "board", "tasks": board["tasks"]})
+                    return self.send_json({"archived": t["id"]})
+            return self.send_json({"error": "Task not found"}, 404)
 
         self.send_json({"error": "Not found"}, 404)
 
@@ -653,6 +743,10 @@ if __name__ == "__main__":
     # Load task history
     load_history()
     logger.info(f"Loaded {len(task_history)} history entries")
+
+    # Load archive (Vault)
+    load_archive()
+    logger.info(f"Loaded {len(archive_data.get('archived', []))} archived tasks")
 
     server = ThreadedHTTPServer(("0.0.0.0", port), KanbanHandler)
     logger.info(f"Kanban server running on port {port}")
