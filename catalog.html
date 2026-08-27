@@ -1,197 +1,621 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Catalog — Preparation Station Education Products & Books</title>
-<meta name="description" content="Preparation Station catalog: education workbooks, coloring books, practical kits, and design studio resources. Canonical records owned by Royal Collexions, reviewed separately in Odyssey.">
-<meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23123f35'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23fffdf9' text-anchor='middle'%3EPS%3C/text%3E%3C/svg%3E">
-<meta property="og:title" content="Catalog — Preparation Station Education Products & Books">
-<meta property="og:description" content="Preparation Station catalog: education workbooks, coloring books, practical kits, and design studio resources.">
-<meta property="og:type" content="website">
-
+<meta name="description" content="Preparation Station catalog: education workbooks, coloring books, practical kits, and design studio resources. Canonical records owned by Royal Collexions, reviewed separately in Odyssey."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-  :root{
-    --font-body:'Satoshi',ui-sans-serif,system-ui,sans-serif;
-    --font-display:'Cabinet Grotesk','Satoshi',ui-sans-serif,system-ui,sans-serif;
-    --font-mono:'DMMono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+:root {
+  --bg: #faf8f5;
+  --bg-subtle: #f5f0ea;
+  --surface: #ffffff;
+  --surface-hover: #f9f6ef;
+  --surface-border: #e8e4df;
+  --text: #1a1714;
+  --text-muted: #6b6560;
+  --text-subtle: #9a9490;
+  --accent: #2f7a78;
+  --accent-hover: #256462;
+  --accent-light: #e8f4f4;
+  --accent-bg: rgba(47,122,120,0.08);
+  --purple: #8b5cf6;
+  --purple-light: #f3f0ff;
+  --amber: #f59e0b;
+  --amber-light: #fef3c7;
+  --blue: #3b82f6;
+  --blue-light: #dbeafe;
+  --green: #10b981;
+  --green-light: #d1fae5;
+  --pink: #ec4899;
+  --pink-light: #fce7f3;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+[data-theme="dark"] {
+  --bg: #0f0d0b;
+  --bg-subtle: #1a1714;
+  --surface: #1e1c19;
+  --surface-hover: #272522;
+  --surface-border: #302e2b;
+  --text: #f5f0ea;
+  --text-muted: #a09a95;
+  --text-subtle: #706a65;
+  --accent: #5ec4be;
+  --accent-hover: #7dd3cf;
+  --accent-light: #1a2e2e;
+  --accent-bg: rgba(94,196,190,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s ease; border: none; cursor: pointer; }
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn--outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+.btn--outline:hover { background: var(--accent-bg); }
+.btn--ghost { background: transparent; color: var(--text-muted); padding: 8px 14px; }
+.btn--ghost:hover { color: var(--text); background: var(--bg-subtle); }
 
-    --text-xs:clamp(0.75rem,0.72rem + 0.18vw,0.875rem);
-    --text-sm:clamp(0.875rem,0.84rem + 0.2vw,1rem);
-    --text-base:clamp(1rem,0.97rem + 0.22vw,1.125rem);
-    --text-lg:clamp(1.125rem,1.04rem + 0.5vw,1.375rem);
-    --text-xl:clamp(1.5rem,1.15rem + 1.2vw,2.125rem);
-    --text-2xl:clamp(2rem,1.45rem + 2vw,3rem);
-    --text-hero:clamp(2.5rem,1.5rem + 4vw,4.75rem);
+/* Header */
+.site-header { position: sticky; top: 0; z-index: 100; background: rgba(250,248,245,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--surface-border); }
+[data-theme="dark"] .site-header { background: rgba(15,13,11,0.85); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.brand { text-decoration: none; display: flex; flex-direction: column; }
+.brand__wordmark { font-weight: 800; font-size: 1.15rem; color: var(--text); letter-spacing: -0.02em; }
+.brand__tagline { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.02em; }
+.site-nav { display: flex; gap: 4px; list-style: none; }
+.site-nav a { padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: all 0.15s; }
+.site-nav a:hover { color: var(--text); background: var(--bg-subtle); }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.theme-toggle { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--surface-border); background: var(--surface); color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.15s; }
+.theme-toggle:hover { background: var(--bg-subtle); color: var(--text); }
 
-    --leading-tight:1.12; --leading-heading:1.16; --leading-body:1.62; --leading-loose:1.72;
-    --tracking-tight:-0.03em; --tracking-heading:-0.025em; --tracking-body:-0.01em; --tracking-label:0.12em;
+/* Dept nav */
+.dept-nav { background: var(--bg-subtle); border-bottom: 1px solid var(--surface-border); padding: 12px 0; position: sticky; top: 64px; z-index: 90; }
+.dept-nav__inner { display: flex; gap: 8px; max-width: 1200px; margin: 0 auto; padding: 0 24px; overflow-x: auto; }
+.dept-nav__link { padding: 6px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; white-space: nowrap; transition: all 0.15s; background: var(--surface); border: 1px solid var(--surface-border); }
+.dept-nav__link:hover, .dept-nav__link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-light); }
 
-    --space-1:0.25rem; --space-2:0.5rem; --space-3:0.75rem; --space-4:1rem; --space-5:1.25rem;
-    --space-6:1.5rem; --space-8:2rem; --space-10:2.5rem; --space-12:3rem; --space-16:4rem;
-    --space-20:5rem; --space-24:6rem; --space-32:8rem;
+/* Hero */
+.hero { padding: 64px 0 48px; text-align: center; background: linear-gradient(to bottom, var(--accent-bg), transparent 120%); }
+.hero__eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 20px; background: var(--accent-light); color: var(--accent); font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
+.hero__title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+.hero__title span { color: var(--accent); }
+.hero__subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
 
-    --content-xs:32rem; --content-sm:40rem; --content-md:56rem; --content-lg:72rem;
-    --content-xl:80rem; --content-2xl:90rem; --measure:var(--content-2xl);
+/* Section */
+.section { padding: 56px 0; }
+.section--alt { background: var(--bg-subtle); }
+.section__header { margin-bottom: 32px; }
+.section__eyebrow { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; }
+.section__title { font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+.section__subtitle { font-size: 0.95rem; color: var(--text-muted); }
 
-    /* Warm neutral palette — Preparation Station brand */
-    --color-bg:#faf8f5; --color-surface:#f5f0ea; --color-surface-2:#ebe8e4; --color-surface-3:#e2dfdb;
-    --color-panel:rgba(250,248,245,0.9); --color-border:#d0c5ba; --color-border-strong:#b5a8a2; --color-divider:#d8d0c8;
-    --color-text:#3b3430; --color-text-muted:#5a5450; --color-text-faint:#8a8480; --color-text-inverse:#f5f0f0;
-    --color-primary:#2f7a78; --color-primary-hover:#276967; --color-primary-active:#205754; --color-primary-soft:#dcebe8;
-    --color-accent:#d8b261; --color-accent-hover:#c8a451; --color-accent-soft:#eed8b4;
-    --color-success:#5d7e52; --color-warning:#aa7c33; --color-error:#9a4f4f;
+/* Product grid */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.product-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius); overflow: hidden; transition: all 0.25s ease; position: relative; }
+.product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+.product-card__image { width: 100%; height: 200px; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.product-card__image img { width: 100%; height: 100%; object-fit: cover; }
+.product-card__body { padding: 20px; }
+.product-card__category { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.product-card__category--teal { color: var(--accent); }
+.product-card__category--purple { color: var(--purple); }
+.product-card__category--amber { color: var(--amber); }
+.product-card__category--blue { color: var(--blue); }
+.product-card__category--green { color: var(--green); }
+.product-card__category--pink { color: var(--pink); }
+.product-card__title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+.product-card__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
+.product-card__footer { display: flex; align-items: center; justify-content: space-between; }
+.product-card__status { font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: var(--bg-subtle); color: var(--text-subtle); }
+.product-card__link { font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+.product-card__link:hover { text-decoration: underline; }
 
-    /* Badge variants */
-    --badge-approved-bg:#dfeae2; --badge-approved-text:#45695a; --badge-approved-border:#bfd0c4;
-    --badge-review-bg:#f3eddd; --badge-review-text:#84714a; --badge-review-border:#d9caa3;
-    --badge-info-bg:#deecea; --badge-info-text:#4b6f6d; --badge-info-border:#b8d0cd;
-    --badge-retail-bg:#fff; --badge-retail-text:#3b3430; --badge-retail-border:#d0c5ba;
+/* Info banner */
+.info-banner { background: var(--accent-light); border: 1px solid var(--accent); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; font-size: 0.85rem; color: var(--accent); display: flex; align-items: center; gap: 10px; }
 
-    --radius-xs:0.375rem; --radius-sm:0.5rem; --radius-md:0.75rem; --radius-lg:1rem;
-    --radius-xl:1.25rem; --radius-2xl:1.5rem; --radius-full:9999px;
+/* Footer */
+.site-footer { background: var(--bg-subtle); border-top: 1px solid var(--surface-border); padding: 48px 0 24px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+.footer-brand__name { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+.footer-brand__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+.footer-col__title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-subtle); margin-bottom: 12px; }
+.footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { padding-top: 24px; border-top: 1px solid var(--surface-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-subtle); }
 
-    --shadow-xs:0 1px 2px rgba(48,38,24,0.05);
-    --shadow-sm:0 4px 12px rgba(56,42,26,0.06);
-    --shadow-md:0 10px 30px rgba(56,42,26,0.08);
-    --shadow-lg:0 20px 48px rgba(56,42,26,0.1);
-
-    --header-height:5.5rem; --header-height-compact:4.75rem; --header-logo-max:15rem;
-    --grid-gap:clamp(var(--space-4),2vw,var(--space-8));
-    --section-pad-y:clamp(var(--space-10),7vw,var(--space-24));
-    --section-pad-x:clamp(var(--space-4),3vw,var(--space-8));
-
-    /* Motion tokens (MOTION_SYSTEM.md) */
-    --ease-standard:cubic-bezier(0.16,1,0.3,1);
-    --ease-soft:cubic-bezier(0.22,1,0.36,1);
-    --ease-exit:cubic-bezier(0.4,0,1,1);
-    --dur-fast:160ms; --dur-ui:220ms; --dur-base:220ms; --dur-panel:320ms;
-    --dur-section:520ms; --dur-reveal:520ms; --dur-hero:700ms;
-    --motion-y-sm:6px; --motion-y-md:12px; --motion-y-lg:20px;
-    --motion-scale-hover:1.015;
-  }
-
-  [data-theme="dark"]{
-    --color-bg:#171511; --color-surface:#1d1a16; --color-surface-2:#221f1b; --color-surface-3:#2a2621;
-    --color-panel:rgba(29,26,22,0.92); --color-border:#3e3830; --color-border-strong:#4d453a; --color-divider:#2d2923;
-    --color-text:#ece4d7; --color-text-muted:#c0b6a7; --color-text-faint:#8f8578; --color-text-inverse:#201d19;
-    --color-primary:#6cb3ad; --color-primary-hover:#5aa39d; --color-primary-active:#478c87; --color-primary-soft:#273a39;
-    --color-accent:#cba85c; --color-accent-hover:#b8984b; --color-accent-soft:#735f41;
-    --color-success:#7fad74; --color-warning:#d0a45f; --color-error:#c87f7f;
-    --badge-approved-bg:#24352b; --badge-approved-text:#afd0bc; --badge-approved-border:#375340;
-    --badge-review-bg:#3e3421; --badge-review-text:#ead598; --badge-review-border:#685736;
-    --badge-info-bg:#243838; --badge-info-text:#abd1ce; --badge-info-border:#3e5f5d;
-  }
+@media (max-width: 768px) {
+  .site-nav { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .dept-nav__inner { gap: 6px; }
+}
+@media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
 <!-- Header -->
-<header class="site-header" role="banner">
-  <div class="site-header__inner">
+<header class="site-header">
+  <div class="header-inner">
     <a class="brand" href="/">
-      <div class="brand__wordmark">Catalog</div>
-      <div class="brand__tagline">Preparation Station</div>
+      <span class="brand__wordmark">Catalog</span>
+      <span class="brand__tagline">Preparation Station</span>
     </a>
-    <nav class="site-nav" aria-label="Main navigation">
-      <ul class="site-nav__list">
-        <li><a class="site-nav__link" href="#education">Education</a></li>
-        <li><a class="site-nav__link" href="#coloring">Coloring Books</a></li>
-        <li><a class="site-nav__link" href="#practical">Practical Kits</a></li>
-        <li><a class="site-nav__link" href="#design">Design Studio</a></li>
+    <nav>
+      <ul class="site-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/catalog.html">Catalog</a></li>
+        <li><a href="/shop-by-age.html">By Age</a></li>
+        <li><a href="/#guide">Mission Guide</a></li>
+        <li><a href="/esa.html">Funding Help</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
       </ul>
     </nav>
+    <div class="header-actions">
+      <a href="/contact.html" class="btn btn--primary" style="padding:8px 18px;font-size:0.85rem;">Start a Request</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌓</button>
+    </div>
   </div>
 </header>
 
-<main class="page-shell">
+<!-- Dept nav -->
+<div class="dept-nav">
+  <div class="dept-nav__inner">
+    <a href="#d01" class="dept-nav__link active">Practical & Trade</a>
+    <a href="#d02" class="dept-nav__link">Situation Handling</a>
+    <a href="#d03" class="dept-nav__link">Design & Motion</a>
+    <a href="#d04" class="dept-nav__link">AI & Emerging Tech</a>
+    <a href="#d05" class="dept-nav__link">Homeschool Essentials</a>
+    <a href="#confirmed" class="dept-nav__link">Confirmed Titles</a>
+    <a href="#coloring" class="dept-nav__link">Coloring Books</a>
+  </div>
+</div>
 
-  <!-- Hero -->
-  <section class="page-section" style="background:linear-gradient(to bottom,rgba(250,248,245,0.4),rgba(250,248,245,0)) 0 0/100% 12rem no-repeat,var(--color-bg);">
-    <div class="section-heading">
-      <h1 class="hero-title">Preparation Station Catalog</h1>
-      <p class="hero-copy">Education workbooks, coloring books, practical kits, and design studio resources for homeschool and classroom use.</p>
-    </div>
-  </section>
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__eyebrow">Approved TEFA Marketplace Vendor</div>
+    <h1 class="hero__title">Preparation Station <span>Catalog</span></h1>
+    <p class="hero__subtitle">Education workbooks, coloring books, practical kits, and design studio resources. Every item is under offering review. Nothing is for sale until its offering completes review in Odyssey.</p>
+  </div>
+</section>
 
-  <!-- Education Section -->
-  <section class="page-section" id="education" style="background:var(--color-bg);">
-    <div class="section-heading">
-      <span class="eyebrow">Education</span>
-      <h2>Core Education Workbooks</h2>
-    </div>
-    <div class="grid grid--3" style="gap:var(--space-4);">
-      <!-- Items from products.json categorized as Education -->
-      <!-- PS-HS-501 through PS-HS-504 -->
-    </div>
-  </section>
+<!-- Info banner -->
+<div class="container" style="margin-top:24px;">
+  <div class="info-banner">
+    <span>📋</span>
+    <span>Every item listed is under offering review. Prices and purchase availability will appear in Odyssey once verified.</span>
+  </div>
+</div>
 
-  <!-- Coloring Books Section -->
-  <section class="page-section" style="background:var(--color-surface);">
-    <div class="section-heading">
-      <span class="eyebrow">Coloring Books</span>
-      <h2>Royal Collexions Coloring Concepts</h2>
+<!-- Dept 01: Practical & Trade -->
+<section class="section" id="d01">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__eyebrow">Dept 01</div>
+      <h2 class="section__title">Practical & Trade</h2>
+      <p class="section__subtitle">3 items · Home and repair, money and first job, kitchen and provision.</p>
     </div>
-    <p class="muted" style="margin-bottom:var(--space-8); font-size:var(--text-sm); color:var(--color-text-muted);">
-      Canonical records owned by Royal Collexions. Public listings require separate review in Odyssey. Each listing uses one canonical SKU and fulfillment record.
-    </p>
-    <div class="grid grid--2" style="gap:var(--space-4);">
-      <!-- Items from catalog/books.json -->
-    </div>
-  </section>
-
-  <!-- Practical Kits Section -->
-  <section class="page-section" id="practical" style="background:var(--color-bg);">
-    <div class="section-heading">
-      <span class="eyebrow">Practical & Trade</span>
-      <h2>Practical Kits</h2>
-    </div>
-    <div class="grid grid--3" style="gap:var(--space-4);">
-      <!-- PS-PR-101 through PS-PR-103 -->
-    </div>
-  </section>
-
-  <!-- Design Studio Section -->
-  <section class="page-section" style="background:var(--color-surface);">
-    <div class="section-heading">
-      <span class="eyebrow">Design & Motion</span>
-      <h2>Design Studio Resources</h2>
-    </div>
-    <div class="grid grid--3" style="gap:var(--space-4);">
-      <!-- PS-CS-301 through PS-CS-303 -->
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="page-section" style="background:var(--color-surface-2); border-top:1px solid var(--color-border-strong);">
-    <div class="grid grid--2" style="gap:var(--space-8); max-width:var(--content-md); margin-inline:auto;">
-      <div>
-        <p style="font-size:var(--text-sm); color:var(--color-text-muted); margin:0;">
-          Preparation Station is operated by Nationwide Acquisitions, LLC.
-        </p>
-        <p style="font-size:var(--text-xs); color:var(--color-text-muted); margin:var(--space-4) 0 0 0;">
-          TEFA purchases and official order history stay in Odyssey. Review separately.
-        </p>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/home-and-repair-tool-roll.svg" alt="Home & Repair Tool Roll"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--teal">Practical & Trade</div>
+          <div class="product-card__title">Home & Repair Tool Roll</div>
+          <div class="product-card__desc">Essential hand tools for home repairs and basic maintenance projects.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
       </div>
-      <nav style="display:flex; flex-direction:column; gap:var(--space-2);">
-        <a class="text-muted" style="font-size:var(--text-xs); color:var(--color-text-muted);" href="#">Support</a>
-        <a class="text-muted" style="font-size:var(--text-xs); color:var(--color-text-muted);" href="#">Sales</a>
-        <a class="text-muted" style="font-size:var(--text-xs); color:var(--color-text-muted);" href="#">Help</a>
-      </nav>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/money-and-first-job-kit.svg" alt="Money & First Job Kit"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--teal">Practical & Trade</div>
+          <div class="product-card__title">Money & First Job Kit</div>
+          <div class="product-card__desc">Read your stub, find deductions, decide what to do with the money before it disappears.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/kitchen-and-provision-kit.svg" alt="Kitchen & Provision Kit"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--teal">Practical & Trade</div>
+          <div class="product-card__title">Kitchen & Provision Kit</div>
+          <div class="product-card__desc">Kitchen skills, meal planning, and provision fundamentals for independent living.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-</main>
+<!-- Dept 02: Situation Handling & Self-Command -->
+<section class="section section--alt" id="d02">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__eyebrow">Dept 02</div>
+      <h2 class="section__title">Situation Handling & Self-Command</h2>
+      <p class="section__subtitle">5 items · Decision-making, focus, self-advocacy, interview prep, adulting.</p>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/situation-handling-deck.svg" alt="Situation Handling Deck"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__title">Situation Handling Deck</div>
+          <div class="product-card__desc">Decision-making scenarios and practice cards for building self-command.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/focus-and-energy-system.svg" alt="Focus & Energy System"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__title">Focus & Energy System</div>
+          <div class="product-card__desc">Energy management, focus techniques, and productivity systems for learners.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/self-advocacy-workbook.svg" alt="Self-Advocacy Workbook"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__title">Self-Advocacy Workbook</div>
+          <div class="product-card__desc">How to ask for what you need, explain your needs, and advocate for yourself.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/interview-and-first-job-prep-kit.svg" alt="Interview & First Job Prep Kit"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__title">Interview & First Job Prep Kit</div>
+          <div class="product-card__desc">Interview practice, resume basics, and first-job readiness.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/adulting-launch-kit.svg" alt="Adulting Launch Kit"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__title">Adulting Launch Kit</div>
+          <div class="product-card__desc">Household routines, schedules, laundry, room upkeep, and personal responsibility systems.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dept 03: Design & Motion Studio -->
+<section class="section" id="d03">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__eyebrow">Dept 03</div>
+      <h2 class="section__title">Design & Motion Studio</h2>
+      <p class="section__subtitle">3 items · Graphic design, motion and video, skill-to-income.</p>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/graphic-design-bench.svg" alt="Graphic Design Bench"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--amber">Design & Motion</div>
+          <div class="product-card__title">Graphic Design Bench</div>
+          <div class="product-card__desc">Digital design tools, project briefs, and portfolio-building exercises.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/motion-and-video-kit.svg" alt="Motion & Video Kit"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--amber">Design & Motion</div>
+          <div class="product-card__title">Motion & Video Kit</div>
+          <div class="product-card__desc">Video editing, motion graphics, and storytelling through moving images.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/skill-to-income-pack.svg" alt="Skill-to-Income Pack"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--amber">Design & Motion</div>
+          <div class="product-card__title">Skill-to-Income Pack</div>
+          <div class="product-card__desc">Turn creative skills into income: pricing, clients, portfolios, and first sales.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dept 04: AI & Emerging Tech Bench -->
+<section class="section section--alt" id="d04">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__eyebrow">Dept 04</div>
+      <h2 class="section__title">AI & Emerging Tech Bench</h2>
+      <p class="section__subtitle">3 items · AI literacy, electronics and robotics, 3D design and fabrication.</p>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/ai-literacy-bench-kit.svg" alt="AI Literacy Bench Kit"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
+          <div class="product-card__title">AI Literacy Bench Kit</div>
+          <div class="product-card__desc">How modern AI tools work, how to question their output, and how to use them responsibly.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/electronics-and-robotics-starter.svg" alt="Electronics & Robotics Starter"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
+          <div class="product-card__title">Electronics & Robotics Starter</div>
+          <div class="product-card__desc">Circuits, sensors, motors, and basic robotics projects for hands-on learning.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/3d-design-and-fabrication-intro.svg" alt="3D Design & Fabrication Intro"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
+          <div class="product-card__title">3D Design & Fabrication Intro</div>
+          <div class="product-card__desc">3D modeling, printing basics, and digital fabrication fundamentals.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dept 05: Homeschool Essentials -->
+<section class="section" id="d05">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__eyebrow">Dept 05</div>
+      <h2 class="section__title">Homeschool Essentials</h2>
+      <p class="section__subtitle">4 items · Core workbooks, assessment, supply restock, art and craft foundations.</p>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/core-subjects-workbook-set.svg" alt="Core Subjects Workbook Set"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
+          <div class="product-card__title">Core Subjects Workbook Set</div>
+          <div class="product-card__desc">Comprehensive workbook set covering core subjects for structured learning.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/homeschool-assessment-and-portfolio-kit.svg" alt="Homeschool Assessment & Portfolio Kit"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
+          <div class="product-card__title">Homeschool Assessment & Portfolio Kit</div>
+          <div class="product-card__desc">Assessment tools, portfolio building, and progress tracking for homeschool families.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/daily-supply-restock-box.svg" alt="Daily Supply Restock Box"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
+          <div class="product-card__title">Daily Supply Restock Box</div>
+          <div class="product-card__desc">Paper, pencils, markers, and the daily essentials that keep learning going.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/art-and-craft-foundations-kit.svg" alt="Art & Craft Foundations Kit"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
+          <div class="product-card__title">Art & Craft Foundations Kit</div>
+          <div class="product-card__desc">Art supplies and project guides for creative expression and skill development.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Under review</span>
+            <a href="/contact.html" class="product-card__link">Details →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Confirmed Titles -->
+<section class="section section--alt" id="confirmed">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__eyebrow">Confirmed Title</div>
+      <h2 class="section__title">The Vulturian</h2>
+      <p class="section__subtitle">Confirmed title. Author credit, ISBN, price, format, description, cover, and printing/fulfillment source remain pending.</p>
+    </div>
+    <div class="product-grid" style="max-width:400px;">
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/the-vulturian.svg" alt="The Vulturian"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--pink">Confirmed Title</div>
+          <div class="product-card__title">The Vulturian</div>
+          <div class="product-card__desc">Confirmed title. Author credit, ISBN, price, format, and cover remain pending. Canonical record owned by Royal Collexions.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Metadata pending</span>
+            <a href="/contact.html" class="product-card__link">Get in touch →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Coloring Books -->
+<section class="section" id="coloring">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__eyebrow">Coloring Books</div>
+      <h2 class="section__title">Royal Collexions Coloring Concepts</h2>
+      <p class="section__subtitle">Canonical records owned by Royal Collexions. Public listings require separate review in Odyssey.</p>
+    </div>
+    <div class="info-banner" style="background:var(--purple-light);border-color:var(--purple);color:var(--purple);">
+      <span>📚</span>
+      <span>Each coloring book uses one canonical SKU and fulfillment record. Pricing and availability will appear in Odyssey once verified.</span>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/future-founders.svg" alt="Future Founders"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--pink">Coloring Book</div>
+          <div class="product-card__title">Future Founders</div>
+          <div class="product-card__desc">A coloring book concept for young entrepreneurs and future business builders.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Planning concept</span>
+            <a href="/contact.html" class="product-card__link">Get in touch →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/tools-&-trades.svg" alt="Tools & Trades"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--pink">Coloring Book</div>
+          <div class="product-card__title">Tools & Trades</div>
+          <div class="product-card__desc">A coloring book exploring hand tools, trades, and practical skills.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Planning concept</span>
+            <a href="/contact.html" class="product-card__link">Get in touch →</a>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__image"><img src="images/big-feelings,-big-wins.svg" alt="Big Feelings, Big Wins"/></div>
+        <div class="product-card__body">
+          <div class="product-card__category product-card__category--pink">Coloring Book</div>
+          <div class="product-card__title">Big Feelings, Big Wins</div>
+          <div class="product-card__desc">Emotional intelligence and self-command through creative expression.</div>
+          <div class="product-card__footer">
+            <span class="product-card__status">Planning concept</span>
+            <a href="/contact.html" class="product-card__link">Get in touch →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__name">Preparation Station</div>
+        <div class="footer-brand__desc">Practical curriculum for life ahead. Operated by Nationwide Acquisitions, LLC.</div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col__title">Shop</div>
+        <a href="/catalog.html">Catalog</a>
+        <a href="/shop-by-age.html">Shop by Age</a>
+        <a href="/#guide">Mission Guide</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col__title">Support</div>
+        <a href="/esa.html">Funding Help</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col__title">Company</div>
+        <a href="/about.html">About Us</a>
+        <a href="/tefa.html">TEFA & Funding</a>
+        <a href="/privacy.html">Privacy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>Updated August 2026 · <a href="/contact.html" style="color:var(--accent);">Get in touch</a> · Responses within one business day</div>
+      <div>Preparation Station is operated by Nationwide Acquisitions, LLC</div>
+    </div>
+  </div>
+</footer>
 
 <script>
-  // Grid utility
-  document.querySelectorAll('.grid').forEach(grid => {
-    const children = grid.children;
-    if (children.length === 1) grid.style.gridTemplateColumns = '1fr';
-    else if (children.length === 2) grid.style.gridTemplateColumns = 'repeat(2, 1fr)';
-    else if (children.length >= 3) grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+  localStorage.setItem('theme', html.getAttribute('data-theme'));
+}
+const saved = localStorage.getItem('theme');
+if (saved) document.documentElement.setAttribute('data-theme', saved);
+
+// Dept nav active state
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.dept-nav__link').forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.dept-nav__link[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
   });
+}, { threshold: 0.3 });
+document.querySelectorAll('[id^="d"], #confirmed, #coloring').forEach(s => observer.observe(s));
 </script>
 
 </body>

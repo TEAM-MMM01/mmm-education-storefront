@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ec4899;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#fce7f3;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#g)" rx="16"/>
+  <text x="300" y="170" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="48" fill="#fce7f3" opacity="0.3">🖍️</text>
+  <text x="300" y="220" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="28" font-weight="600" fill="#fce7f3">Future Founders</text>
+  <text x="300" y="250" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="16" fill="#fce7f3" opacity="0.7">Coloring Book</text>
+  <text x="300" y="280" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="12" fill="#fce7f3" opacity="0.5">GEN-CB-101</text>
+</svg>
