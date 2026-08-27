@@ -46,29 +46,6 @@ function validOrigin(request, expectedOrigin) {
   return request.headers.get('origin') === expectedOrigin;
 }
 
-<<<<<<< HEAD
-function validEmail(email) {
-  if (typeof email !== 'string') return false;
-  if (email.length < 3 || email.length > 254) return false;
-  if (email.includes(' ')) return false;
-
-  const at = email.indexOf('@');
-  if (at <= 0 || at !== email.lastIndexOf('@') || at === email.length - 1) {
-    return false;
-  }
-
-  const local = email.slice(0, at);
-  const domain = email.slice(at + 1);
-
-  if (!local || !domain) return false;
-  if (domain.startsWith('.')) return false;
-  if (domain.endsWith('.')) return false;
-  if (!domain.includes('.')) return false;
-
-  return true;
-}
-
-=======
 >>>>>>> b3aa8ad (feat(intake): add private Cloudflare Worker inquiry webhook)
 function validPayload(payload) {
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
@@ -82,9 +59,6 @@ function validPayload(payload) {
 
   if (payload._gotcha) return 'spam_detected';
   if (!payload.adult_name || !payload.email || !payload.client_reference) return 'missing_required_fields';
-<<<<<<< HEAD
-  if (!validEmail(payload.email)) return 'invalid_email';
-=======
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return 'invalid_email';
 >>>>>>> b3aa8ad (feat(intake): add private Cloudflare Worker inquiry webhook)
   if (!/^PSQ-\d{8}-[A-Za-z0-9_-]+$/.test(payload.client_reference)) return 'invalid_reference';
