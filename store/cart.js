@@ -67,7 +67,7 @@
     if (!config || config.schema_version !== 1 || config.provider !== 'cloudflare-worker') {
       return { valid: false, reason: 'invalid_schema' };
     }
-    if (config.support_email !== 'mmminvestment25@gmail.com') {
+    if (config.support_email !== 'Hello@preparationstation.org') {
       return { valid: false, reason: 'invalid_support_email' };
     }
     if (!Number.isInteger(config.retention_days) || config.retention_days < 1 || config.retention_days > 90) {

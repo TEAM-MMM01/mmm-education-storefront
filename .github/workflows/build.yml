@@ -49,6 +49,14 @@ jobs:
             general-store/shop.html
             general-store/product.html
             general-store/checkout.html
+            about.html
+            contact.html
+            privacy.html
+            terms.html
+            shipping.html
+            shop-by-age.html
+            faq.html
+            tefa.html
           )
           changes="$(git status --porcelain --untracked-files=all -- "${generated_pages[@]}")"
           if [[ -n "$changes" ]]; then
