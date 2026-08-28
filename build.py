@@ -94,8 +94,8 @@ def build_main_page():
     page = inline_fonts((HERE / "src" / "page.html").read_text(), "src/page.html")
     page = page.replace("BUILD_DATE", BUILD_DATE)
     desc = (
-        "Hands-on life skills, AI literacy, and focus coaching for students aged 8-18, "
-        "funded through your family's TEFA account."
+        "Practical curriculum for life ahead. Hands-on project kits, workbooks, and curriculum guides "
+        "for ages 3-17 covering practical skills, self-command, design, and emerging tech."
     )
     out = HERE / "index.html"
     out.write_text(standalone_document(page, desc))
@@ -144,7 +144,16 @@ def build_general_store_pages(shared_css: str):
 
 def build_info_pages(shared_css: str):
     info = HERE / "src" / "info"
-    desc = "Preparation Station — information, policies, and support."
+    descriptions = {
+        "about": "About Preparation Station — operated by Nationwide Acquisitions, LLC. Practical curriculum for career readiness, financial foundations, and independent living.",
+        "contact": "Contact Preparation Station — submit a request, ask about TEFA eligibility, or get help with your learning pathway. Responses within one business day.",
+        "privacy": "Preparation Station Privacy Policy — how we collect, use, and protect your information. We never collect payment or program account details.",
+        "terms": "Preparation Station Terms & Conditions — guidelines for using our site, requesting information, and understanding TEFA purchase pathways.",
+        "shipping": "Preparation Station Shipping & Returns — information about delivery, returns, and refunds for products purchased through approved pathways.",
+        "shop-by-age": "Homeschool kits and curriculum by age band: Launchpad (3–5), Explorer (6–8), Mission Control (9–12), Advanced Command (13–17), Planner Mode. Preparation Station is an approved TEFA Marketplace vendor.",
+        "faq": "Frequently asked questions about Preparation Station — TEFA eligibility, pricing, ordering, and how to use your education funding.",
+        "tefa": "Preparation Station TEFA & Funding Guide — approved marketplace vendor information, eligibility requirements, and purchase pathways through Odyssey.",
+    }
     for name in ("about", "contact", "privacy", "terms", "shipping", "shop-by-age", "faq", "tefa"):
         src = (info / f"{name}.html").read_text()
         if "__INFO_SHARED_CSS__" not in src:
@@ -153,7 +162,7 @@ def build_info_pages(shared_css: str):
         page = page.replace("BUILD_DATE", BUILD_DATE)
         page = resolve_cross_links(page, main="index.html", esa_shop="store/shop.html", general_store="")
         out = HERE / f"{name}.html"
-        out.write_text(standalone_document(page, desc))
+        out.write_text(standalone_document(page, descriptions[name]))
         print(f"{name}.html  {out.stat().st_size / 1024:.0f} KB")
 
 
