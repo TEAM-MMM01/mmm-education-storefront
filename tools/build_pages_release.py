@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import re
 import shutil
@@ -96,6 +97,28 @@ def public_source_skus(manifest: dict) -> set[str]:
     return found
 
 
+def public_source_named_product_skus(manifest: dict, items: dict[str, list[dict]]) -> set[str]:
+    """Return catalog SKUs whose canonical names appear in public release sources.
+
+    SKU-only scanning is insufficient because a page can advertise a product by
+    name without printing its SKU. Decode HTML entities before matching so names
+    containing characters such as ``&`` cannot bypass the release gate.
+    """
+    source_text = "\n".join(
+        html.unescape((ROOT / relative).read_text(encoding="utf-8"))
+        for relative in manifest_source_files(manifest)
+        if relative.endswith((".html", ".js", ".json"))
+    )
+    found: set[str] = set()
+    for sku, matches in items.items():
+        for item in matches:
+            name = item.get("name")
+            if isinstance(name, str) and name.strip() and name in source_text:
+                found.add(sku)
+                break
+    return found
+
+
 def valid_verified_at(value: object) -> bool:
     if not isinstance(value, str) or not value:
         return False
@@ -141,6 +164,13 @@ def readiness_blockers(manifest: dict) -> list[str]:
             blockers.append(
                 "public artifact sources must contain only the selected release SKU; "
                 f"found {sorted(source_skus)}"
+            )
+
+        named_product_skus = public_source_named_product_skus(manifest, items)
+        if named_product_skus != {sku}:
+            blockers.append(
+                "public artifact sources must name only the selected release product; "
+                f"found {sorted(named_product_skus)}"
             )
 
     request = maybe_load_json(REQUEST_PATH)

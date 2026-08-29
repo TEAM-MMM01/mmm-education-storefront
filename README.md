@@ -6,12 +6,12 @@
 
 **Live previews:** production on Cloudflare Pages at https://preparation-station.pages.dev (primary), plus GitHub Pages https://team-mmm01.github.io/mmm-education-storefront/ and Vercel https://mmm-education-storefront-cyx2t2ubp-team-mmm01s-projects.vercel.app. The Netlify host at preparationstation.netlify.app is retired and may serve stale content.
 
-The storefront is in **private-preview / not publicly launched**. Public-facing launch requires resolution of open issues
-[#5](https://github.com/TEAM-MMM01/mmm-education-storefront/issues/5),
-[#6](https://github.com/TEAM-MMM01/mmm-education-storefront/issues/6),
-[#7](https://github.com/TEAM-MMM01/mmm-education-storefront/issues/7), and
-[#8](https://github.com/TEAM-MMM01/mmm-education-storefront/issues/8) —
-all marked `owner-action-required`.
+The storefront is a **public product-information preview, not a commerce launch**.
+TEFA purchases and official order history remain in Odyssey. Direct checkout,
+online quote intake, and customer order access stay disabled until their separate
+security, product-fact, fulfillment, and owner-approval gates pass. Historical
+owner-action issues #6–#8 are closed; current launch truth is maintained in
+`config/project-state.json` and `LAUNCH_AUDIT.md`, not inferred from issue state.
 
 See [LAUNCH_AUDIT.md](LAUNCH_AUDIT.md) for the keep / improve / trim / hide-relabel matrix, remaining blockers, and launch gates.
 For a staged product-information release, follow
