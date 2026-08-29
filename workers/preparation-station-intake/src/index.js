@@ -34,6 +34,7 @@ function constantTimeEqual(left, right) {
   if (typeof left !== 'string' || typeof right !== 'string' || left.length !== right.length) {
     return false;
   }
+
   let diff = 0;
   for (let i = 0; i < left.length; i += 1) {
     diff |= left.charCodeAt(i) ^ right.charCodeAt(i);
@@ -46,7 +47,6 @@ function validOrigin(request, expectedOrigin) {
   return request.headers.get('origin') === expectedOrigin;
 }
 
->>>>>>> b3aa8ad (feat(intake): add private Cloudflare Worker inquiry webhook)
 function validPayload(payload) {
   if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     return 'invalid_payload';
@@ -58,10 +58,17 @@ function validPayload(payload) {
   }
 
   if (payload._gotcha) return 'spam_detected';
-  if (!payload.adult_name || !payload.email || !payload.client_reference) return 'missing_required_fields';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return 'invalid_email';
->>>>>>> b3aa8ad (feat(intake): add private Cloudflare Worker inquiry webhook)
-  if (!/^PSQ-\d{8}-[A-Za-z0-9_-]+$/.test(payload.client_reference)) return 'invalid_reference';
+  if (!payload.adult_name || !payload.email || !payload.client_reference) {
+    return 'missing_required_fields';
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+    return 'invalid_email';
+  }
+
+  if (!/^PSQ-\d{8}-[A-Za-z0-9_-]+$/.test(payload.client_reference)) {
+    return 'invalid_reference';
+  }
 
   const submittedAt = Date.parse(payload.submitted_at || '');
   if (!Number.isFinite(submittedAt) || Date.now() - submittedAt < MIN_FORM_AGE_MS) {
@@ -107,7 +114,10 @@ async function notify(payload, env) {
 export default {
   async fetch(request, env) {
     if (request.method === 'OPTIONS') {
-      if (!validOrigin(request, env.ALLOWED_ORIGIN)) return reject(403, 'origin_not_allowed');
+      if (!validOrigin(request, env.ALLOWED_ORIGIN)) {
+        return reject(403, 'origin_not_allowed');
+      }
+
       return new Response(null, {
         status: 204,
         headers: {
@@ -128,10 +138,8 @@ export default {
     }
 
     const claimedLength = Number(request.headers.get('content-length') || 0);
-    if (claimedLength > MAX_BODY_BYTES) return reject(413, 'body_too_large');
-
-    if (!constantTimeEqual(request.headers.get('x-intake-secret'), env.INTAKE_SHARED_SECRET)) {
-      return reject(401, 'unauthorized');
+    if (claimedLength > MAX_BODY_BYTES) {
+      return reject(413, 'body_too_large');
     }
 
     let raw;
@@ -143,6 +151,10 @@ export default {
 
     if (new TextEncoder().encode(raw).byteLength > MAX_BODY_BYTES) {
       return reject(413, 'body_too_large');
+    }
+
+    if (!constantTimeEqual(request.headers.get('x-intake-secret'), env.INTAKE_SHARED_SECRET)) {
+      return reject(401, 'unauthorized');
     }
 
     let payload;
@@ -161,20 +173,23 @@ export default {
       return reject(503, 'intake_unavailable');
     }
 
-    return new Response(JSON.stringify({ ok: true, reference: payload.client_reference }), {
-      status: 202,
-      headers: {
-        'content-type': 'application/json; charset=utf-8',
-        'cache-control': 'no-store',
-        'access-control-allow-origin': env.ALLOWED_ORIGIN,
-        vary: 'Origin'
+    return new Response(
+      JSON.stringify({ ok: true, reference: payload.client_reference }),
+      {
+        status: 202,
+        headers: {
+          'content-type': 'application/json; charset=utf-8',
+          'cache-control': 'no-store',
+          'access-control-allow-origin': env.ALLOWED_ORIGIN,
+          vary: 'Origin'
+        }
       }
-    });
+    );
   }
 };
 
 export {
   constantTimeEqual,
-  validPayload,
-  validOrigin
+  validOrigin,
+  validPayload
 };
