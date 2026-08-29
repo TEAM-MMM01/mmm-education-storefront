@@ -1,0 +1,21 @@
+name: "mmm-education-storefront-codeql"
+
+paths:
+  - .
+paths-ignore:
+  - images
+  - "**/*.jpg"
+  - "**/*.jpeg"
+  - "**/*.png"
+  - "**/*.gif"
+  - "**/*.webp"
+  - "**/*.pdf"
+  - "**/*.svg"
+  - node_modules
+  - dist
+  - build
+  - .vercel
+  - .git
+
+queries:
+  - uses: security-and-quality
