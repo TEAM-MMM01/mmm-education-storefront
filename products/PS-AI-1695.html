@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AI Literacy &amp; Digital Leadership — Preparation Station</title>
+<meta name="description" content="How the tools work, how to question output, and responsible use — parent-supervised."/>
+<style>
+:root {
+  --bg: #f6f3ea;
+  --bg-subtle: #efe8d8;
+  --surface: #fffdf8;
+  --surface-hover: #f9f4e8;
+  --surface-border: #e2d4b8;
+  --text: #3d352b;
+  --text-muted: #6b6154;
+  --text-subtle: #8a7e6e;
+  --accent: #2f7a78;
+  --accent-hover: #256462;
+  --accent-light: #dcebe8;
+  --accent-bg: rgba(47,122,120,0.10);
+  --gold: #d8b261;
+  --gold-hover: #c19a4a;
+  --gold-soft: #f4ead3;
+  --purple: #8b5cf6;
+  --purple-light: #f3f0ff;
+  --amber: #f59e0b;
+  --amber-light: #fef3c7;
+  --blue: #3b82f6;
+  --blue-light: #dbeafe;
+  --green: #10b981;
+  --green-light: #d1fae5;
+  --pink: #ec4899;
+  --pink-light: #fce7f3;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+[data-theme="dark"] {
+  --bg: #0f0d0b;
+  --bg-subtle: #1a1714;
+  --surface: #1e1c19;
+  --surface-hover: #272522;
+  --surface-border: #302e2b;
+  --text: #f5f0ea;
+  --text-muted: #a09a95;
+  --text-subtle: #706a65;
+  --accent: #5ec4be;
+  --accent-hover: #7dd3cf;
+  --accent-light: #1a2e2e;
+  --accent-bg: rgba(94,196,190,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s ease; border: none; cursor: pointer; }
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn--outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+.btn--outline:hover { background: var(--accent-bg); }
+.btn--ghost { background: transparent; color: var(--text-muted); padding: 8px 14px; }
+.btn--ghost:hover { color: var(--text); background: var(--bg-subtle); }
+
+/* Header */
+.site-header { position: sticky; top: 0; z-index: 100; background: rgba(250,248,245,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--surface-border); }
+[data-theme="dark"] .site-header { background: rgba(15,13,11,0.85); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.brand { text-decoration: none; display: flex; flex-direction: column; }
+.brand__wordmark { font-weight: 800; font-size: 1.15rem; color: var(--text); letter-spacing: -0.02em; }
+.brand__tagline { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.02em; }
+.site-nav { display: flex; gap: 4px; list-style: none; }
+.site-nav a { padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: all 0.15s; }
+.site-nav a:hover { color: var(--text); background: var(--bg-subtle); }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.theme-toggle { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--surface-border); background: var(--surface); color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.15s; }
+.theme-toggle:hover { background: var(--bg-subtle); color: var(--text); }
+
+/* Dept nav */
+.dept-nav { background: var(--bg-subtle); border-bottom: 1px solid var(--surface-border); padding: 12px 0; position: sticky; top: 64px; z-index: 90; }
+.dept-nav__inner { display: flex; gap: 8px; max-width: 1200px; margin: 0 auto; padding: 0 24px; overflow-x: auto; }
+.dept-nav__link { padding: 6px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; white-space: nowrap; transition: all 0.15s; background: var(--surface); border: 1px solid var(--surface-border); }
+.dept-nav__link:hover, .dept-nav__link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-light); }
+
+/* Hero */
+.hero { padding: 64px 0 48px; text-align: center; background: linear-gradient(to bottom, var(--accent-bg), transparent 120%); }
+.hero__eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 20px; background: var(--accent-light); color: var(--accent); font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
+.hero__title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+.hero__title span { color: var(--gold); }
+.hero__subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+/* Section */
+.section { padding: 56px 0; }
+.section--alt { background: var(--bg-subtle); }
+.section__header { margin-bottom: 32px; }
+.section__eyebrow { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; }
+.section__title { font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+.section__subtitle { font-size: 0.95rem; color: var(--text-muted); }
+
+/* Product grid */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.product-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius); overflow: hidden; transition: all 0.25s ease; position: relative; }
+.product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+.product-card__image { width: 100%; height: 200px; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.product-card__image img { width: 100%; height: 100%; object-fit: cover; }
+.product-card__body { padding: 20px; }
+.product-card__category { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.product-card__category--teal { color: var(--accent); }
+.product-card__category--purple { color: var(--purple); }
+.product-card__category--amber { color: var(--amber); }
+.product-card__category--blue { color: var(--blue); }
+.product-card__category--green { color: var(--green); }
+.product-card__category--pink { color: var(--pink); }
+.product-card__title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+.product-card__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
+.product-card__footer { display: flex; align-items: center; justify-content: space-between; }
+.product-card__status { font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: var(--bg-subtle); color: var(--text-subtle); }
+.product-card__link { font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+.product-card__link:hover { text-decoration: underline; }
+
+/* Info banner */
+.info-banner { background: var(--gold-soft); border: 1px solid var(--gold); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; font-size: 0.85rem; color: var(--text); display: flex; align-items: center; gap: 10px; }
+.hero__photo { width: min(720px,100%); height: auto; border-radius: 16px; margin: 28px auto 0; display: block; box-shadow: var(--shadow-md); border: 1px solid var(--surface-border); object-fit: cover; }
+.hero__actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+.price { color: var(--gold-hover); font-weight: 800; }
+.cta-bar { position: sticky; bottom: 0; z-index: 80; background: #1f3f3e; color: #f6f3ea; padding: 12px 0; box-shadow: 0 -8px 24px rgba(0,0,0,.18); }
+.cta-bar .container { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.cta-bar p { font-size: .9rem; margin: 0; }
+.cta-bar .btn--primary { background: var(--gold); color: #3d352b; }
+.cta-bar .btn--primary:hover { background: var(--gold-hover); color: #fff; }
+.cta-bar .btn--outline { color: #f6f3ea; border-color: var(--gold); }
+@media (max-width: 768px) { .cta-bar .container { justify-content: center; text-align: center; } }
+
+/* Footer */
+.site-footer { background: var(--bg-subtle); border-top: 1px solid var(--surface-border); padding: 48px 0 24px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+.footer-brand__name { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+.footer-brand__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+.footer-col__title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-subtle); margin-bottom: 12px; }
+.footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { padding-top: 24px; border-top: 1px solid var(--surface-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-subtle); }
+
+@media (max-width: 768px) {
+  .site-nav { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .dept-nav__inner { gap: 6px; }
+}
+@media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+.pd { padding: 48px 0 80px; }
+.pd-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items:start; }
+.pd h1 { font-size: clamp(1.6rem,3vw,2.2rem); font-weight:800; margin: 8px 0 12px; }
+.pd .lede { color: var(--text-muted); }
+.pd-block { margin-top: 28px; }
+.pd-block h2 { font-size: 0.75rem; letter-spacing:.1em; text-transform:uppercase; color: var(--accent); margin-bottom:10px; }
+.pd ul { padding-left: 1.1rem; }
+.pd li { margin: 6px 0; }
+.crumb { font-size:.85rem; color:var(--text-muted); margin-bottom:20px; }
+.crumb a { color: var(--accent); text-decoration:none; }
+@media (max-width: 800px) { .pd-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="/"><span class="brand__wordmark">Preparation Station</span><span class="brand__tagline">Product detail</span></a>
+  <nav><ul class="site-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/catalog.html">Catalog</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul></nav>
+  <a href="/contact.html?sku=PS-AI-1695" class="btn btn--primary" style="padding:8px 18px;font-size:.85rem">Request this SKU</a>
+</div></header>
+<main class="pd"><div class="container">
+  <p class="crumb"><a href="/catalog.html">Catalog</a> / Curriculum pathway / AI Literacy &amp; Digital Leadership</p>
+  <div class="pd-grid">
+    <div><img src="../images/photo-ai-literacy.jpg" alt="AI Literacy &amp; Digital Leadership" width="960" height="540" style="width:100%;border-radius:16px;object-fit:cover"></div>
+    <div>
+      <div class="hero__eyebrow">PS-AI-1695 · Offering review · digital family license</div>
+      <h1>AI Literacy &amp; Digital Leadership</h1>
+      <p class="lede">How the tools work, how to question output, and responsible use — parent-supervised.</p>
+      <p style="margin-top:12px"><span class="price">$1,695</span> · 6–12 · 24 weeks</p>
+      <p style="margin-top:16px;font-size:.9rem;color:var(--text-muted)">This page is information. It is not checkout. Funded purchase happens in Odyssey only after this exact SKU is listed.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+        <a class="btn btn--primary" href="/contact.html?sku=PS-AI-1695">Request this SKU</a>
+        <a class="btn btn--outline" href="/catalog.html">Back to catalog</a>
+      </div>
+    </div>
+  </div>
+  <div class="pd-block"><h2>What you get</h2><ul><li>One-time digital family license</li><li>24-week sequence</li><li>Offline-first lessons on what a model is and where it fails</li><li>Prompt-and-check practice</li><li>Verification, privacy, and bias discussion scripts</li><li>Capstone: one small useful tool, parent-supervised</li></ul></div>
+  <div class="pd-block"><h2>Use cases</h2><ul><li>Family that will not hand a child an open chatbot unsupervised</li><li>Grades 6–12 digital-citizenship / technology credit</li><li>Parent who wants written judgment practice, not app hype</li></ul></div>
+  <div class="pd-block"><h2>Not included</h2><ul><li>Unsupervised chatbot accounts</li><li>Student data sent to public tools as part of the license</li><li>Hardware (sold separately if listed)</li></ul></div>
+</div></main>
+<div class="cta-bar"><div class="container">
+  <p>Need this SKU listed? Send a request — we route it internally.</p>
+  <a class="btn btn--primary" href="/contact.html?sku=PS-AI-1695">Start a request</a>
+</div></div>
+</body></html>
