@@ -78,6 +78,7 @@ def valid_isbn(value: str) -> bool:
 def validate_public_source() -> None:
     source_paths = [
         ROOT / "src" / "page.html",
+        ROOT / "catalog.html",
         *sorted((ROOT / "store" / "src").glob("*.html")),
         *sorted((ROOT / "general-store" / "src").glob("*.html")),
     ]
@@ -93,6 +94,8 @@ def validate_public_source() -> None:
         "% of every order": "unsupported environmental sales claim",
         "fixed share": "unsupported environmental sales claim",
         "carbon reinvested": "unsupported environmental sales claim",
+        "Orders@preparationstation.org": "unverified Orders inbox",
+        "orders@preparationstation.org": "unverified Orders inbox",
     }
     for path in source_paths:
         text = path.read_text(encoding="utf-8")
@@ -101,6 +104,27 @@ def validate_public_source() -> None:
                 needle not in text,
                 f"{path.relative_to(ROOT)} contains {label}: {needle}",
             )
+
+    catalog_source = (ROOT / "catalog.html").read_text(encoding="utf-8")
+    require(
+        re.search(r"PS-[A-Z]{2}-\d{4,}", catalog_source) is None,
+        "catalog.html contains a SKU that cannot enter the canonical release pipeline",
+    )
+    require(
+        re.search(r"\$\s*\d", catalog_source) is None,
+        "catalog.html contains a public price without a verified canonical offering",
+    )
+    photo_tags = re.findall(r"<img\b[^>]*\bsrc=[\"']images/photo-[^\"']+[\"'][^>]*>", catalog_source)
+    require(photo_tags, "catalog.html must contain its reviewed product photography")
+    require(
+        all(re.search(r"\bloading=[\"']lazy[\"']", tag) for tag in photo_tags),
+        "Every catalog product photo must use loading=lazy",
+    )
+    require(
+        "Confirmed Title · Concept Image" in catalog_source
+        and "final cover and format are pending" in catalog_source,
+        "The Vulturian photo must remain explicitly labeled as a concept image",
+    )
 
 
 def validate_generated_html() -> None:

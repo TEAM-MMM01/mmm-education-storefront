@@ -150,23 +150,23 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 <!-- Header -->
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="/">
+    <a class="brand" href="index.html">
       <span class="brand__wordmark">Catalog</span>
       <span class="brand__tagline">Preparation Station</span>
     </a>
     <nav>
       <ul class="site-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/catalog.html">Catalog</a></li>
-        <li><a href="/shop-by-age.html">By Age</a></li>
-        <li><a href="/#guide">Mission Guide</a></li>
-        <li><a href="/esa.html">Funding Help</a></li>
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+        <li><a href="shop-by-age.html">By Age</a></li>
+        <li><a href="index.html#guide">Mission Guide</a></li>
+        <li><a href="esa.html">Funding Help</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
     <div class="header-actions">
-      <a href="/contact.html" class="btn btn--primary" style="padding:8px 18px;font-size:0.85rem;">Start a Request</a>
+      <a href="contact.html" class="btn btn--primary" style="padding:8px 18px;font-size:0.85rem;">Start a Request</a>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌓</button>
     </div>
   </div>
@@ -175,8 +175,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 <!-- Dept nav -->
 <div class="dept-nav">
   <div class="dept-nav__inner">
-    <a href="#pathways" class="dept-nav__link active">Curriculum pathways</a>
-    <a href="#d01" class="dept-nav__link">Practical & Trade</a>
+    <a href="#d01" class="dept-nav__link active">Practical & Trade</a>
     <a href="#d02" class="dept-nav__link">Situation Handling</a>
     <a href="#d03" class="dept-nav__link">Design & Motion</a>
     <a href="#d04" class="dept-nav__link">AI & Emerging Tech</a>
@@ -191,7 +190,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   <div class="container">
     <div class="hero__eyebrow">Approved TEFA Marketplace Vendor</div>
     <h1 class="hero__title">Preparation Station <span>Catalog</span></h1>
-    <p class="hero__subtitle">Official catalog URL for TEFA / Odyssey offering review and family planning. Curriculum pathways below include SKU, price, and purpose. Kits remain under review. This page is not checkout — funded purchases complete in Odyssey after the exact SKU is listed.</p>
+    <p class="hero__subtitle">Education workbooks, coloring books, practical kits, and design studio resources. Every item is under offering review. Nothing is for sale until its offering completes review in Odyssey.</p>
   </div>
 </section>
 
@@ -199,100 +198,9 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 <div class="container" style="margin-top:24px;">
   <div class="info-banner">
     <span>📋</span>
-    <span>Send this URL to TEFA: <strong>preparationstation.org/catalog</strong>. Pathway prices are the owner-approved listing ladder for offering review. Nothing is purchasable here until the exact SKU appears in Odyssey.</span>
+    <span>Every item listed is under offering review. Prices and purchase availability will appear in Odyssey once verified.</span>
   </div>
 </div>
-
-<!-- Curriculum pathways (TEFA packet) -->
-<section class="section" id="pathways">
-  <div class="container">
-    <div class="section__header">
-      <div class="section__eyebrow">Send this section to TEFA</div>
-      <h2 class="section__title">Curriculum pathways</h2>
-      <p class="section__subtitle">Digital family licenses. Prices are the approved listing ladder for offering review — not Odyssey checkout. Main website: <a href="/" style="color:var(--accent)">preparationstation.org</a></p>
-      <p style="margin-top:12px;font-size:0.9rem">
-        Sales: <a href="mailto:sales@preparationstation.org" style="color:var(--accent)">Sales@preparationstation.org</a>
-        · Hello: <a href="mailto:hello@preparationstation.org" style="color:var(--accent)">Hello@preparationstation.org</a>
-        · <button type="button" class="btn btn--outline" style="padding:6px 12px;font-size:0.8rem" onclick="navigator.clipboard.writeText('https://preparationstation.org/catalog').then(()=>{this.textContent='Catalog URL copied'})">Copy catalog URL</button>
-      </p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-independent-living.jpg" alt="Independent Living workbook and household planning materials on a kitchen table"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--teal">Complete · PS-IL-1995</div>
-          <div class="product-card__title">Independent Living & Financial Foundations</div>
-          <div class="product-card__desc">Grades 8–12 · 30 weeks. Banking, housing, food, transportation, and household decisions. One-time family license $1,995 — sized to the $2,000 homeschool award.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Offering review</span>
-            <a href="mailto:sales@preparationstation.org?subject=Independent%20Living%20PS-IL-1995" class="product-card__link">Sales@ →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-interview.jpg" alt="Teen practicing a first-job interview at home"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--teal">Starter · PS-IF-0299</div>
-          <div class="product-card__title">Interview & First Job Prep</div>
-          <div class="product-card__desc">Grades 9–12 · 8 weeks. Resumes, interview practice, first-paycheck basics. One-time family license $299.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Offering review</span>
-            <a href="mailto:sales@preparationstation.org?subject=Interview%20Prep%20PS-IF-0299" class="product-card__link">Sales@ →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-ai-literacy.jpg" alt="Parent and teen working through an AI literacy lesson"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--blue">Focused · PS-AI-1695</div>
-          <div class="product-card__title">AI Literacy & Digital Leadership</div>
-          <div class="product-card__desc">Grades 6–12 · 24 weeks. How the tools work, how to question output, responsible use. One-time family license $1,695.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Offering review</span>
-            <a href="mailto:sales@preparationstation.org?subject=AI%20Literacy%20PS-AI-1695" class="product-card__link">Sales@ →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-career.jpg" alt="Student building a career portfolio at a desk"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--amber">Signature · PS-CL-2495</div>
-          <div class="product-card__title">Career Launch & Entrepreneurship</div>
-          <div class="product-card__desc">Grades 9–12 · 36 weeks. Employability, workplace projects, student venture portfolio. One-time family license $2,495.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Offering review</span>
-            <a href="mailto:sales@preparationstation.org?subject=Career%20Launch%20PS-CL-2495" class="product-card__link">Sales@ →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-readiness.jpg" alt="Year-long readiness curriculum workbooks on a kitchen table"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--amber">Signature · PS-RR-2495</div>
-          <div class="product-card__title">Real-World Readiness Year</div>
-          <div class="product-card__desc">Grades 6–12 · 36 weeks. Coordinated year: career, money, independent living, digital judgment. One-time family license $2,495.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Offering review</span>
-            <a href="mailto:sales@preparationstation.org?subject=Readiness%20Year%20PS-RR-2495" class="product-card__link">Sales@ →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-reading.jpg" alt="Parent and child working through a structured reading lesson"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--green">Intervention · PS-SR-2295</div>
-          <div class="product-card__title">Structured Reading Support Pathway</div>
-          <div class="product-card__desc">Grades 3–8 · 36 weeks. Decoding, fluency, vocabulary, comprehension with facilitator scripts. One-time family license $2,295. Curriculum — not therapy.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Offering review</span>
-            <a href="mailto:sales@preparationstation.org?subject=Structured%20Reading%20PS-SR-2295" class="product-card__link">Sales@ →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <p style="margin-top:20px;font-size:0.85rem;color:var(--text-muted)">Kits, books, and coloring titles below are catalog references until they have their own offering record. Contact: Support@preparationstation.org · Orders@preparationstation.org</p>
-  </div>
-</section>
 
 <!-- Dept 01: Practical & Trade -->
 <section class="section" id="d01">
@@ -304,38 +212,38 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     </div>
     <div class="product-grid">
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-home-repair.jpg" alt="Home & Repair Tool Roll"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-home-repair.jpg" alt="Home & Repair Tool Roll"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--teal">Practical & Trade</div>
           <div class="product-card__title">Home & Repair Tool Roll</div>
           <div class="product-card__desc">Essential hand tools for home repairs and basic maintenance projects.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-money-job.jpg" alt="Money & First Job Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-money-job.jpg" alt="Money & First Job Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--teal">Practical & Trade</div>
           <div class="product-card__title">Money & First Job Kit</div>
           <div class="product-card__desc">Read your stub, find deductions, decide what to do with the money before it disappears.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-kitchen.jpg" alt="Kitchen & Provision Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-kitchen.jpg" alt="Kitchen & Provision Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--teal">Practical & Trade</div>
           <div class="product-card__title">Kitchen & Provision Kit</div>
           <div class="product-card__desc">Kitchen skills, meal planning, and provision fundamentals for independent living.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
@@ -353,62 +261,62 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     </div>
     <div class="product-grid">
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-situation.jpg" alt="Situation Handling Deck"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-situation.jpg" alt="Situation Handling Deck"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__title">Situation Handling Deck</div>
           <div class="product-card__desc">Decision-making scenarios and practice cards for building self-command.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-focus.jpg" alt="Focus & Energy System"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-focus.jpg" alt="Focus & Energy System"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__title">Focus & Energy System</div>
           <div class="product-card__desc">Energy management, focus techniques, and productivity systems for learners.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-advocacy.jpg" alt="Self-Advocacy Workbook"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-advocacy.jpg" alt="Self-Advocacy Workbook"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__title">Self-Advocacy Workbook</div>
           <div class="product-card__desc">How to ask for what you need, explain your needs, and advocate for yourself.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-interview-kit.jpg" alt="Interview & First Job Prep Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-interview-kit.jpg" alt="Interview & First Job Prep Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__title">Interview & First Job Prep Kit</div>
           <div class="product-card__desc">Interview practice, resume basics, and first-job readiness.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-adulting.jpg" alt="Adulting Launch Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-adulting.jpg" alt="Adulting Launch Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__title">Adulting Launch Kit</div>
           <div class="product-card__desc">Household routines, schedules, laundry, room upkeep, and personal responsibility systems.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
@@ -426,38 +334,38 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     </div>
     <div class="product-grid">
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-design.jpg" alt="Graphic Design Bench"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-design.jpg" alt="Graphic Design Bench"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--amber">Design & Motion</div>
           <div class="product-card__title">Graphic Design Bench</div>
           <div class="product-card__desc">Digital design tools, project briefs, and portfolio-building exercises.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-motion.jpg" alt="Motion & Video Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-motion.jpg" alt="Motion & Video Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--amber">Design & Motion</div>
           <div class="product-card__title">Motion & Video Kit</div>
           <div class="product-card__desc">Video editing, motion graphics, and storytelling through moving images.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-skill-income.jpg" alt="Skill-to-Income Pack"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-skill-income.jpg" alt="Skill-to-Income Pack"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--amber">Design & Motion</div>
           <div class="product-card__title">Skill-to-Income Pack</div>
           <div class="product-card__desc">Turn creative skills into income: pricing, clients, portfolios, and first sales.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
@@ -475,38 +383,38 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     </div>
     <div class="product-grid">
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-ai-kit.jpg" alt="AI Literacy Bench Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-ai-kit.jpg" alt="AI Literacy Bench Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
           <div class="product-card__title">AI Literacy Bench Kit</div>
           <div class="product-card__desc">How modern AI tools work, how to question their output, and how to use them responsibly.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-robotics.jpg" alt="Electronics & Robotics Starter"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-robotics.jpg" alt="Electronics & Robotics Starter"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
           <div class="product-card__title">Electronics & Robotics Starter</div>
           <div class="product-card__desc">Circuits, sensors, motors, and basic robotics projects for hands-on learning.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-3d.jpg" alt="3D Design & Fabrication Intro"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-3d.jpg" alt="3D Design & Fabrication Intro"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
           <div class="product-card__title">3D Design & Fabrication Intro</div>
           <div class="product-card__desc">3D modeling, printing basics, and digital fabrication fundamentals.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
@@ -524,50 +432,50 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     </div>
     <div class="product-grid">
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-workbooks.jpg" alt="Core Subjects Workbook Set"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-workbooks.jpg" alt="Core Subjects Workbook Set"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
           <div class="product-card__title">Core Subjects Workbook Set</div>
           <div class="product-card__desc">Comprehensive workbook set covering core subjects for structured learning.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-portfolio.jpg" alt="Homeschool Assessment & Portfolio Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-portfolio.jpg" alt="Homeschool Assessment & Portfolio Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
           <div class="product-card__title">Homeschool Assessment & Portfolio Kit</div>
           <div class="product-card__desc">Assessment tools, portfolio building, and progress tracking for homeschool families.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-supply.jpg" alt="Daily Supply Restock Box"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-supply.jpg" alt="Daily Supply Restock Box"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
           <div class="product-card__title">Daily Supply Restock Box</div>
           <div class="product-card__desc">Paper, pencils, markers, and the daily essentials that keep learning going.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-art.jpg" alt="Art & Craft Foundations Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-art.jpg" alt="Art & Craft Foundations Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
           <div class="product-card__title">Art & Craft Foundations Kit</div>
           <div class="product-card__desc">Art supplies and project guides for creative expression and skill development.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Under review</span>
-            <a href="/contact.html" class="product-card__link">Details →</a>
+            <a href="contact.html" class="product-card__link">Details →</a>
           </div>
         </div>
       </div>
@@ -585,14 +493,14 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     </div>
     <div class="product-grid" style="max-width:400px;">
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-vulturian.jpg" alt="The Vulturian"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-vulturian.jpg" alt="Conceptual illustration for The Vulturian; final cover and format are pending"/></div>
         <div class="product-card__body">
-          <div class="product-card__category product-card__category--pink">Confirmed Title</div>
+          <div class="product-card__category product-card__category--pink">Confirmed Title · Concept Image</div>
           <div class="product-card__title">The Vulturian</div>
           <div class="product-card__desc">Confirmed title. Author credit, ISBN, price, format, and cover remain pending. Canonical record owned by Royal Collexions.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Metadata pending</span>
-            <a href="/contact.html" class="product-card__link">Get in touch →</a>
+            <a href="contact.html" class="product-card__link">Get in touch →</a>
           </div>
         </div>
       </div>
@@ -614,38 +522,38 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     </div>
     <div class="product-grid">
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-future-founders.jpg" alt="Future Founders"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-future-founders.jpg" alt="Future Founders"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--pink">Coloring Book</div>
           <div class="product-card__title">Future Founders</div>
           <div class="product-card__desc">A coloring book concept for young entrepreneurs and future business builders.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Planning concept</span>
-            <a href="/contact.html" class="product-card__link">Get in touch →</a>
+            <a href="contact.html" class="product-card__link">Get in touch →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-tools-trades.jpg" alt="Tools & Trades"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-tools-trades.jpg" alt="Tools & Trades"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--pink">Coloring Book</div>
           <div class="product-card__title">Tools & Trades</div>
           <div class="product-card__desc">A coloring book exploring hand tools, trades, and practical skills.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Planning concept</span>
-            <a href="/contact.html" class="product-card__link">Get in touch →</a>
+            <a href="contact.html" class="product-card__link">Get in touch →</a>
           </div>
         </div>
       </div>
       <div class="product-card">
-        <div class="product-card__image"><img src="images/photo-big-feelings.jpg" alt="Big Feelings, Big Wins"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/photo-big-feelings.jpg" alt="Big Feelings, Big Wins"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--pink">Coloring Book</div>
           <div class="product-card__title">Big Feelings, Big Wins</div>
           <div class="product-card__desc">Emotional intelligence and self-command through creative expression.</div>
           <div class="product-card__footer">
             <span class="product-card__status">Planning concept</span>
-            <a href="/contact.html" class="product-card__link">Get in touch →</a>
+            <a href="contact.html" class="product-card__link">Get in touch →</a>
           </div>
         </div>
       </div>
@@ -659,34 +567,29 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-brand__name">Preparation Station</div>
-        <div class="footer-brand__desc">Practical curriculum for life ahead. Operated by Nationwide Acquisitions, LLC.<br>
-          <a href="mailto:hello@preparationstation.org">Hello@preparationstation.org</a><br>
-          <a href="mailto:sales@preparationstation.org">Sales@preparationstation.org</a><br>
-          <a href="mailto:support@preparationstation.org">Support@preparationstation.org</a><br>
-          <a href="mailto:orders@preparationstation.org">Orders@preparationstation.org</a>
-        </div>
+        <div class="footer-brand__desc">Practical curriculum for life ahead. Operated by Nationwide Acquisitions, LLC.</div>
       </div>
       <div class="footer-col">
         <div class="footer-col__title">Shop</div>
-        <a href="/catalog.html">Catalog</a>
-        <a href="/shop-by-age.html">Shop by Age</a>
-        <a href="/#guide">Mission Guide</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="shop-by-age.html">Shop by Age</a>
+        <a href="index.html#guide">Mission Guide</a>
       </div>
       <div class="footer-col">
         <div class="footer-col__title">Support</div>
-        <a href="/esa.html">Funding Help</a>
-        <a href="/faq.html">FAQ</a>
-        <a href="/contact.html">Contact</a>
+        <a href="esa.html">Funding Help</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
       </div>
       <div class="footer-col">
         <div class="footer-col__title">Company</div>
-        <a href="/about.html">About Us</a>
-        <a href="/tefa.html">TEFA & Funding</a>
-        <a href="/privacy.html">Privacy</a>
+        <a href="about.html">About Us</a>
+        <a href="tefa.html">TEFA & Funding</a>
+        <a href="privacy.html">Privacy</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <div>Updated August 2026 · <a href="/contact.html" style="color:var(--accent);">Get in touch</a> · Responses within one business day</div>
+      <div>Updated August 2026 · <a href="contact.html" style="color:var(--accent);">Get in touch</a> · Responses within one business day</div>
       <div>Preparation Station is operated by Nationwide Acquisitions, LLC</div>
     </div>
   </div>
@@ -712,7 +615,7 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.3 });
-document.querySelectorAll('#pathways, [id^="d"], #confirmed, #coloring').forEach(s => observer.observe(s));
+document.querySelectorAll('[id^="d"], #confirmed, #coloring').forEach(s => observer.observe(s));
 </script>
 
 </body>
