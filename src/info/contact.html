@@ -15,7 +15,7 @@
         <li><a class="site-nav__link" href="catalog.html">Catalog</a></li>
         <li><a class="site-nav__link" href="shop-by-age.html">By Age</a></li>
         <li><a class="site-nav__link" href="MAIN_SITE_URL#guide">Mission Guide</a></li>
-        <li><a class="site-nav__link" href="esa.html">Funding Help</a></li>
+        <li><a class="site-nav__link" href="tefa.html">Funding help</a></li>
         <li><a class="site-nav__link" href="about.html">About</a></li>
         <li><a class="site-nav__link" href="contact.html">Contact</a></li>
       </ul>
@@ -63,8 +63,8 @@
           <textarea name="message" rows="5" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); color-scheme:light"></textarea>
         </label>
         <button type="submit" class="btn btn-solid">Send message <span class="arr">&rarr;</span></button>
-        <p style="font-size:.85rem; color:var(--ink-soft)">Submitted securely to the Preparation Station
-          request inbox; acknowledged within one business day.</p>
+        <p style="font-size:.85rem; color:var(--ink-soft)">Submit opens your email app pre-addressed to the right inbox
+          (Hello, Sales, Support, or Orders). Acknowledged within one business day. We never collect payment here.</p>
         <p id="form-ok" style="display:none; font-size:.9rem; font-weight:600; color:var(--accent)">✓ Message sent — we will reply within one business day.</p>
       </form>
     </div>
@@ -72,14 +72,19 @@
       <div class="card">
         <span class="mono">Direct email</span>
         <h2 class="card-title">Prefer email?</h2>
-        <p><a href="contact.html">Get in touch</a></p>
+        <p>
+          Hello — planning: <a href="mailto:hello@preparationstation.org">Hello@preparationstation.org</a><br>
+          Sales — catalog / TEFA: <a href="mailto:sales@preparationstation.org">Sales@preparationstation.org</a><br>
+          Support: <a href="mailto:support@preparationstation.org">Support@preparationstation.org</a><br>
+          Orders: <a href="mailto:orders@preparationstation.org">Orders@preparationstation.org</a>
+        </p>
         <p style="margin-top:.5rem">Acknowledged within one business day.</p>
       </div>
       <div class="card">
         <span class="mono">Before you buy</span>
         <h2 class="card-title">Check the pathway first</h2>
         <p>For TEFA, purchase only offerings shown as available in the official Odyssey
-          Marketplace. <a href="esa.html">See funding help &amp; eligibility</a>.</p>
+          Marketplace. <a href="tefa.html">See funding help &amp; eligibility</a>.</p>
       </div>
       <div class="card">
         <span class="mono">Requests we receive</span>
@@ -112,7 +117,7 @@
     <div>
       <h2 class="footer-heading">Support</h2>
       <ul class="footer-links">
-        <li><a href="esa.html">Funding Help / Eligibility</a></li>
+        <li><a href="tefa.html">Funding help</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="store/track.html">Track Order</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -150,19 +155,26 @@ try{
   if(body&&f.message&&!f.message.value){f.message.value=body;}
   if(subject&&f.topic){f.topic.value='Product request or question';}
 }catch(err){}
+try{
+  var sku=params.get('sku');
+  if(sku&&f.message&&f.message.value.indexOf(sku)<0){
+    f.message.value=(f.message.value?f.message.value+'\n\n':'')+'SKU: '+sku;
+    if(f.topic) f.topic.value='Product request or question';
+  }
+}catch(err){}
 f.addEventListener('submit',function(ev){
   ev.preventDefault();
-  var b=document.createElement('button');
-  b.type='button';
-  b.className='btn btn-solid';
-  b.textContent='Sending…';
-  f.querySelector('.btn').replaceWith(b);
-  var body=new URLSearchParams(new FormData(f));
-  body.set('_subject','Preparation Station contact: '+(f.topic?f.topic.value:''));
-  fetch(f.action,{method:'POST',body:body,headers:{'Accept':'application/json'}})
-    .then(function(res){if(!res.ok)throw new Error('send failed');return res.json()})
-    .then(function(){f.style.display='none';ok.style.display='block'})
-    .catch(function(){b.textContent='Send message →';b.type='submit'});
+  var topic=(f.topic&&f.topic.value)||'';
+  var to='hello@preparationstation.org';
+  if(/TEFA|Funding|Product|catalog/i.test(topic)) to='sales@preparationstation.org';
+  else if(/Order|tracking/i.test(topic)) to='orders@preparationstation.org';
+  var name=(f.name&&f.name.value)||'';
+  var email=(f.email&&f.email.value)||'';
+  var msg=(f.message&&f.message.value)||'';
+  var sub='Preparation Station request: '+topic;
+  var body='Name: '+name+'\nEmail: '+email+'\nTopic: '+topic+'\n\n'+msg;
+  window.location.href='mailto:'+to+'?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body);
+  if(ok){ok.style.display='block';ok.textContent='Your email app should open — if it does not, write '+to;}
 });
 })();
 </script>
