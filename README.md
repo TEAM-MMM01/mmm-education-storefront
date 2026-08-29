@@ -4,7 +4,7 @@
 
 **Current recommendation: publish a truthful TEFA vendor/catalog information release first.** Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor operating Preparation Station. Each offering still requires separate Odyssey review, and TEFA purchases plus official order history remain in Odyssey. General Store remains a development preview and does not accept payment.
 
-**Live previews:** production on Cloudflare Pages at https://preparation-station.pages.dev (primary), plus GitHub Pages https://team-mmm01.github.io/mmm-education-storefront/ and Vercel https://mmm-education-storefront-cyx2t2ubp-team-mmm01s-projects.vercel.app. The Netlify host at preparationstation.netlify.app is retired and may serve stale content.
+**Live site:** https://preparationstation.org (catalog: https://preparationstation.org/catalog). Prototype hosts (`preparation-station.pages.dev`, GitHub Pages, Vercel) may lag production.
 
 The storefront is a **public product-information preview, not a commerce launch**.
 TEFA purchases and official order history remain in Odyssey. Direct checkout,
