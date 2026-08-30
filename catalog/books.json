@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-15",
+  "updated_at": "2026-08-30",
   "canonical_record_owner": "Royal Collexions",
   "items": [
     {
@@ -88,6 +88,33 @@
       "funding_eligibility": {
         "tefa": "not_evaluated",
         "pdses_classwallet": "not_evaluated"
+      }
+    },
+    {
+      "sku": "RC-CC-0169",
+      "title": "Calm & Clear",
+      "title_status": "confirmed",
+      "product_type": "coloring_book",
+      "record_status": "public_listing",
+      "public_listing_allowed": true,
+      "channels": [
+        "preparation_station",
+        "royal_collexions"
+      ],
+      "author_credit": "Royal Collexions",
+      "isbn": null,
+      "isbn_status": "pending",
+      "format": "paperback",
+      "page_count": 50,
+      "description": "50 bold, large-print mandalas. Not a Vol\u2019Tour curriculum product. Not in the TEFA pathway packet.",
+      "cover_asset": "images/photo-calm-clear.jpg",
+      "pricing_mode": "direct_retail_request",
+      "retail_price_usd": 16.99,
+      "printing_source": "print_on_demand",
+      "inventory_status": "in_print",
+      "funding_eligibility": {
+        "tefa": "not_in_pathway_packet",
+        "pdses_classwallet": "unknown"
       }
     }
   ]
