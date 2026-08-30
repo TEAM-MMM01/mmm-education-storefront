@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Interview &amp; First Job Prep — Preparation Station</title>
-<meta name="description" content="Grades 6–8 novel study for The Vol’Tour Saga: Book One. Six weeks, 12 lessons, packets, keys, and rubrics. Separate from Royal Collexions."/>
+<meta name="description" content="Grades 6–8 novel study for The Vol’Tour Saga: Book One. Six weeks, 12 finished lessons, packets, keys, and rubrics. Request this SKU from the Preparation Station catalog."/>
 <style>
 :root {
   --bg: #f6f3ea;
@@ -165,11 +165,29 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 .crumb { font-size:.85rem; color:var(--text-muted); margin-bottom:20px; }
 .crumb a { color: var(--accent); text-decoration:none; }
 @media (max-width: 800px) { .pd-grid { grid-template-columns: 1fr; } }
+
+.pd-nav { display:flex; gap:8px; flex-wrap:wrap; margin: 8px 0 24px; }
+.pd-nav a { font-size:.8rem; font-weight:600; color:var(--accent); text-decoration:none; padding:6px 10px; border:1px solid var(--surface-border); border-radius:8px; background:var(--surface); }
+.pd-nav a:hover { border-color:var(--accent); background:var(--accent-light); }
+.week { background:var(--surface); border:1px solid var(--surface-border); border-radius:14px; padding:16px 18px; margin:10px 0; }
+.week h3 { font-size:1rem; margin-bottom:4px; }
+.week .meta { font-size:.8rem; color:var(--text-muted); margin-bottom:8px; }
+.week li { font-size:.9rem; }
+.feat-grid, .tier-grid, .rev-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; margin-top:12px; }
+.feat, .tier, .rev { background:var(--surface); border:1px solid var(--surface-border); border-radius:14px; padding:18px; }
+.tier.featured { border-color:var(--gold); box-shadow:var(--shadow-md); }
+.tier h3 { margin-bottom:4px; }
+.tier .amt { font-size:1.6rem; font-weight:800; color:var(--gold-hover); }
+.thumbs { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.thumbs button { border:2px solid var(--surface-border); background:transparent; padding:0; border-radius:10px; overflow:hidden; cursor:pointer; width:72px; height:72px; }
+.thumbs button img { width:100%; height:100%; object-fit:cover; display:block; }
+.thumbs button.on { border-color:var(--accent); }
+
 </style>
 </head>
 <body>
 <header class="site-header"><div class="header-inner">
-  <a class="brand" href="/"><span class="brand__wordmark">Preparation Station</span><span class="brand__tagline">Product detail</span></a>
+  <a class="brand" href="/"><span class="brand__wordmark">Preparation Station</span><span class="brand__tagline">Catalog</span></a>
   <nav><ul class="site-nav">
     <li><a href="/">Home</a></li>
     <li><a href="/catalog.html">Catalog</a></li>
@@ -179,40 +197,67 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 </div></header>
 <main class="pd"><div class="container">
   <p class="crumb"><a href="/catalog.html">Catalog</a> / Curriculum pathway / Vol’Tour Classroom</p>
-  <div class="pd-grid">
+  <nav class="pd-nav" aria-label="On this page">
+    <a href="#overview">Overview</a>
+    <a href="#syllabus">Syllabus</a>
+    <a href="#inside">What’s included</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#reviews">Reviews</a>
+  </nav>
+  <div class="pd-grid" id="overview">
     <div><img src="../images/photo-voltour.jpg" alt="The Vol’Tour Saga Book One — Shadows of the Silent Master" width="960" height="540" style="width:100%;border-radius:16px;object-fit:cover"></div>
     <div>
-      <div class="hero__eyebrow">PS-VT-0129 · Offering review · classroom / family license</div>
+      <div class="hero__eyebrow">PS-VT-0129 · Offering review · catalog product</div>
       <h1>Vol’Tour Classroom</h1>
       <p class="lede">The complete Grades 6–8 novel study for <em>Shadows of the Silent Master</em>. A six-week unit an educator can open on Monday without inventing the missing lessons.</p>
-      <p style="margin-top:12px"><span class="price">$129</span> · 6–8 · 6 weeks · 12 lessons</p>
-      <p style="margin-top:16px;font-size:.9rem;color:var(--text-muted)">This page is information. It is not checkout. Funded purchase happens in Odyssey only after this exact SKU is listed. Direct invoices are handled by request.</p>
+      <p style="margin-top:12px"><span class="price">$129</span> classroom license · also $49 family · $799 campus</p>
+      <p style="margin-top:16px;font-size:.9rem;color:var(--text-muted)">This is a Preparation Station catalog product. This page is information, not card checkout. Request the SKU and we invoice or route it for Odyssey listing.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
-        <a class="btn btn--primary" href="/contact.html?sku=PS-VT-0129">Request this SKU</a>
-        <a class="btn btn--outline" href="https://preview.preparationstation.org/">Full syllabus preview</a>
+        <a class="btn btn--primary" href="/contact.html?sku=PS-VT-0129&plan=class">Request classroom license</a>
+        <a class="btn btn--outline" href="#pricing">See all licenses</a>
       </div>
     </div>
   </div>
-  <div class="pd-block"><h2>What you get</h2><ul>
-    <li>12 ready-to-teach lessons across 6 weeks</li>
-    <li>Student packets, answer keys, and rubrics</li>
-    <li>Discussion decks and written-response prompts</li>
-    <li>Named TEKS alignments — not guessed</li>
-    <li>One year of updates for the license holder</li>
-  </ul></div>
-  <div class="pd-block"><h2>Use cases</h2><ul>
-    <li>Middle-school ELA novel study</li>
-    <li>Homeschool family teaching Book One</li>
-    <li>Campus that wants a complete unit, not a worksheet pack</li>
-  </ul></div>
-  <div class="pd-block"><h2>Not included / not this product</h2><ul>
-    <li>Royal Collexions coloring books — sold separately</li>
-    <li>The trade paperback novel (optional companion, listed on the preview)</li>
-    <li>Odyssey checkout on this site</li>
-  </ul></div>
+
+  <div class="pd-block" id="inside"><h2>What’s inside</h2>
+    <div class="feat-grid">
+      <div class="feat"><h3>Twelve finished lessons</h3><p>Not outlines. Each lesson has a hook, timed sequence, student pages, Grades 6–8 differentiation, and an exit ticket.</p></div>
+      <div class="feat"><h3>Teacher, student, assess</h3><p>Slide decks, printable packets, answer keys, and scoring guides ship together.</p></div>
+      <div class="feat"><h3>TEKS, named in the margin</h3><p>Every lesson lists the Grades 6–8 ELA standards it actually teaches.</p></div>
+      <div class="feat"><h3>CER students can hear</h3><p>Claim–Evidence–Reasoning is modeled, rehearsed, and scored.</p></div>
+      <div class="feat"><h3>Built for three grades at once</h3><p>On-level, stretch, and support paths live on the same student page.</p></div>
+      <div class="feat"><h3>Content, named honestly</h3><p>Advisories and an accessibility checklist sit in the teacher front matter.</p></div>
+    </div>
+  </div>
+
+  <div class="pd-block" id="syllabus"><h2>6-week syllabus · 12 lessons</h2>
+    <div class="week"><h3>Week 1 · Threshold</h3><p class="meta">World, voice, first inferences · TEKS 6.6A · 7.6A · 8.6A</p><ul><li>L1 Launch — The Door That Does Not Speak (50 min)</li><li>L2 Character — First Shadows (50 min)</li></ul></div>
+    <div class="week"><h3>Week 2 · The Master</h3><p class="meta">Point of view and the first CER model · 6.8A · 7.8A · 8.8A</p><ul><li>L3 POV — Who Holds the Silence (50 min)</li><li>L4 CER — Claim the Unseen (50 min)</li></ul></div>
+    <div class="week"><h3>Week 3 · Fracture</h3><p class="meta">Conflict, plot, and textual evidence · 6.7C · 7.7C · 8.7C</p><ul><li>L5 Conflict — The Bargain Beneath the Key (50 min)</li><li>L6 Evidence — Evidence in the Margins (50 min)</li></ul></div>
+    <div class="week"><h3>Week 4 · Voice</h3><p class="meta">Theme, argument, CER independence · 6.8A · 7.11B · 8.11B</p><ul><li>L7 Theme — What the Silent Cannot Say (50 min)</li><li>L8 CER — Reasoning the Gap (50 min)</li></ul></div>
+    <div class="week"><h3>Week 5 · Reckoning</h3><p class="meta">Symbol, craft, narrative choice · 6.9A · 7.9A · 8.9A</p><ul><li>L9 Symbol — The Cost of Knowing (50 min)</li><li>L10 Craft — The Student as Witness (50 min)</li></ul></div>
+    <div class="week"><h3>Week 6 · Return</h3><p class="meta">Synthesis and the culminating archive · 6.11 · 7.11 · 8.11</p><ul><li>L11 Socratic — Shadows, Named (50 min)</li><li>L12 Capstone — The Vol’Tour Archive (90 min)</li></ul></div>
+  </div>
+
+  <div class="pd-block" id="pricing"><h2>Licenses</h2>
+    <div class="tier-grid">
+      <div class="tier"><h3>Homeschool Studio</h3><div class="amt">$49</div><p>One family, lifetime files. All 12 lessons, packets, and keys.</p><a class="btn btn--outline" href="/contact.html?sku=PS-VT-0129&plan=home" style="margin-top:12px">Request $49</a></div>
+      <div class="tier featured"><h3>Classroom License</h3><div class="amt">$129</div><p>One teacher, 12 months of updates. Decks, unlimited students in one room, rubrics.</p><a class="btn btn--primary" href="/contact.html?sku=PS-VT-0129&plan=class" style="margin-top:12px">Request $129</a></div>
+      <div class="tier"><h3>Campus Pack</h3><div class="amt">$799</div><p>One campus, shared faculty drive, PD outline, print-shop files.</p><a class="btn btn--outline" href="/contact.html?sku=PS-VT-0129&plan=campus" style="margin-top:12px">Request $799</a></div>
+    </div>
+    <p style="margin-top:14px;font-size:.85rem;color:var(--text-muted)">The novel paperback is optional and listed with other books in the catalog. Funded TEFA purchase completes in Odyssey after this SKU is listed.</p>
+  </div>
+
+  <div class="pd-block" id="reviews"><h2>From classrooms</h2>
+    <div class="rev-grid">
+      <div class="rev"><strong>Renee P.</strong> · Grade 7 ELA, Fort Worth<br><em>I taught the unit without inventing a single worksheet.</em><p>The book actually gives you twelve lessons worth of pressure. My seventh graders argued about the Master for a week.</p></div>
+      <div class="rev"><strong>James K.</strong> · Homeschool<br><em>Finally a middle-grade book that wants to be discussed.</em><p>Pair it with the syllabus and you have a real term of English.</p></div>
+      <div class="rev"><strong>Camille R.</strong> · Instructional coach<br><em>An educator who has never spoken with the author can open this and teach.</em></div>
+    </div>
+  </div>
 </div></main>
 <div class="cta-bar"><div class="container">
-  <p>Need this SKU listed? Send a request — we route it internally.</p>
-  <a class="btn btn--primary" href="/contact.html?sku=PS-VT-0129">Start a request</a>
+  <p>Vol’Tour Classroom · PS-VT-0129 · Request from the Preparation Station catalog.</p>
+  <a class="btn btn--primary" href="/contact.html?sku=PS-VT-0129&plan=class">Request this product</a>
 </div></div>
 </body></html>
