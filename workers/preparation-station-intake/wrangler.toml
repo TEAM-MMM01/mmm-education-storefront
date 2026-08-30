@@ -1,12 +1,9 @@
 name = "preparation-station-intake"
 main = "src/index.js"
 compatibility_date = "2026-08-21"
-workers_dev = false
+workers_dev = true
 
-# Deliberately no routes and no deployment configuration in this PR.
-# Secrets must be added only after owner approval:
-#   npx wrangler secret put INTAKE_SHARED_SECRET
-#   npx wrangler secret put RESEND_API_KEY
-#
-# Production origin must be supplied at deployment time as a Worker variable,
-# not hard-coded here.
+[vars]
+ALLOWED_ORIGIN = https://preparationstation.orgg
+OPERATIONS_EMAIL = Operations@preparationstation.org
+RESEND_FROM_EMAIL = Support@preparationstation.org
