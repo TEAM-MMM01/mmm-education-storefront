@@ -10,14 +10,14 @@
 
 /* ---------- Tokens ---------- */
 :root{
-  --paper:#f5efe3; --paper-2:#eee5d4; --card:#fffdf8;
-  --ink:#293b36; --ink-soft:#50645e; --muted:#6f7f79;
-  --accent:#a94428; --accent-lit:#fbe1d7; --on-accent:#fffdf8; --accent-hover:#7f2f1c;
-  --btn:#123f35; --btn-hover:#0d3028;
-  --pine:#123f35; --pine-deep:#0d3028; --on-pine:#fffdf8; --pine-muted:#b7d2c6;
-  --pine-accent:#f0c369; --on-pine-accent:#123f35;
-  --clay:#d96844;
-  --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
+  --paper:#f6f3ea; --paper-2:#efe8d8; --card:#fffdf8;
+  --ink:#3d352b; --ink-soft:#6b6154; --muted:#8a7e6e;
+  --accent:#2f7a78; --accent-lit:#dcebe8; --on-accent:#fffdf8; --accent-hover:#256462;
+  --btn:#2f7a78; --btn-hover:#256462;
+  --pine:#2a3d38; --pine-deep:#1c2a26; --on-pine:#f3efe4; --pine-muted:#a8bfb4;
+  --pine-accent:#d8b261; --on-pine-accent:#1c2a26;
+  --clay:#d8b261;
+  --eyebrow-bg:#dcebe8; --eyebrow-text:#256462;
   --rule:#ded4c2; --rule-soft:#ebe3d5;
   --focus:var(--accent);
   --shadow:0 1px 2px #15201B0d, 0 12px 28px -18px #15201B40;
