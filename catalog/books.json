@@ -108,7 +108,7 @@
       "page_count": 50,
       "description": "50 bold, large-print mandalas. Not a Vol\u2019Tour curriculum product. Not in the TEFA pathway packet.",
       "cover_asset": "images/photo-calm-clear.jpg",
-      "pricing_mode": "direct_retail_request",
+      "pricing_mode": "fixed",
       "retail_price_usd": 16.99,
       "printing_source": "print_on_demand",
       "inventory_status": "in_print",
