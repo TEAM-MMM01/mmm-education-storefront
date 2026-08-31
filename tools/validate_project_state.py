@@ -110,9 +110,16 @@ def validate_public_source() -> None:
         re.search(r"PS-[A-Z]{2}-\d{4,}", catalog_source) is None,
         "catalog.html contains a SKU that cannot enter the canonical release pipeline",
     )
+    published_prices = set(re.findall(r"\$\s*\d+(?:\.\d{2})?", catalog_source))
+    verified_book_prices = {
+        f"${item['retail_price_usd']:.2f}"
+        for item in load_json(BOOKS_PATH)["items"]
+        if item.get("public_listing_allowed") is True
+        and item.get("pricing_mode") == "fixed"
+    }
     require(
-        re.search(r"\$\s*\d", catalog_source) is None,
-        "catalog.html contains a public price without a verified canonical offering",
+        published_prices <= verified_book_prices,
+        "catalog.html contains a public price without a verified canonical record",
     )
     photo_tags = re.findall(r"<img\b[^>]*\bsrc=[\"']images/photo-[^\"']+[\"'][^>]*>", catalog_source)
     require(photo_tags, "catalog.html must contain its reviewed product photography")
@@ -311,19 +318,19 @@ def validate_products(catalog: dict) -> set[str]:
         text = path.read_text(encoding="utf-8")
         require(re.search(r"\$\d+\.\d{2}", text) is None, f"Unverified public price in {path.relative_to(ROOT)}")
         require("data-add-to-cart" not in text, f"Unverified product is addable in {path.relative_to(ROOT)}")
-    request_button_skus = set(
+    information_link_skus = set(
         re.findall(
-            r'data-request-sku="(PS-[A-Z]{2}-\d{3})"',
+            r'href="\.\./products/(PS-[A-Z]{2}-\d{3})\.html"',
             (ROOT / "store" / "src" / "shop.html").read_text(encoding="utf-8"),
         )
     )
-    request_button_skus.update(
+    information_link_skus.update(
         re.findall(
             r'data-request-sku="(PS-[A-Z]{2}-\d{3})"',
             (ROOT / "store" / "src" / "product.html").read_text(encoding="utf-8"),
         )
     )
-    require(request_button_skus == seen, "Information-request controls must cover every canonical SKU")
+    require(information_link_skus == seen, "Information links must cover every canonical SKU")
     return seen
 
 
