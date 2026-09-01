@@ -1,5 +1,11 @@
 {
   "buildCommand": null,
   "outputDirectory": ".",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/store/shop.html", "destination": "/catalog", "permanent": true },
+    { "source": "/store/shop", "destination": "/catalog", "permanent": true },
+    { "source": "/esa.html", "destination": "/tefa", "permanent": true },
+    { "source": "/esa", "destination": "/tefa", "permanent": true }
+  ]
 }

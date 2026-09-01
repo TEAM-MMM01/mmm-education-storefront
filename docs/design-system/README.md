@@ -86,10 +86,10 @@ Brand: **Preparation Station**. Tagline: **"Practical curriculum for life ahead.
     <nav class="site-nav" aria-label="Main">
       <ul class="site-nav__list">
         <li><a class="site-nav__link" href="MAIN_SITE_URL">Home</a></li>
-        <li><a class="site-nav__link" href="store/shop.html">Catalog</a></li>
+        <li><a class="site-nav__link" href="catalog.html">Catalog</a></li>
         <li><a class="site-nav__link" href="shop-by-age.html">By Age</a></li>
         <li><a class="site-nav__link" href="MAIN_SITE_URL#guide">Mission Guide</a></li>
-        <li><a class="site-nav__link" href="esa.html">Funding Help</a></li>
+        <li><a class="site-nav__link" href="tefa.html">Funding Help</a></li>
         <li><a class="site-nav__link" href="about.html">About</a></li>
         <li><a class="site-nav__link" href="contact.html">Contact</a></li>
       </ul>

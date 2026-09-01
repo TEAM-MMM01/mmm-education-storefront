@@ -12,7 +12,7 @@
     <nav class="site-nav" aria-label="Main">
       <ul class="site-nav__list">
         <li><a class="site-nav__link" href="MAIN_SITE_URL">Home</a></li>
-        <li><a class="site-nav__link" href="store/shop.html">Catalog</a></li>
+        <li><a class="site-nav__link" href="catalog.html">Catalog</a></li>
         <li><a class="site-nav__link" href="shop-by-age.html">By Age</a></li>
         <li><a class="site-nav__link" href="MAIN_SITE_URL#guide">Mission Guide</a></li>
         <li><a class="site-nav__link" href="tefa.html">Funding help</a></li>
@@ -64,7 +64,7 @@
         </label>
         <button type="submit" class="btn btn-solid">Send message <span class="arr">&rarr;</span></button>
         <p style="font-size:.85rem; color:var(--ink-soft)">Submit opens your email app pre-addressed to the right inbox
-          (Hello, Sales, Support, or Orders). Acknowledged within one business day. We never collect payment here.</p>
+          (Hello, Sales, or Support). Acknowledged within one business day. We never collect payment here.</p>
         <p id="form-ok" style="display:none; font-size:.9rem; font-weight:600; color:var(--accent)">✓ Message sent — we will reply within one business day.</p>
       </form>
     </div>
@@ -108,9 +108,9 @@
     <div>
       <h2 class="footer-heading">Shop</h2>
       <ul class="footer-links">
-        <li><a href="store/shop.html">Catalog</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
         <li><a href="shop-by-age.html">Shop by Age</a></li>
-        <li><a href="store/shop.html">Departments</a></li>
+        <li><a href="catalog.html">Departments</a></li>
         <li><a href="MAIN_SITE_URL#guide">Mission Guide</a></li>
       </ul>
     </div>
@@ -167,7 +167,7 @@ f.addEventListener('submit',function(ev){
   var topic=(f.topic&&f.topic.value)||'';
   var to='hello@preparationstation.org';
   if(/TEFA|Funding|Product|catalog/i.test(topic)) to='sales@preparationstation.org';
-  else if(/Order|tracking/i.test(topic)) to='orders@preparationstation.org';
+  else if(/Order|tracking/i.test(topic)) to='support@preparationstation.org';
   var name=(f.name&&f.name.value)||'';
   var email=(f.email&&f.email.value)||'';
   var msg=(f.message&&f.message.value)||'';

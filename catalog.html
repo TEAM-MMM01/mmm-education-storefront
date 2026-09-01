@@ -127,6 +127,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
 .product-card__category--blue { color: var(--blue); }
 .product-card__category--green { color: var(--green); }
 .product-card__category--pink { color: var(--pink); }
+.product-card__facts { display:flex; justify-content:space-between; gap:10px; margin:8px 0; font-size:.78rem; font-weight:700; color:var(--text-muted); }
 .product-card__title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
 .product-card__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
 .product-card__footer { display: flex; align-items: center; justify-content: space-between; }
@@ -173,23 +174,23 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
 <!-- Header -->
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="/">
+    <a class="brand" href="index.html">
       <span class="brand__wordmark">Catalog</span>
       <span class="brand__tagline">Preparation Station</span>
     </a>
     <nav>
       <ul class="site-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/catalog.html">Catalog</a></li>
-        <li><a href="/shop-by-age.html">By Age</a></li>
-        <li><a href="/#guide">Mission Guide</a></li>
-        <li><a href="/tefa.html">Funding help</a></li>
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/contact.html">Contact</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalog.html">Catalog</a></li>
+        <li><a href="shop-by-age.html">By Age</a></li>
+        <li><a href="index.html#guide">Mission Guide</a></li>
+        <li><a href="tefa.html">Funding help</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
     <div class="header-actions">
-      <a href="/contact.html" class="btn btn--primary" style="padding:8px 18px;font-size:0.85rem;">Start a Request</a>
+      <a href="contact.html" class="btn btn--primary" style="padding:8px 18px;font-size:0.85rem;">Start a Request</a>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌓</button>
     </div>
   </div>
@@ -203,7 +204,8 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     <a href="#d03" class="dept-nav__link">Design & Motion</a>
     <a href="#d04" class="dept-nav__link">AI & Emerging Tech</a>
     <a href="#d05" class="dept-nav__link">Homeschool Essentials</a>
-    <a href="#confirmed" class="dept-nav__link">Books (reserved)</a>
+    <a href="#pathways" class="dept-nav__link">Curriculum pathways</a>
+    <a href="#confirmed" class="dept-nav__link">Books</a>
   </div>
 </div>
 
@@ -230,6 +232,22 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
   </div>
 </div>
 
+<section class="section section--alt" id="pathways">
+  <div class="container">
+    <div class="section__header">
+      <div class="section__eyebrow">Four live pathway pages</div>
+      <h2 class="section__title">Guided curriculum pathways</h2>
+      <p class="section__subtitle">These four digital curriculum pathways are separate from the 18 fixed-kit references below. Prices shown are the current public asks on their product-detail pages, not verified Odyssey listings. This site is not checkout.</p>
+    </div>
+    <div class="product-grid">
+      <div class="product-card"><a class="product-card__hit" href="products/PS-CL-2495.html" aria-label="View Career Launch details"></a><div class="product-card__body"><div class="product-card__category product-card__category--teal">Curriculum pathway</div><div class="product-card__facts"><span>SKU: PS-CL-2495</span><span>Current public ask: $2,495</span></div><div class="product-card__title">Career Launch &amp; Entrepreneurship</div><div class="product-card__footer"><span class="product-card__status">Offering review</span><a href="products/PS-CL-2495.html" class="product-card__link">View details →</a></div></div></div>
+      <div class="product-card"><a class="product-card__hit" href="products/PS-IL-1995.html" aria-label="View Independent Living details"></a><div class="product-card__body"><div class="product-card__category product-card__category--teal">Curriculum pathway</div><div class="product-card__facts"><span>SKU: PS-IL-1995</span><span>Current public ask: $1,995</span></div><div class="product-card__title">Independent Living &amp; Financial Foundations</div><div class="product-card__footer"><span class="product-card__status">Offering review</span><a href="products/PS-IL-1995.html" class="product-card__link">View details →</a></div></div></div>
+      <div class="product-card"><a class="product-card__hit" href="products/PS-AI-1695.html" aria-label="View AI Literacy details"></a><div class="product-card__body"><div class="product-card__category product-card__category--blue">Curriculum pathway</div><div class="product-card__facts"><span>SKU: PS-AI-1695</span><span>Current public ask: $1,695</span></div><div class="product-card__title">AI Literacy &amp; Digital Leadership</div><div class="product-card__footer"><span class="product-card__status">Offering review</span><a href="products/PS-AI-1695.html" class="product-card__link">View details →</a></div></div></div>
+      <div class="product-card"><a class="product-card__hit" href="products/PS-SR-2295.html" aria-label="View Structured Reading details"></a><div class="product-card__body"><div class="product-card__category product-card__category--purple">Curriculum pathway</div><div class="product-card__facts"><span>SKU: PS-SR-2295</span><span>Current public ask: $2,295</span></div><div class="product-card__title">Structured Reading Support Pathway</div><div class="product-card__footer"><span class="product-card__status">Offering review</span><a href="products/PS-SR-2295.html" class="product-card__link">View details →</a></div></div></div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="d01">
   <div class="container">
     <div class="section__header">
@@ -242,6 +260,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-home-repair.jpg" alt="Home & Repair Tool Roll"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--teal">Practical & Trade</div>
+          <div class="product-card__facts"><span>SKU: PS-PR-101</span><span>Price: Not published</span></div>
           <div class="product-card__title">Home & Repair Tool Roll</div>
           <div class="product-card__desc">Essential hand tools for home repairs and basic maintenance projects.</div>
           <div class="product-card__footer">
@@ -254,6 +273,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-money-job.jpg" alt="Money & First Job Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--teal">Practical & Trade</div>
+          <div class="product-card__facts"><span>SKU: PS-PR-102</span><span>Price: Not published</span></div>
           <div class="product-card__title">Money & First Job Kit</div>
           <div class="product-card__desc">Read your stub, find deductions, decide what to do with the money before it disappears.</div>
           <div class="product-card__footer">
@@ -266,6 +286,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-kitchen.jpg" alt="Kitchen & Provision Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--teal">Practical & Trade</div>
+          <div class="product-card__facts"><span>SKU: PS-PR-103</span><span>Price: Not published</span></div>
           <div class="product-card__title">Kitchen & Provision Kit</div>
           <div class="product-card__desc">Kitchen skills, meal planning, and provision fundamentals for independent living.</div>
           <div class="product-card__footer">
@@ -291,6 +312,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-situation.jpg" alt="Situation Handling Deck"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__facts"><span>SKU: PS-SC-201</span><span>Price: Not published</span></div>
           <div class="product-card__title">Situation Handling Deck</div>
           <div class="product-card__desc">Decision-making scenarios and practice cards for building self-command.</div>
           <div class="product-card__footer">
@@ -303,6 +325,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-focus.jpg" alt="Focus & Energy System"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__facts"><span>SKU: PS-SC-202</span><span>Price: Not published</span></div>
           <div class="product-card__title">Focus & Energy System</div>
           <div class="product-card__desc">Energy management, focus techniques, and productivity systems for learners.</div>
           <div class="product-card__footer">
@@ -315,6 +338,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-advocacy.jpg" alt="Self-Advocacy Workbook"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__facts"><span>SKU: PS-SC-203</span><span>Price: Not published</span></div>
           <div class="product-card__title">Self-Advocacy Workbook</div>
           <div class="product-card__desc">How to ask for what you need, explain your needs, and advocate for yourself.</div>
           <div class="product-card__footer">
@@ -327,6 +351,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-interview-kit.jpg" alt="Interview & First Job Prep Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__facts"><span>SKU: PS-SC-204</span><span>Price: Not published</span></div>
           <div class="product-card__title">Interview & First Job Prep Kit</div>
           <div class="product-card__desc">Interview practice, resume basics, and first-job readiness.</div>
           <div class="product-card__footer">
@@ -339,6 +364,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-adulting.jpg" alt="Adulting Launch Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
+          <div class="product-card__facts"><span>SKU: PS-SC-205</span><span>Price: Not published</span></div>
           <div class="product-card__title">Adulting Launch Kit</div>
           <div class="product-card__desc">Household routines, schedules, laundry, room upkeep, and personal responsibility systems.</div>
           <div class="product-card__footer">
@@ -364,6 +390,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-design.jpg" alt="Graphic Design Bench"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--amber">Design & Motion</div>
+          <div class="product-card__facts"><span>SKU: PS-CS-301</span><span>Price: Not published</span></div>
           <div class="product-card__title">Graphic Design Bench</div>
           <div class="product-card__desc">Digital design tools, project briefs, and portfolio-building exercises.</div>
           <div class="product-card__footer">
@@ -376,6 +403,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-motion.jpg" alt="Motion & Video Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--amber">Design & Motion</div>
+          <div class="product-card__facts"><span>SKU: PS-CS-302</span><span>Price: Not published</span></div>
           <div class="product-card__title">Motion & Video Kit</div>
           <div class="product-card__desc">Video editing, motion graphics, and storytelling through moving images.</div>
           <div class="product-card__footer">
@@ -388,6 +416,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-skill-income.jpg" alt="Skill-to-Income Pack"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--amber">Design & Motion</div>
+          <div class="product-card__facts"><span>SKU: PS-CS-303</span><span>Price: Not published</span></div>
           <div class="product-card__title">Skill-to-Income Pack</div>
           <div class="product-card__desc">Turn creative skills into income: pricing, clients, portfolios, and first sales.</div>
           <div class="product-card__footer">
@@ -413,6 +442,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-ai-kit.jpg" alt="AI Literacy Bench Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
+          <div class="product-card__facts"><span>SKU: PS-AT-401</span><span>Price: Not published</span></div>
           <div class="product-card__title">AI Literacy Bench Kit</div>
           <div class="product-card__desc">How modern AI tools work, how to question their output, and how to use them responsibly.</div>
           <div class="product-card__footer">
@@ -425,6 +455,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-robotics.jpg" alt="Electronics & Robotics Starter"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
+          <div class="product-card__facts"><span>SKU: PS-AT-402</span><span>Price: Not published</span></div>
           <div class="product-card__title">Electronics & Robotics Starter</div>
           <div class="product-card__desc">Circuits, sensors, motors, and basic robotics projects for hands-on learning.</div>
           <div class="product-card__footer">
@@ -437,6 +468,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-3d.jpg" alt="3D Design & Fabrication Intro"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
+          <div class="product-card__facts"><span>SKU: PS-AT-403</span><span>Price: Not published</span></div>
           <div class="product-card__title">3D Design & Fabrication Intro</div>
           <div class="product-card__desc">3D modeling, printing basics, and digital fabrication fundamentals.</div>
           <div class="product-card__footer">
@@ -462,6 +494,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-workbooks.jpg" alt="Core Subjects Workbook Set"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
+          <div class="product-card__facts"><span>SKU: PS-HS-501</span><span>Price: Not published</span></div>
           <div class="product-card__title">Core Subjects Workbook Set</div>
           <div class="product-card__desc">Comprehensive workbook set covering core subjects for structured learning.</div>
           <div class="product-card__footer">
@@ -474,6 +507,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-portfolio.jpg" alt="Homeschool Assessment & Portfolio Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
+          <div class="product-card__facts"><span>SKU: PS-HS-502</span><span>Price: Not published</span></div>
           <div class="product-card__title">Homeschool Assessment & Portfolio Kit</div>
           <div class="product-card__desc">Assessment tools, portfolio building, and progress tracking for homeschool families.</div>
           <div class="product-card__footer">
@@ -486,6 +520,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-supply.jpg" alt="Daily Supply Restock Box"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
+          <div class="product-card__facts"><span>SKU: PS-HS-503</span><span>Price: Not published</span></div>
           <div class="product-card__title">Daily Supply Restock Box</div>
           <div class="product-card__desc">Paper, pencils, markers, and the daily essentials that keep learning going.</div>
           <div class="product-card__footer">
@@ -498,6 +533,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         <div class="product-card__image"><img loading="lazy" src="images/photo-art.jpg" alt="Art & Craft Foundations Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
+          <div class="product-card__facts"><span>SKU: PS-HS-504</span><span>Price: Not published</span></div>
           <div class="product-card__title">Art & Craft Foundations Kit</div>
           <div class="product-card__desc">Art supplies and project guides for creative expression and skill development.</div>
           <div class="product-card__footer">
@@ -516,25 +552,14 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     <div class="section__header">
       <div class="section__eyebrow">Reserved — not in the TEFA pathway packet</div>
       <h2 class="section__title">Books & coloring</h2>
-      <p class="section__subtitle">Royal Collexions books sit here — not in the TEFA pathway packet. Use <strong>preparationstation.org/catalog</strong> as the catalog reference URL. Vendor: Nationwide Acquisitions, LLC.</p>
+      <p class="section__subtitle">Publicly listed Royal Collexions books sit here — not in the TEFA pathway packet. Use <strong>preparationstation.org/catalog</strong> as the catalog reference URL. Vendor: Nationwide Acquisitions, LLC.</p>
     </div>
     <div class="product-grid">
-      <div class="product-card">
-        <div class="product-card__image"><img loading="lazy" src="images/photo-vulturian.jpg" alt="Concept image for The Vulturian; not the final cover"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--pink">Confirmed Title · Concept Image</div>
-          <div class="product-card__title">The Vulturian</div>
-          <div class="product-card__desc">Confirmed title. The final cover and format are pending, along with author, ISBN, price, and fulfillment details. Not purchasable here.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Details forthcoming</span>
-            <a href="contact.html?sku=GEN-BK-001" class="product-card__link">Request →</a>
-          </div>
-        </div>
-      </div>
       <div class="product-card"><a class="product-card__hit" href="products/RC-CC-0169.html" aria-label="View product details"></a>
         <div class="product-card__image"><img loading="lazy" src="images/photo-calm-clear.jpg" alt="Calm & Clear by Royal Collexions"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--pink">Royal Collexions · RC-CC-0169</div>
+          <div class="product-card__facts"><span>SKU: RC-CC-0169</span><span>Price: $16.99</span></div>
           <div class="product-card__title">Calm & Clear</div>
           <div class="product-card__desc">50 bold, large-print mandalas. Paperback <span class="price">$16.99</span>. Direct retail only — not in the TEFA pathway packet.</div>
           <div class="product-card__footer">
@@ -563,25 +588,25 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
       </div>
       <div class="footer-col">
         <div class="footer-col__title">Shop</div>
-        <a href="/catalog.html">Catalog</a>
-        <a href="/shop-by-age.html">Shop by Age</a>
-        <a href="/#guide">Mission Guide</a>
+        <a href="catalog.html">Catalog</a>
+        <a href="shop-by-age.html">Shop by Age</a>
+        <a href="index.html#guide">Mission Guide</a>
       </div>
       <div class="footer-col">
         <div class="footer-col__title">Support</div>
-        <a href="/tefa.html">Funding help</a>
-        <a href="/faq.html">FAQ</a>
-        <a href="/contact.html">Contact</a>
+        <a href="tefa.html">Funding help</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
       </div>
       <div class="footer-col">
         <div class="footer-col__title">Company</div>
-        <a href="/about.html">About Us</a>
-        <a href="/tefa.html">TEFA & Funding</a>
-        <a href="/privacy.html">Privacy</a>
+        <a href="about.html">About Us</a>
+        <a href="tefa.html">TEFA & Funding</a>
+        <a href="privacy.html">Privacy</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <div>Updated August 2026 · <a href="/contact.html" style="color:var(--accent);">Get in touch</a> · Responses within one business day</div>
+      <div>Updated August 2026 · <a href="contact.html" style="color:var(--accent);">Get in touch</a> · Responses within one business day</div>
       <div>Preparation Station is operated by Nationwide Acquisitions, LLC</div>
     </div>
   </div>
