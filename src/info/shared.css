@@ -11,12 +11,12 @@
 /* ---------- Tokens ---------- */
 :root{
   --paper:#f5efe3; --paper-2:#eee5d4; --card:#fffdf8;
-  --ink:#293b36; --ink-soft:#50645e; --muted:#6f7f79;
+  --ink:#293b36; --ink-soft:#50645e; --muted:#586b65;
   --accent:#a94428; --accent-lit:#fbe1d7; --on-accent:#fffdf8; --accent-hover:#7f2f1c;
   --btn:#123f35; --btn-hover:#0d3028;
   --pine:#123f35; --pine-deep:#0d3028; --on-pine:#fffdf8; --pine-muted:#b7d2c6;
   --pine-accent:#f0c369; --on-pine-accent:#123f35;
-  --clay:#d96844;
+  --clay:#a94428;
   --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
   --rule:#ded4c2; --rule-soft:#ebe3d5;
   --focus:var(--accent);

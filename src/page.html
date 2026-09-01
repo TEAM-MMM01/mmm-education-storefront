@@ -19,12 +19,12 @@
 /* ---------- Tokens ---------- */
 :root{
   --paper:#f5efe3; --paper-2:#eee5d4; --card:#fffdf8;
-  --ink:#293b36; --ink-soft:#50645e; --muted:#6f7f79;
+  --ink:#293b36; --ink-soft:#50645e; --muted:#586b65;
   --accent:#a94428; --accent-lit:#fbe1d7; --on-accent:#fffdf8; --accent-hover:#7f2f1c;
   --btn:#123f35; --btn-hover:#0d3028;
   --pine:#123f35; --pine-deep:#0d3028; --on-pine:#fffdf8; --pine-muted:#b7d2c6;
-  --pine-accent:#f0c369; --on-pine-accent:#123f35;
-  --clay:#d96844; --clay-lit:#f4e3dc;
+  --pine-accent:#f0c369; --pine-accent-hover:#f4d18a; --on-pine-accent:#123f35;
+  --clay:#a94428; --clay-lit:#f4e3dc;
   --gold:#8A5F18; --gold-lit:#f5e9d3;
   --plum:#5B3B6E; --plum-lit:#ece3f1;
   --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
@@ -133,9 +133,9 @@
 .orbit{position:absolute; inset:auto; top:-30%; right:-12%; width:min(64vw,760px); aspect-ratio:1; pointer-events:none; opacity:.5}
 .orbit::before,.orbit::after{content:""; position:absolute; inset:0; border-radius:50%; border:1.5px dashed rgba(217,104,68,.22)}
 .orbit::before{animation:spin 60s linear infinite}
-.orbit::after{inset:12%; border-color:rgba(237,178,94,.35); animation:spin 40s linear infinite reverse}
+.orbit::after{inset:12%; border-color:rgba(240,195,105,.35); animation:spin 40s linear infinite reverse}
 .orbit .dot{position:absolute; width:9px; height:9px; border-radius:50%; background:var(--accent); top:50%; left:50%; box-shadow:0 0 18px rgba(217,104,68,.8)}
-.orbit .dot.b{background:var(--gold); box-shadow:0 0 18px rgba(237,178,94,.8)}
+.orbit .dot.b{background:var(--gold); box-shadow:0 0 18px rgba(240,195,105,.8)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero-glow{position:absolute; top:-8rem; left:-6rem; width:34rem; height:34rem; border-radius:50%;
   background:radial-gradient(circle, rgba(217,104,68,.12), transparent 62%); filter:blur(10px); pointer-events:none; animation:float 9s ease-in-out infinite}
@@ -254,7 +254,7 @@
 .request-panel h3{font-size:clamp(1.2rem,2.4vw,1.6rem); margin-block:.6rem .5rem; color:var(--on-pine)}
 .request-panel p{color:var(--pine-muted); font-size:.95rem; line-height:1.6; max-width:56ch}
 .request-panel .btn-solid{background:var(--pine-accent); color:var(--on-pine-accent)}
-.request-panel .btn-solid:hover{background:#f4c27a}
+.request-panel .btn-solid:hover{background:var(--pine-accent-hover)}
 
 /* ---------- FAQ ---------- */
 .faq details{border-bottom:1px solid var(--rule-soft); padding-block:1rem}

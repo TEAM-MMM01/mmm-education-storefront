@@ -6,7 +6,7 @@
 <title>Checkout Preview — Preparation Station General Store</title>
 <meta name="description" content="General Store preview: family titles and activity books sold at retail, kept separate from the ESA/TEFA-funded storefront.">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23123f35'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23fffdf9' text-anchor='middle'%3EPS%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23123f35'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' fill='%23fffdf8' text-anchor='middle'%3EPS%3C/text%3E%3C/svg%3E">
 <meta property="og:title" content="Checkout Preview — Preparation Station General Store">
 <meta property="og:description" content="General Store preview: family titles and activity books sold at retail, kept separate from the ESA/TEFA-funded storefront.">
 <meta property="og:type" content="website">
@@ -48,14 +48,14 @@
 /* ---------- Tokens ---------- */
 :root{
   --paper:#f5efe3; --paper-2:#eee5d4; --card:#fffdf8;
-  --ink:#293b36; --ink-soft:#50645e; --muted:#6f7f79;
+  --ink:#293b36; --ink-soft:#50645e; --muted:#586b65;
   --pine:#123f35; --pine-deep:#0d3028; --on-pine:#fffdf8; --pine-muted:#b7d2c6;
   --accent:#a94428; --accent-lit:#fbe1d7; --on-accent:#fffdf8; --accent-hover:#7f2f1c;
   --btn:#123f35; --btn-hover:#0d3028;
   --eyebrow-bg:#dbe8e2; --eyebrow-text:#123b35;
   --section-even:rgba(251, 247, 241, 0.96);
   --pine-accent:#f0c369; --on-pine-accent:#123f35;
-  --clay:#d96844;
+  --clay:#a94428;
   --good:#21734f; --on-good:#f2fbf6;
   --rule:#ded4c2; --rule-soft:#ebe3d5;
   --focus:var(--accent);
@@ -128,7 +128,7 @@
 .brand{display:flex; align-items:baseline; gap:.55rem; text-decoration:none; margin-right:.5rem}
 .brand-mark{font-family:var(--display); font-weight:800; font-size:1.02rem; letter-spacing:-.045em}
 .brand-sub{color:var(--muted); font-size:.62rem}
-.nav{position:sticky; top:0; z-index:40; background:rgba(255, 253, 248, 0.88); border-bottom:1px solid rgba(43, 36, 28, 0.08);}
+.nav{position:sticky; top:0; z-index:40; background:rgba(255, 253, 248, 0.88); border-bottom:1px solid var(--rule-soft)}
 .nav a{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
   text-decoration:none; color:var(--muted); transition:color .18s ease; white-space:nowrap}
 .nav a:hover,.nav a[aria-current="page"]{color:var(--ink)}
