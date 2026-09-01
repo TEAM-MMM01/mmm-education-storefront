@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-01",
+  "price_context": "current_public_ask_not_odyssey_verified",
+  "items": [
+    {"sku": "PS-CL-2495", "name": "Career Launch & Entrepreneurship", "current_public_price_usd": 2495, "pdp": "products/PS-CL-2495.html"},
+    {"sku": "PS-IL-1995", "name": "Independent Living & Financial Foundations", "current_public_price_usd": 1995, "pdp": "products/PS-IL-1995.html"},
+    {"sku": "PS-AI-1695", "name": "AI Literacy & Digital Leadership", "current_public_price_usd": 1695, "pdp": "products/PS-AI-1695.html"},
+    {"sku": "PS-SR-2295", "name": "Structured Reading Support Pathway", "current_public_price_usd": 2295, "pdp": "products/PS-SR-2295.html"}
+  ]
+}

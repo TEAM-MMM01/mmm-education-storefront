@@ -118,7 +118,12 @@ def build_store_pages(shared_css: str):
             page, main="../index.html", esa_shop="shop.html", general_store="../general-store/shop.html"
         )
         out = store / f"{name}.html"
-        out.write_text(standalone_document(page, desc))
+        if name == "shop":
+            redirect = """<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><meta http-equiv=\"refresh\" content=\"0;url=../catalog.html\"><link rel=\"canonical\" href=\"https://preparationstation.org/catalog\"><title>Catalog — Preparation Station</title></head><body><p>The Preparation Station catalog has moved. <a href=\"../catalog.html\">Continue to the catalog</a>.</p></body></html>"""
+            out.write_text(redirect)
+        else:
+            page = page.replace('href="shop.html"', 'href="../catalog.html"')
+            out.write_text(standalone_document(page, desc))
         print(f"store/{name}.html  {out.stat().st_size / 1024:.0f} KB")
 
 
@@ -135,7 +140,7 @@ def build_general_store_pages(shared_css: str):
         page = src.replace("__STORE_SHARED_CSS__", shared_css)
         page = page.replace("BUILD_DATE", BUILD_DATE)
         page = resolve_cross_links(
-            page, main="../index.html", esa_shop="../store/shop.html", general_store="shop.html"
+            page, main="../index.html", esa_shop="../catalog.html", general_store="shop.html"
         )
         out = gs / f"{name}.html"
         out.write_text(standalone_document(page, desc))

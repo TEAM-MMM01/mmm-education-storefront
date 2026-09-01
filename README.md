@@ -4,7 +4,7 @@
 
 **Current recommendation: publish a truthful TEFA vendor/catalog information release first.** Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor operating Preparation Station. Each offering still requires separate Odyssey review, and TEFA purchases plus official order history remain in Odyssey. General Store remains a development preview and does not accept payment.
 
-**Live site:** https://preparationstation.org (catalog: https://preparationstation.org/catalog). Prototype hosts (`preparation-station.pages.dev`, GitHub Pages, Vercel) may lag production.
+**Live site:** https://preparationstation.org (catalog: https://preparationstation.org/catalog). Prototype hosts (preview hosts, GitHub Pages, and Vercel) may lag production.
 
 The storefront is a **public product-information preview, not a commerce launch**.
 TEFA purchases and official order history remain in Odyssey. Direct checkout,
@@ -122,7 +122,7 @@ too, but the next build overwrites them.
    **Files changed** tab and the preview links posted on the PR before merging.
 5. **Merge only after you've reviewed it.** Once you say it looks good, an
    agent can merge and the site updates automatically on Cloudflare Pages
-   (https://preparation-station.pages.dev), GitHub Pages, and Vercel within a
+   preview hosting, GitHub Pages, and Vercel within a
    few minutes.
 
 > If you edit the built `index.html` directly, the next `python3 build.py` run

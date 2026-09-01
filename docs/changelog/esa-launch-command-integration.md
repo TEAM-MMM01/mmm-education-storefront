@@ -45,7 +45,7 @@ All edits obey the standing repo rules:
 | Never display item as TEFA-eligible unless verified | Honored | All entry badges are `offering-review` or `planning`; no "available" badges in expansion section |
 | Vendor contact section (paste-ready copy) | Done | `#vendor` section, exact directive wording |
 | TEFA summary paragraph (paste-ready copy) | Done | `#vendor` right panel, exact directive wording |
-| Add real URL only after confirming | Honored | `preparation-station.pages.dev` used (verified in README.md:7) |
+| Add real URL only after confirming | Honored | Canonical production domain is recorded in project state |
 | Add contact email / phone only after confirming | Honored | Leftover address-permitted-routes replaced with "Get in touch" CTA (no raw email/phone) |
 | Keep PDSES/ClassWallet separate from TEFA | Honored | `#vendor` + status page mention PDSES as "not yet confirmed" |
 | TEFA note (approved vendor, individual offerings reviewed separately) | Done | In `#vendor` panel |

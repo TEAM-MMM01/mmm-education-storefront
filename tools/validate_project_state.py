@@ -14,6 +14,7 @@ STATE_PATH = ROOT / "config" / "project-state.json"
 BOOKS_PATH = ROOT / "catalog" / "books.json"
 PRODUCTS_PATH = ROOT / "catalog" / "products.json"
 TEFA_OFFERINGS_PATH = ROOT / "catalog" / "tefa-offerings.json"
+PATHWAYS_PATH = ROOT / "catalog" / "pathways.json"
 REQUEST_CONFIG_PATH = ROOT / "config" / "request-intake.json"
 ORDER_PORTAL_CONFIG_PATH = ROOT / "config" / "order-portal.json"
 ORDER_SCHEMA_PATH = ROOT / "schemas" / "order-record.schema.json"
@@ -106,20 +107,24 @@ def validate_public_source() -> None:
             )
 
     catalog_source = (ROOT / "catalog.html").read_text(encoding="utf-8")
+    pathways = load_json(PATHWAYS_PATH)
+    pathway_items = pathways.get("items", [])
+    pathway_skus = {item["sku"] for item in pathway_items}
+    published_pathway_skus = set(re.findall(r"PS-[A-Z]{2}-\d{4,}", catalog_source))
     require(
-        re.search(r"PS-[A-Z]{2}-\d{4,}", catalog_source) is None,
-        "catalog.html contains a SKU that cannot enter the canonical release pipeline",
+        published_pathway_skus == pathway_skus,
+        "Public pathway SKUs must exactly match the canonical pathway catalog",
     )
-    published_prices = set(re.findall(r"\$\s*\d+(?:\.\d{2})?", catalog_source))
-    verified_book_prices = {
+    allowed_prices = {
         f"${item['retail_price_usd']:.2f}"
         for item in load_json(BOOKS_PATH)["items"]
-        if item.get("public_listing_allowed") is True
-        and item.get("pricing_mode") == "fixed"
+        if item.get("public_listing_allowed") is True and item.get("pricing_mode") == "fixed"
     }
+    allowed_prices.update(f"${item['current_public_price_usd']:,}" for item in pathway_items)
+    published_prices = set(re.findall(r"\$\s*\d[\d,]*(?:\.\d{2})?", catalog_source))
     require(
-        published_prices <= verified_book_prices,
-        "catalog.html contains a public price without a verified canonical record",
+        published_prices <= allowed_prices,
+        "catalog.html contains a public price without a canonical record",
     )
     photo_tags = re.findall(r"<img\b[^>]*\bsrc=[\"']images/photo-[^\"']+[\"'][^>]*>", catalog_source)
     require(photo_tags, "catalog.html must contain its reviewed product photography")
@@ -128,9 +133,8 @@ def validate_public_source() -> None:
         "Every catalog product photo must use loading=lazy",
     )
     require(
-        "Confirmed Title · Concept Image" in catalog_source
-        and "final cover and format are pending" in catalog_source,
-        "The Vulturian photo must remain explicitly labeled as a concept image",
+        "The Vulturian" not in catalog_source and "GEN-BK-001" not in catalog_source,
+        "The Vulturian must remain unlisted while its canonical record disallows publication",
     )
 
 
@@ -280,6 +284,26 @@ def validate_books(catalog: dict) -> None:
         require(isbn is None, "Pending ISBN must remain null")
 
 
+def validate_pathways(catalog: dict) -> set[str]:
+    require(catalog.get("schema_version") == 1, "Unsupported pathways schema")
+    require(catalog.get("price_context") == "current_public_ask_not_odyssey_verified", "Pathway price context drift")
+    items = catalog.get("items")
+    require(isinstance(items, list) and len(items) == 4, "Expected four public pathway records")
+    skus: set[str] = set()
+    for item in items:
+        sku = item.get("sku")
+        require(isinstance(sku, str) and re.fullmatch(r"PS-[A-Z]{2}-\d{4}", sku) is not None, "Invalid pathway SKU")
+        require(sku not in skus, f"Duplicate pathway SKU: {sku}")
+        skus.add(sku)
+        require(isinstance(item.get("current_public_price_usd"), int) and item["current_public_price_usd"] > 0, f"Missing pathway public ask: {sku}")
+        pdp = ROOT / str(item.get("pdp", ""))
+        require(pdp.is_file(), f"Missing pathway PDP: {sku}")
+        pdp_text = pdp.read_text(encoding="utf-8")
+        require(sku in pdp_text and f"${item['current_public_price_usd']:,}" in pdp_text, f"Pathway PDP facts differ: {sku}")
+        require("sized to the $2,000 homeschool award" not in pdp_text, f"Award-sized pricing copy remains: {sku}")
+    return skus
+
+
 def validate_products(catalog: dict) -> set[str]:
     require(catalog.get("schema_version") == 1, "Unsupported products schema")
     require(catalog.get("operator") == "Nationwide Acquisitions, LLC", "Unexpected product operator")
@@ -306,6 +330,14 @@ def validate_products(catalog: dict) -> set[str]:
         if item.get("tefa_offering_status") == "approved":
             require(bool(item.get("odyssey_offering_id")), f"Approved TEFA offering requires Odyssey ID: {sku}")
         require(item.get("direct_purchase_status") == "disabled", f"Direct purchase enabled without launch facts: {sku}")
+
+    public_catalog = (ROOT / "catalog.html").read_text(encoding="utf-8")
+    for sku in seen:
+        require(f"SKU: {sku}" in public_catalog, f"Public catalog is missing SKU: {sku}")
+    require(
+        public_catalog.count("Price: Not published") == len(seen),
+        "Every fixed-kit catalog card must show its truthful unpublished price state",
+    )
 
     cart_source = (ROOT / "store" / "cart.js").read_text(encoding="utf-8")
     cart_skus = set(re.findall(r"'(PS-[A-Z]{2}-\d{3})':\s*\{", cart_source))
@@ -538,9 +570,10 @@ def main() -> None:
     state = load_json(STATE_PATH)
     validate_state(state)
     validate_books(load_json(BOOKS_PATH))
+    pathway_skus = validate_pathways(load_json(PATHWAYS_PATH))
     product_skus = validate_products(load_json(PRODUCTS_PATH))
     verified_skus = validate_tefa_offerings(load_json(TEFA_OFFERINGS_PATH), product_skus)
-    known_skus = product_skus | verified_skus
+    known_skus = product_skus | pathway_skus | verified_skus
     validate_request_config(load_json(REQUEST_CONFIG_PATH), state, known_skus)
     validate_request_form()
     validate_order_portal(load_json(ORDER_PORTAL_CONFIG_PATH), known_skus)
