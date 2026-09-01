@@ -9,14 +9,16 @@ a USB stick.
     python3 build.py
 
 Produces:
-    index.html                 main landing page, from src/page.html
-    store/shop.html             ESA store mockup: category grid
-    store/product.html          ESA store mockup: product detail
-    store/order.html             ESA store mockup: order/quote review
-    store/track.html             secure order-history entry point
-    general-store/shop.html      General Store mockup: category grid
-    general-store/product.html   General Store mockup: product detail
-    general-store/checkout.html  General Store mockup: checkout
+    index.html                  main landing page, from src/page.html
+    catalog/index.html          canonical Grok-baseline catalog at /catalog
+    catalog.html                compatibility redirect to /catalog
+    store/shop.html             legacy funded-store mockup: category grid
+    store/product.html          legacy funded-store mockup: product detail
+    store/order.html            legacy funded-store mockup: order/quote review
+    store/track.html            secure order-history entry point
+    general-store/shop.html     General Store mockup: category grid
+    general-store/product.html  General Store mockup: product detail
+    general-store/checkout.html General Store mockup: checkout
 
 Both mockup sets share store/shared_style.css (font-inlined once), spliced
 in at each page's __STORE_SHARED_CSS__ marker, so the design tokens stay in
@@ -36,10 +38,6 @@ import pathlib
 import re
 
 HERE = pathlib.Path(__file__).parent
-# Source-controlled build stamp. Bump this manually when a dated rebuild is
-# intentional; deriving it from wall-clock time would rewrite the committed
-# generated pages on every future build and fail the "generated pages are
-# committed" CI check.
 BUILD_DATE = "August 19, 2026"
 FONTS = {
     "__MONO4__": "dmmono400.woff2",
@@ -64,6 +62,8 @@ def inline_fonts(text: str, label: str) -> str:
 
 def standalone_document(body_html: str, description: str) -> str:
     m = re.search(r"<title>(.*?)</title>\s*", body_html, re.S)
+    if not m:
+        raise SystemExit("source page is missing <title>")
     title, inner = m.group(1), body_html[: m.start()] + body_html[m.end() :]
     return f"""<!doctype html>
 <html lang="en">
@@ -100,6 +100,41 @@ def build_main_page():
     out = HERE / "index.html"
     out.write_text(standalone_document(page, desc))
     print(f"index.html  {out.stat().st_size / 1024:.0f} KB")
+
+
+def build_catalog_page():
+    """Build the canonical Grok-baseline catalog at /catalog.
+
+    The old /catalog.html URL is retained only as a compatibility redirect so
+    bookmarks and stale internal links converge on one catalog destination.
+    Legacy ESA / ESA Launch Command layouts are not generated as a catalog.
+    """
+    page = (HERE / "src" / "catalog.html").read_text()
+    desc = (
+        "Preparation Station catalog for real-world curriculum pathways, including verified SKU, "
+        "price, duration, offering status, product details, and TEFA purchasing guidance."
+    )
+    catalog_dir = HERE / "catalog"
+    catalog_dir.mkdir(exist_ok=True)
+    out = catalog_dir / "index.html"
+    document = standalone_document(page, desc).replace(
+        "<meta property=\"og:type\" content=\"website\">",
+        "<meta property=\"og:type\" content=\"website\">\n"
+        "<link rel=\"canonical\" href=\"https://preparationstation.org/catalog\">\n"
+        "<meta property=\"og:url\" content=\"https://preparationstation.org/catalog\">",
+    )
+    out.write_text(document)
+    (HERE / "catalog.html").write_text(
+        "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
+        "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
+        "<meta http-equiv=\"refresh\" content=\"0;url=/catalog\">"
+        "<link rel=\"canonical\" href=\"https://preparationstation.org/catalog\">"
+        "<title>Preparation Station Catalog</title></head><body>"
+        "<p>The Preparation Station catalog has moved to <a href=\"/catalog\">preparationstation.org/catalog</a>.</p>"
+        "</body></html>\n"
+    )
+    print(f"catalog/index.html  {out.stat().st_size / 1024:.0f} KB")
+    print("catalog.html  compatibility redirect")
 
 
 def build_store_pages(shared_css: str):
@@ -176,6 +211,7 @@ def resolve_cross_links(page: str, main: str, esa_shop: str, general_store: str)
 
 if __name__ == "__main__":
     build_main_page()
+    build_catalog_page()
     _base_css = (HERE / "src" / "base" / "design-system.css").read_text()
     _shared_css = _base_css + inline_fonts(
         (HERE / "store" / "shared_style.css").read_text(), "store/shared_style.css"
