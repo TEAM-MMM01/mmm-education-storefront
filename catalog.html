@@ -11,9 +11,6 @@
 <meta property="og:url" content="https://preparationstation.org/catalog"/>
 <meta property="og:image" content="https://preparationstation.org/images/photo-catalog-banner.jpg"/>
 <meta name="description" content="Preparation Station catalog: education workbooks, coloring books, practical kits, and design studio resources. Operated by Nationwide Acquisitions, LLC. Offerings reviewed separately in Odyssey."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 :root {
   --bg: #f6f3ea;
@@ -167,7 +164,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
   .dept-nav__inner { gap: 6px; }
 }
 @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
-</style>
+.hero{padding:28px 0 20px;text-align:left}.hero__subtitle{max-width:none;margin:0}.hero__actions{justify-content:flex-start;margin-top:14px}.section{padding:30px 0}.section__header{margin-bottom:16px}.product-grid{grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:12px}.product-card{border-radius:10px}.product-card__image{height:108px}.product-card__body{padding:14px}.catalog-tools{background:var(--surface);border-bottom:1px solid var(--surface-border);padding:12px 0}.catalog-tools__row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.catalog-tools label{font-size:.7rem;font-weight:700;text-transform:uppercase}.catalog-tools select{display:block;width:100%;margin-top:4px;padding:8px;background:var(--surface);color:var(--text);border:1px solid var(--surface-border);border-radius:7px}.utility-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.utility-card,.clip-placeholder{padding:16px;border:1px solid var(--surface-border);border-radius:10px;background:var(--surface)}.utility-card p,.clip-placeholder span{font-size:.8rem;color:var(--text-muted)}.clip-placeholder{border-style:dashed}@media(max-width:700px){.catalog-tools__row,.utility-grid{grid-template-columns:1fr 1fr}}@media(prefers-reduced-motion:reduce){.product-card,.btn{transition:none!important}}</style>
 </head>
 <body>
 
@@ -207,7 +204,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     <a href="#pathways" class="dept-nav__link">Curriculum pathways</a>
     <a href="#confirmed" class="dept-nav__link">Books</a>
   </div>
-</div>
+</div><section class="catalog-tools" aria-label="Catalog filters"><div class="container catalog-tools__row"><label>Subject<select id="subject-filter"><option value="all">All subjects</option><option value="Practical">Practical skills</option><option value="Situation">Self-command</option><option value="Design">Design &amp; motion</option><option value="AI">Technology</option><option value="Homeschool">Homeschool</option><option value="Curriculum">Pathways</option></select></label><label>Level<select id="level-filter"><option value="all">All levels</option><option value="elementary">Elementary</option><option value="middle">Middle grades</option><option value="high">High school / transition</option></select></label><label>Eligibility<select id="eligibility-filter"><option value="all">All badges</option><option value="fits">Fits most award programs</option><option value="entry">Entry</option><option value="premium">Premium</option></select></label><label>Sort<select id="sort-catalog"><option value="featured">Featured</option><option value="title">Title A–Z</option><option value="price">Price low to high</option></select></label><p id="result-count" aria-live="polite"></p></div></section>
 
 <!-- Hero -->
 <section class="hero">
@@ -215,7 +212,6 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     <div class="hero__eyebrow">Approved TEFA Marketplace Vendor</div>
     <h1 class="hero__title">Preparation Station <span>Catalog</span></h1>
     <p class="hero__subtitle">Official catalog URL for TEFA / Odyssey offering review and family planning. Catalog entries below show their current review status. This page is not checkout — funded purchases complete in Odyssey after the exact SKU is listed.</p>
-    <img loading="lazy" class="hero__photo" src="images/photo-catalog-banner.jpg" width="1600" height="900" alt="Preparation Station curriculum workbooks on a kitchen table"/>
     <div class="hero__actions">
       <a class="btn btn--primary" href="#d01">Browse catalog references</a>
       <a class="btn btn--outline" href="contact.html?topic=catalog">Start a request</a>
@@ -257,7 +253,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     </div>
     <div class="product-grid">
       <div class="product-card"><a class="product-card__hit" href="products/PS-PR-101.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-home-repair.jpg" alt="Home & Repair Tool Roll"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/home-and-repair-tool-roll.svg" alt="Home & Repair Tool Roll"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--teal">Practical & Trade</div>
           <div class="product-card__facts"><span>SKU: PS-PR-101</span><span>Price: Not published</span></div>
@@ -270,7 +266,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-PR-102.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-money-job.jpg" alt="Money & First Job Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/money-and-first-job-kit.svg" alt="Money & First Job Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--teal">Practical & Trade</div>
           <div class="product-card__facts"><span>SKU: PS-PR-102</span><span>Price: Not published</span></div>
@@ -283,7 +279,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-PR-103.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-kitchen.jpg" alt="Kitchen & Provision Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/kitchen-and-provision-kit.svg" alt="Kitchen & Provision Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--teal">Practical & Trade</div>
           <div class="product-card__facts"><span>SKU: PS-PR-103</span><span>Price: Not published</span></div>
@@ -309,7 +305,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     </div>
     <div class="product-grid">
       <div class="product-card"><a class="product-card__hit" href="products/PS-SC-201.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-situation.jpg" alt="Situation Handling Deck"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/situation-handling-deck.svg" alt="Situation Handling Deck"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__facts"><span>SKU: PS-SC-201</span><span>Price: Not published</span></div>
@@ -322,7 +318,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-SC-202.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-focus.jpg" alt="Focus & Energy System"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/focus-and-energy-system.svg" alt="Focus & Energy System"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__facts"><span>SKU: PS-SC-202</span><span>Price: Not published</span></div>
@@ -335,7 +331,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-SC-203.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-advocacy.jpg" alt="Self-Advocacy Workbook"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/self-advocacy-workbook.svg" alt="Self-Advocacy Workbook"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__facts"><span>SKU: PS-SC-203</span><span>Price: Not published</span></div>
@@ -348,7 +344,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-SC-204.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-interview-kit.jpg" alt="Interview & First Job Prep Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/interview-and-first-job-prep-kit.svg" alt="Interview & First Job Prep Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__facts"><span>SKU: PS-SC-204</span><span>Price: Not published</span></div>
@@ -361,7 +357,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-SC-205.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-adulting.jpg" alt="Adulting Launch Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/adulting-launch-kit.svg" alt="Adulting Launch Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--purple">Situation Handling</div>
           <div class="product-card__facts"><span>SKU: PS-SC-205</span><span>Price: Not published</span></div>
@@ -387,7 +383,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     </div>
     <div class="product-grid">
       <div class="product-card"><a class="product-card__hit" href="products/PS-CS-301.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-design.jpg" alt="Graphic Design Bench"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/graphic-design-bench.svg" alt="Graphic Design Bench"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--amber">Design & Motion</div>
           <div class="product-card__facts"><span>SKU: PS-CS-301</span><span>Price: Not published</span></div>
@@ -400,7 +396,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-CS-302.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-motion.jpg" alt="Motion & Video Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/motion-and-video-kit.svg" alt="Motion & Video Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--amber">Design & Motion</div>
           <div class="product-card__facts"><span>SKU: PS-CS-302</span><span>Price: Not published</span></div>
@@ -413,7 +409,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-CS-303.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-skill-income.jpg" alt="Skill-to-Income Pack"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/skill-to-income-pack.svg" alt="Skill-to-Income Pack"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--amber">Design & Motion</div>
           <div class="product-card__facts"><span>SKU: PS-CS-303</span><span>Price: Not published</span></div>
@@ -439,7 +435,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     </div>
     <div class="product-grid">
       <div class="product-card"><a class="product-card__hit" href="products/PS-AT-401.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-ai-kit.jpg" alt="AI Literacy Bench Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/ai-literacy-bench-kit.svg" alt="AI Literacy Bench Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
           <div class="product-card__facts"><span>SKU: PS-AT-401</span><span>Price: Not published</span></div>
@@ -452,7 +448,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-AT-402.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-robotics.jpg" alt="Electronics & Robotics Starter"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/electronics-and-robotics-starter.svg" alt="Electronics & Robotics Starter"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
           <div class="product-card__facts"><span>SKU: PS-AT-402</span><span>Price: Not published</span></div>
@@ -465,7 +461,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-AT-403.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-3d.jpg" alt="3D Design & Fabrication Intro"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/3d-design-and-fabrication-intro.svg" alt="3D Design & Fabrication Intro"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
           <div class="product-card__facts"><span>SKU: PS-AT-403</span><span>Price: Not published</span></div>
@@ -491,7 +487,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     </div>
     <div class="product-grid">
       <div class="product-card"><a class="product-card__hit" href="products/PS-HS-501.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-workbooks.jpg" alt="Core Subjects Workbook Set"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/core-subjects-workbook-set.svg" alt="Core Subjects Workbook Set"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
           <div class="product-card__facts"><span>SKU: PS-HS-501</span><span>Price: Not published</span></div>
@@ -504,7 +500,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-HS-502.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-portfolio.jpg" alt="Homeschool Assessment & Portfolio Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/homeschool-assessment-and-portfolio-kit.svg" alt="Homeschool Assessment & Portfolio Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
           <div class="product-card__facts"><span>SKU: PS-HS-502</span><span>Price: Not published</span></div>
@@ -517,7 +513,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-HS-503.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-supply.jpg" alt="Daily Supply Restock Box"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/daily-supply-restock-box.svg" alt="Daily Supply Restock Box"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
           <div class="product-card__facts"><span>SKU: PS-HS-503</span><span>Price: Not published</span></div>
@@ -530,7 +526,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
         </div>
       </div>
       <div class="product-card"><a class="product-card__hit" href="products/PS-HS-504.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-art.jpg" alt="Art & Craft Foundations Kit"/></div>
+        <div class="product-card__image"><img loading="lazy" src="images/art-and-craft-foundations-kit.svg" alt="Art & Craft Foundations Kit"/></div>
         <div class="product-card__body">
           <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
           <div class="product-card__facts"><span>SKU: PS-HS-504</span><span>Price: Not published</span></div>
@@ -573,6 +569,7 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
 </section>
 
 
+<section class="section" id="free-resources"><div class="container"><div class="section__header"><div class="section__eyebrow">Free printables</div><h2 class="section__title">Practical worksheets</h2></div><div class="utility-grid"><div class="utility-card"><h3>Budget planner</h3><p>Plan income and expenses.</p><a href="resources/budget-planner.html" class="product-card__link">Open printable →</a></div><div class="utility-card"><h3>First paycheck</h3><p>Understand take-home pay.</p><a href="resources/first-paycheck.html" class="product-card__link">Open printable →</a></div><div class="utility-card"><h3>Savings challenge</h3><p>Track a savings target.</p><a href="resources/savings-challenge.html" class="product-card__link">Open printable →</a></div><div class="utility-card"><h3>Business idea</h3><p>Shape a testable offer.</p><a href="resources/business-idea.html" class="product-card__link">Open printable →</a></div></div><p style="margin-top:14px"><a class="btn btn--outline" href="catalog.html">Return to catalog</a></p></div></section><section class="section section--alt"><div class="container"><div class="section__header"><div class="section__eyebrow">Product clips</div><h2 class="section__title">Demonstrations are being prepared</h2></div><div class="utility-grid"><div class="clip-placeholder"><strong>Pathway overview</strong><span>Video placeholder — no clip published yet.</span></div><div class="clip-placeholder"><strong>Workbook walkthrough</strong><span>Video placeholder — no clip published yet.</span></div></div></div></section><aside class="cta-bar"><div class="container"><p><strong>Need a written SKU check?</strong> We respond within one business day.</p><a class="btn btn--primary" href="contact.html">Contact Preparation Station</a></div></aside>
 <!-- Footer -->
 <footer class="site-footer">
   <div class="container">
@@ -607,12 +604,13 @@ a.product-card { text-decoration:none; color:inherit; display:block; }
     </div>
     <div class="footer-bottom">
       <div>Updated August 2026 · <a href="contact.html" style="color:var(--accent);">Get in touch</a> · Responses within one business day</div>
-      <div>Preparation Station is operated by Nationwide Acquisitions, LLC</div>
+      <div>Preparation Station is operated by Nationwide Acquisitions, LLC. No checkout; purchases complete in Odyssey only.</div>
     </div>
   </div>
 </footer>
 
 <script>
+const cards=[...document.querySelectorAll('.product-card')];cards.forEach((c,i)=>{const cat=c.querySelector('.product-card__category')?.textContent||'';const facts=c.querySelector('.product-card__facts')?.textContent||'';const sku=(facts.match(/(?:PS|RC)-[A-Z]+-[0-9]+/)||[''])[0];const price=Number((facts.match(/\$([0-9,]+)/)||['','0'])[1].replace(',',''));c.dataset.subject=cat;c.dataset.level=sku.startsWith('PS-HS-')?'elementary middle':sku.startsWith('PS-')?'high':'all';c.dataset.price=price||999999;c.dataset.order=i;let badge='fits',label='Fits most award programs';if(price){badge=price<2000?'entry':'premium';label=price<2000?'Entry':'Premium'}c.dataset.badge=badge;const b=c.querySelector('.product-card__status');if(b)b.textContent=label});const ctrls=['subject-filter','level-filter','eligibility-filter','sort-catalog'].map(x=>document.getElementById(x));function filter(){const [sub,lvl,badge,sort]=ctrls.map(x=>x.value);let n=0;cards.forEach(c=>{c.hidden=!((sub==='all'||c.dataset.subject.includes(sub))&&(lvl==='all'||c.dataset.level.includes(lvl))&&(badge==='all'||c.dataset.badge===badge));if(!c.hidden)n++});[...new Set(cards.map(c=>c.parentElement))].forEach(g=>[...g.children].filter(c=>!c.hidden).sort((a,b)=>sort==='title'?(a.querySelector('.product-card__title')?.textContent||'').localeCompare(b.querySelector('.product-card__title')?.textContent||''):sort==='price'?+a.dataset.price-+b.dataset.price:+a.dataset.order-+b.dataset.order).forEach(c=>g.appendChild(c)));document.getElementById('result-count').textContent=n+' items shown'}ctrls.forEach(c=>c.addEventListener('change',filter));filter();
 function toggleTheme() {
   const html = document.documentElement;
   const current = html.getAttribute('data-theme');
