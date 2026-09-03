@@ -25,14 +25,22 @@
   ol li{margin-bottom:.4rem}
   .tip{background:#f1ece1;border-left:4px solid var(--accent);padding:.7rem .9rem;font-size:.88rem;color:var(--soft);margin-top:1.4rem}
   .foot{margin-top:2rem;font-size:.78rem;color:var(--faint);border-top:1px solid var(--line);padding-top:.6rem}
-  @media print{body{padding:0}}
+  .screen-nav{font-size:.85rem;margin:0 0 1.1rem}
+  .screen-nav a{color:var(--accent);font-weight:700;text-decoration:none}
+  .brand a{color:inherit;text-decoration:none}
+  @media print{body{padding:0} .screen-nav{display:none!important}}
 </style>
 </head>
 <body>
   <div class="brand">
-    <b>Preparation Station</b>
+    <b><a href="../index.html">Preparation Station</a></b>
     <span>Practical curriculum for life ahead</span>
   </div>
+  <nav class="screen-nav" aria-label="Site">
+    <a href="../index.html">Home</a>
+    · <a href="../catalog.html">Catalog</a>
+    · <a href="../contact.html">Contact</a>
+  </nav>
   <h1>First Paycheck Worksheet</h1>
   <p class="intro">Your first paycheck teaches you what every later paycheck hides: the money on the stub is not the money you keep. Work through it once and it stops being confusing.</p>
 
@@ -56,15 +64,28 @@
 
   <h2>3. Decide before you spend</h2>
   <ol>
-    <li>Name one thing you will save from this paycheck: ________________________________</li>
-    <li>Name one bill or family responsibility this check covers: ________________________</li>
-    <li>Name one thing you will allow yourself to spend on: ______________________________</li>
+    <li>Name one thing you will save from this paycheck:
+      <div style="border-bottom:1px solid var(--line);height:2.1rem;margin:.2rem 0 .6rem"></div>
+    </li>
+    <li>Name one bill or family responsibility this check covers:
+      <div style="border-bottom:1px solid var(--line);height:2.1rem;margin:.2rem 0 .6rem"></div>
+    </li>
+    <li>Name one thing you will allow yourself to spend on:
+      <div style="border-bottom:1px solid var(--line);height:2.1rem;margin:.2rem 0 .6rem"></div>
+    </li>
   </ol>
 
   <h2>4. The rule that compounds</h2>
   <p style="font-size:.95rem;color:var(--soft)">A percentage beats an amount. If you save 10% of every check, your savings grow with your pay. Write the percentage you commit to: ______%</p>
 
   <p class="tip">Tip: deductions are not a mystery tax. Each line on the stub pays for something — ask your employer or a parent what each one is before your second paycheck.</p>
-  <p class="foot">Preparation Station — free printable resource. Preparation Station is operated by Nationwide Acquisitions, LLC and is an approved TEFA Marketplace vendor. Free resources are for educational convenience, not offerings for sale.</p>
+  <footer class="foot">
+    <p class="screen-nav">
+      <a href="../index.html">Home</a>
+      · <a href="../catalog.html">Catalog</a>
+      · <a href="../contact.html">Contact</a>
+    </p>
+    <p>Preparation Station — free printable resource. Preparation Station is operated by Nationwide Acquisitions, LLC and is an approved TEFA Marketplace vendor. Free resources are for educational convenience, not offerings for sale.</p>
+  </footer>
 </body>
 </html>

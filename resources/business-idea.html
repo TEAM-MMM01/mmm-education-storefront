@@ -26,14 +26,22 @@
   ol li{margin-bottom:.4rem}
   .tip{background:#f1ece1;border-left:4px solid var(--accent);padding:.7rem .9rem;font-size:.88rem;color:var(--soft);margin-top:1.4rem}
   .foot{margin-top:2rem;font-size:.78rem;color:var(--faint);border-top:1px solid var(--line);padding-top:.6rem}
-  @media print{body{padding:0}}
+  .screen-nav{font-size:.85rem;margin:0 0 1.1rem}
+  .screen-nav a{color:var(--accent);font-weight:700;text-decoration:none}
+  .brand a{color:inherit;text-decoration:none}
+  @media print{body{padding:0} .screen-nav{display:none!important}}
 </style>
 </head>
 <body>
   <div class="brand">
-    <b>Preparation Station</b>
+    <b><a href="../index.html">Preparation Station</a></b>
     <span>Practical curriculum for life ahead</span>
   </div>
+  <nav class="screen-nav" aria-label="Site">
+    <a href="../index.html">Home</a>
+    · <a href="../catalog.html">Catalog</a>
+    · <a href="../contact.html">Contact</a>
+  </nav>
   <h1>Student Business Idea Worksheet</h1>
   <p class="intro">A business idea only becomes a business when you can describe it on one page. Fill in each section — vague is the enemy of starting.</p>
 
@@ -51,14 +59,20 @@
   <h2>3. The 3 riskiest assumptions</h2>
   <p class="guide">Write the three things that must be true for this idea to work — and the cheapest way to test each.</p>
   <ol>
-    <li>Assumption: _____________________________________________
-      <div style="margin-top:.2rem">Cheapest test: __________________________________________</div>
+    <li>Assumption:
+      <div style="border-bottom:1px solid var(--line);height:2.1rem;margin:.2rem 0 .6rem"></div>
+      Cheapest test:
+      <div style="border-bottom:1px solid var(--line);height:2.1rem;margin:.2rem 0 .6rem"></div>
     </li>
-    <li>Assumption: _____________________________________________
-      <div style="margin-top:.2rem">Cheapest test: __________________________________________</div>
+    <li>Assumption:
+      <div style="border-bottom:1px solid var(--line);height:2.1rem;margin:.2rem 0 .6rem"></div>
+      Cheapest test:
+      <div style="border-bottom:1px solid var(--line);height:2.1rem;margin:.2rem 0 .6rem"></div>
     </li>
-    <li>Assumption: _____________________________________________
-      <div style="margin-top:.2rem">Cheapest test: __________________________________________</div>
+    <li>Assumption:
+      <div style="border-bottom:1px solid var(--line);height:2.1rem;margin:.2rem 0 .6rem"></div>
+      Cheapest test:
+      <div style="border-bottom:1px solid var(--line);height:2.1rem;margin:.2rem 0 .6rem"></div>
     </li>
   </ol>
 
@@ -76,6 +90,13 @@
   <div style="border:1px solid var(--line);height:3.4rem;padding:.4rem .6rem"></div>
 
   <p class="tip">Tip: a "no" from a real customer teaches more than a "wonderful idea!" from a parent. Plan for one conversation and one no this week.</p>
-  <p class="foot">Preparation Station — free printable resource. Preparation Station is operated by Nationwide Acquisitions, LLC and is an approved TEFA Marketplace vendor. Free resources are for educational convenience, not offerings for sale.</p>
+  <footer class="foot">
+    <p class="screen-nav">
+      <a href="../index.html">Home</a>
+      · <a href="../catalog.html">Catalog</a>
+      · <a href="../contact.html">Contact</a>
+    </p>
+    <p>Preparation Station — free printable resource. Preparation Station is operated by Nationwide Acquisitions, LLC and is an approved TEFA Marketplace vendor. Free resources are for educational convenience, not offerings for sale.</p>
+  </footer>
 </body>
 </html>
