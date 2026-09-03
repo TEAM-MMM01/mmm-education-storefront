@@ -18,6 +18,7 @@
       "store/order.html",
       "store/track.html",
       "store/cart.js",
+      "store/formspree-intake.js",
       "store/nav.js",
       "store/motion.js",
       "store/track.js",
@@ -111,6 +112,7 @@
     ],
     "optional": [
       "config/request-intake.json",
+      "config/formspree-intake.json",
       "config/order-portal.json"
     ]
   }

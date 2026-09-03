@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "provider": "formspree",
+  "enabled": true,
+  "PATHWAY_RECOMMENDATION_FORMSPREE_ID": "xbgjyqzw",
+  "SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID": "xoeqwykd",
+  "TURNSTILE_SITE_KEY": "",
+  "restricted_domain": "preparationstation.org",
+  "support_email": "Hello@preparationstation.org"
+}

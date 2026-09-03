@@ -32,6 +32,9 @@ Latin text plus the punctuation this page actually uses, and the variable
 faces were instanced down to a single optical size. See fonts/README.md.
 """
 import base64
+import html
+import json
+import os
 import pathlib
 import re
 
@@ -165,10 +168,66 @@ def build_info_pages(shared_css: str):
             raise SystemExit(f"__INFO_SHARED_CSS__ missing from src/info/{name}.html")
         page = src.replace("__INFO_SHARED_CSS__", shared_css)
         page = page.replace("BUILD_DATE", BUILD_DATE)
+        if name == "contact":
+            page = apply_formspree_placeholders(page)
         page = resolve_cross_links(page, main="index.html", esa_shop="store/shop.html", general_store="")
         out = HERE / f"{name}.html"
         out.write_text(standalone_document(page, descriptions[name]))
         print(f"{name}.html  {out.stat().st_size / 1024:.0f} KB")
+
+
+FORMSPREE_ID_RE = re.compile(r"^[A-Za-z0-9]{6,32}$")
+
+
+def _formspree_public_value(config: dict, env_name: str, *keys: str) -> str:
+    env_value = os.environ.get(env_name, "").strip()
+    if env_value:
+        return env_value
+    for key in keys:
+        value = str(config.get(key) or "").strip()
+        if value:
+            return value
+    return ""
+
+
+def resolve_formspree_public(config: dict) -> tuple[bool, str, str, str]:
+    pathway = _formspree_public_value(
+        config,
+        "PATHWAY_RECOMMENDATION_FORMSPREE_ID",
+        "PATHWAY_RECOMMENDATION_FORMSPREE_ID",
+        "pathway_form_id",
+    )
+    quote = _formspree_public_value(
+        config,
+        "SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID",
+        "SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID",
+        "quote_form_id",
+    )
+    sitekey = _formspree_public_value(
+        config,
+        "TURNSTILE_SITE_KEY",
+        "TURNSTILE_SITE_KEY",
+        "turnstile_sitekey",
+    )
+    valid_ids = bool(FORMSPREE_ID_RE.fullmatch(pathway) and FORMSPREE_ID_RE.fullmatch(quote))
+    valid_sitekey = bool(sitekey) and len(sitekey) >= 8 and "secret" not in sitekey.lower() and "[" not in sitekey
+    ready = bool(config.get("enabled") is True and valid_ids)
+    return ready, pathway, quote, sitekey if (ready and valid_sitekey) else ""
+
+
+def apply_formspree_placeholders(page: str) -> str:
+    config = json.loads((HERE / "config" / "formspree-intake.json").read_text())
+    ready, pathway_id, quote_id, sitekey = resolve_formspree_public(config)
+    pathway = f"https://formspree.io/f/{pathway_id}" if ready else ""
+    quote = f"https://formspree.io/f/{quote_id}" if ready else ""
+    if "__FORMSPREE_READY__" not in page:
+        raise SystemExit("contact source is missing Formspree placeholders")
+    return (
+        page.replace("__FORMSPREE_READY__", "true" if ready else "false")
+        .replace("__FORMSPREE_PATHWAY_ACTION__", html.escape(pathway, quote=True))
+        .replace("__FORMSPREE_QUOTE_ACTION__", html.escape(quote, quote=True))
+        .replace("__TURNSTILE_SITEKEY__", html.escape(sitekey if ready else "", quote=True))
+    )
 
 
 def resolve_cross_links(page: str, main: str, esa_shop: str, general_store: str) -> str:

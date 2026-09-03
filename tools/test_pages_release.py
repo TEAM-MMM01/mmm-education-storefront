@@ -79,7 +79,11 @@ def safe_relative_path(value: str) -> PurePosixPath:
     require(path.parts[0] not in FORBIDDEN_TOP_LEVEL, f"Repository-internal path is forbidden: {value}")
     if path.parts[0] == "config":
         require(
-            value in {"config/request-intake.json", "config/order-portal.json"},
+            value in {
+                "config/request-intake.json",
+                "config/formspree-intake.json",
+                "config/order-portal.json",
+            },
             f"Only reviewed public runtime configuration may be released: {value}",
         )
     return path

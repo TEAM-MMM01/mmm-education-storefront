@@ -16,6 +16,7 @@ PRODUCTS_PATH = ROOT / "catalog" / "products.json"
 TEFA_OFFERINGS_PATH = ROOT / "catalog" / "tefa-offerings.json"
 PATHWAYS_PATH = ROOT / "catalog" / "pathways.json"
 REQUEST_CONFIG_PATH = ROOT / "config" / "request-intake.json"
+FORMSPREE_CONFIG_PATH = ROOT / "config" / "formspree-intake.json"
 ORDER_PORTAL_CONFIG_PATH = ROOT / "config" / "order-portal.json"
 ORDER_SCHEMA_PATH = ROOT / "schemas" / "order-record.schema.json"
 GENERATED_HTML = [
@@ -485,6 +486,68 @@ def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> 
         require(bool(allowed_skus), "Enabled request intake requires at least one allowed SKU")
 
 
+def validate_formspree_intake(config: dict, request_config: dict) -> None:
+    allowed_keys = {
+        "schema_version",
+        "provider",
+        "enabled",
+        "PATHWAY_RECOMMENDATION_FORMSPREE_ID",
+        "SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID",
+        "TURNSTILE_SITE_KEY",
+        "restricted_domain",
+        "support_email",
+    }
+    require(set(config) == allowed_keys, "Unexpected Formspree intake configuration keys")
+    require(config.get("schema_version") == 1, "Unsupported Formspree intake schema")
+    require(config.get("provider") == "formspree", "Unexpected Formspree provider")
+    require(isinstance(config.get("enabled"), bool), "Formspree enabled flag must be boolean")
+    require(config.get("support_email") == "Hello@preparationstation.org", "Formspree support email drifted")
+    require(
+        config.get("restricted_domain") == "preparationstation.org",
+        "Formspree domain restriction must be documented as preparationstation.org",
+    )
+    for key in (
+        "PATHWAY_RECOMMENDATION_FORMSPREE_ID",
+        "SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID",
+        "TURNSTILE_SITE_KEY",
+    ):
+        value = config.get(key)
+        require(isinstance(value, str), f"Formspree {key} must be a string")
+        require("secret" not in value.lower(), f"Formspree {key} must not contain a secret")
+        require("[" not in value, f"Formspree {key} still contains a placeholder")
+    pathway_id = config.get("PATHWAY_RECOMMENDATION_FORMSPREE_ID") or ""
+    quote_id = config.get("SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID") or ""
+    sitekey = config.get("TURNSTILE_SITE_KEY") or ""
+    if pathway_id:
+        require(re.fullmatch(r"[A-Za-z0-9]{6,32}", pathway_id) is not None, "Pathway Formspree ID is not a public form hash")
+    if quote_id:
+        require(re.fullmatch(r"[A-Za-z0-9]{6,32}", quote_id) is not None, "Quote Formspree ID is not a public form hash")
+    if config.get("enabled"):
+        require(bool(pathway_id), "Enabled Formspree intake requires PATHWAY_RECOMMENDATION_FORMSPREE_ID")
+        require(bool(quote_id), "Enabled Formspree intake requires SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID")
+    require(request_config.get("enabled") is False, "Worker request-intake must stay disabled while Formspree is the public form path")
+
+    source = (ROOT / "src" / "info" / "contact.html").read_text(encoding="utf-8")
+    generated = (ROOT / "contact.html").read_text(encoding="utf-8")
+    js = (ROOT / "store" / "formspree-intake.js").read_text(encoding="utf-8")
+    require("__FORMSPREE_READY__" in source, "Contact source must bake Formspree readiness from config")
+    require("TURNSTILE_SECRET" not in source and "TURNSTILE_SECRET" not in js, "Turnstile secret must not appear in storefront code")
+    require("Please do not include student records, health information, payment details, or program-account credentials." in source, "Missing required Formspree privacy copy")
+    expected_ready = "true" if (config.get("enabled") and pathway_id and quote_id) else "false"
+    require(f'data-formspree-ready="{expected_ready}"' in generated, "Generated contact forms must match Formspree public-config readiness")
+    require('name="form_type"' in generated, "Contact forms must include hidden form_type")
+    require('name="_subject"' in generated, "Contact forms must include hidden _subject")
+    require('name="_gotcha"' in generated, "Contact forms must include honeypot _gotcha")
+    if expected_ready != "true":
+        require("https://formspree.io/f/" not in generated, "Disabled Formspree forms must not publish a live form endpoint")
+        require('data-turnstile-sitekey=""' in generated, "Disabled Formspree forms must not publish a Turnstile sitekey")
+    else:
+        require(f"https://formspree.io/f/{pathway_id}" in generated, "Enabled pathway form must post to its Formspree endpoint")
+        require(f"https://formspree.io/f/{quote_id}" in generated, "Enabled quote form must post to its Formspree endpoint")
+        if not sitekey:
+            require('data-turnstile-sitekey=""' in generated, "Empty Turnstile sitekey must not invent a widget key")
+
+
 def validate_request_form() -> None:
     source = (ROOT / "store" / "src" / "order.html").read_text(encoding="utf-8")
     form_match = re.search(r'<form id="quote-form"(?P<body>.*?)</form>', source, re.DOTALL)
@@ -582,8 +645,10 @@ def main() -> None:
     product_skus = validate_products(load_json(PRODUCTS_PATH))
     verified_skus = validate_tefa_offerings(load_json(TEFA_OFFERINGS_PATH), product_skus)
     known_skus = product_skus | pathway_skus | verified_skus
-    validate_request_config(load_json(REQUEST_CONFIG_PATH), state, known_skus)
+    request_config = load_json(REQUEST_CONFIG_PATH)
+    validate_request_config(request_config, state, known_skus)
     validate_request_form()
+    validate_formspree_intake(load_json(FORMSPREE_CONFIG_PATH), request_config)
     validate_order_portal(load_json(ORDER_PORTAL_CONFIG_PATH), known_skus)
     validate_public_source()
     validate_generated_html()
