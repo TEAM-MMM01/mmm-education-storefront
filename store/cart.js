@@ -41,3 +41,12 @@
     'PS-HS-503': { name: 'Daily Supply Restock Box', price: null, dept: 'Homeschool Essentials' },
     'PS-HS-504': { name: 'Art & Craft Foundations Kit', price: null, dept: 'Homeschool Essentials' },
   };
+
+  const requestState = {
+    config: null,
+    configStatus: 'loading',
+    inFlight: false,
+    needsRetry: false,
+    receipt: null,
+    completed: false,
+  };
