@@ -37,6 +37,7 @@ FORBIDDEN: list[tuple[re.Pattern[str], str]] = [
     (re.compile(r".*\.(swp|swo)$|.*~$", re.IGNORECASE), "Editor swap/backup file"),
     (re.compile(r"(^|.*/)\.env$"), "Environment token file (NEVER commit)"),
     (re.compile(r"(^|.*/)\.env\.(?!example$)[^/]+$"), "Environment token file (NEVER commit)"),
+    (re.compile(r"(^|.*/)\.mcp\.json$"), "Local MCP config (credentials; never commit)"),
     (re.compile(r"(^|.*/)\.hermes-mac(/|$)"), "HermesOS local queue state (never commit)"),
 ]
 

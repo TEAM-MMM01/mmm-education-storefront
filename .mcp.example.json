@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "example": {
+      "url": "https://example.invalid/mcp",
+      "headers": {
+        "Authorization": "Bearer REPLACE_WITH_LOCAL_SECRET"
+      }
+    }
+  }
+}

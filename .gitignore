@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 __pycache__/
 *.py[cod]
 .DS_Store
 
 # Agent session memory (local-only; never commit)
-.claude/
+.claude
 
 # Local snapshot directories (timestamps + scratch dumps; never commit)
 _org-backup/
@@ -25,11 +24,16 @@ venv/
 .env.*
 !.env.example
 
+# Local MCP runtime config may contain credentials. Never commit it.
+# Version the credential-free example instead.
+.mcp.json
+!.mcp.example.json
+
 # Baby-agent run output (regenerated on every invocation)
 tools/agent_loop/report.json
 
 # Orchestration runtime output (regenerated on every invocation)
 .hermes-mac/
-=======
+
+# Local Vercel CLI metadata
 .vercel/
->>>>>>> 58693cd (chore: ignore local Vercel project metadata)
