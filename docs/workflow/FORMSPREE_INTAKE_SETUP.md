@@ -11,8 +11,14 @@ same environment-variable names):
 - `SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID`
 - `TURNSTILE_SITE_KEY`
 
-`restricted_domain` is `preparationstation.org`. Forms stay disabled
-until all three public values are valid **and** `enabled` is `true`.
+`restricted_domain` is `preparationstation.org`. Forms enable when the
+two public Formspree IDs are valid **and** `enabled` is `true`. The
+Turnstile widget renders only if `TURNSTILE_SITE_KEY` is also set. The
+Turnstile **secret** stays in dashboards only.
+
+PR #75 (Cloudflare Worker + Resend) is parked as a future custom-intake
+option for automation, CRM routing, or Formspree replacement. It is not
+the public contact path.
 
 ## Dashboard steps already required
 
@@ -29,8 +35,9 @@ until all three public values are valid **and** `enabled` is `true`.
    `preparationstation.org`. Copy the public sitekey only.
 6. In each Formspree form, enable CAPTCHA → Cloudflare Turnstile and
    paste the Turnstile **secret** only inside Formspree.
-7. Put the three public values into `config/formspree-intake.json`, set
-   `enabled` to `true`, and run `python3 build.py`.
+7. Put the public Formspree IDs into `config/formspree-intake.json`,
+   optionally add `TURNSTILE_SITE_KEY`, set `enabled` to `true`, and
+   run `python3 build.py`. Do not commit the Turnstile secret.
 8. Deploy the pull request to Vercel preview.
 9. Send one synthetic, non-sensitive pathway recommendation.
 10. Send one synthetic, non-sensitive school/district quote.

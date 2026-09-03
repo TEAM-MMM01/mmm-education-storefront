@@ -38,16 +38,15 @@
     <div class="card">
       <span class="mono">Pathway recommendation</span>
       <h2 class="card-title">Send a request</h2>
-      <form id="contact-form" class="stack g-16" style="margin-top:1rem" method="post" action="__FORMSPREE_PATHWAY_ACTION__" novalidate data-formspree-ready="__FORMSPREE_READY__" data-turnstile-sitekey="__TURNSTILE_SITEKEY__" data-intake-source="pathway_recommendation">
+      <form id="contact-form" class="stack g-16" style="margin-top:1rem" method="POST" action="__FORMSPREE_PATHWAY_ACTION__" novalidate data-formspree-ready="__FORMSPREE_READY__" data-turnstile-sitekey="__TURNSTILE_SITEKEY__" data-intake-source="pathway_recommendation">
         <input type="text" name="_gotcha" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="form_type" value="pathway_recommendation">
         <input type="hidden" name="_subject" value="Preparation Station pathway recommendation">
-        <input type="hidden" name="source" value="pathway_recommendation">
-        <input type="hidden" name="sku" id="contact-sku" value="">
         <p><label for="contact-name">Adult/contact name</label>
           <input id="contact-name" type="text" name="name" required autocomplete="name"></p>
         <p><label for="contact-email">Email address</label>
           <input id="contact-email" type="email" name="email" required autocomplete="email"></p>
-        <p><label for="contact-age">Learner age band</label>
+        <p><label for="contact-age">Student age / grade band</label>
           <select id="contact-age" name="age_band" required>
             <option value="">Select a band</option>
             <option>Ages 3–5 Launchpad</option>
@@ -56,9 +55,9 @@
             <option>Ages 13–17 Advanced Command</option>
             <option>Parent / educator Planner Mode</option>
           </select></p>
-        <p><label for="contact-goal">Goal / interest area</label>
-          <select id="contact-goal" name="goal" required>
-            <option value="">Select a goal</option>
+        <p><label for="contact-topic">Topic</label>
+          <select id="contact-topic" name="topic" required>
+            <option value="">Select a topic</option>
             <option>Practical life skills</option>
             <option>Independent living and money habits</option>
             <option>Career readiness</option>
@@ -68,50 +67,53 @@
             <option>Homeschool planning</option>
             <option>Not sure yet</option>
           </select></p>
-        <p><label for="contact-path">Purchase path</label>
-          <select id="contact-path" name="purchase_path" required>
-            <option value="">Select a path</option>
-            <option>TEFA / official marketplace</option>
-            <option>Direct family purchase</option>
-            <option>School or district</option>
-            <option>Not sure yet</option>
-          </select></p>
         <p><label for="contact-message">Message</label>
           <textarea id="contact-message" name="message" rows="5" required></textarea></p>
         <p style="font-size:.85rem;color:var(--ink-soft)">Please do not include student records, health information, payment details, or program-account credentials.</p>
         <div data-turnstile-slot></div>
-        <button type="submit" class="btn btn-solid" id="contact-submit">Request a pathway recommendation</button>
-        <p data-form-error id="form-error" role="alert" style="display:none;font-weight:700;color:#8F3D3D"></p>
-        <p data-form-ok id="form-ok" role="status" style="display:none; font-size:.9rem; font-weight:600; color:var(--accent)"></p>
+        <button type="submit" class="btn btn-solid" id="contact-submit">Submit request</button>
+        <p data-form-error id="form-error" role="alert" aria-live="assertive" style="display:none;font-weight:700;color:#8F3D3D"></p>
+        <p data-form-ok id="form-ok" role="status" aria-live="polite" style="display:none; font-size:.9rem; font-weight:600; color:var(--accent)"></p>
       </form>
       <hr style="margin:1.5rem 0;border:0;border-top:1px solid var(--rule)">
       <h2 class="card-title">Request a School or District Quote</h2>
       <p>Request a written quote and availability review. A quote is not TEFA approval or a live price.</p>
-      <form id="quote-form" class="stack g-16" style="margin-top:1rem" method="post" action="__FORMSPREE_QUOTE_ACTION__" novalidate data-formspree-ready="__FORMSPREE_READY__" data-turnstile-sitekey="__TURNSTILE_SITEKEY__" data-intake-source="school_district_quote">
+      <form id="quote-form" class="stack g-16" style="margin-top:1rem" method="POST" action="__FORMSPREE_QUOTE_ACTION__" novalidate data-formspree-ready="__FORMSPREE_READY__" data-turnstile-sitekey="__TURNSTILE_SITEKEY__" data-intake-source="school_district_quote">
         <input type="text" name="_gotcha" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="form_type" value="school_district_quote">
         <input type="hidden" name="_subject" value="Preparation Station school and district quote">
-        <input type="hidden" name="source" value="school_district_quote">
-        <p><label for="quote-organization">Organization/school/district name</label>
-          <input id="quote-organization" type="text" name="organization" required autocomplete="organization"></p>
         <p><label for="quote-name">Contact name</label>
           <input id="quote-name" type="text" name="name" required autocomplete="name"></p>
         <p><label for="quote-email">Work email</label>
           <input id="quote-email" type="email" name="email" required autocomplete="email"></p>
-        <p><label for="quote-grade">Learner grade band</label>
-          <input id="quote-grade" type="text" name="grade_band" required></p>
-        <p><label for="quote-interest">Product/pathway interest</label>
-          <input id="quote-interest" type="text" name="interest" required></p>
-        <p><label for="quote-count">Approximate learner count</label>
-          <input id="quote-count" type="number" name="learner_count" min="1" required></p>
-        <p><label for="quote-timeline">Desired timeline</label>
-          <input id="quote-timeline" type="text" name="timeline" required></p>
+        <p><label for="quote-organization">Organization/school/district name</label>
+          <input id="quote-organization" type="text" name="organization" required autocomplete="organization"></p>
+        <p><label for="quote-role">Role</label>
+          <select id="quote-role" name="role" required>
+            <option value="">Select a role</option>
+            <option>Administrator</option>
+            <option>Curriculum lead</option>
+            <option>Teacher / facilitator</option>
+            <option>Procurement</option>
+            <option>Other</option>
+          </select></p>
+        <p><label for="quote-inquiry">Inquiry type</label>
+          <select id="quote-inquiry" name="inquiry_type" required>
+            <option value="">Select an inquiry type</option>
+            <option>Written quote and availability</option>
+            <option>Pilot / sample review</option>
+            <option>Pathway recommendation for a cohort</option>
+            <option>Not sure yet</option>
+          </select></p>
+        <p><label for="quote-skus">Products / SKUs</label>
+          <input id="quote-skus" type="text" name="products_skus" required></p>
         <p><label for="quote-message">Message</label>
           <textarea id="quote-message" name="message" rows="4" required></textarea></p>
         <p style="font-size:.85rem;color:var(--ink-soft)">Please do not include student records, health information, payment details, or program-account credentials.</p>
         <div data-turnstile-slot></div>
-        <button type="submit" class="btn btn-solid" id="quote-submit">Request a written quote and availability review</button>
-        <p data-form-error id="quote-error" role="alert" style="display:none;font-weight:700;color:#8F3D3D"></p>
-        <p data-form-ok id="quote-ok" role="status" style="display:none;font-weight:600;color:var(--accent)"></p>
+        <button type="submit" class="btn btn-solid" id="quote-submit">Request quote</button>
+        <p data-form-error id="quote-error" role="alert" aria-live="assertive" style="display:none;font-weight:700;color:#8F3D3D"></p>
+        <p data-form-ok id="quote-ok" role="status" aria-live="polite" style="display:none;font-weight:600;color:var(--accent)"></p>
       </form>
     </div>
     <div class="stack g-20">

@@ -211,8 +211,8 @@ def resolve_formspree_public(config: dict) -> tuple[bool, str, str, str]:
     )
     valid_ids = bool(FORMSPREE_ID_RE.fullmatch(pathway) and FORMSPREE_ID_RE.fullmatch(quote))
     valid_sitekey = bool(sitekey) and len(sitekey) >= 8 and "secret" not in sitekey.lower() and "[" not in sitekey
-    ready = bool(config.get("enabled") is True and valid_ids and valid_sitekey)
-    return ready, pathway, quote, sitekey
+    ready = bool(config.get("enabled") is True and valid_ids)
+    return ready, pathway, quote, sitekey if (ready and valid_sitekey) else ""
 
 
 def apply_formspree_placeholders(page: str) -> str:

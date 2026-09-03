@@ -525,7 +525,6 @@ def validate_formspree_intake(config: dict, request_config: dict) -> None:
     if config.get("enabled"):
         require(bool(pathway_id), "Enabled Formspree intake requires PATHWAY_RECOMMENDATION_FORMSPREE_ID")
         require(bool(quote_id), "Enabled Formspree intake requires SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID")
-        require(bool(sitekey), "Enabled Formspree intake requires TURNSTILE_SITE_KEY")
     require(request_config.get("enabled") is False, "Worker request-intake must stay disabled while Formspree is the public form path")
 
     source = (ROOT / "src" / "info" / "contact.html").read_text(encoding="utf-8")
@@ -534,16 +533,19 @@ def validate_formspree_intake(config: dict, request_config: dict) -> None:
     require("__FORMSPREE_READY__" in source, "Contact source must bake Formspree readiness from config")
     require("TURNSTILE_SECRET" not in source and "TURNSTILE_SECRET" not in js, "Turnstile secret must not appear in storefront code")
     require("Please do not include student records, health information, payment details, or program-account credentials." in source, "Missing required Formspree privacy copy")
-    expected_ready = "true" if (
-        config.get("enabled")
-        and pathway_id
-        and quote_id
-        and sitekey
-    ) else "false"
+    expected_ready = "true" if (config.get("enabled") and pathway_id and quote_id) else "false"
     require(f'data-formspree-ready="{expected_ready}"' in generated, "Generated contact forms must match Formspree public-config readiness")
+    require('name="form_type"' in generated, "Contact forms must include hidden form_type")
+    require('name="_subject"' in generated, "Contact forms must include hidden _subject")
+    require('name="_gotcha"' in generated, "Contact forms must include honeypot _gotcha")
     if expected_ready != "true":
         require("https://formspree.io/f/" not in generated, "Disabled Formspree forms must not publish a live form endpoint")
         require('data-turnstile-sitekey=""' in generated, "Disabled Formspree forms must not publish a Turnstile sitekey")
+    else:
+        require(f"https://formspree.io/f/{pathway_id}" in generated, "Enabled pathway form must post to its Formspree endpoint")
+        require(f"https://formspree.io/f/{quote_id}" in generated, "Enabled quote form must post to its Formspree endpoint")
+        if not sitekey:
+            require('data-turnstile-sitekey=""' in generated, "Empty Turnstile sitekey must not invent a widget key")
 
 
 def validate_request_form() -> None:

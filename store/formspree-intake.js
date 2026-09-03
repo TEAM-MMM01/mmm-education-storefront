@@ -36,8 +36,7 @@
       config &&
         config.enabled === true &&
         isFormId(values.pathway) &&
-        isFormId(values.quote) &&
-        isSitekey(values.sitekey)
+        isFormId(values.quote)
     );
   }
 
@@ -106,8 +105,11 @@
     var params = new URLSearchParams(root.location ? root.location.search : '');
     try {
       var sku = params.get('sku');
-      var skuField = form.elements.sku;
+      var skuField = form.elements.products_skus || form.elements.sku;
       if (sku && skuField && !skuField.value) skuField.value = sku;
+      else if (sku && form.elements.message && form.elements.message.value.indexOf(sku) < 0) {
+        form.elements.message.value = (form.elements.message.value ? form.elements.message.value + '\n\n' : '') + 'SKU: ' + sku;
+      }
       var body = params.get('body');
       if (body && form.elements.message && !form.elements.message.value) form.elements.message.value = body;
     } catch (e) {}
