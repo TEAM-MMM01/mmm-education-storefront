@@ -463,6 +463,8 @@ html,body{margin:0; padding:0}
 .page h1,.page h2,.page h3{margin:0; font-family:var(--display); font-weight:800; letter-spacing:-.02em; line-height:1.1; text-wrap:balance}
 .page a{color:var(--accent)}
 .page :focus-visible{outline:2.5px solid var(--focus); outline-offset:3px; border-radius:2px}
+.page label{display:flex;flex-direction:column;gap:.35rem;font-size:.9rem;font-weight:600}
+.page label input,.page label select,.page label textarea{font:inherit;padding:.7rem .75rem;min-height:44px;border:1.5px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);color-scheme:light}
 .wrap{width:100%; max-width:var(--measure); margin-inline:auto; padding-inline:clamp(1.15rem,4vw,2.5rem)}
 .band{padding-block:clamp(3rem,6vw,5rem)}
 .band-tint{background:var(--section-even,#f7f3ec)}
@@ -581,7 +583,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       </ul>
     </nav>
     <div class="header-actions">
-      <a class="btn btn--primary" href="contact.html">Start a Request</a>
+      <a class="btn btn--primary" href="contact.html">Request recommendation</a>
     </div>
   </div>
 </header>
@@ -601,7 +603,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
 <div class="wrap" style="margin-bottom:var(--space-8);">
   <div style="background:var(--color-primary-soft);border:1px solid var(--color-primary);border-radius:var(--radius-lg);padding:16px 20px;font-size:0.85rem;color:var(--color-primary);display:flex;align-items:center;gap:10px;">
     <span>📋</span>
-    <span>Every item listed is under offering review. Prices and purchase availability will appear in Odyssey once verified.</span>
+    <span>These age-band items are in offering review. They are not purchasable on this site. TEFA-funded purchases use only the exact SKU published in Odyssey.</span>
   </div>
 </div>
 
@@ -613,7 +615,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       <div>
         <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px;">Launchpad</h2>
         <p style="font-size:0.95rem;color:var(--color-text-muted);max-width:600px;">First exposure, hands-on basics. Core workbook foundations, art and craft basics, and the daily supply restock box — everything with adult supervision.</p>
-        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">3 items available</div>
+        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">3 items in offering review</div>
       </div>
     </div>
     <div class="product-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
@@ -665,7 +667,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       <div>
         <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px;">Explorer</h2>
         <p style="font-size:0.95rem;color:var(--color-text-muted);max-width:600px;">Guided practice with supervision. Kitchen and provision skills, art and craft foundations, core workbook sets, and the daily supply box.</p>
-        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">4 items available</div>
+        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">4 items in offering review</div>
       </div>
     </div>
     <div class="product-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
@@ -729,7 +731,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       <div>
         <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px;">Mission Control</h2>
         <p style="font-size:0.95rem;color:var(--color-text-muted);max-width:600px;">Independent projects, first real tools. Home and repair tool roll, situation handling deck, focus and energy system, graphic design bench, AI literacy, and robotics.</p>
-        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">6 items available</div>
+        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">6 items in offering review</div>
       </div>
     </div>
     <div class="product-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
@@ -817,7 +819,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       <div>
         <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px;">Advanced Command</h2>
         <p style="font-size:0.95rem;color:var(--color-text-muted);max-width:600px;">Serious skills with income potential. Money and first job kit, interview prep, adulting launch kit, motion and video, skill-to-income pack, and 3D fabrication intro.</p>
-        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">6 items available</div>
+        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">6 items in offering review</div>
       </div>
     </div>
     <div class="product-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
@@ -905,7 +907,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       <div>
         <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px;">Planner Mode</h2>
         <p style="font-size:0.95rem;color:var(--color-text-muted);max-width:600px;">Plan the whole runway. Assessment and portfolio kit, supply restock box, and the full catalog for building a year-long plan.</p>
-        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">3 items available</div>
+        <div style="margin-top:8px;font-size:0.8rem;font-weight:600;color:var(--color-primary);">3 items in offering review</div>
       </div>
     </div>
     <div class="product-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">

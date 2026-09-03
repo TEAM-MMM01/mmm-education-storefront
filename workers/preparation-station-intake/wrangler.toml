@@ -4,6 +4,6 @@ compatibility_date = "2026-08-21"
 workers_dev = true
 
 [vars]
-ALLOWED_ORIGIN = "https://preparationstation.orgg"
+ALLOWED_ORIGIN = "https://preparationstation.org"
 OPERATIONS_EMAIL = "Operations@preparationstation.org"
 RESEND_FROM_EMAIL = "Support@preparationstation.org"

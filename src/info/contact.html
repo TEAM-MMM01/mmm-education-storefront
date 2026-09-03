@@ -21,51 +21,89 @@
       </ul>
     </nav>
     <div class="header-actions">
-      <a class="btn btn--primary" href="contact.html">Start a Request</a>
+      <a class="btn btn--primary" href="contact.html">Request recommendation</a>
     </div>
   </div>
 </header>
 
 <main class="wrap band">
   <section class="stack g-24 reveal">
-    <span class="eyebrow">Contact</span>
-    <h1 class="h-xl">Talk to a real person — within one business day.</h1>
-    <p class="lede">Complete requests are acknowledged within one business day. Use the form
-      below or email us directly; we confirm the correct purchase pathway in writing before
-      any funded purchase.</p>
+    <span class="eyebrow">Talk to a real person</span>
+    <h1 class="h-xl">Request a Written Pathway Recommendation</h1>
+    <p class="lede">Tell us the learner’s age, goals, and preferred purchase path. We will reply with best-fit options, current product status, and the correct next step before any purchase.</p>
+    <p class="prose">TEFA-funded purchases are available only for the exact Preparation Station offering that is approved and published in the official marketplace. This website does not process TEFA payments or collect program-account details.</p>
   </section>
 
   <section class="grid2 reveal stagger" style="margin-top:2.5rem">
     <div class="card">
-      <span class="mono">Request form</span>
-      <h2 class="card-title">Send a message</h2>
-      <form id="contact-form" class="stack g-16" style="margin-top:1rem" method="post" data-request-intake="disabled">
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <label style="display:flex; flex-direction:column; gap:.35rem; font-size:.9rem; font-weight:600">
-          Your name
-          <input type="text" name="name" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); color-scheme:light">
+      <span class="mono">Pathway recommendation</span>
+      <h2 class="card-title">Send a request</h2>
+      <form id="contact-form" class="stack g-16" style="margin-top:1rem" method="post" novalidate data-request-intake="disabled">
+        <input type="text" name="_gotcha" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label>Parent/guardian or contact name
+          <input type="text" name="name" required autocomplete="name">
         </label>
-        <label style="display:flex; flex-direction:column; gap:.35rem; font-size:.9rem; font-weight:600">
-          Your email
-          <input type="email" name="email" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); color-scheme:light">
+        <label>Email address
+          <input type="email" name="email" required autocomplete="email">
         </label>
-        <label style="display:flex; flex-direction:column; gap:.35rem; font-size:.9rem; font-weight:600">
-          Topic
-          <select name="topic" style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); color-scheme:light">
-            <option>Product request or question</option>
-            <option>Funding / TEFA eligibility</option>
-            <option>Order or tracking question</option>
-            <option>Something else</option>
+        <label>Learner age band
+          <select name="age_band" required>
+            <option value="">Select a band</option>
+            <option>Ages 3–5 Launchpad</option>
+            <option>Ages 6–8 Explorer</option>
+            <option>Ages 9–12 Mission Control</option>
+            <option>Ages 13–17 Advanced Command</option>
+            <option>Parent / educator Planner Mode</option>
           </select>
         </label>
-        <label style="display:flex; flex-direction:column; gap:.35rem; font-size:.9rem; font-weight:600">
-          Message
-          <textarea name="message" rows="5" required style="font:inherit; padding:.6rem .75rem; border:1.5px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink); color-scheme:light"></textarea>
+        <label>Goal / interest area
+          <select name="goal" required>
+            <option value="">Select a goal</option>
+            <option>Practical life skills</option>
+            <option>Independent living and money habits</option>
+            <option>Career readiness</option>
+            <option>Self-command and communication</option>
+            <option>Digital judgment / AI literacy</option>
+            <option>Design and making</option>
+            <option>Homeschool planning</option>
+            <option>Not sure yet</option>
+          </select>
         </label>
-        <button type="submit" class="btn btn-solid">Send message <span class="arr">&rarr;</span></button>
-        <p style="font-size:.85rem; color:var(--ink-soft)">Submit opens your email app pre-addressed to the right inbox
-          (Hello, Sales, or Support). Acknowledged within one business day. We never collect payment here.</p>
-        <p id="form-ok" style="display:none; font-size:.9rem; font-weight:600; color:var(--accent)">✓ Message sent — we will reply within one business day.</p>
+        <label>Purchase path
+          <select name="purchase_path" required>
+            <option value="">Select a path</option>
+            <option>TEFA / official marketplace</option>
+            <option>Direct family purchase</option>
+            <option>School or district</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+        <label>Optional organization / school name
+          <input type="text" name="organization" autocomplete="organization">
+        </label>
+        <label>Message
+          <textarea name="message" rows="5" required></textarea>
+        </label>
+        <p style="font-size:.85rem;color:var(--ink-soft)">Please do not include student records, health information, payment details, or program-account credentials.</p>
+        <button type="submit" class="btn btn-solid" id="contact-submit">Request a pathway recommendation</button>
+        <p id="form-error" role="alert" style="display:none;font-weight:700;color:#8F3D3D"></p>
+        <p id="form-ok" role="status" style="display:none; font-size:.9rem; font-weight:600; color:var(--accent)"></p>
+      </form>
+      <hr style="margin:1.5rem 0;border:0;border-top:1px solid var(--rule)">
+      <h2 class="card-title">Request a School or District Quote</h2>
+      <p>Request a written quote and availability review. A quote is not TEFA approval or a live price.</p>
+      <form id="quote-form" class="stack g-16" style="margin-top:1rem" method="post" novalidate>
+        <label>Organization name <input type="text" name="organization" required></label>
+        <label>Contact name <input type="text" name="name" required></label>
+        <label>Email <input type="email" name="email" required></label>
+        <label>Grade band <input type="text" name="grade_band" required></label>
+        <label>Pathway / product interest <input type="text" name="interest" required></label>
+        <label>Estimated learner count <input type="number" name="learner_count" min="1" required></label>
+        <label>Requested timeline <input type="text" name="timeline" required></label>
+        <label>Message <textarea name="message" rows="4" required></textarea></label>
+        <button type="submit" class="btn btn-solid">Request a written quote and availability review</button>
+        <p id="quote-error" role="alert" style="display:none;font-weight:700;color:#8F3D3D"></p>
+        <p id="quote-ok" role="status" style="display:none;font-weight:600;color:var(--accent)"></p>
       </form>
     </div>
     <div class="stack g-20">
@@ -73,10 +111,9 @@
         <span class="mono">Direct email</span>
         <h2 class="card-title">Prefer email?</h2>
         <p>
-          Hello — planning: <a href="mailto:hello@preparationstation.org">Hello@preparationstation.org</a><br>
-          Sales — catalog / TEFA: <a href="mailto:sales@preparationstation.org">Sales@preparationstation.org</a><br>
-          Support: <a href="mailto:support@preparationstation.org">Support@preparationstation.org</a><br>
-          Orders: <a href="mailto:support@preparationstation.org">Support@preparationstation.org</a>
+          Primary support: <a href="mailto:hello@preparationstation.org">Hello@preparationstation.org</a><br>
+          Catalog / TEFA: <a href="mailto:sales@preparationstation.org">Sales@preparationstation.org</a><br>
+          Help: <a href="mailto:support@preparationstation.org">Support@preparationstation.org</a>
         </p>
         <p style="margin-top:.75rem"><strong>Phone:</strong> <a href="tel:+16822535459">682.253.5459</a><br>
           <strong>Mailing address:</strong><br>13101 Preston Rd Suite 110<br>Dallas, Texas 75240</p>
@@ -147,37 +184,40 @@
 (function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 document.documentElement.classList.add('js');var rt=document.querySelectorAll('.reveal,.stagger');if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){rt.forEach(function(el){el.classList.add('in')});}else{var r=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');r.unobserve(e.target)}})},{threshold:.1});rt.forEach(function(el){r.observe(el)});}})();
 (function(){
-var f=document.getElementById('contact-form');
-if(!f)return;
-var ok=document.getElementById('form-ok');
-// Prefill from a handoff link (e.g. the Mission Guide "Email my starter list").
-try{
+function bindForm(id, okId, errId, kind){
+  var f=document.getElementById(id);
+  if(!f)return;
+  var ok=document.getElementById(okId);
+  var err=document.getElementById(errId);
   var params=new URLSearchParams(window.location.search);
-  var subject=params.get('subject');
-  var body=params.get('body');
-  if(body&&f.message&&!f.message.value){f.message.value=body;}
-  if(subject&&f.topic){f.topic.value='Product request or question';}
-}catch(err){}
-try{
-  var sku=params.get('sku');
-  if(sku&&f.message&&f.message.value.indexOf(sku)<0){
-    f.message.value=(f.message.value?f.message.value+'\n\n':'')+'SKU: '+sku;
-    if(f.topic) f.topic.value='Product request or question';
-  }
-}catch(err){}
-f.addEventListener('submit',function(ev){
-  ev.preventDefault();
-  var topic=(f.topic&&f.topic.value)||'';
-  var to='hello@preparationstation.org';
-  if(/TEFA|Funding|Product|catalog/i.test(topic)) to='sales@preparationstation.org';
-  else if(/Order|tracking/i.test(topic)) to='support@preparationstation.org';
-  var name=(f.name&&f.name.value)||'';
-  var email=(f.email&&f.email.value)||'';
-  var msg=(f.message&&f.message.value)||'';
-  var sub='Preparation Station request: '+topic;
-  var body='Name: '+name+'\nEmail: '+email+'\nTopic: '+topic+'\n\n'+msg;
-  window.location.href='mailto:'+to+'?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body);
-  if(ok){ok.style.display='block';ok.textContent='Your email app should open — if it does not, write '+to;}
-});
+  try{
+    var sku=params.get('sku');
+    var body=params.get('body');
+    if(body&&f.message&&!f.message.value) f.message.value=body;
+    if(sku&&f.message&&f.message.value.indexOf(sku)<0){
+      f.message.value=(f.message.value?f.message.value+'\n\n':'')+'SKU: '+sku;
+    }
+  }catch(e){}
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    if(err){err.style.display='none';}
+    if(ok){ok.style.display='none';}
+    if(!f.checkValidity()){
+      f.reportValidity();
+      if(err){err.style.display='block';err.textContent='Please complete the required fields with a valid email.';}
+      return;
+    }
+    var intake=f.getAttribute('data-request-intake');
+    if(intake==='disabled'){
+      if(err){
+        err.style.display='block';
+        err.textContent='Online intake is not connected yet, so this form cannot pretend to send. Email Hello@preparationstation.org with the same details. Do not include records, health data, payment details, or program credentials.';
+      }
+      return;
+    }
+  });
+}
+bindForm('contact-form','form-ok','form-error','pathway');
+bindForm('quote-form','quote-ok','quote-error','quote');
 })();
 </script>

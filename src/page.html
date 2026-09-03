@@ -684,7 +684,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
       </ul>
     </nav>
     <div class="header-actions">
-      <a class="btn btn--primary" href="contact.html">Start a Request</a>
+      <a class="btn btn--primary" href="contact.html">Request recommendation</a>
     </div>
   </div>
 </header>
@@ -701,15 +701,12 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="eyebrow reveal">Approved TEFA Marketplace vendor</span>
-      <h1 class="h-xl reveal d1">Tools &amp; resources for <span class="accent">skill-building</span> families.</h1>
-      <p class="hero-sub reveal d2">Hands-on project kits, workbooks, and curriculum guides for
-        practical skills, self-command, design, and emerging tech — matched to the
-        learner's age and goals, and purchased through the approved programs you already
-        use.</p>
+      <h1 class="h-xl reveal d1">Practical skills, habits, and judgment for the <span class="accent">next generation</span>.</h1>
+      <p class="hero-sub reveal d2">Preparation Station helps families build readiness for work, household life, and community — communication, self-command, money habits, independent living, digital judgment, and making. Browse the catalog, then request a written pathway recommendation. TEFA-funded purchases happen only for the exact SKU published in Odyssey.</p>
       <div class="hero-ctas reveal d3">
-        <a class="btn btn-solid" href="catalog.html">Browse the catalog <span class="arr">&rarr;</span></a>
-        <a class="btn btn-ghost" href="#departments">View departments</a>
-        <a class="btn btn-line" href="#guide">Try the Mission Guide <span class="arr">&rarr;</span></a>
+        <a class="btn btn-solid" href="catalog.html">Browse catalog <span class="arr">&rarr;</span></a>
+        <a class="btn btn-ghost" href="contact.html">Request a pathway recommendation</a>
+        <a class="btn btn-line" href="#guide">Get guided picks <span class="arr">&rarr;</span></a>
       </div>
       <div class="hero-chips reveal d4">
         <span class="chip ok">Approved TEFA Marketplace Vendor</span>
@@ -1497,12 +1494,8 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
       <h2 class="h-lg">Get new resources &amp; catalog updates</h2>
       <p>Original worksheets, age-band recommendations, and launch updates — no spam, unsubscribe anytime.</p>
     </div>
-    <form id="signup-form" class="signup-row reveal d1" style="display:flex; gap:.75rem; margin-top:1.5rem; justify-content:center; flex-wrap:wrap" method="post">
-      <input type="email" name="email" required placeholder="your@email.com" aria-label="Email address" style="flex:1 1 260px; max-width:340px; padding:.75rem 1rem; border:1.5px solid var(--rule); border-radius:999px; background:var(--paper); color:var(--ink); font-size:.95rem">
-      <button type="submit" class="btn btn-solid" style="border-radius:999px">Subscribe <span class="arr">&rarr;</span></button>
-    </form>
-    <p class="signup-note reveal d2" style="margin-top:.75rem; font-size:.82rem; color:var(--ink-soft)">We use your email only for catalog updates and new free resources. Unsubscribe with one click.</p>
-    <p id="signup-ok" style="display:none; margin-top:.8rem; font-weight:600; color:var(--accent)">✓ Thanks — you're on the list.</p>
+    <p class="signup-note reveal d1" style="margin-top:1.5rem; font-size:.95rem; color:var(--ink-soft)">A newsletter list is not connected yet, so we do not collect emails here. Request a pathway recommendation and we will include catalog notices in our reply.</p>
+    <p><a class="btn btn-solid" href="contact.html">Request a pathway recommendation</a></p>
   </div>
 </section>
 
@@ -1728,21 +1721,5 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
     link.textContent="Email my starter list ("+n+")";
   }
 
-  /* ---------- Email Capture ---------- */
-  var signupForm=document.getElementById('signup-form');
-  if(signupForm){
-    var signupOk=document.getElementById('signup-ok');
-    signupForm.addEventListener('submit',function(ev){
-      ev.preventDefault();
-      var email=signupForm.querySelector('input[name="email"]');
-      if(!email||!email.value)return;
-      /* In production this would POST to an API endpoint. For now, open mailto. */
-      var to='hello@preparationstation.org';
-      var sub=encodeURIComponent('New newsletter signup');
-      var body=encodeURIComponent('New subscriber: '+email.value);
-      window.location.href='mailto:'+to+'?subject='+sub+'&body='+body;
-      if(signupOk){signupOk.style.display='block'; signupForm.style.display='none';}
-    });
-  }
 })();
 </script>

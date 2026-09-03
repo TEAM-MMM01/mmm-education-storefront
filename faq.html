@@ -461,6 +461,8 @@ html,body{margin:0; padding:0}
 .page h1,.page h2,.page h3{margin:0; font-family:var(--display); font-weight:800; letter-spacing:-.02em; line-height:1.1; text-wrap:balance}
 .page a{color:var(--accent)}
 .page :focus-visible{outline:2.5px solid var(--focus); outline-offset:3px; border-radius:2px}
+.page label{display:flex;flex-direction:column;gap:.35rem;font-size:.9rem;font-weight:600}
+.page label input,.page label select,.page label textarea{font:inherit;padding:.7rem .75rem;min-height:44px;border:1.5px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);color-scheme:light}
 .wrap{width:100%; max-width:var(--measure); margin-inline:auto; padding-inline:clamp(1.15rem,4vw,2.5rem)}
 .band{padding-block:clamp(3rem,6vw,5rem)}
 .band-tint{background:var(--section-even,#f7f3ec)}
@@ -579,7 +581,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       </ul>
     </nav>
     <div class="header-actions">
-      <a class="btn btn--primary" href="contact.html">Start a Request</a>
+      <a class="btn btn--primary" href="contact.html">Request recommendation</a>
     </div>
   </div>
 </header>
@@ -592,16 +594,12 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
 
   <section class="faq reveal" style="margin-top:1.5rem; max-width:720px">
     <details>
-      <summary>Why don't I see prices?</summary>
-      <p class="faq-body">No price is published until a catalog record is verified. Every
-        catalog item is under offering review; when an offering is approved, its verified
-        price will be shown at the point of purchase in Odyssey.</p>
+      <summary>Why don't I see some prices?</summary>
+      <p class="faq-body">Kits stay “price not published” until offering review completes. Curriculum pathways may show a planning listing price. Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey.</p>
     </details>
     <details>
       <summary>Is anything for sale right now?</summary>
-      <p class="faq-body">Not yet. All 18 catalog items are under offering review. Nothing
-        is for sale until its offering completes review in the official Odyssey Marketplace.
-        Catalog listings are information only and are not an offer for sale.</p>
+      <p class="faq-body">Not on this website. No catalog item is a live checkout. TEFA-funded purchases are available only for the exact Preparation Station offering that is approved and published in the official marketplace.</p>
     </details>
     <details>
       <summary>How do I know an item is eligible before I buy it?</summary>
@@ -626,6 +624,34 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       <p class="faq-body">Broadly 3–18, graded by readiness rather than grade level. See
         <a href="shop-by-age.html">Shop by Age</a> for the Mission Timeline bands and
         supervision notes.</p>
+    </details>
+    <details>
+      <summary>How is marketplace eligibility verified?</summary>
+      <p class="faq-body">Find the exact SKU on the catalog, then confirm that same SKU in Odyssey. Vendor approval is not item approval.</p>
+    </details>
+    <details>
+      <summary>Does a direct purchase exist?</summary>
+      <p class="faq-body">Direct-family purchase is not live on this site. Stripe is not a TEFA checkout path. If a separate retail path opens later, it will be labeled separately from Odyssey.</p>
+    </details>
+    <details>
+      <summary>How long does a reply take?</summary>
+      <p class="faq-body">Complete requests are acknowledged within one business day.</p>
+    </details>
+    <details>
+      <summary>What data do you collect?</summary>
+      <p class="faq-body">Do not send student records, health information, payment details, or program-account credentials. See the <a href="privacy.html">privacy policy</a>.</p>
+    </details>
+    <details>
+      <summary>How does product status work?</summary>
+      <p class="faq-body">Marketplace listed, Offering review, Planning concept, Free resource, or External resource. Offering review and planning items are not purchasable.</p>
+    </details>
+    <details>
+      <summary>What does a written pathway recommendation include?</summary>
+      <p class="faq-body">Best-fit options, current status, and the correct purchase path before any purchase.</p>
+    </details>
+    <details>
+      <summary>How do school or district quotes work?</summary>
+      <p class="faq-body">Use the quote form on the contact page. A quote is an availability review, not TEFA approval or a live checkout price.</p>
     </details>
     <details>
       <summary>What is the Mission Guide?</summary>

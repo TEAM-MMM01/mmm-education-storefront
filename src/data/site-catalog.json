@@ -1,0 +1,1788 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-03",
+  "operator": "Nationwide Acquisitions, LLC",
+  "brand": "Preparation Station",
+  "dba": "Preparation Station",
+  "canonical_site": "https://preparationstation.org/",
+  "canonical_catalog_url": "https://preparationstation.org/catalog",
+  "support_email": "Hello@preparationstation.org",
+  "sales_email": "Sales@preparationstation.org",
+  "help_email": "Support@preparationstation.org",
+  "phone": "682.253.5459",
+  "mailing_address": "13101 Preston Rd Suite 110, Dallas, Texas 75240",
+  "response_commitment": "Complete requests are acknowledged within one business day.",
+  "vendor_status": "Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor. Each offering is reviewed separately in Odyssey.",
+  "items": [
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "planning_listing",
+      "planning_price_usd": 2495,
+      "status": "offering_review",
+      "license": "One-time digital family license",
+      "delivery": "Digital family access after the exact SKU is listed in Odyssey",
+      "format": "Digital-first guided curriculum",
+      "duration": "36 weeks",
+      "age_range": "Ages 13\u201317 / grades 9\u201312",
+      "outcomes": [
+        "Practice workplace communication",
+        "Plan a small student venture",
+        "Build a portfolio of completed projects"
+      ],
+      "included": [
+        "36-week sequence",
+        "Employability and communication modules",
+        "Project-planning assignments",
+        "Venture/portfolio capstone prompts",
+        "Facilitator notes"
+      ],
+      "not_included": [
+        "Business formation, EIN, or legal filing",
+        "Guaranteed income",
+        "Physical studio hardware unless a kit is listed separately",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Upper-high-school career credit",
+        "Student building a real portfolio"
+      ],
+      "not_ideal": [
+        "Families needing a live TEFA checkout today",
+        "Anyone seeking guaranteed job placement"
+      ],
+      "how_families_use": [
+        "Treat it as a year-long lab with weekly facilitator check-ins."
+      ],
+      "requirements": [
+        "Adult facilitator",
+        "Computer access for portfolio work"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-CL-2495",
+      "title": "Career Launch & Entrepreneurship",
+      "kind": "pathway",
+      "department": "Curriculum pathways",
+      "pathway": "Career readiness",
+      "purpose": "Employability, workplace projects, and a student venture portfolio across a full year.",
+      "image": "images/photo-career.jpg",
+      "canonical_url": "https://preparationstation.org/products/PS-CL-2495"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "planning_listing",
+      "planning_price_usd": 1995,
+      "status": "offering_review",
+      "license": "One-time digital family license",
+      "delivery": "Digital family access after the exact SKU is listed in Odyssey",
+      "format": "Digital-first guided curriculum",
+      "duration": "30 weeks",
+      "age_range": "Ages 14\u201318 / grades 8\u201312",
+      "outcomes": [
+        "Practice household money decisions",
+        "Run weekly home systems",
+        "Document a living-skills year"
+      ],
+      "included": [
+        "30-week sequence with weekly lesson map",
+        "Banking, housing, food, transportation modules",
+        "Parent/facilitator notes",
+        "Practice sheets for budgets and bills"
+      ],
+      "not_included": [
+        "Physical tools, groceries, or rent money",
+        "Therapy, counseling, or medical services",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Teen who needs household money systems before leaving home",
+        "Homeschool practical-skills year"
+      ],
+      "not_ideal": [
+        "Anyone seeking clinical or therapeutic services"
+      ],
+      "how_families_use": [
+        "One weekly household lab plus a money practice sheet."
+      ],
+      "requirements": [
+        "Adult facilitator",
+        "Access to household routines for practice (no purchase of tools required)"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-IL-1995",
+      "title": "Independent Living & Financial Foundations",
+      "kind": "pathway",
+      "department": "Curriculum pathways",
+      "pathway": "Independent living",
+      "purpose": "Banking, housing, food, transportation, and household decisions as practical life-skill learning.",
+      "image": "images/photo-independent-living.jpg",
+      "canonical_url": "https://preparationstation.org/products/PS-IL-1995"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "planning_listing",
+      "planning_price_usd": 1695,
+      "status": "offering_review",
+      "license": "One-time digital family license",
+      "delivery": "Digital family access after the exact SKU is listed in Odyssey",
+      "format": "Digital-first guided curriculum",
+      "duration": "24 weeks",
+      "age_range": "Ages 11\u201317 / grades 6\u201312",
+      "outcomes": [
+        "Explain what a model is and where it fails",
+        "Practice prompt-and-check",
+        "Complete one parent-supervised useful tool"
+      ],
+      "included": [
+        "24-week sequence",
+        "Offline-first lessons",
+        "Verification, privacy, and bias discussion scripts",
+        "Capstone: one small useful tool, parent-supervised"
+      ],
+      "not_included": [
+        "Unsupervised chatbot accounts",
+        "Student data sent to public tools as part of the license",
+        "Hardware"
+      ],
+      "best_fit": [
+        "Family that will not hand a child an open chatbot unsupervised"
+      ],
+      "not_ideal": [
+        "Unsupervised app-only use"
+      ],
+      "how_families_use": [
+        "Parent sits with the learner for judgment practice, not open chat."
+      ],
+      "requirements": [
+        "Adult supervision for any live-tool practice"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-AI-1695",
+      "title": "AI Literacy & Digital Leadership",
+      "kind": "pathway",
+      "department": "Curriculum pathways",
+      "pathway": "Digital judgment",
+      "purpose": "How modern tools work, how to question their output, and parent-supervised digital judgment.",
+      "image": "images/photo-ai-literacy.jpg",
+      "canonical_url": "https://preparationstation.org/products/PS-AI-1695"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "planning_listing",
+      "planning_price_usd": 2295,
+      "status": "offering_review",
+      "license": "One-time digital family license",
+      "delivery": "Digital family access after the exact SKU is listed in Odyssey",
+      "format": "Digital-first guided curriculum",
+      "duration": "36 weeks",
+      "age_range": "Ages 8\u201314 / grades 3\u20138",
+      "outcomes": [
+        "Practice decoding and fluency",
+        "Build vocabulary and comprehension routines",
+        "Use facilitator scripts at home"
+      ],
+      "included": [
+        "36-week reading sequence",
+        "Facilitator scripts",
+        "Progress-check sheets"
+      ],
+      "not_included": [
+        "Speech therapy, dyslexia diagnosis, or clinical treatment",
+        "School IEP services",
+        "A claim of medical or therapeutic outcome"
+      ],
+      "best_fit": [
+        "Parent-led support at home",
+        "Language-arts credit with a weekly map"
+      ],
+      "not_ideal": [
+        "Anyone seeking a clinical diagnosis or therapy substitute"
+      ],
+      "how_families_use": [
+        "Short daily reading practice with an adult using the scripts."
+      ],
+      "requirements": [
+        "Adult or tutor facilitator"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-SR-2295",
+      "title": "Structured Reading Support Pathway",
+      "kind": "pathway",
+      "department": "Curriculum pathways",
+      "pathway": "Reading",
+      "purpose": "Decoding, fluency, vocabulary, and comprehension with facilitator scripts. Curriculum \u2014 not therapy.",
+      "image": "images/photo-reading.jpg",
+      "canonical_url": "https://preparationstation.org/products/PS-SR-2295"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "planning_listing",
+      "planning_price_usd": 2495,
+      "status": "offering_review",
+      "license": "One-time digital family license",
+      "delivery": "Digital family access after the exact SKU is listed in Odyssey",
+      "format": "Digital-first guided curriculum",
+      "duration": "36 weeks",
+      "age_range": "Ages 11\u201317 / grades 6\u201312",
+      "outcomes": [
+        "Follow one year pacing map",
+        "Cover four practical domains without four separate licenses"
+      ],
+      "included": [
+        "36-week coordinated map",
+        "Career, money, independent-living, and digital-judgment units",
+        "Facilitator notes"
+      ],
+      "not_included": [
+        "Four extra licenses (this is one combined license)",
+        "Physical kits unless purchased as separate offerings"
+      ],
+      "best_fit": [
+        "Family that wants one year plan instead of four separate buys"
+      ],
+      "not_ideal": [
+        "Anyone needing four standalone licenses"
+      ],
+      "how_families_use": [
+        "One weekly block covering the coordinated map."
+      ],
+      "requirements": [
+        "Adult facilitator"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-RR-2495",
+      "title": "Real-World Readiness Year",
+      "kind": "pathway",
+      "department": "Curriculum pathways",
+      "pathway": "Coordinated readiness",
+      "purpose": "One coordinated year map: career, money, independent living, and digital judgment.",
+      "image": "images/photo-readiness.jpg",
+      "canonical_url": "https://preparationstation.org/products/PS-RR-2495"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time digital family license",
+      "delivery": "Digital family access after the exact SKU is listed in Odyssey",
+      "format": "Digital-first guided curriculum",
+      "duration": "8 weeks",
+      "age_range": "Ages 14\u201318 / grades 9\u201312",
+      "outcomes": [
+        "Draft a resume",
+        "Practice interview prompts",
+        "Read a first-paycheck example"
+      ],
+      "included": [
+        "8-week lesson map",
+        "Resume and application worksheets",
+        "Interview practice prompts",
+        "First-paycheck reading sheet"
+      ],
+      "not_included": [
+        "Job placement or guaranteed hire",
+        "Physical interview clothing",
+        "A live kit dollar price"
+      ],
+      "best_fit": [
+        "Teen applying for a first job this semester"
+      ],
+      "not_ideal": [
+        "Anyone expecting guaranteed employment"
+      ],
+      "how_families_use": [
+        "Eight weeks of short practice before Independent Living or Career Launch."
+      ],
+      "requirements": [
+        "Adult reviewer for resume drafts"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-IF-0299",
+      "title": "Interview & First Job Prep",
+      "kind": "pathway",
+      "department": "Curriculum pathways",
+      "pathway": "Career readiness",
+      "purpose": "Resumes, interview practice, and first-paycheck basics. Short on-ramp before a longer pathway.",
+      "image": "images/photo-interview.jpg",
+      "canonical_url": "https://preparationstation.org/products/PS-IF-0299"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 11\u201317",
+      "outcomes": [
+        "Practice practical life skills with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-PR-101",
+      "title": "Home & Repair Tool Roll",
+      "kind": "kit",
+      "department": "Practical & Trade",
+      "pathway": "practical life skills",
+      "purpose": "Household repair practice with adult supervision.",
+      "image": "images/home-and-repair-tool-roll.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-PR-101"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 11\u201317",
+      "outcomes": [
+        "Practice money habits with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-PR-102",
+      "title": "Money & First Job Kit",
+      "kind": "kit",
+      "department": "Practical & Trade",
+      "pathway": "money habits",
+      "purpose": "Money habits and first-job paperwork practice.",
+      "image": "images/money-and-first-job-kit.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-PR-102"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 9\u201317",
+      "outcomes": [
+        "Practice independent living with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-PR-103",
+      "title": "Kitchen & Provision Kit",
+      "kind": "kit",
+      "department": "Practical & Trade",
+      "pathway": "independent living",
+      "purpose": "Kitchen routines and provision planning.",
+      "image": "images/kitchen-and-provision-kit.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-PR-103"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 8\u201317",
+      "outcomes": [
+        "Practice self-command with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-SC-201",
+      "title": "Situation Handling Deck",
+      "kind": "kit",
+      "department": "Situation Handling & Self-Command",
+      "pathway": "self-command",
+      "purpose": "Practice respectful communication and conflict navigation as life-skill learning.",
+      "image": "images/situation-handling-deck.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-SC-201"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 8\u201317",
+      "outcomes": [
+        "Practice organization with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-SC-202",
+      "title": "Focus & Energy System",
+      "kind": "kit",
+      "department": "Situation Handling & Self-Command",
+      "pathway": "organization",
+      "purpose": "Organization, time, and self-discipline practice.",
+      "image": "images/focus-and-energy-system.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-SC-202"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 11\u201317",
+      "outcomes": [
+        "Practice self-advocacy with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-SC-203",
+      "title": "Self-Advocacy Workbook",
+      "kind": "kit",
+      "department": "Situation Handling & Self-Command",
+      "pathway": "self-advocacy",
+      "purpose": "Practice stating needs clearly and respectfully.",
+      "image": "images/self-advocacy-workbook.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-SC-203"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 14\u201317",
+      "outcomes": [
+        "Practice career readiness with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-SC-204",
+      "title": "Interview & First Job Prep Kit",
+      "kind": "kit",
+      "department": "Situation Handling & Self-Command",
+      "pathway": "career readiness",
+      "purpose": "Physical/print kit companion for interview practice.",
+      "image": "images/interview-and-first-job-prep-kit.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-SC-204"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 14\u201318",
+      "outcomes": [
+        "Practice independent living with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-SC-205",
+      "title": "Adulting Launch Kit",
+      "kind": "kit",
+      "department": "Situation Handling & Self-Command",
+      "pathway": "independent living",
+      "purpose": "Household and personal-responsibility launch practice.",
+      "image": "images/adulting-launch-kit.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-SC-205"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 11\u201317",
+      "outcomes": [
+        "Practice design with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-CS-301",
+      "title": "Graphic Design Bench",
+      "kind": "kit",
+      "department": "Design & Motion Studio",
+      "pathway": "design",
+      "purpose": "Design and making practice.",
+      "image": "images/graphic-design-bench.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-CS-301"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 11\u201317",
+      "outcomes": [
+        "Practice creativity with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-CS-302",
+      "title": "Motion & Video Kit",
+      "kind": "kit",
+      "department": "Design & Motion Studio",
+      "pathway": "creativity",
+      "purpose": "Motion and video-making practice.",
+      "image": "images/motion-and-video-kit.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-CS-302"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 13\u201317",
+      "outcomes": [
+        "Practice entrepreneurship with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-CS-303",
+      "title": "Skill-to-Income Pack",
+      "kind": "kit",
+      "department": "Design & Motion Studio",
+      "pathway": "entrepreneurship",
+      "purpose": "Practice turning a skill into a testable offer. Not a guaranteed-income program.",
+      "image": "images/skill-to-income-pack.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-CS-303"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 11\u201317",
+      "outcomes": [
+        "Practice AI literacy with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-AT-401",
+      "title": "AI Literacy Bench Kit",
+      "kind": "kit",
+      "department": "AI & Emerging Tech Bench",
+      "pathway": "AI literacy",
+      "purpose": "Hands-on companion to digital-judgment lessons.",
+      "image": "images/ai-literacy-bench-kit.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-AT-401"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 11\u201317",
+      "outcomes": [
+        "Practice emerging technology with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-AT-402",
+      "title": "Electronics & Robotics Starter",
+      "kind": "kit",
+      "department": "AI & Emerging Tech Bench",
+      "pathway": "emerging technology",
+      "purpose": "Intro making with electronics, adult-supervised.",
+      "image": "images/electronics-and-robotics-starter.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-AT-402"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 13\u201317",
+      "outcomes": [
+        "Practice design with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-AT-403",
+      "title": "3D Design & Fabrication Intro",
+      "kind": "kit",
+      "department": "AI & Emerging Tech Bench",
+      "pathway": "design",
+      "purpose": "Intro 3D design and making.",
+      "image": "images/3d-design-and-fabrication-intro.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-AT-403"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 3\u201312",
+      "outcomes": [
+        "Practice organization with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-HS-501",
+      "title": "Core Subjects Workbook Set",
+      "kind": "kit",
+      "department": "Homeschool Essentials",
+      "pathway": "organization",
+      "purpose": "Core-subject workbook practice for homeschool planning.",
+      "image": "images/core-subjects-workbook-set.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-HS-501"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Planner / educator",
+      "outcomes": [
+        "Practice organization with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-HS-502",
+      "title": "Homeschool Assessment & Portfolio Kit",
+      "kind": "kit",
+      "department": "Homeschool Essentials",
+      "pathway": "organization",
+      "purpose": "Evidence and portfolio organization for planners.",
+      "image": "images/homeschool-assessment-and-portfolio-kit.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-HS-502"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 3\u201312",
+      "outcomes": [
+        "Practice organization with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-HS-503",
+      "title": "Daily Supply Restock Box",
+      "kind": "kit",
+      "department": "Homeschool Essentials",
+      "pathway": "organization",
+      "purpose": "Consumable restock concept for daily work. Not in the TEFA pathway packet list.",
+      "image": "images/daily-supply-restock-box.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-HS-503"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "request_availability",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "offering_review",
+      "license": "One-time family license (planned)",
+      "delivery": "Physical kit after the exact SKU is listed; packing list publishes at offering review",
+      "format": "Planned physical kit",
+      "duration": "Published at offering review",
+      "age_range": "Ages 3\u20138",
+      "outcomes": [
+        "Practice creativity with adult support"
+      ],
+      "included": [
+        "Planned kit contents and facilitator notes \u2014 final packing list publishes at offering review"
+      ],
+      "not_included": [
+        "Verified marketplace price",
+        "Unsupervised hazardous tool use",
+        "Odyssey checkout on this site"
+      ],
+      "best_fit": [
+        "Homeschool practical-skills block",
+        "Family wanting a hands-on companion to a pathway"
+      ],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [
+        "Use as a supervised project block, not as a live checkout item."
+      ],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-HS-504",
+      "title": "Art & Craft Foundations Kit",
+      "kind": "kit",
+      "department": "Homeschool Essentials",
+      "pathway": "creativity",
+      "purpose": "Art and craft foundations with adult supervision.",
+      "image": "images/art-and-craft-foundations-kit.svg",
+      "canonical_url": "https://preparationstation.org/products/PS-HS-504"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "ask_concept",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "planning_concept",
+      "license": "Pending",
+      "delivery": "Printing and fulfillment source pending",
+      "format": "Book \u2014 format pending",
+      "duration": "n/a",
+      "age_range": "Pending metadata",
+      "outcomes": [],
+      "included": [
+        "Title is confirmed"
+      ],
+      "not_included": [
+        "ISBN",
+        "Verified price",
+        "Print-ready cover",
+        "TEFA listing"
+      ],
+      "best_fit": [],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "GEN-BK-001",
+      "title": "The Vulturian",
+      "kind": "book",
+      "department": "Books",
+      "pathway": "Reading",
+      "purpose": "Confirmed title. Author credit, ISBN, price, format, description, cover, and printing source remain pending.",
+      "image": "images/photo-vulturian.jpg",
+      "canonical_url": "https://preparationstation.org/products/GEN-BK-001"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "ask_concept",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "planning_concept",
+      "license": "Pending",
+      "delivery": "Not created",
+      "format": "Coloring-book concept",
+      "duration": "n/a",
+      "age_range": "Pending",
+      "outcomes": [],
+      "included": [],
+      "not_included": [
+        "Odyssey checkout on this site",
+        "Program-account collection",
+        "A claim that this SKU is already TEFA-listed"
+      ],
+      "best_fit": [],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "GEN-CB-101",
+      "title": "Future Founders",
+      "kind": "book",
+      "department": "Books",
+      "pathway": "Entrepreneurship",
+      "purpose": "Working-title coloring book concept. Not for sale.",
+      "image": "images/photo-future-founders.jpg",
+      "canonical_url": "https://preparationstation.org/products/GEN-CB-101"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "ask_concept",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "planning_concept",
+      "license": "Pending",
+      "delivery": "Not created",
+      "format": "Coloring-book concept",
+      "duration": "n/a",
+      "age_range": "Pending",
+      "outcomes": [],
+      "included": [],
+      "not_included": [
+        "Odyssey checkout on this site",
+        "Program-account collection",
+        "A claim that this SKU is already TEFA-listed"
+      ],
+      "best_fit": [],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "GEN-CB-102",
+      "title": "Tools & Trades",
+      "kind": "book",
+      "department": "Books",
+      "pathway": "Practical life skills",
+      "purpose": "Working-title coloring book concept. Not for sale.",
+      "image": "images/photo-tools-trades.jpg",
+      "canonical_url": "https://preparationstation.org/products/GEN-CB-102"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "ask_concept",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "planning_concept",
+      "license": "Pending",
+      "delivery": "Not created",
+      "format": "Coloring-book concept",
+      "duration": "n/a",
+      "age_range": "Pending",
+      "outcomes": [],
+      "included": [],
+      "not_included": [
+        "Odyssey checkout on this site",
+        "Program-account collection",
+        "A claim that this SKU is already TEFA-listed"
+      ],
+      "best_fit": [],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "GEN-CB-103",
+      "title": "Big Feelings, Big Wins",
+      "kind": "book",
+      "department": "Books",
+      "pathway": "Self-command",
+      "purpose": "Working-title coloring book concept. Practical feelings vocabulary \u2014 not therapy.",
+      "image": "images/photo-big-feelings.jpg",
+      "canonical_url": "https://preparationstation.org/products/GEN-CB-103"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "ask_concept",
+      "price_status": "not_published",
+      "planning_price_usd": null,
+      "status": "planning_concept",
+      "license": "Retail title \u2014 not a TEFA pathway packet item",
+      "delivery": "Royal Collexions owns the retail master record. No checkout on this site.",
+      "format": "Paperback coloring book (Royal Collexions retail record)",
+      "duration": "n/a",
+      "age_range": "All ages coloring",
+      "outcomes": [],
+      "included": [
+        "Retail coloring-book title owned by Royal Collexions"
+      ],
+      "not_included": [
+        "TEFA marketplace listing",
+        "Checkout on PreparationStation.org"
+      ],
+      "best_fit": [],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "RC-CC-0169",
+      "title": "Calm & Clear",
+      "kind": "book",
+      "department": "Books",
+      "pathway": "Self-command",
+      "purpose": "50 bold, large-print mandalas. Direct-retail record only \u2014 not presented as a TEFA offering.",
+      "image": "images/photo-calm-clear.jpg",
+      "canonical_url": "https://preparationstation.org/products/RC-CC-0169"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "open_printable",
+      "price_status": "none",
+      "planning_price_usd": null,
+      "status": "free_resource",
+      "license": "Free educational resource",
+      "delivery": "Open on this site",
+      "format": "Free printable HTML",
+      "duration": "Single worksheet",
+      "age_range": "Planner / family",
+      "outcomes": [],
+      "included": [],
+      "not_included": [
+        "Odyssey checkout on this site",
+        "Program-account collection",
+        "A claim that this SKU is already TEFA-listed"
+      ],
+      "best_fit": [],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-FR-BUDGET",
+      "title": "Budget planner",
+      "kind": "free_resource",
+      "department": "Free resources",
+      "pathway": "Money habits",
+      "purpose": "Plan income and expenses.",
+      "image": "images/photo-money-job.jpg",
+      "canonical_url": "https://preparationstation.org/resources/budget-planner",
+      "resource_path": "resources/budget-planner.html"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "open_printable",
+      "price_status": "none",
+      "planning_price_usd": null,
+      "status": "free_resource",
+      "license": "Free educational resource",
+      "delivery": "Open on this site",
+      "format": "Free printable HTML",
+      "duration": "Single worksheet",
+      "age_range": "Ages 14\u201318",
+      "outcomes": [],
+      "included": [],
+      "not_included": [
+        "Odyssey checkout on this site",
+        "Program-account collection",
+        "A claim that this SKU is already TEFA-listed"
+      ],
+      "best_fit": [],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-FR-PAY",
+      "title": "First paycheck",
+      "kind": "free_resource",
+      "department": "Free resources",
+      "pathway": "Money habits",
+      "purpose": "Understand take-home pay.",
+      "image": "images/photo-interview.jpg",
+      "canonical_url": "https://preparationstation.org/resources/first-paycheck",
+      "resource_path": "resources/first-paycheck.html"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "open_printable",
+      "price_status": "none",
+      "planning_price_usd": null,
+      "status": "free_resource",
+      "license": "Free educational resource",
+      "delivery": "Open on this site",
+      "format": "Free printable HTML",
+      "duration": "Single worksheet",
+      "age_range": "Family",
+      "outcomes": [],
+      "included": [],
+      "not_included": [
+        "Odyssey checkout on this site",
+        "Program-account collection",
+        "A claim that this SKU is already TEFA-listed"
+      ],
+      "best_fit": [],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-FR-SAVE",
+      "title": "Savings challenge",
+      "kind": "free_resource",
+      "department": "Free resources",
+      "pathway": "Money habits",
+      "purpose": "Track a savings target.",
+      "image": "images/photo-money-job.jpg",
+      "canonical_url": "https://preparationstation.org/resources/savings-challenge",
+      "resource_path": "resources/savings-challenge.html"
+    },
+    {
+      "last_updated": "2026-09-03",
+      "marketplace_url": null,
+      "cta": "open_printable",
+      "price_status": "none",
+      "planning_price_usd": null,
+      "status": "free_resource",
+      "license": "Free educational resource",
+      "delivery": "Open on this site",
+      "format": "Free printable HTML",
+      "duration": "Single worksheet",
+      "age_range": "Ages 13\u201317",
+      "outcomes": [],
+      "included": [],
+      "not_included": [
+        "Odyssey checkout on this site",
+        "Program-account collection",
+        "A claim that this SKU is already TEFA-listed"
+      ],
+      "best_fit": [],
+      "not_ideal": [
+        "Anyone needing a live marketplace purchase today"
+      ],
+      "how_families_use": [],
+      "requirements": [
+        "Adult facilitator or supervisor as noted on the product page"
+      ],
+      "faq": [
+        {
+          "q": "Can I buy this on this website?",
+          "a": "No. This website does not process TEFA payments or collect program-account details."
+        },
+        {
+          "q": "When is the verified price shown?",
+          "a": "Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey."
+        }
+      ],
+      "sku": "PS-FR-BIZ",
+      "title": "Business idea",
+      "kind": "free_resource",
+      "department": "Free resources",
+      "pathway": "Entrepreneurship",
+      "purpose": "Shape a testable offer.",
+      "image": "images/photo-career.jpg",
+      "canonical_url": "https://preparationstation.org/resources/business-idea",
+      "resource_path": "resources/business-idea.html"
+    }
+  ]
+}
