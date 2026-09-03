@@ -245,11 +245,22 @@ def build_catalog() -> str:
     by_dept: dict[str, list] = defaultdict(list)
     for it in paid:
         by_dept[it["department"]].append(it)
+    dept_aliases = {
+        "Curriculum pathways": ["pathways"],
+        "Practical & Trade": ["d01"],
+        "Situation Handling & Self-Command": ["d02"],
+        "Design & Motion Studio": ["d03"],
+        "AI & Emerging Tech Bench": ["d04"],
+        "Homeschool Essentials": ["d05"],
+    }
     sections = []
     for dept, group in by_dept.items():
         sid = dept.lower().replace(" ", "-").replace("&", "and")
+        aliases = "".join(
+            f'<span id="{esc(alias)}" hidden></span>' for alias in dept_aliases.get(dept, [])
+        )
         sections.append(
-            f'<section class="section" id="{esc(sid)}"><div class="container"><h2>{esc(dept)}</h2><div class="grid">{"".join(card(i) for i in group)}</div></div></section>'
+            f'<section class="section" id="{esc(sid)}">{aliases}<div class="container"><h2>{esc(dept)}</h2><div class="grid">{"".join(card(i) for i in group)}</div></div></section>'
         )
     rows = []
     for it in paid:

@@ -461,7 +461,7 @@
       encodeURIComponent(lines.join('\n')).replace(/%0A/g, '%0D%0A') +
       '%0D%0A%0D%0APrices remain pending until the offering or direct listing is approved.' +
       '%0D%0A%0D%0AState: [your state]%0D%0AFunding program: [TEFA / other]%0D%0A';
-    link.href = 'mailto:Mmminvestment25@gmail.com?subject=' +
+    link.href = 'mailto:Hello@preparationstation.org?subject=' +
       encodeURIComponent('Quote request — ' + Object.keys(cart).length + ' item(s)') +
       '&body=' + body;
   }
