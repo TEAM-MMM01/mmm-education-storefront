@@ -1,0 +1,39 @@
+name: Restore truncated cart.js
+on:
+  push:
+    branches:
+      - agent/catalog-hs503-odyssey-links
+permissions:
+  contents: write
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: agent/catalog-hs503-odyssey-links
+      - name: Restore store/cart.js from main if truncated
+        run: |
+          set -euo pipefail
+          SIZE=$(wc -c < store/cart.js)
+          echo "current cart.js bytes=$SIZE"
+          if [ "$SIZE" -ge 20000 ]; then
+            echo "cart.js already complete"
+            exit 0
+          fi
+          git fetch origin main
+          git checkout origin/main -- store/cart.js
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('store/cart.js')
+          t = p.read_text()
+          t = t.replace("'Core Subjects Workbook Set'", "'Weekly Evidence Binder'")
+          p.write_text(t)
+          print('restored', p.stat().st_size)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add store/cart.js
+          git commit -m "Restore complete store/cart.js from main (HS-501 rename only)"
+          git push origin agent/catalog-hs503-odyssey-links
