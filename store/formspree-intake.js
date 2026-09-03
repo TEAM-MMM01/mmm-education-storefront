@@ -9,20 +9,35 @@
   var FORM_ID_RE = /^[A-Za-z0-9]{6,32}$/;
 
   function isFormId(value) {
-    return typeof value === 'string' && FORM_ID_RE.test(value.trim());
+    if (typeof value !== 'string') return false;
+    var trimmed = value.trim();
+    if (!trimmed || trimmed.indexOf('[') !== -1) return false;
+    return FORM_ID_RE.test(trimmed);
   }
 
   function isSitekey(value) {
-    return typeof value === 'string' && value.trim().length >= 8 && !/secret/i.test(value);
+    if (typeof value !== 'string') return false;
+    var trimmed = value.trim();
+    return trimmed.length >= 8 && !/secret/i.test(trimmed) && trimmed.indexOf('[') === -1;
+  }
+
+  function publicValues(config) {
+    config = config || {};
+    return {
+      pathway: config.PATHWAY_RECOMMENDATION_FORMSPREE_ID || config.pathway_form_id || '',
+      quote: config.SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID || config.quote_form_id || '',
+      sitekey: config.TURNSTILE_SITE_KEY || config.turnstile_sitekey || ''
+    };
   }
 
   function isReady(config) {
+    var values = publicValues(config);
     return Boolean(
       config &&
         config.enabled === true &&
-        isFormId(config.pathway_form_id) &&
-        isFormId(config.quote_form_id) &&
-        isSitekey(config.turnstile_sitekey)
+        isFormId(values.pathway) &&
+        isFormId(values.quote) &&
+        isSitekey(values.sitekey)
     );
   }
 
@@ -177,6 +192,7 @@
     isFormId: isFormId,
     isSitekey: isSitekey,
     isReady: isReady,
+    publicValues: publicValues,
     endpoint: endpoint,
     bindForm: bindForm,
     boot: boot

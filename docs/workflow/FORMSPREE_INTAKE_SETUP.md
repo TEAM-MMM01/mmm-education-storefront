@@ -1,41 +1,44 @@
 # Formspree + Turnstile owner setup
 
-Do not merge or activate this pull request until every step below is
-complete and both synthetic tests pass. Public values only go in
-`config/formspree-intake.json`. The Turnstile **secret** stays in the
-Formspree and Cloudflare dashboards. Never commit it.
+Public values only. The Turnstile **secret** stays in the Formspree and
+Cloudflare dashboards. Never commit it, log it, or put it in page source.
 
-1. Create two Formspree forms at https://formspree.io/dashboard
-   named **Preparation Station — Pathway Recommendation** and
+Approved public configuration keys, stored in
+`config/formspree-intake.json` (optional local/build override via the
+same environment-variable names):
+
+- `PATHWAY_RECOMMENDATION_FORMSPREE_ID`
+- `SCHOOL_DISTRICT_QUOTE_FORMSPREE_ID`
+- `TURNSTILE_SITE_KEY`
+
+`restricted_domain` is `preparationstation.org`. Forms stay disabled
+until all three public values are valid **and** `enabled` is `true`.
+
+## Dashboard steps already required
+
+1. Create two Formspree forms:
+   **Preparation Station — Pathway Recommendation** and
    **Preparation Station — School & District Quote**.
 2. Copy each public Formspree form ID (the hash in
    `https://formspree.io/f/{id}`).
-3. Set the real delivery destination(s) in each Formspree form
-   (operations inbox). Do not put that inbox address in site HTML.
+3. Set the real delivery destination(s) in Formspree. Do not put the
+   inbox address in site HTML.
 4. Enable Formspree **Restrict to Domain** for `preparationstation.org`
    (no `www` prefix unless that is the only hostname).
-5. Create a Cloudflare Turnstile widget for production hostname
-   `preparationstation.org` (managed mode). Copy the public sitekey
-   only.
+5. Create a Cloudflare Turnstile widget for hostname
+   `preparationstation.org`. Copy the public sitekey only.
 6. In each Formspree form, enable CAPTCHA → Cloudflare Turnstile and
-   paste the Turnstile **secret** only inside Formspree. Do not put
-   `TURNSTILE_SECRET_KEY` in this repository, Vercel public env, or
-   page source.
-7. Add only public values to `config/formspree-intake.json` in a
-   reviewed follow-up: `pathway_form_id`, `quote_form_id`,
-   `turnstile_sitekey`, then `enabled: true`. Run `python3 build.py`.
-8. Deploy that follow-up to a Vercel preview.
-9. Send one synthetic, non-sensitive pathway recommendation
-   (adult name, adult email, no student records, health, payment, or
-   credentials).
-10. Send one synthetic, non-sensitive school/district quote the same way.
-11. Confirm: both emails arrived, success copy appeared, a validation
-    error appears for an empty required field, Turnstile ran, no mail
-    app opened, and no secret is visible in page source or network
-    payloads besides the public sitekey and form IDs.
+   paste the Turnstile **secret** only inside Formspree.
+7. Put the three public values into `config/formspree-intake.json`, set
+   `enabled` to `true`, and run `python3 build.py`.
+8. Deploy the pull request to Vercel preview.
+9. Send one synthetic, non-sensitive pathway recommendation.
+10. Send one synthetic, non-sensitive school/district quote.
+11. Confirm delivery, success state, failure state, Turnstile, no mail
+    app, and no secret in source besides the public sitekey and form IDs.
 12. Ask for merge/activation approval only after both tests pass.
 
-Required on-page copy after activation:
+Required on-page copy:
 
 - Privacy: “Please do not include student records, health information, payment details, or program-account credentials.”
 - Success: “Request received. We'll reply within one business day with best-fit options, current status, and the correct purchase path.”
