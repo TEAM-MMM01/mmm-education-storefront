@@ -1,204 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Motion &amp; Video Kit — Preparation Station</title>
-<meta name="description" content="Lighting, sound, and an edit that holds attention. Six finished pieces by the end."/>
+<meta name="description" content="Motion and video-making practice.">
+<link rel="canonical" href="https://preparationstation.org/products/PS-CS-302">
 <style>
-:root {
-  --bg: #f6f3ea;
-  --bg-subtle: #efe8d8;
-  --surface: #fffdf8;
-  --surface-hover: #f9f4e8;
-  --surface-border: #e2d4b8;
-  --text: #3d352b;
-  --text-muted: #6b6154;
-  --text-subtle: #8a7e6e;
-  --accent: #2f7a78;
-  --accent-hover: #256462;
-  --accent-light: #dcebe8;
-  --accent-bg: rgba(47,122,120,0.10);
-  --gold: #d8b261;
-  --gold-hover: #c19a4a;
-  --gold-soft: #f4ead3;
-  --purple: #8b5cf6;
-  --purple-light: #f3f0ff;
-  --amber: #f59e0b;
-  --amber-light: #fef3c7;
-  --blue: #3b82f6;
-  --blue-light: #dbeafe;
-  --green: #10b981;
-  --green-light: #d1fae5;
-  --pink: #ec4899;
-  --pink-light: #fce7f3;
-  --radius: 16px;
-  --radius-sm: 10px;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+:root{
+  --bg:#F6F2EA; --bg-alt:#EFE7DB; --surface:#FCFAF6; --surface-2:#F2ECE2;
+  --border:#D8CFC2; --text:#2B2925; --muted:#6E675F;
+  --accent:#0E6B6F; --accent-hover:#0A5356; --gold:#C58B44;
+  --listed:#3E6B3F; --review:#8A5A1F; --planning:#7A6D92;
+  --error:#8F3D3D; --on-accent:#FCFAF6;
+  --radius:14px; --shadow:0 8px 28px rgba(43,41,37,.07);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1); --dur:220ms;
 }
-[data-theme="dark"] {
-  --bg: #0f0d0b;
-  --bg-subtle: #1a1714;
-  --surface: #1e1c19;
-  --surface-hover: #272522;
-  --surface-border: #302e2b;
-  --text: #f5f0ea;
-  --text-muted: #a09a95;
-  --text-subtle: #706a65;
-  --accent: #5ec4be;
-  --accent-hover: #7dd3cf;
-  --accent-light: #1a2e2e;
-  --accent-bg: rgba(94,196,190,0.1);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border-radius:10px;font-weight:700;font-size:.95rem;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform var(--dur) var(--ease),background var(--dur) var(--ease)}
+.btn--primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn--primary:hover{background:var(--accent-hover)}
+.btn--outline{background:transparent;color:var(--accent);border-color:var(--accent)}
+.site-header{position:sticky;top:0;z-index:40;background:rgba(246,242,234,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;max-width:1120px;margin:0 auto;padding:8px 24px;flex-wrap:wrap}
+.brand{text-decoration:none;color:var(--text)}
+.brand__wordmark{font-weight:800;letter-spacing:-.02em}
+.brand__tagline{display:block;font-size:.72rem;color:var(--muted)}
+.site-nav{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0}
+.site-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 10px;border-radius:8px;color:var(--muted);text-decoration:none;font-weight:600;font-size:.88rem}
+.site-nav a:hover,.site-nav a[aria-current="page"]{color:var(--text);background:var(--surface-2)}
+.nav-toggle{display:none;min-height:44px;min-width:44px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.hero{padding:40px 0 20px}
+.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.03em;line-height:1.15;margin:0 0 12px}
+.lede{color:var(--muted);max-width:62ch;font-size:1.05rem}
+.cluster{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.reviewer,.legend,.policy{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:18px 0}
+.reviewer h2,.legend h2,.policy h2,.section h2{margin:0 0 10px;font-size:1.2rem}
+.reviewer dl{display:grid;grid-template-columns:160px 1fr;gap:8px 16px;margin:0}
+.reviewer dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.reviewer dd{margin:0}
+.legend{display:grid;gap:8px}
+.pill{display:inline-flex;align-items:center;min-height:28px;padding:2px 10px;border-radius:999px;font-size:.75rem;font-weight:700;border:1px solid var(--border);background:var(--surface-2)}
+.pill--review{color:var(--review);border-color:#e2c49a;background:#f7edd9}
+.pill--plan{color:var(--planning);border-color:#d5cde4;background:#f3eef8}
+.pill--free{color:var(--listed);border-color:#c9ddc4;background:#eef6ec}
+.pill--listed{color:var(--listed);border-color:#c9ddc4;background:#eef6ec}
+.tools{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:64px;z-index:30}
+.tools-grid{display:grid;grid-template-columns:1.2fr repeat(4,1fr);gap:10px;align-items:end}
+.tools label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.tools input,.tools select{width:100%;min-height:44px;margin-top:4px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);padding:8px 10px;font:inherit}
+.section{padding:36px 0}
+.section--alt{background:var(--bg-alt)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-height:100%;box-shadow:var(--shadow);transition:transform var(--dur) var(--ease)}
+.card[hidden]{display:none!important}
+.card:hover{transform:translateY(-2px)}
+.card img{width:100%;height:140px;object-fit:cover;background:var(--surface-2)}
+.card-body{display:flex;flex-direction:column;gap:8px;padding:16px;flex:1}
+.card h3{margin:0;font-size:1.05rem;letter-spacing:-.02em}
+.meta{font-size:.8rem;color:var(--muted)}
+.card-cta{margin-top:auto;padding-top:10px}
+.table-wrap{overflow:auto;max-width:100%;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.footer{background:#2B2925;color:#F2ECE2;padding:36px 0 24px;margin-top:24px}
+.footer a{color:#E7D3A8}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:20px}
+.pd-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;padding:28px 0}
+.pd-grid > *{min-width:0}
+.pd-grid img{width:100%;max-width:100%;height:auto}
+.pd-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:14px 0}
+.crumb{font-size:.85rem;color:var(--muted);padding-top:18px}
+.empty{display:none;padding:24px;border:1px dashed var(--border);border-radius:12px;background:var(--surface)}
+.cta-bar{background:var(--accent);color:var(--on-accent);padding:18px 0}
+.cta-bar a{color:#fff}
+@media (max-width:900px){
+  .tools-grid,.footer-grid,.reviewer dl{grid-template-columns:1fr 1fr}
+  .pd-grid{grid-template-columns:minmax(0,1fr)}
+  .nav-toggle{display:inline-flex}
+  .site-nav{display:none}
+  .site-nav.is-open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:64px;background:var(--bg);padding:12px 24px 20px;border-bottom:1px solid var(--border)}
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s ease; border: none; cursor: pointer; }
-.btn--primary { background: var(--accent); color: #fff; }
-.btn--primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.btn--outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
-.btn--outline:hover { background: var(--accent-bg); }
-.btn--ghost { background: transparent; color: var(--text-muted); padding: 8px 14px; }
-.btn--ghost:hover { color: var(--text); background: var(--bg-subtle); }
-
-/* Header */
-.site-header { position: sticky; top: 0; z-index: 100; background: rgba(250,248,245,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--surface-border); }
-[data-theme="dark"] .site-header { background: rgba(15,13,11,0.85); }
-.header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.brand { text-decoration: none; display: flex; flex-direction: column; }
-.brand__wordmark { font-weight: 800; font-size: 1.15rem; color: var(--text); letter-spacing: -0.02em; }
-.brand__tagline { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.02em; }
-.site-nav { display: flex; gap: 4px; list-style: none; }
-.site-nav a { padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: all 0.15s; }
-.site-nav a:hover { color: var(--text); background: var(--bg-subtle); }
-.header-actions { display: flex; gap: 8px; align-items: center; }
-.theme-toggle { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--surface-border); background: var(--surface); color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.15s; }
-.theme-toggle:hover { background: var(--bg-subtle); color: var(--text); }
-
-/* Dept nav */
-.dept-nav { background: var(--bg-subtle); border-bottom: 1px solid var(--surface-border); padding: 12px 0; position: sticky; top: 64px; z-index: 90; }
-.dept-nav__inner { display: flex; gap: 8px; max-width: 1200px; margin: 0 auto; padding: 0 24px; overflow-x: auto; }
-.dept-nav__link { padding: 6px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; white-space: nowrap; transition: all 0.15s; background: var(--surface); border: 1px solid var(--surface-border); }
-.dept-nav__link:hover, .dept-nav__link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-light); }
-
-/* Hero */
-.hero { padding: 64px 0 48px; text-align: center; background: linear-gradient(to bottom, var(--accent-bg), transparent 120%); }
-.hero__eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 20px; background: var(--accent-light); color: var(--accent); font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
-.hero__title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
-.hero__title span { color: var(--gold); }
-.hero__subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
-
-/* Section */
-.section { padding: 56px 0; }
-.section--alt { background: var(--bg-subtle); }
-.section__header { margin-bottom: 32px; }
-.section__eyebrow { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; }
-.section__title { font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
-.section__subtitle { font-size: 0.95rem; color: var(--text-muted); }
-
-/* Product grid */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-.product-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius); overflow: hidden; transition: all 0.25s ease; position: relative; }
-.product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
-.product-card__image { width: 100%; height: 200px; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.product-card__image img { width: 100%; height: 100%; object-fit: cover; }
-.product-card__body { padding: 20px; }
-.product-card__category { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
-.product-card__category--teal { color: var(--accent); }
-.product-card__category--purple { color: var(--purple); }
-.product-card__category--amber { color: var(--amber); }
-.product-card__category--blue { color: var(--blue); }
-.product-card__category--green { color: var(--green); }
-.product-card__category--pink { color: var(--pink); }
-.product-card__title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
-.product-card__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
-.product-card__footer { display: flex; align-items: center; justify-content: space-between; }
-.product-card__status { font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: var(--bg-subtle); color: var(--text-subtle); }
-.product-card__link { font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none; }
-.product-card__link:hover { text-decoration: underline; }
-
-/* Info banner */
-.info-banner { background: var(--gold-soft); border: 1px solid var(--gold); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; font-size: 0.85rem; color: var(--text); display: flex; align-items: center; gap: 10px; }
-.hero__photo { width: min(720px,100%); height: auto; border-radius: 16px; margin: 28px auto 0; display: block; box-shadow: var(--shadow-md); border: 1px solid var(--surface-border); object-fit: cover; }
-.hero__actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
-.price { color: var(--gold-hover); font-weight: 800; }
-.cta-bar { position: sticky; bottom: 0; z-index: 80; background: #1f3f3e; color: #f6f3ea; padding: 12px 0; box-shadow: 0 -8px 24px rgba(0,0,0,.18); }
-.cta-bar .container { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-.cta-bar p { font-size: .9rem; margin: 0; }
-.cta-bar .btn--primary { background: var(--gold); color: #3d352b; }
-.cta-bar .btn--primary:hover { background: var(--gold-hover); color: #fff; }
-.cta-bar .btn--outline { color: #f6f3ea; border-color: var(--gold); }
-@media (max-width: 768px) { .cta-bar .container { justify-content: center; text-align: center; } }
-
-/* Footer */
-.site-footer { background: var(--bg-subtle); border-top: 1px solid var(--surface-border); padding: 48px 0 24px; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
-.footer-brand__name { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
-.footer-brand__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
-.footer-col__title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-subtle); margin-bottom: 12px; }
-.footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
-.footer-col a:hover { color: var(--accent); }
-.footer-bottom { padding-top: 24px; border-top: 1px solid var(--surface-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-subtle); }
-
-@media (max-width: 768px) {
-  .site-nav { display: none; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .dept-nav__inner { gap: 6px; }
+@media (max-width:640px){
+  .container,.header-inner{padding-left:24px;padding-right:24px}
+  .tools-grid,.footer-grid,.pd-grid,.reviewer dl{grid-template-columns:1fr}
+  .header-inner .btn{width:100%}
+  body{overflow-x:hidden}
 }
-@media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
-
-.pd { padding: 48px 0 80px; }
-.pd-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items:start; }
-.pd h1 { font-size: clamp(1.6rem,3vw,2.2rem); font-weight:800; margin: 8px 0 12px; }
-.pd .lede { color: var(--text-muted); }
-.pd-block { margin-top: 28px; }
-.pd-block h2 { font-size: 0.75rem; letter-spacing:.1em; text-transform:uppercase; color: var(--accent); margin-bottom:10px; }
-.pd ul { padding-left: 1.1rem; }
-.pd li { margin: 6px 0; }
-.crumb { font-size:.85rem; color:var(--text-muted); margin-bottom:20px; }
-.crumb a { color: var(--accent); text-decoration:none; }
-@media (max-width: 800px) { .pd-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
 </style>
-</head>
-<body>
+</head><body>
 <header class="site-header"><div class="header-inner">
-  <a class="brand" href="/"><span class="brand__wordmark">Preparation Station</span><span class="brand__tagline">Product detail</span></a>
-  <nav><ul class="site-nav">
-    <li><a href="/">Home</a></li>
-    <li><a href="/catalog.html">Catalog</a></li>
-    <li><a href="/contact.html">Contact</a></li>
-  </ul></nav>
-  <a href="/contact.html?sku=PS-CS-302" class="btn btn--primary" style="padding:8px 18px;font-size:.85rem">Request this SKU</a>
+  <a class="brand" href="../index.html"><span class="brand__wordmark">Preparation Station</span><span class="brand__tagline">Practical curriculum for life ahead</span></a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">Menu</button>
+  <nav><ul class="site-nav" id="siteNav"><li><a href="../index.html">Home</a></li><li><a href="../catalog.html" aria-current="page">Catalog</a></li><li><a href="../shop-by-age.html">Shop by Age</a></li><li><a href="../index.html#guide">Mission Guide</a></li><li><a href="../tefa.html">Funding</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul></nav>
+  <a class="btn btn--primary" href="../contact.html">Request recommendation</a>
 </div></header>
-<main class="pd"><div class="container">
-  <p class="crumb"><a href="/catalog.html">Catalog</a> / Design &amp; Motion / Motion &amp; Video Kit</p>
+<main class="container">
+  <p class="crumb"><a href="../catalog.html">Catalog</a> / Design &amp; Motion Studio / Motion &amp; Video Kit</p>
   <div class="pd-grid">
-    <div><img src="../images/photo-motion.jpg" alt="Motion &amp; Video Kit" width="960" height="540" style="width:100%;border-radius:16px;object-fit:cover"></div>
+    <div><img src="../images/motion-and-video-kit.svg" alt="" width="960" height="540"></div>
     <div>
-      <div class="hero__eyebrow">PS-CS-302 · Planned kit · under review</div>
+      <span class="pill pill--review">Offering review</span>
       <h1>Motion &amp; Video Kit</h1>
-      <p class="lede">Lighting, sound, and an edit that holds attention. Six finished pieces by the end.</p>
-      <p style="margin-top:12px"><span class="price">Not published until Odyssey</span> · See age shop · Kit</p>
-      <p style="margin-top:16px;font-size:.9rem;color:var(--text-muted)">This page is information. It is not checkout. Funded purchase happens in Odyssey only after this exact SKU is listed.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
-        <a class="btn btn--primary" href="/contact.html?sku=PS-CS-302">Request this SKU</a>
-        <a class="btn btn--outline" href="/catalog.html">Back to catalog</a>
+      <p class="lede">Motion and video-making practice.</p>
+      <p class="meta">SKU: PS-CS-302 · Ages 11–17 · Published at offering review · Planned physical kit</p>
+      <p><strong>Price: Not published</strong></p>
+      <p class="meta">Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey.</p>
+      <div class="cluster">
+        <a class="btn btn--primary" href="../contact.html?sku=PS-CS-302&amp;topic=availability">Request availability update</a>
+        <a class="btn btn--outline" href="../catalog.html">Back to catalog</a>
       </div>
     </div>
   </div>
-  <div class="pd-block"><h2>What you get</h2><ul><li>Planned: lighting/sound/edit lessons aimed at six finished pieces</li><li>Final list at offering review</li></ul></div>
-  <div class="pd-block"><h2>Use cases</h2><ul><li>Student who already shoots on a phone</li><li>Portfolio / media credit</li></ul></div>
-  <div class="pd-block"><h2>Not included</h2><ul><li>A cinema camera unless listed at review</li></ul></div>
-</div></main>
-<div class="cta-bar"><div class="container">
-  <p>Need this SKU listed? Send a request — we route it internally.</p>
-  <a class="btn btn--primary" href="/contact.html?sku=PS-CS-302">Start a request</a>
-</div></div>
+  <div class="pd-block"><h2>Educational purpose</h2><p>Motion and video-making practice.</p></div>
+  <div class="pd-block"><h2>Learning outcomes</h2><ul><li>Practice creativity with adult support</li></ul></div>
+  <div class="pd-block"><h2>What is included</h2><ul><li>Planned kit contents and facilitator notes — final packing list publishes at offering review</li></ul></div>
+  <div class="pd-block"><h2>What is not included</h2><ul><li>Verified marketplace price</li><li>Unsupervised hazardous tool use</li><li>Odyssey checkout on this site</li></ul></div>
+  <div class="pd-block"><h2>Best fit</h2><ul><li>Homeschool practical-skills block</li><li>Family wanting a hands-on companion to a pathway</li></ul></div>
+  <div class="pd-block"><h2>Not ideal for</h2><ul><li>Anyone needing a live marketplace purchase today</li></ul></div>
+  <div class="pd-block"><h2>How families use it</h2><ul><li>Use as a supervised project block, not as a live checkout item.</li></ul></div>
+  <div class="pd-block"><h2>Implementation requirements</h2><ul><li>Adult facilitator or supervisor as noted on the product page</li></ul></div>
+  <div class="pd-block"><h2>License and delivery</h2><p>One-time family license (planned). Physical kit after the exact SKU is listed; packing list publishes at offering review</p></div>
+  <div class="pd-block"><h2>TEFA purchase path</h2><p>TEFA-funded purchases are available only for the exact Preparation Station offering that is approved and published in the official marketplace. We confirm the current purchase path in writing before a family spends program funds.</p><p>This website does not process TEFA payments or collect program-account details.</p></div>
+  <div class="pd-block"><h2>Product FAQ</h2><details><summary>Can I buy this on this website?</summary><p>No. This website does not process TEFA payments or collect program-account details.</p></details><details><summary>When is the verified price shown?</summary><p>Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey.</p></details></div>
+  <div class="pd-block"><h2>Related catalog items</h2><p><a href='PS-CS-301.html'>Graphic Design Bench</a> · PS-CS-301</p><p><a href='PS-CS-303.html'>Skill-to-Income Pack</a> · PS-CS-303</p></div>
+  <p class="meta">Last updated 2026-09-03</p>
+</main>
+<footer class="footer"><div class="container footer-grid">
+  <div><strong>Preparation Station</strong><p>Helps families build practical skills, habits, judgment, and readiness. Operated by Nationwide Acquisitions, LLC.</p>
+  <p>This website does not process TEFA payments or collect program-account details.</p></div>
+  <div><strong>Catalog</strong><p><a href="../catalog.html">Official catalog</a><br><a href="../shop-by-age.html">Shop by Age</a><br><a href="../index.html#guide">Mission Guide</a></p></div>
+  <div><strong>Support</strong><p><a href="../tefa.html">Funding / TEFA</a><br><a href="../faq.html">FAQ</a><br><a href="../contact.html">Contact</a><br><a href="mailto:Hello@preparationstation.org">Hello@preparationstation.org</a></p></div>
+  <div><strong>Legal</strong><p><a href="../about.html">About</a><br><a href="../privacy.html">Privacy</a><br><a href="../terms.html">Terms</a><br><a href="../shipping.html">Shipping &amp; returns</a></p></div>
+</div><div class="container" style="margin-top:18px;font-size:.8rem;color:#cfc6b8">Updated 2026-09-03 · Complete requests are acknowledged within one business day.</div></footer>
+<script>
+const tog=document.querySelector('.nav-toggle');const nav=document.getElementById('siteNav');
+if(tog&&nav){tog.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');tog.setAttribute('aria-expanded',open?'true':'false');});}
+</script>
 </body></html>

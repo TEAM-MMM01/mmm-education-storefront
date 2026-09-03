@@ -461,6 +461,8 @@ html,body{margin:0; padding:0}
 .page h1,.page h2,.page h3{margin:0; font-family:var(--display); font-weight:800; letter-spacing:-.02em; line-height:1.1; text-wrap:balance}
 .page a{color:var(--accent)}
 .page :focus-visible{outline:2.5px solid var(--focus); outline-offset:3px; border-radius:2px}
+.page label{display:flex;flex-direction:column;gap:.35rem;font-size:.9rem;font-weight:600}
+.page label input,.page label select,.page label textarea{font:inherit;padding:.7rem .75rem;min-height:44px;border:1.5px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);color-scheme:light}
 .wrap{width:100%; max-width:var(--measure); margin-inline:auto; padding-inline:clamp(1.15rem,4vw,2.5rem)}
 .band{padding-block:clamp(3rem,6vw,5rem)}
 .band-tint{background:var(--section-even,#f7f3ec)}
@@ -579,7 +581,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       </ul>
     </nav>
     <div class="header-actions">
-      <a class="btn btn--primary" href="contact.html">Start a Request</a>
+      <a class="btn btn--primary" href="contact.html">Request recommendation</a>
     </div>
   </div>
 </header>

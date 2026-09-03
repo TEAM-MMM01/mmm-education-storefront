@@ -1,637 +1,516 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Catalog — Preparation Station Education Products & Books</title>
-<meta name="theme-color" content="#2f7a78"/>
-<meta property="og:title" content="Preparation Station catalog — TEFA offering review"/>
-<meta property="og:description" content="Curriculum pathways with SKU, listing price, and purpose. Kits under review. Not checkout — buy in Odyssey after the SKU is listed."/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://preparationstation.org/catalog"/>
-<meta property="og:image" content="https://preparationstation.org/images/photo-catalog-banner.jpg"/>
-<meta name="description" content="Preparation Station catalog: education workbooks, coloring books, practical kits, and design studio resources. Operated by Nationwide Acquisitions, LLC. Offerings reviewed separately in Odyssey."/>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog — Preparation Station</title>
+<meta name="description" content="Official Preparation Station catalog for families and TEFA/Odyssey reviewers. Exact SKUs, status, and planning prices. Not checkout.">
+<link rel="canonical" href="https://preparationstation.org/catalog">
+<meta property="og:title" content="Preparation Station catalog">
+<meta property="og:url" content="https://preparationstation.org/catalog">
+<meta property="og:image" content="https://preparationstation.org/images/photo-catalog-banner.jpg">
 <style>
-:root {
-  --bg: #f6f3ea;
-  --bg-subtle: #efe8d8;
-  --surface: #fffdf8;
-  --surface-hover: #f9f4e8;
-  --surface-border: #e2d4b8;
-  --text: #3d352b;
-  --text-muted: #6b6154;
-  --text-subtle: #8a7e6e;
-  --accent: #2f7a78;
-  --accent-hover: #256462;
-  --accent-light: #dcebe8;
-  --accent-bg: rgba(47,122,120,0.10);
-  --gold: #d8b261;
-  --gold-hover: #c19a4a;
-  --gold-soft: #f4ead3;
-  --purple: #8b5cf6;
-  --purple-light: #f3f0ff;
-  --amber: #f59e0b;
-  --amber-light: #fef3c7;
-  --blue: #3b82f6;
-  --blue-light: #dbeafe;
-  --green: #10b981;
-  --green-light: #d1fae5;
-  --pink: #ec4899;
-  --pink-light: #fce7f3;
-  --radius: 16px;
-  --radius-sm: 10px;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+:root{
+  --bg:#F6F2EA; --bg-alt:#EFE7DB; --surface:#FCFAF6; --surface-2:#F2ECE2;
+  --border:#D8CFC2; --text:#2B2925; --muted:#6E675F;
+  --accent:#0E6B6F; --accent-hover:#0A5356; --gold:#C58B44;
+  --listed:#3E6B3F; --review:#8A5A1F; --planning:#7A6D92;
+  --error:#8F3D3D; --on-accent:#FCFAF6;
+  --radius:14px; --shadow:0 8px 28px rgba(43,41,37,.07);
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1); --dur:220ms;
 }
-[data-theme="dark"] {
-  --bg: #0f0d0b;
-  --bg-subtle: #1a1714;
-  --surface: #1e1c19;
-  --surface-hover: #272522;
-  --surface-border: #302e2b;
-  --text: #f5f0ea;
-  --text-muted: #a09a95;
-  --text-subtle: #706a65;
-  --accent: #5ec4be;
-  --accent-hover: #7dd3cf;
-  --accent-light: #1a2e2e;
-  --accent-bg: rgba(94,196,190,0.1);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-  --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border-radius:10px;font-weight:700;font-size:.95rem;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform var(--dur) var(--ease),background var(--dur) var(--ease)}
+.btn--primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn--primary:hover{background:var(--accent-hover)}
+.btn--outline{background:transparent;color:var(--accent);border-color:var(--accent)}
+.site-header{position:sticky;top:0;z-index:40;background:rgba(246,242,234,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;max-width:1120px;margin:0 auto;padding:8px 24px;flex-wrap:wrap}
+.brand{text-decoration:none;color:var(--text)}
+.brand__wordmark{font-weight:800;letter-spacing:-.02em}
+.brand__tagline{display:block;font-size:.72rem;color:var(--muted)}
+.site-nav{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0}
+.site-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 10px;border-radius:8px;color:var(--muted);text-decoration:none;font-weight:600;font-size:.88rem}
+.site-nav a:hover,.site-nav a[aria-current="page"]{color:var(--text);background:var(--surface-2)}
+.nav-toggle{display:none;min-height:44px;min-width:44px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.hero{padding:40px 0 20px}
+.hero h1{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.03em;line-height:1.15;margin:0 0 12px}
+.lede{color:var(--muted);max-width:62ch;font-size:1.05rem}
+.cluster{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.reviewer,.legend,.policy{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:18px 0}
+.reviewer h2,.legend h2,.policy h2,.section h2{margin:0 0 10px;font-size:1.2rem}
+.reviewer dl{display:grid;grid-template-columns:160px 1fr;gap:8px 16px;margin:0}
+.reviewer dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.reviewer dd{margin:0}
+.legend{display:grid;gap:8px}
+.pill{display:inline-flex;align-items:center;min-height:28px;padding:2px 10px;border-radius:999px;font-size:.75rem;font-weight:700;border:1px solid var(--border);background:var(--surface-2)}
+.pill--review{color:var(--review);border-color:#e2c49a;background:#f7edd9}
+.pill--plan{color:var(--planning);border-color:#d5cde4;background:#f3eef8}
+.pill--free{color:var(--listed);border-color:#c9ddc4;background:#eef6ec}
+.pill--listed{color:var(--listed);border-color:#c9ddc4;background:#eef6ec}
+.tools{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:64px;z-index:30}
+.tools-grid{display:grid;grid-template-columns:1.2fr repeat(4,1fr);gap:10px;align-items:end}
+.tools label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.tools input,.tools select{width:100%;min-height:44px;margin-top:4px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);padding:8px 10px;font:inherit}
+.section{padding:36px 0}
+.section--alt{background:var(--bg-alt)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-height:100%;box-shadow:var(--shadow);transition:transform var(--dur) var(--ease)}
+.card[hidden]{display:none!important}
+.card:hover{transform:translateY(-2px)}
+.card img{width:100%;height:140px;object-fit:cover;background:var(--surface-2)}
+.card-body{display:flex;flex-direction:column;gap:8px;padding:16px;flex:1}
+.card h3{margin:0;font-size:1.05rem;letter-spacing:-.02em}
+.meta{font-size:.8rem;color:var(--muted)}
+.card-cta{margin-top:auto;padding-top:10px}
+.table-wrap{overflow:auto;max-width:100%;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.footer{background:#2B2925;color:#F2ECE2;padding:36px 0 24px;margin-top:24px}
+.footer a{color:#E7D3A8}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:20px}
+.pd-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;padding:28px 0}
+.pd-grid > *{min-width:0}
+.pd-grid img{width:100%;max-width:100%;height:auto}
+.pd-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:14px 0}
+.crumb{font-size:.85rem;color:var(--muted);padding-top:18px}
+.empty{display:none;padding:24px;border:1px dashed var(--border);border-radius:12px;background:var(--surface)}
+.cta-bar{background:var(--accent);color:var(--on-accent);padding:18px 0}
+.cta-bar a{color:#fff}
+@media (max-width:900px){
+  .tools-grid,.footer-grid,.reviewer dl{grid-template-columns:1fr 1fr}
+  .pd-grid{grid-template-columns:minmax(0,1fr)}
+  .nav-toggle{display:inline-flex}
+  .site-nav{display:none}
+  .site-nav.is-open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:64px;background:var(--bg);padding:12px 24px 20px;border-bottom:1px solid var(--border)}
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s ease; border: none; cursor: pointer; }
-.btn--primary { background: var(--accent); color: #fff; }
-.btn--primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.btn--outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
-.btn--outline:hover { background: var(--accent-bg); }
-.btn--ghost { background: transparent; color: var(--text-muted); padding: 8px 14px; }
-.btn--ghost:hover { color: var(--text); background: var(--bg-subtle); }
-
-/* Header */
-.site-header { position: sticky; top: 0; z-index: 100; background: rgba(246,243,234,0.96); backdrop-filter: blur(20px); border-bottom: 2px solid var(--gold); }
-[data-theme="dark"] .site-header { background: rgba(15,13,11,0.85); }
-.header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.brand { text-decoration: none; display: flex; flex-direction: column; }
-.brand__wordmark { font-weight: 800; font-size: 1.15rem; color: var(--accent); letter-spacing: -0.02em; }
-.brand__tagline { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.02em; }
-.site-nav { display: flex; gap: 4px; list-style: none; }
-.site-nav a { padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: all 0.15s; }
-.site-nav a:hover { color: var(--text); background: var(--bg-subtle); }
-.header-actions { display: flex; gap: 8px; align-items: center; }
-.theme-toggle { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--surface-border); background: var(--surface); color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: all 0.15s; }
-.theme-toggle:hover { background: var(--bg-subtle); color: var(--text); }
-
-/* Dept nav */
-.dept-nav { background: var(--bg-subtle); border-bottom: 1px solid var(--surface-border); padding: 12px 0; position: sticky; top: 64px; z-index: 90; }
-.dept-nav__inner { display: flex; gap: 8px; max-width: 1200px; margin: 0 auto; padding: 0 24px; overflow-x: auto; }
-.dept-nav__link { padding: 6px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-decoration: none; white-space: nowrap; transition: all 0.15s; background: var(--surface); border: 1px solid var(--surface-border); }
-.dept-nav__link:hover, .dept-nav__link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-light); }
-
-/* Hero */
-.hero { padding: 64px 0 48px; text-align: center; background: linear-gradient(to bottom, var(--accent-bg), transparent 120%); }
-.hero__eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 20px; background: var(--accent-light); color: var(--accent); font-size: 0.8rem; font-weight: 600; margin-bottom: 16px; }
-.hero__title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
-.hero__title span { color: var(--gold); }
-.hero__subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
-
-/* Section */
-.section { padding: 56px 0; }
-.section--alt { background: var(--bg-subtle); }
-.section__header { margin-bottom: 32px; }
-.section__eyebrow { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; }
-.section__title { font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
-.section__subtitle { font-size: 0.95rem; color: var(--text-muted); }
-
-/* Product grid */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-a.product-card { text-decoration:none; color:inherit; display:block; }
-.product-card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius); overflow: hidden; transition: all 0.25s ease; position: relative; }
-.product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
-.product-card__image { width: 100%; height: 200px; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.product-card__image img { width: 100%; height: 100%; object-fit: cover; }
-.product-card__body { padding: 20px; }
-.product-card__category { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
-.product-card__category--teal { color: var(--accent); }
-.product-card__category--purple { color: var(--purple); }
-.product-card__category--amber { color: var(--amber); }
-.product-card__category--blue { color: var(--blue); }
-.product-card__category--green { color: var(--green); }
-.product-card__category--pink { color: var(--pink); }
-.product-card__facts { display:flex; justify-content:space-between; gap:10px; margin:8px 0; font-size:.78rem; font-weight:700; color:var(--text-muted); }
-.product-card__title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
-.product-card__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
-.product-card__footer { display: flex; align-items: center; justify-content: space-between; }
-.product-card__status { font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: var(--bg-subtle); color: var(--text-subtle); }
-.product-card{position:relative}
-.product-card__hit{position:absolute;inset:0;z-index:1}
-.product-card__footer,.product-card__link{position:relative;z-index:2}
-.product-card__link { font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none; }
-.product-card__link:hover { text-decoration: underline; }
-
-/* Info banner */
-.info-banner { background: var(--gold-soft); border: 1px solid var(--gold); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px; font-size: 0.85rem; color: var(--text); display: flex; align-items: center; gap: 10px; }
-.hero__photo { width: min(720px,100%); height: auto; border-radius: 16px; margin: 28px auto 0; display: block; box-shadow: var(--shadow-md); border: 1px solid var(--surface-border); object-fit: cover; }
-.hero__actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
-.price { color: var(--gold-hover); font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; }
-.cta-bar { position: sticky; bottom: 0; z-index: 80; background: #1f3f3e; color: #f6f3ea; padding: 12px 0; box-shadow: 0 -8px 24px rgba(0,0,0,.18); }
-.cta-bar .container { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-.cta-bar p { font-size: .9rem; margin: 0; }
-.cta-bar .btn--primary { background: var(--gold); color: #3d352b; }
-.cta-bar .btn--primary:hover { background: var(--gold-hover); color: #fff; }
-.cta-bar .btn--outline { color: #f6f3ea; border-color: var(--gold); }
-@media (max-width: 768px) { .cta-bar .container { justify-content: center; text-align: center; } }
-
-/* Footer */
-.site-footer { background: var(--bg-subtle); border-top: 1px solid var(--surface-border); padding: 48px 0 24px; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 32px; }
-.footer-brand__name { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
-.footer-brand__desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
-.footer-col__title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-subtle); margin-bottom: 12px; }
-.footer-col a { display: block; padding: 4px 0; font-size: 0.85rem; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
-.footer-col a:hover { color: var(--accent); }
-.footer-bottom { padding-top: 24px; border-top: 1px solid var(--surface-border); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-subtle); }
-
-@media (max-width: 768px) {
-  .site-nav { display: none; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .dept-nav__inner { gap: 6px; }
+@media (max-width:640px){
+  .container,.header-inner{padding-left:24px;padding-right:24px}
+  .tools-grid,.footer-grid,.pd-grid,.reviewer dl{grid-template-columns:1fr}
+  .header-inner .btn{width:100%}
+  body{overflow-x:hidden}
 }
-@media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
-.hero{padding:28px 0 20px;text-align:left}.hero__subtitle{max-width:none;margin:0}.hero__actions{justify-content:flex-start;margin-top:14px}.section{padding:30px 0}.section__header{margin-bottom:16px}.product-grid{grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:12px}.product-card{border-radius:10px}.product-card__image{height:108px}.product-card__body{padding:14px}.catalog-tools{background:var(--surface);border-bottom:1px solid var(--surface-border);padding:12px 0}.catalog-tools__row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.catalog-tools label{font-size:.7rem;font-weight:700;text-transform:uppercase}.catalog-tools select{display:block;width:100%;margin-top:4px;padding:8px;background:var(--surface);color:var(--text);border:1px solid var(--surface-border);border-radius:7px}.utility-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.utility-card,.clip-placeholder{padding:16px;border:1px solid var(--surface-border);border-radius:10px;background:var(--surface)}.utility-card p,.clip-placeholder span{font-size:.8rem;color:var(--text-muted)}.clip-placeholder{border-style:dashed}@media(max-width:700px){.catalog-tools__row,.utility-grid{grid-template-columns:1fr 1fr}}@media(prefers-reduced-motion:reduce){.product-card,.btn{transition:none!important}}</style>
-</head>
-<body>
-
-<!-- Header -->
-<header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="index.html">
-      <span class="brand__wordmark">Catalog</span>
-      <span class="brand__tagline">Preparation Station</span>
-    </a>
-    <nav>
-      <ul class="site-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="catalog.html">Catalog</a></li>
-        <li><a href="shop-by-age.html">By Age</a></li>
-        <li><a href="index.html#guide">Mission Guide</a></li>
-        <li><a href="tefa.html">Funding help</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="header-actions">
-      <a href="contact.html" class="btn btn--primary" style="padding:8px 18px;font-size:0.85rem;">Start a Request</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌓</button>
-    </div>
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head><body>
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="index.html"><span class="brand__wordmark">Preparation Station</span><span class="brand__tagline">Practical curriculum for life ahead</span></a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">Menu</button>
+  <nav><ul class="site-nav" id="siteNav"><li><a href="index.html">Home</a></li><li><a href="catalog.html" aria-current="page">Catalog</a></li><li><a href="shop-by-age.html">Shop by Age</a></li><li><a href="index.html#guide">Mission Guide</a></li><li><a href="tefa.html">Funding</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+  <a class="btn btn--primary" href="contact.html">Request recommendation</a>
+</div></header>
+<main>
+<section class="hero"><div class="container">
+  <p class="pill pill--review">Official catalog URL</p>
+  <h1>Preparation Station catalog</h1>
+  <p class="lede">Authoritative product records for families and Odyssey reviewers. Nothing here is checkout. TEFA-funded purchases are available only for the exact Preparation Station offering that is approved and published in the official marketplace. We confirm the current purchase path in writing before a family spends program funds.</p>
+  <div class="cluster">
+    <a class="btn btn--primary" href="#register">SKU register</a>
+    <a class="btn btn--outline" href="contact.html">Request a written pathway recommendation</a>
   </div>
-</header>
-
-<!-- Dept nav -->
-<div class="dept-nav">
-  <div class="dept-nav__inner">
-    <a href="#d01" class="dept-nav__link">Practical & Trade</a>
-    <a href="#d02" class="dept-nav__link">Situation Handling</a>
-    <a href="#d03" class="dept-nav__link">Design & Motion</a>
-    <a href="#d04" class="dept-nav__link">AI & Emerging Tech</a>
-    <a href="#d05" class="dept-nav__link">Homeschool Essentials</a>
-    <a href="#pathways" class="dept-nav__link">Curriculum pathways</a>
-    <a href="#confirmed" class="dept-nav__link">Books</a>
-  </div>
-</div><section class="catalog-tools" aria-label="Catalog filters"><div class="container catalog-tools__row"><label>Subject<select id="subject-filter"><option value="all">All subjects</option><option value="Practical">Practical skills</option><option value="Situation">Self-command</option><option value="Design">Design &amp; motion</option><option value="AI">Technology</option><option value="Homeschool">Homeschool</option><option value="Curriculum">Pathways</option></select></label><label>Level<select id="level-filter"><option value="all">All levels</option><option value="elementary">Elementary</option><option value="middle">Middle grades</option><option value="high">High school / transition</option></select></label><label>Eligibility<select id="eligibility-filter"><option value="all">All badges</option><option value="fits">Fits most award programs</option><option value="entry">Entry</option><option value="premium">Premium</option></select></label><label>Sort<select id="sort-catalog"><option value="featured">Featured</option><option value="title">Title A–Z</option><option value="price">Price low to high</option></select></label><p id="result-count" aria-live="polite"></p></div></section>
-
-<!-- Hero -->
-<section class="hero">
-  <div class="container">
-    <div class="hero__eyebrow">Approved TEFA Marketplace Vendor</div>
-    <h1 class="hero__title">Preparation Station <span>Catalog</span></h1>
-    <p class="hero__subtitle">Official catalog URL for TEFA / Odyssey offering review and family planning. Catalog entries below show their current review status. This page is not checkout — funded purchases complete in Odyssey after the exact SKU is listed.</p>
-    <div class="hero__actions">
-      <a class="btn btn--primary" href="#d01">Browse catalog references</a>
-      <a class="btn btn--outline" href="contact.html?topic=catalog">Start a request</a>
-      <button type="button" class="btn btn--outline" onclick="navigator.clipboard.writeText('https://preparationstation.org/catalog').then(()=>{this.textContent='Catalog URL copied'})">Copy catalog URL</button>
-    </div>
-  </div>
-</section>
-
-<!-- Info banner -->
-<div class="container" style="margin-top:24px;">
-  <div class="info-banner">
-    <span>📋</span>
-    <span>Send this URL to TEFA: <strong>preparationstation.org/catalog</strong>. Use the status on each listing when preparing an offering review. Nothing is purchasable with TEFA funds until the exact offering appears in Odyssey.</span>
-  </div>
+</div></section>
+<div class="container">
+  <aside class="reviewer" id="reviewer-facts">
+    <h2>Reviewer quick facts</h2>
+    <dl>
+      <dt>Legal entity</dt><dd>Nationwide Acquisitions, LLC</dd>
+      <dt>Brand / DBA</dt><dd>Preparation Station</dd>
+      <dt>Website</dt><dd><a href="https://preparationstation.org/">https://preparationstation.org/</a></dd>
+      <dt>Catalog URL</dt><dd><a href="https://preparationstation.org/catalog">https://preparationstation.org/catalog</a></dd>
+      <dt>Support email</dt><dd><a href="mailto:Hello@preparationstation.org">Hello@preparationstation.org</a></dd>
+      <dt>Response</dt><dd>Complete requests are acknowledged within one business day.</dd>
+      <dt>Phone</dt><dd><a href="tel:+16822535459">682.253.5459</a></dd>
+      <dt>Mailing address</dt><dd>13101 Preston Rd Suite 110, Dallas, Texas 75240</dd>
+      <dt>Vendor status</dt><dd>Nationwide Acquisitions, LLC is an approved TEFA Marketplace vendor. Each offering is reviewed separately in Odyssey.</dd>
+      <dt>Payments</dt><dd>This website does not process TEFA payments or collect program-account details.</dd>
+      <dt>Updated</dt><dd>2026-09-03</dd>
+      <dt>Policies</dt><dd><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="shipping.html">Shipping &amp; returns</a></dd>
+    </dl>
+  </aside>
+  <aside class="legend">
+    <h2>How catalog status works</h2>
+    <p><span class="pill pill--listed">Marketplace listed</span> Exact SKU is approved and published in Odyssey.</p>
+    <p><span class="pill pill--review">Offering review</span> Submitted, pending, or being prepared. Not purchasable yet.</p>
+    <p><span class="pill pill--plan">Planning concept</span> Future catalog candidate. Not submitted or purchasable.</p>
+    <p><span class="pill pill--free">Free resource</span> Preparation Station educational tool. Not a paid offering.</p>
+    <p><span class="pill">External resource</span> Third-party. No affiliation unless stated.</p>
+  </aside>
+  <aside class="policy">
+    <h2>How to verify an offering</h2>
+    <ol>
+      <li>Find the exact Preparation Station SKU on this catalog.</li>
+      <li>Confirm that exact SKU appears in the official marketplace.</li>
+      <li>Review the verified marketplace price and eligibility there.</li>
+      <li>Complete the TEFA-funded purchase through the official marketplace.</li>
+    </ol>
+    <p>Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey.</p>
+    <p>This website does not process TEFA payments or collect program-account details.</p>
+  </aside>
 </div>
-
-<section class="section section--alt" id="pathways">
-  <div class="container">
-    <div class="section__header">
-      <div class="section__eyebrow">Four live pathway pages</div>
-      <h2 class="section__title">Guided curriculum pathways</h2>
-      <p class="section__subtitle">These four digital curriculum pathways are separate from the 18 fixed-kit references below. Prices shown are the current public asks on their product-detail pages, not verified Odyssey listings. This site is not checkout.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card"><a class="product-card__hit" href="products/PS-CL-2495.html" aria-label="View Career Launch details"></a><div class="product-card__body"><div class="product-card__category product-card__category--teal">Curriculum pathway</div><div class="product-card__facts"><span>SKU: PS-CL-2495</span><span>Current public ask: $2,495</span></div><div class="product-card__title">Career Launch &amp; Entrepreneurship</div><div class="product-card__footer"><span class="product-card__status">Offering review</span><a href="products/PS-CL-2495.html" class="product-card__link">View details →</a></div></div></div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-IL-1995.html" aria-label="View Independent Living details"></a><div class="product-card__body"><div class="product-card__category product-card__category--teal">Curriculum pathway</div><div class="product-card__facts"><span>SKU: PS-IL-1995</span><span>Current public ask: $1,995</span></div><div class="product-card__title">Independent Living &amp; Financial Foundations</div><div class="product-card__footer"><span class="product-card__status">Offering review</span><a href="products/PS-IL-1995.html" class="product-card__link">View details →</a></div></div></div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-AI-1695.html" aria-label="View AI Literacy details"></a><div class="product-card__body"><div class="product-card__category product-card__category--blue">Curriculum pathway</div><div class="product-card__facts"><span>SKU: PS-AI-1695</span><span>Current public ask: $1,695</span></div><div class="product-card__title">AI Literacy &amp; Digital Leadership</div><div class="product-card__footer"><span class="product-card__status">Offering review</span><a href="products/PS-AI-1695.html" class="product-card__link">View details →</a></div></div></div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-SR-2295.html" aria-label="View Structured Reading details"></a><div class="product-card__body"><div class="product-card__category product-card__category--purple">Curriculum pathway</div><div class="product-card__facts"><span>SKU: PS-SR-2295</span><span>Current public ask: $2,295</span></div><div class="product-card__title">Structured Reading Support Pathway</div><div class="product-card__footer"><span class="product-card__status">Offering review</span><a href="products/PS-SR-2295.html" class="product-card__link">View details →</a></div></div></div>
-    </div>
+<div class="tools"><div class="container tools-grid">
+  <label>Search<input id="q" type="search" placeholder="SKU or title"></label>
+  <label>Department<select id="dept"><option value="all">All</option></select></label>
+  <label>Status<select id="status"><option value="all">All</option>
+    <option value="offering_review">Offering review</option>
+    <option value="planning_concept">Planning concept</option>
+    <option value="free_resource">Free resource</option>
+    <option value="marketplace_listed">Marketplace listed</option></select></label>
+  <label>Format<select id="format"><option value="all">All</option></select></label>
+  <label>Sort<select id="sort"><option value="recommended">Recommended</option><option value="title">Title A–Z</option><option value="department">Department</option><option value="status">Status</option></select></label>
+</div><div class="container"><p id="count" aria-live="polite"></p><button class="btn btn--outline" id="reset" type="button">Clear filters</button></div></div>
+<div class="container"><p class="empty" id="empty">No items match these filters. Clear filters to see the full catalog.</p></div>
+<section class="section" id="curriculum-pathways"><span id="pathways" hidden></span><div class="container"><h2>Curriculum pathways</h2><div class="grid"><article class="card" data-status="offering_review" data-dept="Curriculum pathways" data-age="Ages 13–17 / grades 9–12" data-format="Digital-first guided curriculum" data-kind="pathway" data-title="Career Launch &amp; Entrepreneurship">
+  <a href="products/PS-CL-2495.html" aria-label="View Career Launch &amp; Entrepreneurship"><img src="images/photo-career.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-CL-2495 · Ages 13–17 / grades 9–12</div>
+    <h3>Career Launch &amp; Entrepreneurship</h3>
+    <p class="meta">Employability, workplace projects, and a student venture portfolio across a full year.</p>
+    <p class="meta">Planning listing price: $2,495</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-CL-2495.html">View details</a></div>
   </div>
-</section>
-
-<section class="section" id="d01">
-  <div class="container">
-    <div class="section__header">
-      <div class="section__eyebrow">Dept 01</div>
-      <h2 class="section__title">Practical & Trade</h2>
-      <p class="section__subtitle">3 items · Home and repair, money and first job, kitchen and provision.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card"><a class="product-card__hit" href="products/PS-PR-101.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/home-and-repair-tool-roll.svg" alt="Home & Repair Tool Roll"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--teal">Practical & Trade</div>
-          <div class="product-card__facts"><span>SKU: PS-PR-101</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Home & Repair Tool Roll</div>
-          <div class="product-card__desc">Essential hand tools for home repairs and basic maintenance projects.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-PR-101.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-PR-102.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/money-and-first-job-kit.svg" alt="Money & First Job Kit"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--teal">Practical & Trade</div>
-          <div class="product-card__facts"><span>SKU: PS-PR-102</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Money & First Job Kit</div>
-          <div class="product-card__desc">Read your stub, find deductions, decide what to do with the money before it disappears.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-PR-102.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-PR-103.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/kitchen-and-provision-kit.svg" alt="Kitchen & Provision Kit"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--teal">Practical & Trade</div>
-          <div class="product-card__facts"><span>SKU: PS-PR-103</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Kitchen & Provision Kit</div>
-          <div class="product-card__desc">Kitchen skills, meal planning, and provision fundamentals for independent living.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-PR-103.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+</article><article class="card" data-status="offering_review" data-dept="Curriculum pathways" data-age="Ages 14–18 / grades 8–12" data-format="Digital-first guided curriculum" data-kind="pathway" data-title="Independent Living &amp; Financial Foundations">
+  <a href="products/PS-IL-1995.html" aria-label="View Independent Living &amp; Financial Foundations"><img src="images/photo-independent-living.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-IL-1995 · Ages 14–18 / grades 8–12</div>
+    <h3>Independent Living &amp; Financial Foundations</h3>
+    <p class="meta">Banking, housing, food, transportation, and household decisions as practical life-skill learning.</p>
+    <p class="meta">Planning listing price: $1,995</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-IL-1995.html">View details</a></div>
   </div>
-</section>
-
-<!-- Dept 02: Situation Handling & Self-Command -->
-<section class="section section--alt" id="d02">
-  <div class="container">
-    <div class="section__header">
-      <div class="section__eyebrow">Dept 02</div>
-      <h2 class="section__title">Situation Handling & Self-Command</h2>
-      <p class="section__subtitle">5 items · Decision-making, focus, self-advocacy, interview prep, adulting.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card"><a class="product-card__hit" href="products/PS-SC-201.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/situation-handling-deck.svg" alt="Situation Handling Deck"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--purple">Situation Handling</div>
-          <div class="product-card__facts"><span>SKU: PS-SC-201</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Situation Handling Deck</div>
-          <div class="product-card__desc">Decision-making scenarios and practice cards for building self-command.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-SC-201.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-SC-202.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/focus-and-energy-system.svg" alt="Focus & Energy System"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--purple">Situation Handling</div>
-          <div class="product-card__facts"><span>SKU: PS-SC-202</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Focus & Energy System</div>
-          <div class="product-card__desc">Energy management, focus techniques, and productivity systems for learners.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-SC-202.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-SC-203.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/self-advocacy-workbook.svg" alt="Self-Advocacy Workbook"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--purple">Situation Handling</div>
-          <div class="product-card__facts"><span>SKU: PS-SC-203</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Self-Advocacy Workbook</div>
-          <div class="product-card__desc">How to ask for what you need, explain your needs, and advocate for yourself.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-SC-203.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-SC-204.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/interview-and-first-job-prep-kit.svg" alt="Interview & First Job Prep Kit"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--purple">Situation Handling</div>
-          <div class="product-card__facts"><span>SKU: PS-SC-204</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Interview & First Job Prep Kit</div>
-          <div class="product-card__desc">Interview practice, resume basics, and first-job readiness.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-SC-204.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-SC-205.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/adulting-launch-kit.svg" alt="Adulting Launch Kit"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--purple">Situation Handling</div>
-          <div class="product-card__facts"><span>SKU: PS-SC-205</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Adulting Launch Kit</div>
-          <div class="product-card__desc">Household routines, schedules, laundry, room upkeep, and personal responsibility systems.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-SC-205.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+</article><article class="card" data-status="offering_review" data-dept="Curriculum pathways" data-age="Ages 11–17 / grades 6–12" data-format="Digital-first guided curriculum" data-kind="pathway" data-title="AI Literacy &amp; Digital Leadership">
+  <a href="products/PS-AI-1695.html" aria-label="View AI Literacy &amp; Digital Leadership"><img src="images/photo-ai-literacy.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-AI-1695 · Ages 11–17 / grades 6–12</div>
+    <h3>AI Literacy &amp; Digital Leadership</h3>
+    <p class="meta">How modern tools work, how to question their output, and parent-supervised digital judgment.</p>
+    <p class="meta">Planning listing price: $1,695</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-AI-1695.html">View details</a></div>
   </div>
-</section>
-
-<!-- Dept 03: Design & Motion Studio -->
-<section class="section" id="d03">
-  <div class="container">
-    <div class="section__header">
-      <div class="section__eyebrow">Dept 03</div>
-      <h2 class="section__title">Design & Motion Studio</h2>
-      <p class="section__subtitle">3 items · Graphic design, motion and video, skill-to-income.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card"><a class="product-card__hit" href="products/PS-CS-301.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/graphic-design-bench.svg" alt="Graphic Design Bench"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--amber">Design & Motion</div>
-          <div class="product-card__facts"><span>SKU: PS-CS-301</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Graphic Design Bench</div>
-          <div class="product-card__desc">Digital design tools, project briefs, and portfolio-building exercises.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-CS-301.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-CS-302.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/motion-and-video-kit.svg" alt="Motion & Video Kit"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--amber">Design & Motion</div>
-          <div class="product-card__facts"><span>SKU: PS-CS-302</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Motion & Video Kit</div>
-          <div class="product-card__desc">Video editing, motion graphics, and storytelling through moving images.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-CS-302.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-CS-303.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/skill-to-income-pack.svg" alt="Skill-to-Income Pack"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--amber">Design & Motion</div>
-          <div class="product-card__facts"><span>SKU: PS-CS-303</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Skill-to-Income Pack</div>
-          <div class="product-card__desc">Turn creative skills into income: pricing, clients, portfolios, and first sales.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-CS-303.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+</article><article class="card" data-status="offering_review" data-dept="Curriculum pathways" data-age="Ages 8–14 / grades 3–8" data-format="Digital-first guided curriculum" data-kind="pathway" data-title="Structured Reading Support Pathway">
+  <a href="products/PS-SR-2295.html" aria-label="View Structured Reading Support Pathway"><img src="images/photo-reading.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-SR-2295 · Ages 8–14 / grades 3–8</div>
+    <h3>Structured Reading Support Pathway</h3>
+    <p class="meta">Decoding, fluency, vocabulary, and comprehension with facilitator scripts. Curriculum — not therapy.</p>
+    <p class="meta">Planning listing price: $2,295</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-SR-2295.html">View details</a></div>
   </div>
-</section>
-
-<!-- Dept 04: AI & Emerging Tech Bench -->
-<section class="section section--alt" id="d04">
-  <div class="container">
-    <div class="section__header">
-      <div class="section__eyebrow">Dept 04</div>
-      <h2 class="section__title">AI & Emerging Tech Bench</h2>
-      <p class="section__subtitle">3 items · AI literacy, electronics and robotics, 3D design and fabrication.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card"><a class="product-card__hit" href="products/PS-AT-401.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/ai-literacy-bench-kit.svg" alt="AI Literacy Bench Kit"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
-          <div class="product-card__facts"><span>SKU: PS-AT-401</span><span>Price: Not published</span></div>
-          <div class="product-card__title">AI Literacy Bench Kit</div>
-          <div class="product-card__desc">How modern AI tools work, how to question their output, and how to use them responsibly.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-AT-401.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-AT-402.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/electronics-and-robotics-starter.svg" alt="Electronics & Robotics Starter"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
-          <div class="product-card__facts"><span>SKU: PS-AT-402</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Electronics & Robotics Starter</div>
-          <div class="product-card__desc">Circuits, sensors, motors, and basic robotics projects for hands-on learning.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-AT-402.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-AT-403.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/3d-design-and-fabrication-intro.svg" alt="3D Design & Fabrication Intro"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--blue">AI & Emerging Tech</div>
-          <div class="product-card__facts"><span>SKU: PS-AT-403</span><span>Price: Not published</span></div>
-          <div class="product-card__title">3D Design & Fabrication Intro</div>
-          <div class="product-card__desc">3D modeling, printing basics, and digital fabrication fundamentals.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-AT-403.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+</article></div></div></section><section class="section" id="practical-and-trade"><span id="d01" hidden></span><div class="container"><h2>Practical &amp; Trade</h2><div class="grid"><article class="card" data-status="offering_review" data-dept="Practical &amp; Trade" data-age="Ages 11–17" data-format="Planned physical kit" data-kind="kit" data-title="Home &amp; Repair Tool Roll">
+  <a href="products/PS-PR-101.html" aria-label="View Home &amp; Repair Tool Roll"><img src="images/home-and-repair-tool-roll.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-PR-101 · Ages 11–17</div>
+    <h3>Home &amp; Repair Tool Roll</h3>
+    <p class="meta">Household repair practice with adult supervision.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-PR-101.html">View details</a></div>
   </div>
-</section>
-
-<!-- Dept 05: Homeschool Essentials -->
-<section class="section" id="d05">
-  <div class="container">
-    <div class="section__header">
-      <div class="section__eyebrow">Dept 05</div>
-      <h2 class="section__title">Homeschool Essentials</h2>
-      <p class="section__subtitle">4 items · Core workbooks, assessment, supply restock, art and craft foundations.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card"><a class="product-card__hit" href="products/PS-HS-501.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/core-subjects-workbook-set.svg" alt="Core Subjects Workbook Set"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
-          <div class="product-card__facts"><span>SKU: PS-HS-501</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Core Subjects Workbook Set</div>
-          <div class="product-card__desc">Comprehensive workbook set covering core subjects for structured learning.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-HS-501.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-HS-502.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/homeschool-assessment-and-portfolio-kit.svg" alt="Homeschool Assessment & Portfolio Kit"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
-          <div class="product-card__facts"><span>SKU: PS-HS-502</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Homeschool Assessment & Portfolio Kit</div>
-          <div class="product-card__desc">Assessment tools, portfolio building, and progress tracking for homeschool families.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-HS-502.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-HS-503.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/daily-supply-restock-box.svg" alt="Daily Supply Restock Box"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
-          <div class="product-card__facts"><span>SKU: PS-HS-503</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Daily Supply Restock Box</div>
-          <div class="product-card__desc">Paper, pencils, markers, and the daily essentials that keep learning going.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-HS-503.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-      <div class="product-card"><a class="product-card__hit" href="products/PS-HS-504.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/art-and-craft-foundations-kit.svg" alt="Art & Craft Foundations Kit"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--green">Homeschool Essentials</div>
-          <div class="product-card__facts"><span>SKU: PS-HS-504</span><span>Price: Not published</span></div>
-          <div class="product-card__title">Art & Craft Foundations Kit</div>
-          <div class="product-card__desc">Art supplies and project guides for creative expression and skill development.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Under review</span>
-            <a href="products/PS-HS-504.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+</article><article class="card" data-status="offering_review" data-dept="Practical &amp; Trade" data-age="Ages 11–17" data-format="Planned physical kit" data-kind="kit" data-title="Money &amp; First Job Kit">
+  <a href="products/PS-PR-102.html" aria-label="View Money &amp; First Job Kit"><img src="images/money-and-first-job-kit.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-PR-102 · Ages 11–17</div>
+    <h3>Money &amp; First Job Kit</h3>
+    <p class="meta">Money habits and first-job paperwork practice.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-PR-102.html">View details</a></div>
   </div>
-</section>
-
-<!-- Reserved titles — details later, not in the TEFA pathway packet -->
-<section class="section section--alt" id="confirmed">
-  <div class="container">
-    <div class="section__header">
-      <div class="section__eyebrow">Reserved — not in the TEFA pathway packet</div>
-      <h2 class="section__title">Books & coloring</h2>
-      <p class="section__subtitle">Publicly listed Royal Collexions books sit here — not in the TEFA pathway packet. Use <strong>preparationstation.org/catalog</strong> as the catalog reference URL. Vendor: Nationwide Acquisitions, LLC.</p>
-    </div>
-    <div class="product-grid">
-      <div class="product-card"><a class="product-card__hit" href="products/RC-CC-0169.html" aria-label="View product details"></a>
-        <div class="product-card__image"><img loading="lazy" src="images/photo-calm-clear.jpg" alt="Calm & Clear by Royal Collexions"/></div>
-        <div class="product-card__body">
-          <div class="product-card__category product-card__category--pink">Royal Collexions · RC-CC-0169</div>
-          <div class="product-card__facts"><span>SKU: RC-CC-0169</span><span>Price: $16.99</span></div>
-          <div class="product-card__title">Calm & Clear</div>
-          <div class="product-card__desc">50 bold, large-print mandalas. Paperback <span class="price">$16.99</span>. Direct retail only — not in the TEFA pathway packet.</div>
-          <div class="product-card__footer">
-            <span class="product-card__status">Direct retail · request</span>
-            <a href="products/RC-CC-0169.html" class="product-card__link">View details →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+</article><article class="card" data-status="offering_review" data-dept="Practical &amp; Trade" data-age="Ages 9–17" data-format="Planned physical kit" data-kind="kit" data-title="Kitchen &amp; Provision Kit">
+  <a href="products/PS-PR-103.html" aria-label="View Kitchen &amp; Provision Kit"><img src="images/kitchen-and-provision-kit.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-PR-103 · Ages 9–17</div>
+    <h3>Kitchen &amp; Provision Kit</h3>
+    <p class="meta">Kitchen routines and provision planning.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-PR-103.html">View details</a></div>
   </div>
-</section>
-
-
-<section class="section" id="free-resources"><div class="container"><div class="section__header"><div class="section__eyebrow">Free printables</div><h2 class="section__title">Practical worksheets</h2></div><div class="utility-grid"><div class="utility-card"><h3>Budget planner</h3><p>Plan income and expenses.</p><a href="resources/budget-planner.html" class="product-card__link">Open printable →</a></div><div class="utility-card"><h3>First paycheck</h3><p>Understand take-home pay.</p><a href="resources/first-paycheck.html" class="product-card__link">Open printable →</a></div><div class="utility-card"><h3>Savings challenge</h3><p>Track a savings target.</p><a href="resources/savings-challenge.html" class="product-card__link">Open printable →</a></div><div class="utility-card"><h3>Business idea</h3><p>Shape a testable offer.</p><a href="resources/business-idea.html" class="product-card__link">Open printable →</a></div></div><p style="margin-top:14px"><a class="btn btn--outline" href="catalog.html">Return to catalog</a></p></div></section><section class="section section--alt"><div class="container"><div class="section__header"><div class="section__eyebrow">Product clips</div><h2 class="section__title">Demonstrations are being prepared</h2></div><div class="utility-grid"><div class="clip-placeholder"><strong>Pathway overview</strong><span>Video placeholder — no clip published yet.</span></div><div class="clip-placeholder"><strong>Workbook walkthrough</strong><span>Video placeholder — no clip published yet.</span></div></div></div></section><aside class="cta-bar"><div class="container"><p><strong>Need a written SKU check?</strong> We respond within one business day.</p><a class="btn btn--primary" href="contact.html">Contact Preparation Station</a></div></aside>
-<!-- Footer -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-brand__name">Preparation Station</div>
-        <div class="footer-brand__desc">Practical curriculum for life ahead. Operated by Nationwide Acquisitions, LLC.<br>
-          <a href="mailto:hello@preparationstation.org">Hello@preparationstation.org</a><br>
-          <a href="mailto:sales@preparationstation.org">Sales@preparationstation.org</a><br>
-          <a href="mailto:support@preparationstation.org">Support@preparationstation.org</a><br>
-          <a href="mailto:sales@preparationstation.org">Sales@preparationstation.org</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col__title">Shop</div>
-        <a href="catalog.html">Catalog</a>
-        <a href="shop-by-age.html">Shop by Age</a>
-        <a href="index.html#guide">Mission Guide</a>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col__title">Support</div>
-        <a href="tefa.html">Funding help</a>
-        <a href="faq.html">FAQ</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div class="footer-col">
-        <div class="footer-col__title">Company</div>
-        <a href="about.html">About Us</a>
-        <a href="tefa.html">TEFA & Funding</a>
-        <a href="privacy.html">Privacy</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>Updated August 2026 · <a href="contact.html" style="color:var(--accent);">Get in touch</a> · Responses within one business day</div>
-      <div>Preparation Station is operated by Nationwide Acquisitions, LLC. No checkout; purchases complete in Odyssey only.</div>
-    </div>
+</article></div></div></section><section class="section" id="situation-handling-and-self-command"><span id="d02" hidden></span><div class="container"><h2>Situation Handling &amp; Self-Command</h2><div class="grid"><article class="card" data-status="offering_review" data-dept="Situation Handling &amp; Self-Command" data-age="Ages 8–17" data-format="Planned physical kit" data-kind="kit" data-title="Situation Handling Deck">
+  <a href="products/PS-SC-201.html" aria-label="View Situation Handling Deck"><img src="images/situation-handling-deck.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-SC-201 · Ages 8–17</div>
+    <h3>Situation Handling Deck</h3>
+    <p class="meta">Practice respectful communication and conflict navigation as life-skill learning.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-SC-201.html">View details</a></div>
   </div>
-</footer>
-
+</article><article class="card" data-status="offering_review" data-dept="Situation Handling &amp; Self-Command" data-age="Ages 8–17" data-format="Planned physical kit" data-kind="kit" data-title="Focus &amp; Energy System">
+  <a href="products/PS-SC-202.html" aria-label="View Focus &amp; Energy System"><img src="images/focus-and-energy-system.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-SC-202 · Ages 8–17</div>
+    <h3>Focus &amp; Energy System</h3>
+    <p class="meta">Organization, time, and self-discipline practice.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-SC-202.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="Situation Handling &amp; Self-Command" data-age="Ages 11–17" data-format="Planned physical kit" data-kind="kit" data-title="Self-Advocacy Workbook">
+  <a href="products/PS-SC-203.html" aria-label="View Self-Advocacy Workbook"><img src="images/self-advocacy-workbook.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-SC-203 · Ages 11–17</div>
+    <h3>Self-Advocacy Workbook</h3>
+    <p class="meta">Practice stating needs clearly and respectfully.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-SC-203.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="Situation Handling &amp; Self-Command" data-age="Ages 14–17" data-format="Planned physical kit" data-kind="kit" data-title="Interview &amp; First Job Prep Kit">
+  <a href="products/PS-SC-204.html" aria-label="View Interview &amp; First Job Prep Kit"><img src="images/interview-and-first-job-prep-kit.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-SC-204 · Ages 14–17</div>
+    <h3>Interview &amp; First Job Prep Kit</h3>
+    <p class="meta">Physical/print kit companion for interview practice.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-SC-204.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="Situation Handling &amp; Self-Command" data-age="Ages 14–18" data-format="Planned physical kit" data-kind="kit" data-title="Adulting Launch Kit">
+  <a href="products/PS-SC-205.html" aria-label="View Adulting Launch Kit"><img src="images/adulting-launch-kit.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-SC-205 · Ages 14–18</div>
+    <h3>Adulting Launch Kit</h3>
+    <p class="meta">Household and personal-responsibility launch practice.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-SC-205.html">View details</a></div>
+  </div>
+</article></div></div></section><section class="section" id="design-and-motion-studio"><span id="d03" hidden></span><div class="container"><h2>Design &amp; Motion Studio</h2><div class="grid"><article class="card" data-status="offering_review" data-dept="Design &amp; Motion Studio" data-age="Ages 11–17" data-format="Planned physical kit" data-kind="kit" data-title="Graphic Design Bench">
+  <a href="products/PS-CS-301.html" aria-label="View Graphic Design Bench"><img src="images/graphic-design-bench.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-CS-301 · Ages 11–17</div>
+    <h3>Graphic Design Bench</h3>
+    <p class="meta">Design and making practice.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-CS-301.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="Design &amp; Motion Studio" data-age="Ages 11–17" data-format="Planned physical kit" data-kind="kit" data-title="Motion &amp; Video Kit">
+  <a href="products/PS-CS-302.html" aria-label="View Motion &amp; Video Kit"><img src="images/motion-and-video-kit.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-CS-302 · Ages 11–17</div>
+    <h3>Motion &amp; Video Kit</h3>
+    <p class="meta">Motion and video-making practice.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-CS-302.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="Design &amp; Motion Studio" data-age="Ages 13–17" data-format="Planned physical kit" data-kind="kit" data-title="Skill-to-Income Pack">
+  <a href="products/PS-CS-303.html" aria-label="View Skill-to-Income Pack"><img src="images/skill-to-income-pack.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-CS-303 · Ages 13–17</div>
+    <h3>Skill-to-Income Pack</h3>
+    <p class="meta">Practice turning a skill into a testable offer. Not a guaranteed-income program.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-CS-303.html">View details</a></div>
+  </div>
+</article></div></div></section><section class="section" id="ai-and-emerging-tech-bench"><span id="d04" hidden></span><div class="container"><h2>AI &amp; Emerging Tech Bench</h2><div class="grid"><article class="card" data-status="offering_review" data-dept="AI &amp; Emerging Tech Bench" data-age="Ages 11–17" data-format="Planned physical kit" data-kind="kit" data-title="AI Literacy Bench Kit">
+  <a href="products/PS-AT-401.html" aria-label="View AI Literacy Bench Kit"><img src="images/ai-literacy-bench-kit.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-AT-401 · Ages 11–17</div>
+    <h3>AI Literacy Bench Kit</h3>
+    <p class="meta">Hands-on companion to digital-judgment lessons.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-AT-401.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="AI &amp; Emerging Tech Bench" data-age="Ages 11–17" data-format="Planned physical kit" data-kind="kit" data-title="Electronics &amp; Robotics Starter">
+  <a href="products/PS-AT-402.html" aria-label="View Electronics &amp; Robotics Starter"><img src="images/electronics-and-robotics-starter.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-AT-402 · Ages 11–17</div>
+    <h3>Electronics &amp; Robotics Starter</h3>
+    <p class="meta">Intro making with electronics, adult-supervised.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-AT-402.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="AI &amp; Emerging Tech Bench" data-age="Ages 13–17" data-format="Planned physical kit" data-kind="kit" data-title="3D Design &amp; Fabrication Intro">
+  <a href="products/PS-AT-403.html" aria-label="View 3D Design &amp; Fabrication Intro"><img src="images/3d-design-and-fabrication-intro.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-AT-403 · Ages 13–17</div>
+    <h3>3D Design &amp; Fabrication Intro</h3>
+    <p class="meta">Intro 3D design and making.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-AT-403.html">View details</a></div>
+  </div>
+</article></div></div></section><section class="section" id="homeschool-essentials"><span id="d05" hidden></span><div class="container"><h2>Homeschool Essentials</h2><div class="grid"><article class="card" data-status="offering_review" data-dept="Homeschool Essentials" data-age="Ages 3–12" data-format="Planned physical kit" data-kind="kit" data-title="Core Subjects Workbook Set">
+  <a href="products/PS-HS-501.html" aria-label="View Core Subjects Workbook Set"><img src="images/core-subjects-workbook-set.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-HS-501 · Ages 3–12</div>
+    <h3>Core Subjects Workbook Set</h3>
+    <p class="meta">Core-subject workbook practice for homeschool planning.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-HS-501.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="Homeschool Essentials" data-age="Planner / educator" data-format="Planned physical kit" data-kind="kit" data-title="Homeschool Assessment &amp; Portfolio Kit">
+  <a href="products/PS-HS-502.html" aria-label="View Homeschool Assessment &amp; Portfolio Kit"><img src="images/homeschool-assessment-and-portfolio-kit.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-HS-502 · Planner / educator</div>
+    <h3>Homeschool Assessment &amp; Portfolio Kit</h3>
+    <p class="meta">Evidence and portfolio organization for planners.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-HS-502.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="Homeschool Essentials" data-age="Ages 3–12" data-format="Planned physical kit" data-kind="kit" data-title="Daily Supply Restock Box">
+  <a href="products/PS-HS-503.html" aria-label="View Daily Supply Restock Box"><img src="images/daily-supply-restock-box.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-HS-503 · Ages 3–12</div>
+    <h3>Daily Supply Restock Box</h3>
+    <p class="meta">Consumable restock concept for daily work. Not in the TEFA pathway packet list.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-HS-503.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="offering_review" data-dept="Homeschool Essentials" data-age="Ages 3–8" data-format="Planned physical kit" data-kind="kit" data-title="Art &amp; Craft Foundations Kit">
+  <a href="products/PS-HS-504.html" aria-label="View Art &amp; Craft Foundations Kit"><img src="images/art-and-craft-foundations-kit.svg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--review">Offering review</span>
+    <div class="meta">SKU: PS-HS-504 · Ages 3–8</div>
+    <h3>Art &amp; Craft Foundations Kit</h3>
+    <p class="meta">Art and craft foundations with adult supervision.</p>
+    <p class="meta">Price: Not published</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/PS-HS-504.html">View details</a></div>
+  </div>
+</article></div></div></section><section class="section" id="books"><div class="container"><h2>Books</h2><div class="grid"><article class="card" data-status="planning_concept" data-dept="Books" data-age="Pending" data-format="Coloring-book concept" data-kind="book" data-title="Future Founders">
+  <a href="products/GEN-CB-101.html" aria-label="View Future Founders"><img src="images/photo-future-founders.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--plan">Planning concept</span>
+    <div class="meta">SKU: GEN-CB-101 · Pending</div>
+    <h3>Future Founders</h3>
+    <p class="meta">Working-title coloring book concept. Not for sale.</p>
+    <p class="meta">No purchase path is currently available.</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/GEN-CB-101.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="planning_concept" data-dept="Books" data-age="Pending" data-format="Coloring-book concept" data-kind="book" data-title="Tools &amp; Trades">
+  <a href="products/GEN-CB-102.html" aria-label="View Tools &amp; Trades"><img src="images/photo-tools-trades.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--plan">Planning concept</span>
+    <div class="meta">SKU: GEN-CB-102 · Pending</div>
+    <h3>Tools &amp; Trades</h3>
+    <p class="meta">Working-title coloring book concept. Not for sale.</p>
+    <p class="meta">No purchase path is currently available.</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/GEN-CB-102.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="planning_concept" data-dept="Books" data-age="Pending" data-format="Coloring-book concept" data-kind="book" data-title="Big Feelings, Big Wins">
+  <a href="products/GEN-CB-103.html" aria-label="View Big Feelings, Big Wins"><img src="images/photo-big-feelings.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--plan">Planning concept</span>
+    <div class="meta">SKU: GEN-CB-103 · Pending</div>
+    <h3>Big Feelings, Big Wins</h3>
+    <p class="meta">Working-title coloring book concept. Practical feelings vocabulary — not therapy.</p>
+    <p class="meta">No purchase path is currently available.</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/GEN-CB-103.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="planning_concept" data-dept="Books" data-age="All ages coloring" data-format="Paperback coloring book (Royal Collexions retail record)" data-kind="book" data-title="Calm &amp; Clear">
+  <a href="products/RC-CC-0169.html" aria-label="View Calm &amp; Clear"><img src="images/photo-calm-clear.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--plan">Planning concept</span>
+    <div class="meta">SKU: RC-CC-0169 · All ages coloring</div>
+    <h3>Calm &amp; Clear</h3>
+    <p class="meta">50 bold, large-print mandalas. Direct-retail record only — not presented as a TEFA offering.</p>
+    <p class="meta">No purchase path is currently available.</p>
+    <div class="card-cta"><a class="btn btn--outline" href="products/RC-CC-0169.html">View details</a></div>
+  </div>
+</article></div></div></section>
+<section class="section section--alt" id="free"><div class="container"><h2>Free resources</h2><div class="grid"><article class="card" data-status="free_resource" data-dept="Free resources" data-age="Planner / family" data-format="Free printable HTML" data-kind="free_resource" data-title="Budget planner">
+  <a href="resources/budget-planner.html" aria-label="View Budget planner"><img src="images/photo-money-job.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--free">Free resource</span>
+    <div class="meta">SKU: PS-FR-BUDGET · Planner / family</div>
+    <h3>Budget planner</h3>
+    <p class="meta">Plan income and expenses.</p>
+    <p class="meta">Free resource</p>
+    <div class="card-cta"><a class="btn btn--outline" href="resources/budget-planner.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="free_resource" data-dept="Free resources" data-age="Ages 14–18" data-format="Free printable HTML" data-kind="free_resource" data-title="First paycheck">
+  <a href="resources/first-paycheck.html" aria-label="View First paycheck"><img src="images/photo-interview.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--free">Free resource</span>
+    <div class="meta">SKU: PS-FR-PAY · Ages 14–18</div>
+    <h3>First paycheck</h3>
+    <p class="meta">Understand take-home pay.</p>
+    <p class="meta">Free resource</p>
+    <div class="card-cta"><a class="btn btn--outline" href="resources/first-paycheck.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="free_resource" data-dept="Free resources" data-age="Family" data-format="Free printable HTML" data-kind="free_resource" data-title="Savings challenge">
+  <a href="resources/savings-challenge.html" aria-label="View Savings challenge"><img src="images/photo-money-job.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--free">Free resource</span>
+    <div class="meta">SKU: PS-FR-SAVE · Family</div>
+    <h3>Savings challenge</h3>
+    <p class="meta">Track a savings target.</p>
+    <p class="meta">Free resource</p>
+    <div class="card-cta"><a class="btn btn--outline" href="resources/savings-challenge.html">View details</a></div>
+  </div>
+</article><article class="card" data-status="free_resource" data-dept="Free resources" data-age="Ages 13–17" data-format="Free printable HTML" data-kind="free_resource" data-title="Business idea">
+  <a href="resources/business-idea.html" aria-label="View Business idea"><img src="images/photo-career.jpg" alt="" width="640" height="400" loading="lazy"></a>
+  <div class="card-body">
+    <span class="pill pill--free">Free resource</span>
+    <div class="meta">SKU: PS-FR-BIZ · Ages 13–17</div>
+    <h3>Business idea</h3>
+    <p class="meta">Shape a testable offer.</p>
+    <p class="meta">Free resource</p>
+    <div class="card-cta"><a class="btn btn--outline" href="resources/business-idea.html">View details</a></div>
+  </div>
+</article></div></div></section>
+<section class="section" id="register"><div class="container">
+  <h2>SKU register</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>SKU</th><th>Title</th><th>Department</th><th>Age</th><th>Duration</th><th>Format</th><th>License</th><th>Delivery</th><th>Purpose</th><th>Price status</th><th>Marketplace status</th><th>URL</th><th>Updated</th></tr></thead>
+    <tbody><tr><td>PS-CL-2495</td><td><a href='products/PS-CL-2495.html'>Career Launch &amp; Entrepreneurship</a></td><td>Curriculum pathways</td><td>Ages 13–17 / grades 9–12</td><td>36 weeks</td><td>Digital-first guided curriculum</td><td>One-time digital family license</td><td>Digital family access after the exact SKU is listed in Odyssey</td><td>Employability, workplace projects, and a student venture portfolio across a full year.</td><td>Planning listing price: $2,495</td><td>Offering review</td><td>https://preparationstation.org/products/PS-CL-2495</td><td>2026-09-03</td></tr><tr><td>PS-IL-1995</td><td><a href='products/PS-IL-1995.html'>Independent Living &amp; Financial Foundations</a></td><td>Curriculum pathways</td><td>Ages 14–18 / grades 8–12</td><td>30 weeks</td><td>Digital-first guided curriculum</td><td>One-time digital family license</td><td>Digital family access after the exact SKU is listed in Odyssey</td><td>Banking, housing, food, transportation, and household decisions as practical life-skill learning.</td><td>Planning listing price: $1,995</td><td>Offering review</td><td>https://preparationstation.org/products/PS-IL-1995</td><td>2026-09-03</td></tr><tr><td>PS-AI-1695</td><td><a href='products/PS-AI-1695.html'>AI Literacy &amp; Digital Leadership</a></td><td>Curriculum pathways</td><td>Ages 11–17 / grades 6–12</td><td>24 weeks</td><td>Digital-first guided curriculum</td><td>One-time digital family license</td><td>Digital family access after the exact SKU is listed in Odyssey</td><td>How modern tools work, how to question their output, and parent-supervised digital judgment.</td><td>Planning listing price: $1,695</td><td>Offering review</td><td>https://preparationstation.org/products/PS-AI-1695</td><td>2026-09-03</td></tr><tr><td>PS-SR-2295</td><td><a href='products/PS-SR-2295.html'>Structured Reading Support Pathway</a></td><td>Curriculum pathways</td><td>Ages 8–14 / grades 3–8</td><td>36 weeks</td><td>Digital-first guided curriculum</td><td>One-time digital family license</td><td>Digital family access after the exact SKU is listed in Odyssey</td><td>Decoding, fluency, vocabulary, and comprehension with facilitator scripts. Curriculum — not therapy.</td><td>Planning listing price: $2,295</td><td>Offering review</td><td>https://preparationstation.org/products/PS-SR-2295</td><td>2026-09-03</td></tr><tr><td>PS-PR-101</td><td><a href='products/PS-PR-101.html'>Home &amp; Repair Tool Roll</a></td><td>Practical &amp; Trade</td><td>Ages 11–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Household repair practice with adult supervision.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-PR-101</td><td>2026-09-03</td></tr><tr><td>PS-PR-102</td><td><a href='products/PS-PR-102.html'>Money &amp; First Job Kit</a></td><td>Practical &amp; Trade</td><td>Ages 11–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Money habits and first-job paperwork practice.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-PR-102</td><td>2026-09-03</td></tr><tr><td>PS-PR-103</td><td><a href='products/PS-PR-103.html'>Kitchen &amp; Provision Kit</a></td><td>Practical &amp; Trade</td><td>Ages 9–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Kitchen routines and provision planning.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-PR-103</td><td>2026-09-03</td></tr><tr><td>PS-SC-201</td><td><a href='products/PS-SC-201.html'>Situation Handling Deck</a></td><td>Situation Handling &amp; Self-Command</td><td>Ages 8–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Practice respectful communication and conflict navigation as life-skill learning.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-SC-201</td><td>2026-09-03</td></tr><tr><td>PS-SC-202</td><td><a href='products/PS-SC-202.html'>Focus &amp; Energy System</a></td><td>Situation Handling &amp; Self-Command</td><td>Ages 8–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Organization, time, and self-discipline practice.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-SC-202</td><td>2026-09-03</td></tr><tr><td>PS-SC-203</td><td><a href='products/PS-SC-203.html'>Self-Advocacy Workbook</a></td><td>Situation Handling &amp; Self-Command</td><td>Ages 11–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Practice stating needs clearly and respectfully.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-SC-203</td><td>2026-09-03</td></tr><tr><td>PS-SC-204</td><td><a href='products/PS-SC-204.html'>Interview &amp; First Job Prep Kit</a></td><td>Situation Handling &amp; Self-Command</td><td>Ages 14–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Physical/print kit companion for interview practice.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-SC-204</td><td>2026-09-03</td></tr><tr><td>PS-SC-205</td><td><a href='products/PS-SC-205.html'>Adulting Launch Kit</a></td><td>Situation Handling &amp; Self-Command</td><td>Ages 14–18</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Household and personal-responsibility launch practice.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-SC-205</td><td>2026-09-03</td></tr><tr><td>PS-CS-301</td><td><a href='products/PS-CS-301.html'>Graphic Design Bench</a></td><td>Design &amp; Motion Studio</td><td>Ages 11–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Design and making practice.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-CS-301</td><td>2026-09-03</td></tr><tr><td>PS-CS-302</td><td><a href='products/PS-CS-302.html'>Motion &amp; Video Kit</a></td><td>Design &amp; Motion Studio</td><td>Ages 11–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Motion and video-making practice.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-CS-302</td><td>2026-09-03</td></tr><tr><td>PS-CS-303</td><td><a href='products/PS-CS-303.html'>Skill-to-Income Pack</a></td><td>Design &amp; Motion Studio</td><td>Ages 13–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Practice turning a skill into a testable offer. Not a guaranteed-income program.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-CS-303</td><td>2026-09-03</td></tr><tr><td>PS-AT-401</td><td><a href='products/PS-AT-401.html'>AI Literacy Bench Kit</a></td><td>AI &amp; Emerging Tech Bench</td><td>Ages 11–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Hands-on companion to digital-judgment lessons.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-AT-401</td><td>2026-09-03</td></tr><tr><td>PS-AT-402</td><td><a href='products/PS-AT-402.html'>Electronics &amp; Robotics Starter</a></td><td>AI &amp; Emerging Tech Bench</td><td>Ages 11–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Intro making with electronics, adult-supervised.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-AT-402</td><td>2026-09-03</td></tr><tr><td>PS-AT-403</td><td><a href='products/PS-AT-403.html'>3D Design &amp; Fabrication Intro</a></td><td>AI &amp; Emerging Tech Bench</td><td>Ages 13–17</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Intro 3D design and making.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-AT-403</td><td>2026-09-03</td></tr><tr><td>PS-HS-501</td><td><a href='products/PS-HS-501.html'>Core Subjects Workbook Set</a></td><td>Homeschool Essentials</td><td>Ages 3–12</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Core-subject workbook practice for homeschool planning.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-HS-501</td><td>2026-09-03</td></tr><tr><td>PS-HS-502</td><td><a href='products/PS-HS-502.html'>Homeschool Assessment &amp; Portfolio Kit</a></td><td>Homeschool Essentials</td><td>Planner / educator</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Evidence and portfolio organization for planners.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-HS-502</td><td>2026-09-03</td></tr><tr><td>PS-HS-503</td><td><a href='products/PS-HS-503.html'>Daily Supply Restock Box</a></td><td>Homeschool Essentials</td><td>Ages 3–12</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Consumable restock concept for daily work. Not in the TEFA pathway packet list.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-HS-503</td><td>2026-09-03</td></tr><tr><td>PS-HS-504</td><td><a href='products/PS-HS-504.html'>Art &amp; Craft Foundations Kit</a></td><td>Homeschool Essentials</td><td>Ages 3–8</td><td>Published at offering review</td><td>Planned physical kit</td><td>One-time family license (planned)</td><td>Physical kit after the exact SKU is listed; packing list publishes at offering review</td><td>Art and craft foundations with adult supervision.</td><td>Unpublished</td><td>Offering review</td><td>https://preparationstation.org/products/PS-HS-504</td><td>2026-09-03</td></tr><tr><td>GEN-CB-101</td><td><a href='products/GEN-CB-101.html'>Future Founders</a></td><td>Books</td><td>Pending</td><td>n/a</td><td>Coloring-book concept</td><td>Pending</td><td>Not created</td><td>Working-title coloring book concept. Not for sale.</td><td>No purchase path is currently available.</td><td>Planning concept</td><td>https://preparationstation.org/products/GEN-CB-101</td><td>2026-09-03</td></tr><tr><td>GEN-CB-102</td><td><a href='products/GEN-CB-102.html'>Tools &amp; Trades</a></td><td>Books</td><td>Pending</td><td>n/a</td><td>Coloring-book concept</td><td>Pending</td><td>Not created</td><td>Working-title coloring book concept. Not for sale.</td><td>No purchase path is currently available.</td><td>Planning concept</td><td>https://preparationstation.org/products/GEN-CB-102</td><td>2026-09-03</td></tr><tr><td>GEN-CB-103</td><td><a href='products/GEN-CB-103.html'>Big Feelings, Big Wins</a></td><td>Books</td><td>Pending</td><td>n/a</td><td>Coloring-book concept</td><td>Pending</td><td>Not created</td><td>Working-title coloring book concept. Practical feelings vocabulary — not therapy.</td><td>No purchase path is currently available.</td><td>Planning concept</td><td>https://preparationstation.org/products/GEN-CB-103</td><td>2026-09-03</td></tr><tr><td>RC-CC-0169</td><td><a href='products/RC-CC-0169.html'>Calm &amp; Clear</a></td><td>Books</td><td>All ages coloring</td><td>n/a</td><td>Paperback coloring book (Royal Collexions retail record)</td><td>Retail title — not a TEFA pathway packet item</td><td>Royal Collexions owns the retail master record. No checkout on this site.</td><td>50 bold, large-print mandalas. Direct-retail record only — not presented as a TEFA offering.</td><td>No purchase path is currently available.</td><td>Planning concept</td><td>https://preparationstation.org/products/RC-CC-0169</td><td>2026-09-03</td></tr></tbody>
+  </table></div>
+</div></section>
+</main>
+<aside class="cta-bar"><div class="container"><strong>Need a written pathway recommendation?</strong> We reply within one business day with best-fit options, current status, and the correct purchase path. <a class="btn btn--outline" href="contact.html">Request recommendation</a></div></aside>
+<footer class="footer"><div class="container footer-grid">
+  <div><strong>Preparation Station</strong><p>Helps families build practical skills, habits, judgment, and readiness. Operated by Nationwide Acquisitions, LLC.</p>
+  <p>This website does not process TEFA payments or collect program-account details.</p></div>
+  <div><strong>Catalog</strong><p><a href="catalog.html">Official catalog</a><br><a href="shop-by-age.html">Shop by Age</a><br><a href="index.html#guide">Mission Guide</a></p></div>
+  <div><strong>Support</strong><p><a href="tefa.html">Funding / TEFA</a><br><a href="faq.html">FAQ</a><br><a href="contact.html">Contact</a><br><a href="mailto:Hello@preparationstation.org">Hello@preparationstation.org</a></p></div>
+  <div><strong>Legal</strong><p><a href="about.html">About</a><br><a href="privacy.html">Privacy</a><br><a href="terms.html">Terms</a><br><a href="shipping.html">Shipping &amp; returns</a></p></div>
+</div><div class="container" style="margin-top:18px;font-size:.8rem;color:#cfc6b8">Updated 2026-09-03 · Complete requests are acknowledged within one business day.</div></footer>
 <script>
-const cards=[...document.querySelectorAll('.product-card')];cards.forEach((c,i)=>{const cat=c.querySelector('.product-card__category')?.textContent||'';const facts=c.querySelector('.product-card__facts')?.textContent||'';const sku=(facts.match(/(?:PS|RC)-[A-Z]+-[0-9]+/)||[''])[0];const price=Number((facts.match(/\$([0-9,]+)/)||['','0'])[1].replace(',',''));c.dataset.subject=cat;c.dataset.level=sku.startsWith('PS-HS-')?'elementary middle':sku.startsWith('PS-')?'high':'all';c.dataset.price=price||999999;c.dataset.order=i;let badge='fits',label='Fits most award programs';if(price){badge=price<2000?'entry':'premium';label=price<2000?'Entry':'Premium'}c.dataset.badge=badge;const b=c.querySelector('.product-card__status');if(b)b.textContent=label});const ctrls=['subject-filter','level-filter','eligibility-filter','sort-catalog'].map(x=>document.getElementById(x));function filter(){const [sub,lvl,badge,sort]=ctrls.map(x=>x.value);let n=0;cards.forEach(c=>{c.hidden=!((sub==='all'||c.dataset.subject.includes(sub))&&(lvl==='all'||c.dataset.level.includes(lvl))&&(badge==='all'||c.dataset.badge===badge));if(!c.hidden)n++});[...new Set(cards.map(c=>c.parentElement))].forEach(g=>[...g.children].filter(c=>!c.hidden).sort((a,b)=>sort==='title'?(a.querySelector('.product-card__title')?.textContent||'').localeCompare(b.querySelector('.product-card__title')?.textContent||''):sort==='price'?+a.dataset.price-+b.dataset.price:+a.dataset.order-+b.dataset.order).forEach(c=>g.appendChild(c)));document.getElementById('result-count').textContent=n+' items shown'}ctrls.forEach(c=>c.addEventListener('change',filter));filter();
-function toggleTheme() {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme');
-  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-  localStorage.setItem('theme', html.getAttribute('data-theme'));
-}
-const saved = localStorage.getItem('theme');
-if (saved) document.documentElement.setAttribute('data-theme', saved);
-
-// Dept nav active state
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      document.querySelectorAll('.dept-nav__link').forEach(l => l.classList.remove('active'));
-      const link = document.querySelector(`.dept-nav__link[href="#${entry.target.id}"]`);
-      if (link) link.classList.add('active');
-    }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('#pathways, [id^="d"], #confirmed').forEach(s => observer.observe(s));
+const tog=document.querySelector('.nav-toggle');const nav=document.getElementById('siteNav');
+if(tog&&nav){tog.addEventListener('click',()=>{const open=nav.classList.toggle('is-open');tog.setAttribute('aria-expanded',open?'true':'false');});}
 </script>
-
-</body>
-</html>
+<script>
+const cards=[...document.querySelectorAll('.card')];
+const dept=document.getElementById('dept');
+const format=document.getElementById('format');
+[...new Set(cards.map(c=>c.dataset.dept).filter(Boolean))].sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;dept.appendChild(o);});
+[...new Set(cards.map(c=>c.dataset.format).filter(Boolean))].sort().forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;format.appendChild(o);});
+function apply(){
+  const q=(document.getElementById('q').value||'').toLowerCase();
+  const d=dept.value,s=document.getElementById('status').value,f=format.value,sort=document.getElementById('sort').value;
+  let n=0;
+  cards.forEach(c=>{
+    const hay=(c.dataset.title+' '+c.dataset.dept+' '+(c.querySelector('.meta')?.textContent||'')).toLowerCase();
+    const ok=(!q||hay.includes(q))&&(d==='all'||c.dataset.dept===d)&&(s==='all'||c.dataset.status===s)&&(f==='all'||c.dataset.format===f);
+    c.hidden=!ok; if(ok) n++;
+  });
+  document.getElementById('count').textContent=n+' items shown';
+  document.getElementById('empty').style.display=n?'none':'block';
+  const key={title:c=>c.dataset.title,department:c=>c.dataset.dept,status:c=>c.dataset.status}[sort];
+  if(key){[...new Set(cards.map(c=>c.parentElement))].forEach(g=>{[...g.querySelectorAll('.card')].filter(c=>!c.hidden).sort((a,b)=>key(a).localeCompare(key(b))).forEach(c=>g.appendChild(c));});}
+}
+['q','dept','status','format','sort'].forEach(id=>{const el=document.getElementById(id);el.addEventListener('input',apply);el.addEventListener('change',apply);});
+document.getElementById('reset').addEventListener('click',()=>{document.getElementById('q').value='';dept.value='all';document.getElementById('status').value='all';format.value='all';document.getElementById('sort').value='recommended';apply();});
+apply();
+</script>
+</body></html>

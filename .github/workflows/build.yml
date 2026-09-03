@@ -57,6 +57,7 @@ jobs:
             shop-by-age.html
             faq.html
             tefa.html
+            catalog.html
           )
           changes="$(git status --porcelain --untracked-files=all -- "${generated_pages[@]}")"
           if [[ -n "$changes" ]]; then

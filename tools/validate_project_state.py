@@ -97,7 +97,9 @@ def validate_public_source() -> None:
         "carbon reinvested": "unsupported environmental sales claim",
         "Orders@preparationstation.org": "unverified Orders inbox",
         "orders@preparationstation.org": "unverified Orders inbox",
+        "gmail.com": "personal Gmail address in public storefront",
     }
+    source_paths.append(ROOT / "store" / "cart.js")
     for path in source_paths:
         text = path.read_text(encoding="utf-8")
         for needle, label in forbidden.items():
@@ -136,6 +138,11 @@ def validate_public_source() -> None:
         "The Vulturian" not in catalog_source and "GEN-BK-001" not in catalog_source,
         "The Vulturian must remain unlisted while its canonical record disallows publication",
     )
+    for alias in ("pathways", "d01", "d02", "d03", "d04", "d05"):
+        require(
+            f'id="{alias}"' in catalog_source,
+            f"catalog.html is missing stable section alias #{alias}",
+        )
 
 
 def validate_generated_html() -> None:
@@ -151,6 +158,7 @@ def validate_generated_html() -> None:
         "% of every order": "unsupported environmental sales claim",
         "fixed share": "unsupported environmental sales claim",
         "carbon reinvested": "unsupported environmental sales claim",
+        "gmail.com": "personal Gmail address in public storefront",
     }
     for path in GENERATED_HTML:
         text = path.read_text(encoding="utf-8")

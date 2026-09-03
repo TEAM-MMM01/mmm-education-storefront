@@ -179,7 +179,15 @@ def resolve_cross_links(page: str, main: str, esa_shop: str, general_store: str)
     )
 
 
+def build_site_catalog():
+    import subprocess
+    import sys
+    script = HERE / "tools" / "build_site_catalog.py"
+    subprocess.check_call([sys.executable, str(script)])
+
+
 if __name__ == "__main__":
+    build_site_catalog()
     build_main_page()
     _base_css = (HERE / "src" / "base" / "design-system.css").read_text()
     _shared_css = _base_css + inline_fonts(
