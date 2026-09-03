@@ -143,14 +143,17 @@ th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mu
 .footer{background:#2B2925;color:#F2ECE2;padding:36px 0 24px;margin-top:24px}
 .footer a{color:#E7D3A8}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:20px}
-.pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:28px 0}
+.pd-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;padding:28px 0}
+.pd-grid > *{min-width:0}
+.pd-grid img{width:100%;max-width:100%;height:auto}
 .pd-block{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin:14px 0}
 .crumb{font-size:.85rem;color:var(--muted);padding-top:18px}
 .empty{display:none;padding:24px;border:1px dashed var(--border);border-radius:12px;background:var(--surface)}
 .cta-bar{background:var(--accent);color:var(--on-accent);padding:18px 0}
 .cta-bar a{color:#fff}
 @media (max-width:900px){
-  .tools-grid,.pd-grid,.footer-grid,.reviewer dl{grid-template-columns:1fr 1fr}
+  .tools-grid,.footer-grid,.reviewer dl{grid-template-columns:1fr 1fr}
+  .pd-grid{grid-template-columns:minmax(0,1fr)}
   .nav-toggle{display:inline-flex}
   .site-nav{display:none}
   .site-nav.is-open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:64px;background:var(--bg);padding:12px 24px 20px;border-bottom:1px solid var(--border)}
@@ -411,7 +414,7 @@ def build_pdp(item: dict) -> str:
       <span class="pill pill--review">{esc(STATUS_LABEL.get(st))}</span>
       <h1>{esc(item['title'])}</h1>
       <p class="lede">{esc(item.get('purpose'))}</p>
-      <p class="meta">SKU {esc(item['sku'])} · {esc(item.get('age_range'))} · {esc(item.get('duration'))} · {esc(item.get('format'))}</p>
+      <p class="meta">SKU: {esc(item['sku'])} · {esc(item.get('age_range'))} · {esc(item.get('duration'))} · {esc(item.get('format'))}</p>
       <p><strong>{esc(price_html(item))}</strong></p>
       <p class="meta">{esc(PRICE)}</p>
       <div class="cluster">

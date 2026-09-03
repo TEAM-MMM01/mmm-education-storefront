@@ -84,7 +84,7 @@
         <label>Message
           <textarea name="message" rows="5" required></textarea>
         </label>
-        <p style="font-size:.85rem;color:var(--ink-soft)">Please do not include student records, health information, payment details, or program-account credentials.</p>
+        <p style="font-size:.85rem;color:var(--ink-soft)">Do not include student records, health information, payment details, or program-account credentials.</p>
         <button type="submit" class="btn btn-solid" id="contact-submit">Request a pathway recommendation</button>
         <p id="form-error" role="alert" style="display:none;font-weight:700;color:#8F3D3D"></p>
         <p id="form-ok" role="status" style="display:none; font-size:.9rem; font-weight:600; color:var(--accent)"></p>
@@ -92,7 +92,7 @@
       <hr style="margin:1.5rem 0;border:0;border-top:1px solid var(--rule)">
       <h2 class="card-title">Request a School or District Quote</h2>
       <p>Request a written quote and availability review. A quote is not TEFA approval or a live price.</p>
-      <form id="quote-form" class="stack g-16" style="margin-top:1rem" method="post" novalidate>
+      <form id="quote-form" class="stack g-16" style="margin-top:1rem" method="post" novalidate data-request-intake="disabled">
         <label>Organization name <input type="text" name="organization" required></label>
         <label>Contact name <input type="text" name="name" required></label>
         <label>Email <input type="email" name="email" required></label>
@@ -101,6 +101,7 @@
         <label>Estimated learner count <input type="number" name="learner_count" min="1" required></label>
         <label>Requested timeline <input type="text" name="timeline" required></label>
         <label>Message <textarea name="message" rows="4" required></textarea></label>
+        <p style="font-size:.85rem;color:var(--ink-soft)">Do not include student records, health information, payment details, or program-account credentials.</p>
         <button type="submit" class="btn btn-solid">Request a written quote and availability review</button>
         <p id="quote-error" role="alert" style="display:none;font-weight:700;color:#8F3D3D"></p>
         <p id="quote-ok" role="status" style="display:none;font-weight:600;color:var(--accent)"></p>
