@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - agent/catalog-hs503-odyssey-links
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -13,15 +14,9 @@ jobs:
         with:
           fetch-depth: 0
           ref: agent/catalog-hs503-odyssey-links
-      - name: Restore store/cart.js from main if truncated
+      - name: Restore store/cart.js from main
         run: |
           set -euo pipefail
-          SIZE=$(wc -c < store/cart.js)
-          echo "current cart.js bytes=$SIZE"
-          if [ "$SIZE" -ge 20000 ]; then
-            echo "cart.js already complete"
-            exit 0
-          fi
           git fetch origin main
           git checkout origin/main -- store/cart.js
           python3 - <<'PY'
@@ -35,5 +30,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add store/cart.js
+          if git diff --cached --quiet; then
+            echo "cart.js already matches restored content"
+            exit 0
+          fi
           git commit -m "Restore complete store/cart.js from main (HS-501 rename only)"
           git push origin agent/catalog-hs503-odyssey-links
