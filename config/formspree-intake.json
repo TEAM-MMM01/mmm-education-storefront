@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "provider": "formspree",
+  "enabled": false,
+  "pathway_form_id": "",
+  "quote_form_id": "",
+  "turnstile_sitekey": "",
+  "support_email": "Hello@preparationstation.org"
+}
