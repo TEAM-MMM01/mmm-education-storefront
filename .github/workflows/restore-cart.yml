@@ -14,7 +14,8 @@ jobs:
         with:
           fetch-depth: 0
           ref: agent/catalog-hs503-odyssey-links
-      - name: Restore store/cart.js from main
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Restore cart.js and apply public catalog fixes
         run: |
           set -euo pipefail
           git fetch origin main
@@ -25,14 +26,16 @@ jobs:
           t = p.read_text()
           t = t.replace("'Core Subjects Workbook Set'", "'Weekly Evidence Binder'")
           p.write_text(t)
-          print('restored', p.stat().st_size)
+          print('cart.js bytes', p.stat().st_size)
           PY
+          python3 tools/pr73_apply_public_catalog.py
+          python3 build.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add store/cart.js
+          git add store/cart.js catalog.html tools/validate_project_state.py src/page.html src/info/tefa.html src/info/contact.html src/info/shop-by-age.html products/PS-HS-501.html store/src/shop.html PRICING.md index.html tefa.html contact.html shop-by-age.html
           if git diff --cached --quiet; then
-            echo "cart.js already matches restored content"
+            echo "no further changes"
             exit 0
           fi
-          git commit -m "Restore complete store/cart.js from main (HS-501 rename only)"
+          git commit -m "Apply catalog HS-503 drop, HS-501 rename, Odyssey links, restore cart.js"
           git push origin agent/catalog-hs503-odyssey-links
