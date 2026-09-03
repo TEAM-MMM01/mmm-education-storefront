@@ -421,6 +421,7 @@ def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> 
         "provider",
         "enabled",
         "endpoint",
+        "turnstile_sitekey",
         "support_email",
         "retention_days",
         "allowed_skus",
@@ -442,14 +443,19 @@ def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> 
     expected_fields = {
         "_gotcha",
         "adult_name",
-        "cart_items",
+        "age_band",
         "client_reference",
         "email",
-        "internal_owner",
-        "notes",
-        "program",
+        "goal",
+        "grade_band",
+        "interest",
+        "learner_count",
+        "message",
+        "organization",
+        "purchase_path",
         "source",
         "submitted_at",
+        "timeline",
     }
     fields = config.get("allowed_submission_fields")
     require(isinstance(fields, list), "Request-intake field allowlist must be a list")
@@ -467,6 +473,9 @@ def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> 
 
     endpoint = config.get("endpoint")
     require(isinstance(endpoint, str), "Request-intake endpoint must be a string")
+    sitekey = config.get("turnstile_sitekey")
+    require(isinstance(sitekey, str), "Request-intake Turnstile sitekey must be a string")
+    require("secret" not in sitekey.lower(), "Turnstile secret must not appear in request-intake.json")
     if endpoint:
         require(
             re.fullmatch(r"https://[A-Za-z0-9.-]+(?:/.*)?", endpoint) is not None,
@@ -474,7 +483,7 @@ def validate_request_config(config: dict, state: dict, known_skus: set[str]) -> 
         )
     if config.get("enabled"):
         require(bool(endpoint), "Enabled request intake requires a Worker endpoint")
-        require(bool(allowed_skus), "Enabled request intake requires at least one allowed SKU")
+        require(bool(sitekey), "Enabled request intake requires a public Turnstile sitekey")
 
 
 def validate_request_form() -> None:
@@ -499,6 +508,31 @@ def validate_request_form() -> None:
     }
     for needle, label in forbidden.items():
         require(needle not in form.lower(), f"Quote request form contains forbidden {label}")
+
+
+def validate_public_contact_intake(config: dict) -> None:
+    source = (ROOT / "src" / "info" / "contact.html").read_text(encoding="utf-8")
+    generated = (ROOT / "contact.html").read_text(encoding="utf-8")
+    worker = (ROOT / "workers" / "preparation-station-intake" / "src" / "index.js").read_text(encoding="utf-8")
+    require('data-request-intake="__INTAKE_STATE__"' in source, "Contact source must bake intake state from config")
+    require("x-intake-secret" not in source, "Contact source must not send x-intake-secret")
+    require("x-intake-secret" not in generated, "Generated contact page must not send x-intake-secret")
+    require("INTAKE_SHARED_SECRET" not in worker, "Worker must not require a browser-shared intake secret")
+    require("TURNSTILE_SECRET_KEY" in worker, "Worker must verify Turnstile with a server-only secret")
+    privacy = "Do not include student records, health information, payment details, or program-account credentials."
+    success = "Request received. We'll reply within one business day with best-fit options, current status, and the correct purchase path."
+    failure = "We could not send your request right now. Please try again shortly. If the issue continues, use the support contact listed below."
+    require(privacy in source, "Contact source is missing the required privacy copy")
+    require(success in source, "Contact source is missing the required success copy")
+    require(failure in source, "Contact source is missing the required failure copy")
+    expected_state = "enabled" if config.get("enabled") else "disabled"
+    require(
+        f'data-request-intake="{expected_state}"' in generated,
+        "Generated contact forms must match request-intake enabled flag",
+    )
+    if not config.get("enabled"):
+        require('data-intake-endpoint=""' in generated, "Disabled intake must not publish a Worker endpoint")
+        require('data-turnstile-sitekey=""' in generated, "Disabled intake must not publish a Turnstile sitekey")
 
 
 def validate_order_portal(config: dict, known_skus: set[str]) -> None:
@@ -574,8 +608,10 @@ def main() -> None:
     product_skus = validate_products(load_json(PRODUCTS_PATH))
     verified_skus = validate_tefa_offerings(load_json(TEFA_OFFERINGS_PATH), product_skus)
     known_skus = product_skus | pathway_skus | verified_skus
-    validate_request_config(load_json(REQUEST_CONFIG_PATH), state, known_skus)
+    request_config = load_json(REQUEST_CONFIG_PATH)
+    validate_request_config(request_config, state, known_skus)
     validate_request_form()
+    validate_public_contact_intake(request_config)
     validate_order_portal(load_json(ORDER_PORTAL_CONFIG_PATH), known_skus)
     validate_public_source()
     validate_generated_html()

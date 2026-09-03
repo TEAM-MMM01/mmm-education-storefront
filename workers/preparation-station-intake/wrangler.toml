@@ -1,9 +1,14 @@
 name = "preparation-station-intake"
 main = "src/index.js"
-compatibility_date = "2026-08-21"
+compatibility_date = "2026-09-03"
 workers_dev = true
+
+# Secrets are not stored here. After owner approval:
+#   wrangler secret put TURNSTILE_SECRET_KEY
+#   wrangler secret put RESEND_API_KEY
 
 [vars]
 ALLOWED_ORIGIN = "https://preparationstation.org"
+TURNSTILE_HOSTNAMES = "preparationstation.org"
 OPERATIONS_EMAIL = "Operations@preparationstation.org"
 RESEND_FROM_EMAIL = "Support@preparationstation.org"

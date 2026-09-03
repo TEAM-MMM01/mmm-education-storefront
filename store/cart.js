@@ -19,6 +19,23 @@
     'source',
     'submitted_at',
   ];
+  const CONTACT_INTAKE_FIELDS = [
+    '_gotcha',
+    'adult_name',
+    'age_band',
+    'client_reference',
+    'email',
+    'goal',
+    'grade_band',
+    'interest',
+    'learner_count',
+    'message',
+    'organization',
+    'purchase_path',
+    'source',
+    'submitted_at',
+    'timeline',
+  ];
   const ALLOWED_PROGRAMS = ['TEFA', 'PDSES/ClassWallet', 'Self-pay', 'Other / not sure'];
 
   const PRODUCTS = {
@@ -85,20 +102,32 @@
     const configuredFields = Array.isArray(config.allowed_submission_fields)
       ? config.allowed_submission_fields.slice().sort()
       : [];
-    if (configuredFields.join('|') !== REQUEST_FIELDS.slice().sort().join('|')) {
+    const cartFields = REQUEST_FIELDS.slice().sort().join('|');
+    const contactFields = CONTACT_INTAKE_FIELDS.slice().sort().join('|');
+    const fieldKey = configuredFields.join('|');
+    if (fieldKey !== cartFields && fieldKey !== contactFields) {
       return { valid: false, reason: 'invalid_fields' };
     }
     if (config.endpoint && !WORKER_ENDPOINT.test(config.endpoint)) {
       return { valid: false, reason: 'invalid_endpoint' };
     }
+    if (typeof config.turnstile_sitekey !== 'undefined' && typeof config.turnstile_sitekey !== 'string') {
+      return { valid: false, reason: 'invalid_turnstile_sitekey' };
+    }
     if (config.enabled !== true) {
       return { valid: true, enabled: false, reason: 'disabled' };
     }
-    if (allowedSkus.length === 0) {
-      return { valid: false, reason: 'missing_allowed_skus' };
-    }
     if (!WORKER_ENDPOINT.test(config.endpoint)) {
       return { valid: false, reason: 'missing_endpoint' };
+    }
+    if (fieldKey === contactFields) {
+      if (!config.turnstile_sitekey) {
+        return { valid: false, reason: 'missing_turnstile_sitekey' };
+      }
+      return { valid: true, enabled: true, reason: 'ready' };
+    }
+    if (allowedSkus.length === 0) {
+      return { valid: false, reason: 'missing_allowed_skus' };
     }
     return { valid: true, enabled: true, reason: 'ready' };
   }

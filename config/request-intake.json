@@ -3,19 +3,25 @@
   "provider": "cloudflare-worker",
   "enabled": false,
   "endpoint": "",
+  "turnstile_sitekey": "",
   "support_email": "Hello@preparationstation.org",
   "retention_days": 30,
   "allowed_skus": [],
   "allowed_submission_fields": [
     "_gotcha",
     "adult_name",
-    "cart_items",
+    "age_band",
     "client_reference",
     "email",
-    "internal_owner",
-    "notes",
-    "program",
+    "goal",
+    "grade_band",
+    "interest",
+    "learner_count",
+    "message",
+    "organization",
+    "purchase_path",
     "source",
-    "submitted_at"
+    "submitted_at",
+    "timeline"
   ]
 }

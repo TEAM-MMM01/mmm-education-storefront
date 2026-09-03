@@ -26,6 +26,7 @@ async function main() {
     ...config,
     enabled: true,
     endpoint: 'https://worker.example/intake',
+    turnstile_sitekey: 'public-turnstile-sitekey',
     allowed_skus: ['PS-PR-101', 'PS-SC-201'],
   };
   assert.deepEqual(intake.validateRequestConfig(readyConfig), {
@@ -34,8 +35,8 @@ async function main() {
     reason: 'ready',
   });
   assert.deepEqual(
-    intake.validateRequestConfig({ ...readyConfig, allowed_skus: [] }),
-    { valid: false, reason: 'missing_allowed_skus' },
+    intake.validateRequestConfig({ ...readyConfig, turnstile_sitekey: '' }),
+    { valid: false, reason: 'missing_turnstile_sitekey' },
   );
   assert.deepEqual(
     intake.validateRequestConfig({ ...readyConfig, allowed_skus: ['PS-NO-999'] }),

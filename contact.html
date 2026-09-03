@@ -598,7 +598,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
     <div class="card">
       <span class="mono">Pathway recommendation</span>
       <h2 class="card-title">Send a request</h2>
-      <form id="contact-form" class="stack g-16" style="margin-top:1rem" method="post" novalidate data-request-intake="disabled">
+      <form id="contact-form" class="stack g-16" style="margin-top:1rem" method="post" novalidate data-request-intake="disabled" data-intake-endpoint="" data-turnstile-sitekey="" data-intake-source="contact_pathway">
         <input type="text" name="_gotcha" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label>Parent/guardian or contact name
           <input type="text" name="name" required autocomplete="name">
@@ -645,6 +645,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
           <textarea name="message" rows="5" required></textarea>
         </label>
         <p style="font-size:.85rem;color:var(--ink-soft)">Do not include student records, health information, payment details, or program-account credentials.</p>
+        <div data-turnstile-slot></div>
         <button type="submit" class="btn btn-solid" id="contact-submit">Request a pathway recommendation</button>
         <p id="form-error" role="alert" style="display:none;font-weight:700;color:#8F3D3D"></p>
         <p id="form-ok" role="status" style="display:none; font-size:.9rem; font-weight:600; color:var(--accent)"></p>
@@ -652,7 +653,8 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
       <hr style="margin:1.5rem 0;border:0;border-top:1px solid var(--rule)">
       <h2 class="card-title">Request a School or District Quote</h2>
       <p>Request a written quote and availability review. A quote is not TEFA approval or a live price.</p>
-      <form id="quote-form" class="stack g-16" style="margin-top:1rem" method="post" novalidate data-request-intake="disabled">
+      <form id="quote-form" class="stack g-16" style="margin-top:1rem" method="post" novalidate data-request-intake="disabled" data-intake-endpoint="" data-turnstile-sitekey="" data-intake-source="school_quote">
+        <input type="text" name="_gotcha" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label>Organization name <input type="text" name="organization" required></label>
         <label>Contact name <input type="text" name="name" required></label>
         <label>Email <input type="email" name="email" required></label>
@@ -662,6 +664,7 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
         <label>Requested timeline <input type="text" name="timeline" required></label>
         <label>Message <textarea name="message" rows="4" required></textarea></label>
         <p style="font-size:.85rem;color:var(--ink-soft)">Do not include student records, health information, payment details, or program-account credentials.</p>
+        <div data-turnstile-slot></div>
         <button type="submit" class="btn btn-solid">Request a written quote and availability review</button>
         <p id="quote-error" role="alert" style="display:none;font-weight:700;color:#8F3D3D"></p>
         <p id="quote-ok" role="status" style="display:none;font-weight:600;color:var(--accent)"></p>
@@ -745,7 +748,65 @@ html.js .stagger > *:nth-child(4){transition-delay:.18s} .stagger > *:nth-child(
 (function(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
 document.documentElement.classList.add('js');var rt=document.querySelectorAll('.reveal,.stagger');if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){rt.forEach(function(el){el.classList.add('in')});}else{var r=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');r.unobserve(e.target)}})},{threshold:.1});rt.forEach(function(el){r.observe(el)});}})();
 (function(){
-function bindForm(id, okId, errId, kind){
+var SUCCESS="Request received. We'll reply within one business day with best-fit options, current status, and the correct purchase path.";
+var FAILURE='We could not send your request right now. Please try again shortly. If the issue continues, use the support contact listed below.';
+var VALIDATION='Please complete the required fields with a valid email.';
+var DISABLED='Online intake is not connected yet, so this form cannot pretend to send. Email Hello@preparationstation.org with the same details. Do not include records, health data, payment details, or program credentials.';
+var openedAt=new Date().toISOString();
+function val(f,name){var el=f.elements[name];return el&&typeof el.value==='string'?el.value.trim():'';}
+function show(el,text){if(!el)return;el.style.display='block';el.textContent=text;}
+function hide(el){if(!el)return;el.style.display='none';el.textContent='';}
+function reference(){
+  var d=new Date();
+  var y=d.getUTCFullYear();
+  var m=String(d.getUTCMonth()+1).padStart(2,'0');
+  var day=String(d.getUTCDate()).padStart(2,'0');
+  var rand=(crypto.randomUUID?crypto.randomUUID():String(Math.random())).replace(/-/g,'').slice(0,8).toUpperCase();
+  return 'PSQ-'+y+m+day+'-'+rand;
+}
+function payloadFrom(f){
+  var source=f.getAttribute('data-intake-source')||'contact_pathway';
+  var base={
+    adult_name:val(f,'name'),
+    email:val(f,'email'),
+    message:val(f,'message'),
+    organization:val(f,'organization'),
+    client_reference:reference(),
+    submitted_at:openedAt,
+    source:source,
+    _gotcha:val(f,'_gotcha')
+  };
+  if(source==='school_quote'){
+    base.grade_band=val(f,'grade_band');
+    base.interest=val(f,'interest');
+    base.learner_count=val(f,'learner_count');
+    base.timeline=val(f,'timeline');
+  }else{
+    base.age_band=val(f,'age_band');
+    base.goal=val(f,'goal');
+    base.purchase_path=val(f,'purchase_path');
+  }
+  return base;
+}
+function resetTurnstile(f){
+  var id=f.getAttribute('data-turnstile-widget-id');
+  if(window.turnstile&&id) window.turnstile.reset(id);
+}
+function tokenFrom(f){
+  var hidden=f.querySelector('[name="cf-turnstile-response"]');
+  if(hidden&&hidden.value) return hidden.value;
+  var id=f.getAttribute('data-turnstile-widget-id');
+  if(window.turnstile&&id) return window.turnstile.getResponse(id)||'';
+  return '';
+}
+function renderTurnstile(f){
+  var slot=f.querySelector('[data-turnstile-slot]');
+  var sitekey=f.getAttribute('data-turnstile-sitekey')||'';
+  if(!slot||!sitekey||!window.turnstile) return;
+  var id=window.turnstile.render(slot,{sitekey:sitekey,action:f.getAttribute('data-intake-source')||'contact_pathway',theme:'light'});
+  f.setAttribute('data-turnstile-widget-id',id);
+}
+function bindForm(id,okId,errId){
   var f=document.getElementById(id);
   if(!f)return;
   var ok=document.getElementById(okId);
@@ -761,25 +822,57 @@ function bindForm(id, okId, errId, kind){
   }catch(e){}
   f.addEventListener('submit',function(ev){
     ev.preventDefault();
-    if(err){err.style.display='none';}
-    if(ok){ok.style.display='none';}
+    hide(err);hide(ok);
     if(!f.checkValidity()){
       f.reportValidity();
-      if(err){err.style.display='block';err.textContent='Please complete the required fields with a valid email.';}
+      show(err,VALIDATION);
       return;
     }
     var intake=f.getAttribute('data-request-intake');
-    if(intake==='disabled'){
-      if(err){
-        err.style.display='block';
-        err.textContent='Online intake is not connected yet, so this form cannot pretend to send. Email Hello@preparationstation.org with the same details. Do not include records, health data, payment details, or program credentials.';
-      }
+    var endpoint=f.getAttribute('data-intake-endpoint')||'';
+    var sitekey=f.getAttribute('data-turnstile-sitekey')||'';
+    if(intake!=='enabled'||!endpoint||!sitekey){
+      show(err,DISABLED);
       return;
     }
+    var token=tokenFrom(f);
+    if(!token){
+      show(err,'Please complete the verification step, then send the request again.');
+      return;
+    }
+    var payload=payloadFrom(f);
+    payload.turnstile_token=token;
+    fetch(endpoint,{
+      method:'POST',
+      headers:{'content-type':'application/json','accept':'application/json'},
+      credentials:'omit',
+      referrerPolicy:'strict-origin-when-cross-origin',
+      body:JSON.stringify(payload)
+    }).then(function(res){
+      if(res.ok){show(ok,SUCCESS);f.reset();openedAt=new Date().toISOString();return;}
+      if(res.status===400){show(err,VALIDATION);return;}
+      show(err,FAILURE);
+    }).catch(function(){show(err,FAILURE);}).then(function(){resetTurnstile(f);});
   });
 }
-bindForm('contact-form','form-ok','form-error','pathway');
-bindForm('quote-form','quote-ok','quote-error','quote');
+function start(){
+  bindForm('contact-form','form-ok','form-error');
+  bindForm('quote-form','quote-ok','quote-error');
+  document.querySelectorAll('form[data-request-intake="enabled"][data-turnstile-sitekey]').forEach(function(f){
+    if(f.getAttribute('data-turnstile-sitekey')) renderTurnstile(f);
+  });
+}
+var enabled=document.querySelector('form[data-request-intake="enabled"][data-turnstile-sitekey]:not([data-turnstile-sitekey=""])');
+if(enabled){
+  var s=document.createElement('script');
+  s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+  s.async=true;
+  s.onload=start;
+  s.onerror=start;
+  document.head.appendChild(s);
+}else{
+  start();
+}
 })();
 </script>
 

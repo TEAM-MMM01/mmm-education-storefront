@@ -35,6 +35,7 @@ jobs:
           node --check store/track.js
           node tools/test_request_intake.js
           node tools/test_order_tracking.js
+          node --test workers/preparation-station-intake/test/index.test.js
       - name: Run static-site build
         run: python3 build.py
       - name: Confirm generated pages are committed
