@@ -32,6 +32,8 @@ Latin text plus the punctuation this page actually uses, and the variable
 faces were instanced down to a single optical size. See fonts/README.md.
 """
 import base64
+import html
+import json
 import pathlib
 import re
 
@@ -165,10 +167,26 @@ def build_info_pages(shared_css: str):
             raise SystemExit(f"__INFO_SHARED_CSS__ missing from src/info/{name}.html")
         page = src.replace("__INFO_SHARED_CSS__", shared_css)
         page = page.replace("BUILD_DATE", BUILD_DATE)
+        if name == "contact":
+            page = apply_intake_placeholders(page)
         page = resolve_cross_links(page, main="index.html", esa_shop="store/shop.html", general_store="")
         out = HERE / f"{name}.html"
         out.write_text(standalone_document(page, descriptions[name]))
         print(f"{name}.html  {out.stat().st_size / 1024:.0f} KB")
+
+
+def apply_intake_placeholders(page: str) -> str:
+    config = json.loads((HERE / "config" / "request-intake.json").read_text())
+    state = "enabled" if config.get("enabled") else "disabled"
+    endpoint = html.escape(str(config.get("endpoint") or ""), quote=True)
+    sitekey = html.escape(str(config.get("turnstile_sitekey") or ""), quote=True)
+    if "__INTAKE_STATE__" not in page:
+        raise SystemExit("contact source is missing intake placeholders")
+    return (
+        page.replace("__INTAKE_STATE__", state)
+        .replace("__INTAKE_ENDPOINT__", endpoint)
+        .replace("__TURNSTILE_SITEKEY__", sitekey)
+    )
 
 
 def resolve_cross_links(page: str, main: str, esa_shop: str, general_store: str) -> str:

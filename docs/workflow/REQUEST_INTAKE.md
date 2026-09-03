@@ -1,91 +1,71 @@
 # Preparation Station request intake
 
-The product-information request path uses a private Cloudflare Worker to create
-an internal inquiry record and forward a sanitized notification to operations.
-It does not collect payment, approve a product for TEFA or PDSES/ClassWallet,
-accept an order, or replace Odyssey. TEFA purchases and official order history
-remain in the Odyssey Marketplace.
+The public contact and school-quote path uses a Cloudflare Worker. It
+creates an internal inquiry notification. It does not collect payment,
+approve a product for TEFA or PDSES/ClassWallet, accept an order, or
+replace Odyssey. TEFA purchases and official order history remain in
+the Odyssey Marketplace.
 
-`config/request-intake.json` is intentionally disabled. Its endpoint may remain
-blank until deployment approval. `enabled` must stay `false` and `allowed_skus`
-must stay empty until setup and an end-to-end test are complete, so the online
-submit button remains unavailable unless owner-approved launch work is finished.
+`config/request-intake.json` stays disabled until the activation
+checklist in `docs/workflow/CONTACT_INTAKE_ACTIVATION.md` is complete.
+`enabled` must stay `false` and `endpoint` / `turnstile_sitekey` may
+stay blank until that work is owner-approved.
+
+## Why a browser `x-intake-secret` cannot ship
+
+The previous Worker required `x-intake-secret`. Anything the browser
+sends is public: page source, DevTools, and any copied header. A shared
+secret in the storefront would not authenticate families. It would only
+leak the secret.
+
+The replacement is Cloudflare Turnstile plus origin, schema, size,
+honeypot, timing, and rate-limit checks on the Worker. The browser
+sends form fields and a Turnstile token. The Worker calls siteverify
+with `TURNSTILE_SECRET_KEY`. Resend stays server-side.
 
 ## Data boundary
 
-The browser sends only:
+The browser may send only:
 
-- adult contact name and email;
-- selected program or purchase path;
-- catalog SKUs and quantities;
-- optional nonsensitive notes;
-- a client reference, submission timestamp, source label, and internal owner;
-- the `_gotcha` honeypot field.
+- adult / contact name and email
+- learner age band
+- goal / interest area
+- funding / purchase path
+- message
+- optional school or organization details on the quote path
+- a client reference, submission timestamp, source label, and honeypot
+- the Turnstile token, which the Worker verifies and discards
 
-Do not request or submit a child's full name, disability or school records,
-account numbers, financial documents, Social Security numbers, credentials, or
-attachments. No payment or funding-program account data belongs in this form.
+Do not request or submit student records, health information, payment
+details, TEFA/Odyssey account credentials, bank information, or Social
+Security numbers. No attachments.
 
-The client generates a `PSQ-YYYYMMDD-...` reference before submission. The
-Worker forwards the same reference to the internal notification channel, and the
-customer sees it in the confirmation UI and downloadable text receipt. A retry
-keeps the reference so the operator can recognize a possible duplicate after an
-interrupted response.
+Required public copy on the form:
 
-## Backend and operating policy
+“Do not include student records, health information, payment details, or program-account credentials.”
 
-Cloudflare Worker intake is the selected backend because it keeps request
-handling private, enforces origin and shared-secret validation, and sends owner
-notifications without exposing a public endpoint in source.
+Required success copy:
 
-The owner notification address is `Hello@preparationstation.org`.
-Nationwide Acquisitions, LLC owns follow-up. Review the operations inbox each
-business day, acknowledge complete requests within one business day, and use
-the client reference in follow-up.
+“Request received. We'll reply within one business day with best-fit options, current status, and the correct purchase path.”
 
-Do not log full request payloads. Delete transient intake notifications and any
-copied operational notes within 30 days after final follow-up unless a request
-becomes an accepted transaction and must be transferred into the approved
-business/accounting system.
+Required failure copy:
+
+“We could not send your request right now. Please try again shortly. If the issue continues, use the support contact listed below.”
 
 ## Administrator setup
 
-1. Create the Cloudflare Worker `preparation-station-intake`.
-2. Set Worker secrets with Wrangler after owner approval, not in source:
-   `INTAKE_SHARED_SECRET`, `RESEND_API_KEY`.
-3. Set Worker vars at deployment time for:
-   `ALLOWED_ORIGIN`, `OPERATIONS_EMAIL`, `RESEND_FROM_EMAIL`.
-4. Keep the storefront `enabled` flag `false` until launch SKU verification,
-   preview rehearsal, and owner approval are complete.
-5. Add only verified launch products to `allowed_skus`. Each value must be an
-   existing `PS-...` SKU in `store/cart.js`. Keep the list empty while no
-   product has verified price, availability, and fulfillment facts.
-6. Set the Worker endpoint in `config/request-intake.json`, then set `enabled`
-   to `true` only in the same reviewed pull request that is approved for launch.
-7. Run the checks below and obtain separate approval before deployment.
+See `docs/workflow/CONTACT_INTAKE_ACTIVATION.md`. Secrets are set with
+Wrangler, never committed:
 
-## Validation and end-to-end rehearsal
+- `TURNSTILE_SECRET_KEY`
+- `RESEND_API_KEY`
 
-Run locally:
+## Validation
 
 ```bash
+node --test workers/preparation-station-intake/test/index.test.js
 node tools/test_request_intake.js
 python3 tools/validate_project_state.py
 python3 build.py
 git diff --check
 ```
-
-On an approved HTTPS preview, add a catalog item and submit a synthetic request
-using an adult-controlled email and no personal student data. Verify all of the
-following before considering the intake live:
-
-1. The button is disabled when configuration is missing, malformed, or marked disabled.
-2. Loading, validation, failure, and retry messages are usable.
-3. The confirmation shows a client reference and downloads a receipt.
-4. The Worker accepts only the approved origin and secret, and forwards only approved fields.
-5. The owner notification arrives at the temporary support inbox.
-6. No approval, price, inventory, shipping, or payment claims are implied by the confirmation.
-7. Remove synthetic notifications after the rehearsal.
-
-Deployment, public approval claims, payment, repository rename, and domain
-changes remain separate owner-approved work.
