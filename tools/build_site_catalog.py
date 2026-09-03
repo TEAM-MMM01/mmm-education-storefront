@@ -98,7 +98,7 @@ a{color:var(--accent)}
 .btn--primary:hover{background:var(--accent-hover)}
 .btn--outline{background:transparent;color:var(--accent);border-color:var(--accent)}
 .site-header{position:sticky;top:0;z-index:40;background:rgba(246,242,234,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;max-width:1120px;margin:0 auto;padding:8px 24px}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;max-width:1120px;margin:0 auto;padding:8px 24px;flex-wrap:wrap}
 .brand{text-decoration:none;color:var(--text)}
 .brand__wordmark{font-weight:800;letter-spacing:-.02em}
 .brand__tagline{display:block;font-size:.72rem;color:var(--muted)}
@@ -129,13 +129,14 @@ a{color:var(--accent)}
 .section--alt{background:var(--bg-alt)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-height:100%;box-shadow:var(--shadow);transition:transform var(--dur) var(--ease)}
+.card[hidden]{display:none!important}
 .card:hover{transform:translateY(-2px)}
 .card img{width:100%;height:140px;object-fit:cover;background:var(--surface-2)}
 .card-body{display:flex;flex-direction:column;gap:8px;padding:16px;flex:1}
 .card h3{margin:0;font-size:1.05rem;letter-spacing:-.02em}
 .meta{font-size:.8rem;color:var(--muted)}
 .card-cta{margin-top:auto;padding-top:10px}
-.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.table-wrap{overflow:auto;max-width:100%;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
 table{width:100%;border-collapse:collapse;font-size:.85rem}
 th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
 th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
@@ -156,7 +157,9 @@ th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mu
 }
 @media (max-width:640px){
   .container,.header-inner{padding-left:24px;padding-right:24px}
-  .tools-grid,.footer-grid,.pd-grid{grid-template-columns:1fr}
+  .tools-grid,.footer-grid,.pd-grid,.reviewer dl{grid-template-columns:1fr}
+  .header-inner .btn{width:100%}
+  body{overflow-x:hidden}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
@@ -360,7 +363,7 @@ function apply(){{
   const key={{title:c=>c.dataset.title,department:c=>c.dataset.dept,status:c=>c.dataset.status}}[sort];
   if(key){{[...new Set(cards.map(c=>c.parentElement))].forEach(g=>{{[...g.querySelectorAll('.card')].filter(c=>!c.hidden).sort((a,b)=>key(a).localeCompare(key(b))).forEach(c=>g.appendChild(c));}});}}
 }}
-['q','dept','status','format','sort'].forEach(id=>document.getElementById(id).addEventListener('input',apply));
+['q','dept','status','format','sort'].forEach(id=>{{const el=document.getElementById(id);el.addEventListener('input',apply);el.addEventListener('change',apply);}});
 document.getElementById('reset').addEventListener('click',()=>{{document.getElementById('q').value='';dept.value='all';document.getElementById('status').value='all';format.value='all';document.getElementById('sort').value='recommended';apply();}});
 apply();
 </script>
@@ -380,7 +383,10 @@ def build_pdp(item: dict) -> str:
     related = [
         o
         for o in DATA["items"]
-        if o["sku"] != item["sku"] and o.get("department") == item.get("department") and o["kind"] != "free_resource"
+        if o["sku"] != item["sku"]
+        and o.get("department") == item.get("department")
+        and o["kind"] != "free_resource"
+        and on_public_catalog(o)
     ][:3]
     faq = "".join(f"<details><summary>{esc(x['q'])}</summary><p>{esc(x['a'])}</p></details>" for x in item.get("faq") or [])
     href = cta_href(item)

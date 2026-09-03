@@ -27,7 +27,7 @@ a{color:var(--accent)}
 .btn--primary:hover{background:var(--accent-hover)}
 .btn--outline{background:transparent;color:var(--accent);border-color:var(--accent)}
 .site-header{position:sticky;top:0;z-index:40;background:rgba(246,242,234,.96);border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;max-width:1120px;margin:0 auto;padding:8px 24px}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px;max-width:1120px;margin:0 auto;padding:8px 24px;flex-wrap:wrap}
 .brand{text-decoration:none;color:var(--text)}
 .brand__wordmark{font-weight:800;letter-spacing:-.02em}
 .brand__tagline{display:block;font-size:.72rem;color:var(--muted)}
@@ -58,13 +58,14 @@ a{color:var(--accent)}
 .section--alt{background:var(--bg-alt)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-height:100%;box-shadow:var(--shadow);transition:transform var(--dur) var(--ease)}
+.card[hidden]{display:none!important}
 .card:hover{transform:translateY(-2px)}
 .card img{width:100%;height:140px;object-fit:cover;background:var(--surface-2)}
 .card-body{display:flex;flex-direction:column;gap:8px;padding:16px;flex:1}
 .card h3{margin:0;font-size:1.05rem;letter-spacing:-.02em}
 .meta{font-size:.8rem;color:var(--muted)}
 .card-cta{margin-top:auto;padding-top:10px}
-.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.table-wrap{overflow:auto;max-width:100%;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
 table{width:100%;border-collapse:collapse;font-size:.85rem}
 th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
 th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
@@ -85,7 +86,9 @@ th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mu
 }
 @media (max-width:640px){
   .container,.header-inner{padding-left:24px;padding-right:24px}
-  .tools-grid,.footer-grid,.pd-grid{grid-template-columns:1fr}
+  .tools-grid,.footer-grid,.pd-grid,.reviewer dl{grid-template-columns:1fr}
+  .header-inner .btn{width:100%}
+  body{overflow-x:hidden}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
@@ -126,7 +129,7 @@ th{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mu
   <div class="pd-block"><h2>License and delivery</h2><p>Retail title — not a TEFA pathway packet item. Royal Collexions owns the retail master record. No checkout on this site.</p></div>
   <div class="pd-block"><h2>TEFA purchase path</h2><p>TEFA-funded purchases are available only for the exact Preparation Station offering that is approved and published in the official marketplace. We confirm the current purchase path in writing before a family spends program funds.</p><p>This website does not process TEFA payments or collect program-account details.</p></div>
   <div class="pd-block"><h2>Product FAQ</h2><details><summary>Can I buy this on this website?</summary><p>No. This website does not process TEFA payments or collect program-account details.</p></details><details><summary>When is the verified price shown?</summary><p>Final marketplace eligibility and verified price are shown only for the exact SKU published in Odyssey.</p></details></div>
-  <div class="pd-block"><h2>Related catalog items</h2><p><a href='GEN-BK-001.html'>The Vulturian</a> · GEN-BK-001</p><p><a href='GEN-CB-101.html'>Future Founders</a> · GEN-CB-101</p><p><a href='GEN-CB-102.html'>Tools &amp; Trades</a> · GEN-CB-102</p></div>
+  <div class="pd-block"><h2>Related catalog items</h2><p><a href='GEN-CB-101.html'>Future Founders</a> · GEN-CB-101</p><p><a href='GEN-CB-102.html'>Tools &amp; Trades</a> · GEN-CB-102</p><p><a href='GEN-CB-103.html'>Big Feelings, Big Wins</a> · GEN-CB-103</p></div>
   <p class="meta">Last updated 2026-09-03</p>
 </main>
 <footer class="footer"><div class="container footer-grid">
