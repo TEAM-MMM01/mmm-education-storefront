@@ -227,7 +227,7 @@ def card(item: dict, prefix: str = "") -> str:
 
 def on_public_catalog(item: dict) -> bool:
     sku = item.get("sku", "")
-    if sku == "GEN-BK-001" or item.get("title") == "The Vulturian":
+    if sku in {"GEN-BK-001", "PS-HS-503"} or item.get("title") in {"The Vulturian", "Daily Supply Restock Box"}:
         return False
     pathway_skus = {
         row["sku"]
@@ -293,6 +293,8 @@ def build_catalog() -> str:
   <div class="cluster">
     <a class="btn btn--primary" href="#register">SKU register</a>
     <a class="btn btn--outline" href="contact.html">Request a written pathway recommendation</a>
+    <a class="btn btn--outline" href="https://support.withodyssey.com/hc/en-us/articles/51195311077019-How-to-Use-the-Odyssey-Marketplace" rel="noopener noreferrer" target="_blank">How to buy in Odyssey</a>
+    <a class="btn btn--outline" href="https://finder.educationfreedom.texas.gov/" rel="noopener noreferrer" target="_blank">TEFA Vendor Finder</a>
   </div>
 </div></section>
 <div class="container">

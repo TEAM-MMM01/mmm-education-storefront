@@ -36,7 +36,7 @@
     'PS-AT-401': { name: 'AI Literacy Bench Kit', price: null, dept: 'AI & Emerging Tech Bench' },
     'PS-AT-402': { name: 'Electronics & Robotics Starter', price: null, dept: 'AI & Emerging Tech Bench' },
     'PS-AT-403': { name: '3D Design & Fabrication Intro', price: null, dept: 'AI & Emerging Tech Bench' },
-    'PS-HS-501': { name: 'Core Subjects Workbook Set', price: null, dept: 'Homeschool Essentials' },
+    'PS-HS-501': { name: 'Weekly Evidence Binder', price: null, dept: 'Homeschool Essentials' },
     'PS-HS-502': { name: 'Homeschool Assessment & Portfolio Kit', price: null, dept: 'Homeschool Essentials' },
     'PS-HS-503': { name: 'Daily Supply Restock Box', price: null, dept: 'Homeschool Essentials' },
     'PS-HS-504': { name: 'Art & Craft Foundations Kit', price: null, dept: 'Homeschool Essentials' },

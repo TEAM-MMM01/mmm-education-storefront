@@ -730,6 +730,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
         </ol>
         <p class="g-note" style="margin-top:.8rem">No payment is collected on this site. TEFA
           purchases and official order history stay in Odyssey.</p>
+<p style="margin-top:.7rem"><a href="https://support.withodyssey.com/hc/en-us/articles/51195311077019-How-to-Use-the-Odyssey-Marketplace" rel="noopener noreferrer" target="_blank">How to buy in the Odyssey Marketplace</a> · <a href="https://finder.educationfreedom.texas.gov/" rel="noopener noreferrer" target="_blank">Official TEFA Vendor Finder</a></p>
       </div>
     </div>
   </div>
@@ -1338,30 +1339,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
   </div>
 </section>
 
-<!-- ============ FAMILY NOTES ============ -->
-<section class="band" id="notes">
-  <div class="wrap">
-    <div class="section-heading reveal">
-      <span class="eyebrow">Family planning notes</span>
-      <h2 class="h-lg">How households use the catalog</h2>
-      <p>These are planning conversations, not paid reviews and not proof of a TEFA purchase.</p>
-    </div>
-    <div class="grid3" style="margin-top:1.5rem">
-      <blockquote class="card reveal">
-        <p>“We needed one page we could send — name, price, hours. The Independent Living sheet is that page.”</p>
-        <footer style="margin-top:.8rem;font-size:.85rem;color:var(--ink-soft)">Marisol R. · homeschool parent, Tarrant County</footer>
-      </blockquote>
-      <blockquote class="card reveal">
-        <p>“Interview Prep was the on-ramp. We printed the SKU and used the site only to get the pathway plan.”</p>
-        <footer style="margin-top:.8rem;font-size:.85rem;color:var(--ink-soft)">James H. · parent of a 16-year-old</footer>
-      </blockquote>
-      <blockquote class="card reveal">
-        <p>“Reviewers should not hunt a sales page. Families still need the award math and the other products in one place.”</p>
-        <footer style="margin-top:.8rem;font-size:.85rem;color:var(--ink-soft)">Aisha K. · co-op planner</footer>
-      </blockquote>
-    </div>
-  </div>
-</section>
+
 
 <!-- ============ VENDOR CONTACT / TEFA REVIEW ============ -->
 <section class="band band-tint" id="vendor">
@@ -1610,7 +1588,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
     {sku:"PS-AT-401",name:"AI Literacy Bench Kit",dept:"AI & Emerging Tech Bench",band:["9-12","13-17"],goal:"AT"},
     {sku:"PS-AT-402",name:"Electronics & Robotics Starter",dept:"AI & Emerging Tech Bench",band:["9-12","13-17"],goal:"AT"},
     {sku:"PS-AT-403",name:"3D Design & Fabrication Intro",dept:"AI & Emerging Tech Bench",band:["13-17"],goal:"AT"},
-    {sku:"PS-HS-501",name:"Core Subjects Workbook Set",dept:"Homeschool Essentials",band:["3-5","6-8","9-12"],goal:"HS"},
+    {sku:"PS-HS-501",name:"Weekly Evidence Binder",dept:"Homeschool Essentials",band:["3-5","6-8","9-12"],goal:"HS"},
     {sku:"PS-HS-502",name:"Homeschool Assessment & Portfolio Kit",dept:"Homeschool Essentials",band:["planner"],goal:"HS"},
     {sku:"PS-HS-504",name:"Art & Craft Foundations Kit",dept:"Homeschool Essentials",band:["3-5","6-8"],goal:"HS"}
   ];
@@ -1687,7 +1665,7 @@ html.js .stagger > *:nth-child(6){transition-delay:.3s}
       var row=document.createElement('div'); row.className='g-item';
       var info=document.createElement('div'); info.className='gi-info';
       var h=document.createElement('h4');
-      var a=document.createElement('a'); a.href='products/'+it.sku+'.html'; a.textContent=it.name; a.style.color='inherit'; a.style.textDecoration='underline';
+      var a=document.createElement('a'); a.href='catalog.html'; a.textContent=it.name; a.style.color='inherit'; a.style.textDecoration='underline';
       h.appendChild(a);
       var s=document.createElement('span'); s.className='gi-sku'; s.textContent=it.sku+" · under offering review";
       var d=document.createElement('span'); d.className='gi-dept'; d.textContent=it.dept;
