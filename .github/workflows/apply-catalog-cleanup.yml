@@ -1,0 +1,43 @@
+name: Apply catalog cleanup
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/catalog-hs503-odyssey-20260905
+    paths:
+      - tools/apply_catalog_cleanup.py
+      - .github/workflows/apply-catalog-cleanup.yml
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/catalog-hs503-odyssey-20260905
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Apply cleanup, rebuild, validate
+        run: |
+          python3 tools/apply_catalog_cleanup.py
+          node --check store/cart.js
+          node tools/test_request_intake.js
+          node tools/test_order_tracking.js
+      - name: Commit remaining files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No remaining file changes"
+          else
+            git commit -m "Complete catalog cleanup: drop HS-503, rename HS-501, Odyssey links"
+            git push
+          fi
