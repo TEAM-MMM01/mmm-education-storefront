@@ -154,7 +154,7 @@ kits = [
     ("PS-AT-401", "AI Literacy Bench Kit", "AI & Emerging Tech Bench", "d04", "Ages 11–17", "images/ai-literacy-bench-kit.svg", "Hands-on companion to digital-judgment lessons.", "AI literacy"),
     ("PS-AT-402", "Electronics & Robotics Starter", "AI & Emerging Tech Bench", "d04", "Ages 11–17", "images/electronics-and-robotics-starter.svg", "Intro making with electronics, adult-supervised.", "emerging technology"),
     ("PS-AT-403", "3D Design & Fabrication Intro", "AI & Emerging Tech Bench", "d04", "Ages 13–17", "images/3d-design-and-fabrication-intro.svg", "Intro 3D design and making.", "design"),
-    ("PS-HS-501", "Core Subjects Workbook Set", "Homeschool Essentials", "d05", "Ages 3–12", "images/core-subjects-workbook-set.svg", "Core-subject workbook practice for homeschool planning.", "organization"),
+    ("PS-HS-501", "Weekly Evidence Binder", "Homeschool Essentials", "d05", "Ages 3–12", "images/core-subjects-workbook-set.svg", "Weekly evidence binder for work samples, attendance notes, and homeschool documentation.", "organization"),
     ("PS-HS-502", "Homeschool Assessment & Portfolio Kit", "Homeschool Essentials", "d05", "Planner / educator", "images/homeschool-assessment-and-portfolio-kit.svg", "Evidence and portfolio organization for planners.", "organization"),
     ("PS-HS-503", "Daily Supply Restock Box", "Homeschool Essentials", "d05", "Ages 3–12", "images/daily-supply-restock-box.svg", "Consumable restock concept for daily work. Not in the TEFA pathway packet list.", "organization"),
     ("PS-HS-504", "Art & Craft Foundations Kit", "Homeschool Essentials", "d05", "Ages 3–8", "images/art-and-craft-foundations-kit.svg", "Art and craft foundations with adult supervision.", "creativity"),
