@@ -125,8 +125,6 @@ All bots route to chat ID `7584154252`.
 | `docs/session-state.md` | THIS FILE — resume here |
 | `docs/workflow/SYNC_RUNBOOK.md` | Device sync recipe |
 | `docs/workflow/NOTIFICATIONS.md` | Notification setup |
-| `tools/kanban/server.py` | Kanban board server (always-on) |
-| `tools/kanban/dashboard.html` | Kanban dashboard (animated) |
 
 ---
 
