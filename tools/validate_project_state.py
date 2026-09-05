@@ -340,11 +340,14 @@ def validate_products(catalog: dict) -> set[str]:
         require(item.get("direct_purchase_status") == "disabled", f"Direct purchase enabled without launch facts: {sku}")
 
     public_catalog = (ROOT / "catalog.html").read_text(encoding="utf-8")
-    for sku in seen:
+    require("PS-HS-503" not in public_catalog, "PS-HS-503 must be absent from the public catalog")
+    require("Daily Supply Restock Box" not in public_catalog, "Daily Supply Restock Box must not appear on /catalog")
+    public_skus = seen - {"PS-HS-503"}
+    for sku in public_skus:
         require(f"SKU: {sku}" in public_catalog, f"Public catalog is missing SKU: {sku}")
     require(
-        public_catalog.count("Price: Not published") == len(seen),
-        "Every fixed-kit catalog card must show its truthful unpublished price state",
+        public_catalog.count("Price: Not published") == len(public_skus),
+        "Every public fixed-kit catalog card must show its truthful unpublished price state",
     )
 
     cart_source = (ROOT / "store" / "cart.js").read_text(encoding="utf-8")
