@@ -39,7 +39,7 @@ fatter on hardware), split `MARKUP` per department below instead of one global n
 | PS-AT-401 | AI Literacy Bench Kit | $42.00 | $92.95 | 55% |
 | PS-AT-402 | Electronics & Robotics Starter | $58.00 | $127.95 | 55% |
 | PS-AT-403 | 3D Design & Fabrication Intro | $210.00 | $462.95 | 55% |
-| PS-HS-501 | Core Subjects Workbook Set | $32.00 | $70.95 | 55% |
+| PS-HS-501 | Weekly Evidence Binder | $32.00 | $70.95 | 55% |
 | PS-HS-502 | Homeschool Assessment & Portfolio Kit | $26.00 | $57.95 | 55% |
 | PS-HS-503 | Daily Supply Restock Box | $19.00 | $41.95 | 55% |
 | PS-HS-504 | Art & Craft Foundations Kit | $21.00 | $46.95 | 55% |
